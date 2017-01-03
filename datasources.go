@@ -20,8 +20,8 @@ type importCreateDataSourceCall struct {
 }
 
 const (
-	dataSourcesEndpoint      = "import/data_sources"
-	singleDataSourceEndpoint = "import/data_sources/:uuid"
+	dataSourcesEndpoint      = "data_sources"
+	singleDataSourceEndpoint = "data_sources/:uuid"
 )
 
 // ImportCreateDataSource creates an Import API Data Source in ChartMogul.
@@ -31,6 +31,12 @@ func (api API) ImportCreateDataSource(name string) (*DataSource, error) {
 	ds := &DataSource{}
 	err := api.create(dataSourcesEndpoint, importCreateDataSourceCall{Name: name}, ds)
 	return ds, err
+}
+
+// ImportRetrieveDataSource returns one Data Source by UUID.
+func (api API) ImportRetrieveDataSource(dataSourceUUID string) (*DataSource, error) {
+	result := &DataSource{}
+	return result, api.retrieve(singleDataSourceEndpoint, dataSourceUUID, result)
 }
 
 // ImportListDataSources lists all available Data Sources (no paging).

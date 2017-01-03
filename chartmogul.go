@@ -41,6 +41,7 @@ type IApi interface {
 	Ping() (res bool, err error)
 	// Data sources
 	ImportCreateDataSource(name string) (*DataSource, error)
+	ImportRetrieveDataSource(dataSourceUUID string) (*DataSource, error)
 	ImportListDataSources() (*DataSources, error)
 	ImportDeleteDataSource(dataSourceUUID string) error
 	// Customers
@@ -52,7 +53,10 @@ type IApi interface {
 	ImportListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	// Plans
 	ImportCreatePlan(plan *Plan, dataSourceUUID string) (result *Plan, err error)
+	ImportRetrievePlan(planUUID string) (*Plan, error)
 	ImportListPlans(listPlansParams *ListPlansParams) (*Plans, error)
+	ImportUpdatePlan(plan *Plan, planUUID string) (*Plan, error)
+	ImportDeletePlan(planUUID string) error
 	// Subscriptions
 	ImportCancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error)
 	ImportListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)

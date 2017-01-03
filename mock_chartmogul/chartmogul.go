@@ -257,6 +257,16 @@ func (_mr *_MockIApiRecorder) ImportDeleteDataSource(arg0 interface{}) *gomock.C
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportDeleteDataSource", arg0)
 }
 
+func (_m *MockIApi) ImportDeletePlan(_param0 string) error {
+	ret := _m.ctrl.Call(_m, "ImportDeletePlan", _param0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+func (_mr *_MockIApiRecorder) ImportDeletePlan(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportDeletePlan", arg0)
+}
+
 func (_m *MockIApi) ImportListCustomers(_param0 *chartmogul_go.ImportListCustomersParams) (*chartmogul_go.Customers, error) {
 	ret := _m.ctrl.Call(_m, "ImportListCustomers", _param0)
 	ret0, _ := ret[0].(*chartmogul_go.Customers)
@@ -310,6 +320,39 @@ func (_m *MockIApi) ImportListSubscriptions(_param0 *chartmogul_go.Cursor, _para
 
 func (_mr *_MockIApiRecorder) ImportListSubscriptions(arg0, arg1 interface{}) *gomock.Call {
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportListSubscriptions", arg0, arg1)
+}
+
+func (_m *MockIApi) ImportRetrieveDataSource(_param0 string) (*chartmogul_go.DataSource, error) {
+	ret := _m.ctrl.Call(_m, "ImportRetrieveDataSource", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.DataSource)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) ImportRetrieveDataSource(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportRetrieveDataSource", arg0)
+}
+
+func (_m *MockIApi) ImportRetrievePlan(_param0 string) (*chartmogul_go.Plan, error) {
+	ret := _m.ctrl.Call(_m, "ImportRetrievePlan", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.Plan)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) ImportRetrievePlan(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportRetrievePlan", arg0)
+}
+
+func (_m *MockIApi) ImportUpdatePlan(_param0 *chartmogul_go.Plan, _param1 string) (*chartmogul_go.Plan, error) {
+	ret := _m.ctrl.Call(_m, "ImportUpdatePlan", _param0, _param1)
+	ret0, _ := ret[0].(*chartmogul_go.Plan)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) ImportUpdatePlan(arg0, arg1 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportUpdatePlan", arg0, arg1)
 }
 
 func (_m *MockIApi) MetricsListActivities(_param0 *chartmogul_go.Cursor, _param1 string) (*chartmogul_go.MetricsActivities, error) {
