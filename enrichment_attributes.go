@@ -31,6 +31,15 @@ const (
 	enrichmentCustomersAttributesEndpoint      = "customers/:uuid/attributes"
 	enrichmentCustomerCustomAttributesEndpoint = "customers/:uuid/attributes/custom"
 	enrichmentCustomAttributesEndpoint         = "customers/attributes/custom"
+
+	// AttrTypeString is one of the possible data types for custom attributes.
+	AttrTypeString = "String"
+	// AttrTypeInteger is one of the possible data types for custom attributes.
+	AttrTypeInteger = "Integer"
+	// AttrTypeTimestamp is one of the possible data types for custom attributes.
+	AttrTypeTimestamp = "Timestamp"
+	// AttrTypeBoolean is one of the possible data types for custom attributes.
+	AttrTypeBoolean = "Boolean"
 )
 
 // EnrichmentRetrieveCustomersAttributes returns attributes for given customer UUID.

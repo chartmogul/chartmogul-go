@@ -4,12 +4,13 @@ package chartmogul
 type EnrichmentCustomer struct {
 	ID uint32 `json:"id,omitempty"`
 	// Basic info
-	UUID          string `json:"uuid,omitempty"`
-	ExternalID    string `json:"external-id,omitempty"`
-	Name          string `json:"name,omitempty"`
-	Email         string `json:"email,omitempty"`
-	Status        string `json:"status,omitempty"`
-	CustomerSince string `json:"customer-since,omitempty"`
+	DataSourceUUID string `json:"data_source_uuid,omitempty"`
+	UUID           string `json:"uuid,omitempty"`
+	ExternalID     string `json:"external_id,omitempty"`
+	Name           string `json:"name,omitempty"`
+	Email          string `json:"email,omitempty"`
+	Status         string `json:"status,omitempty"`
+	CustomerSince  string `json:"customer-since,omitempty"`
 
 	Attributes *Attributes `json:"attributes,omitempty"`
 	Address    *Address    `json:"address,omitempty"`
@@ -32,12 +33,39 @@ type EnrichmentCustomer struct {
 	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
 }
 
+// NewCustomer allows creating customer on a new endpoint.
+type NewCustomer struct {
+	// Obligatory
+	DataSourceUUID string `json:"data_source_uuid"`
+	ExternalID     string `json:"external_id,omitempty"`
+	Name           string `json:"name,omitempty"`
+
+	//Optional
+	Email      string         `json:"email,omitempty"`
+	Attributes *NewAttributes `json:"attributes,omitempty"`
+	// Address
+	Company string `json:"company,omitempty"`
+	Country string `json:"country,omitempty"`
+	State   string `json:"state,omitempty"`
+	City    string `json:"city,omitempty"`
+	Zip     string `json:"zip,omitempty"`
+	// Lead/Trial
+	LeadCreatedAt      string `json:"lead_created_at,omitempty"`
+	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
+}
+
 // Attributes is subdocument of EnrichmentCustomer.
 type Attributes struct {
 	Tags     []string               `json:"tags,omitempty"`
 	Stripe   *Stripe                `json:"stripe,omitempty"`
 	Clearbit *Clearbit              `json:"clearbit,omitempty"`
 	Custom   map[string]interface{} `json:"custom,omitempty"`
+}
+
+// NewAttributes is subdocument of NewCustomer.
+type NewAttributes struct {
+	Tags   []string           `json:"tags,omitempty"`
+	Custom []*CustomAttribute `json:"custom,omitempty"`
 }
 
 // Address is subdocument of EnrichmentCustomer.
@@ -116,6 +144,14 @@ const (
 	enrichmentSearchCustomersEndpoint = "customers/search"
 	enrichmentMergeCustomersEndpoint  = "customers/merges"
 )
+
+// EnrichmentCreateCustomer loads the customer to Chartmogul. New endpoint - with attributes.
+//
+// See https://dev.chartmogul.com/reference#customers-1
+func (api API) EnrichmentCreateCustomer(newCustomer *NewCustomer) (*EnrichmentCustomer, error) {
+	result := &EnrichmentCustomer{}
+	return result, api.create(enrichmentCustomersEndpoint, newCustomer, result)
+}
 
 // EnrichmentRetrieveCustomer returns one customer as in Enrichment API.
 //

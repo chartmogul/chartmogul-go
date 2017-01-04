@@ -40,8 +40,7 @@ const (
 // ImportCreateCustomer loads the customer to Chartmogul.
 //
 // See https://dev.chartmogul.com/v1.0/reference#import-customer
-func (api API) ImportCreateCustomer(customer *Customer, dataSourceUUID string) (*Customer, error) {
-	customer.DataSourceUUID = dataSourceUUID
+func (api API) ImportCreateCustomer(customer *Customer) (*Customer, error) {
 	result := &Customer{}
 	return result, api.create(importCustomersEndpoint, customer, result)
 }

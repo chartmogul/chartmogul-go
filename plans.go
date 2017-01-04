@@ -32,8 +32,7 @@ type ListPlansParams struct {
 // ImportCreatePlan creates plan under given Data Source.
 //
 // See https://dev.chartmogul.com/v1.0/reference#import-plan
-func (api API) ImportCreatePlan(plan *Plan, dataSourceUUID string) (result *Plan, err error) {
-	plan.DataSourceUUID = dataSourceUUID
+func (api API) ImportCreatePlan(plan *Plan) (result *Plan, err error) {
 	result = &Plan{}
 	return result, api.create(importPlansEndpoint, plan, result)
 }

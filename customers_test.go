@@ -22,9 +22,10 @@ func TestImportCustomers(t *testing.T) {
 	logrus.Debug("Data source created.")
 
 	createdCustomer, err := api.ImportCreateCustomer(&Customer{
-		ExternalID: "TestImportCustomers_01",
-		Name:       "Test customer",
-	}, ds.UUID)
+		DataSourceUUID: ds.UUID,
+		ExternalID:     "TestImportCustomers_01",
+		Name:           "Test customer",
+	})
 	if err != nil {
 		t.Error(err)
 		return
@@ -49,9 +50,10 @@ func TestImportCustomers(t *testing.T) {
 	logrus.Debug("Customer found.")
 
 	createdCustomer, err = api.ImportCreateCustomer(&Customer{
-		ExternalID: "TestImportCustomers_01",
-		Name:       "Test duplicate customer",
-	}, ds.UUID)
+		DataSourceUUID: ds.UUID,
+		ExternalID:     "TestImportCustomers_01",
+		Name:           "Test duplicate customer",
+	})
 	if err == nil {
 		t.Error("No error on duplicate customer!")
 	} else if createdCustomer.Errors.IsAlreadyExists() {

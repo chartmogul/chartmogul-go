@@ -45,14 +45,14 @@ type IApi interface {
 	ImportListDataSources() (*DataSources, error)
 	ImportDeleteDataSource(dataSourceUUID string) error
 	// Customers
-	ImportCreateCustomer(customer *Customer, dataSourceUUID string) (*Customer, error)
+	ImportCreateCustomer(customer *Customer) (*Customer, error)
 	ImportListCustomers(importListCustomersParams *ImportListCustomersParams) (*Customers, error)
 	ImportDeleteCustomer(uuid string) error
 	// Invoices
 	ImportCreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
 	ImportListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	// Plans
-	ImportCreatePlan(plan *Plan, dataSourceUUID string) (result *Plan, err error)
+	ImportCreatePlan(plan *Plan) (result *Plan, err error)
 	ImportRetrievePlan(planUUID string) (*Plan, error)
 	ImportListPlans(listPlansParams *ListPlansParams) (*Plans, error)
 	ImportUpdatePlan(plan *Plan, planUUID string) (*Plan, error)
@@ -64,6 +64,7 @@ type IApi interface {
 	ImportCreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error)
 
 	// Enrichment - Customers
+	EnrichmentCreateCustomer(newCustomer *NewCustomer) (*EnrichmentCustomer, error)
 	EnrichmentRetrieveCustomer(customerUUID string) (*EnrichmentCustomer, error)
 	EnrichmentUpdateCustomer(enrichmentCustomer *EnrichmentCustomer, customerUUID string) (*EnrichmentCustomer, error)
 	EnrichmentListCustomers(enrichmentListCustomersParams *EnrichmentListCustomersParams) (*EnrichmentCustomers, error)

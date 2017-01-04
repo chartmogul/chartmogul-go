@@ -73,6 +73,17 @@ func (_mr *_MockIApiRecorder) EnrichmentAddTagsToCustomersWithEmail(arg0, arg1 i
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "EnrichmentAddTagsToCustomersWithEmail", arg0, arg1)
 }
 
+func (_m *MockIApi) EnrichmentCreateCustomer(_param0 *chartmogul_go.NewCustomer) (*chartmogul_go.EnrichmentCustomer, error) {
+	ret := _m.ctrl.Call(_m, "EnrichmentCreateCustomer", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.EnrichmentCustomer)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) EnrichmentCreateCustomer(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "EnrichmentCreateCustomer", arg0)
+}
+
 func (_m *MockIApi) EnrichmentListCustomers(_param0 *chartmogul_go.EnrichmentListCustomersParams) (*chartmogul_go.EnrichmentCustomers, error) {
 	ret := _m.ctrl.Call(_m, "EnrichmentListCustomers", _param0)
 	ret0, _ := ret[0].(*chartmogul_go.EnrichmentCustomers)
@@ -182,15 +193,15 @@ func (_mr *_MockIApiRecorder) ImportCancelSubscription(arg0, arg1 interface{}) *
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportCancelSubscription", arg0, arg1)
 }
 
-func (_m *MockIApi) ImportCreateCustomer(_param0 *chartmogul_go.Customer, _param1 string) (*chartmogul_go.Customer, error) {
-	ret := _m.ctrl.Call(_m, "ImportCreateCustomer", _param0, _param1)
+func (_m *MockIApi) ImportCreateCustomer(_param0 *chartmogul_go.Customer) (*chartmogul_go.Customer, error) {
+	ret := _m.ctrl.Call(_m, "ImportCreateCustomer", _param0)
 	ret0, _ := ret[0].(*chartmogul_go.Customer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-func (_mr *_MockIApiRecorder) ImportCreateCustomer(arg0, arg1 interface{}) *gomock.Call {
-	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportCreateCustomer", arg0, arg1)
+func (_mr *_MockIApiRecorder) ImportCreateCustomer(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportCreateCustomer", arg0)
 }
 
 func (_m *MockIApi) ImportCreateDataSource(_param0 string) (*chartmogul_go.DataSource, error) {
@@ -215,15 +226,15 @@ func (_mr *_MockIApiRecorder) ImportCreateInvoices(arg0, arg1 interface{}) *gomo
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportCreateInvoices", arg0, arg1)
 }
 
-func (_m *MockIApi) ImportCreatePlan(_param0 *chartmogul_go.Plan, _param1 string) (*chartmogul_go.Plan, error) {
-	ret := _m.ctrl.Call(_m, "ImportCreatePlan", _param0, _param1)
+func (_m *MockIApi) ImportCreatePlan(_param0 *chartmogul_go.Plan) (*chartmogul_go.Plan, error) {
+	ret := _m.ctrl.Call(_m, "ImportCreatePlan", _param0)
 	ret0, _ := ret[0].(*chartmogul_go.Plan)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-func (_mr *_MockIApiRecorder) ImportCreatePlan(arg0, arg1 interface{}) *gomock.Call {
-	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportCreatePlan", arg0, arg1)
+func (_mr *_MockIApiRecorder) ImportCreatePlan(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ImportCreatePlan", arg0)
 }
 
 func (_m *MockIApi) ImportCreateTransaction(_param0 *chartmogul_go.Transaction, _param1 string) (*chartmogul_go.Transaction, error) {

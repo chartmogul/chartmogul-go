@@ -24,6 +24,9 @@
 <hr>
 <br>
 
+## Warning
+Library in testing stage and subject to possibly great changes!
+
 ## Installation
 
 This library requires Go 1.7.3 or above.
@@ -113,6 +116,7 @@ Available methods in Enrichment API:
 #### [Customers](https://dev.chartmogul.com/docs/retrieve-customer)
 
 ```go
+api.EnrichmentCreateCustomer(&NewCustomer{})
 api.EnrichmentRetrieveCustomer("customerUUID")
 api.EnrichmentSearchCustomers(&cm.EnrichmentSearchCustomersParams{})
 api.EnrichmentListCustomers(&cm.EnrichmentListCustomersParams{})
