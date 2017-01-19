@@ -24,8 +24,8 @@ type RequestErrors struct {
 
 func (e RequestErrors) Error() string {
 	errs := make([]string, len(e.Errors))
-	for i, err := range errs {
-		errs[i] = err
+	for i := range errs {
+		errs[i] = e.Errors[i].Error()
 	}
 	return strings.Join(errs, "; ")
 }

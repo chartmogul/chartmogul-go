@@ -110,8 +110,8 @@ type API struct {
 // Cursor contains query parameters for paging in CM.
 // Attributes for query must be string, because gorequest library cannot convert anything else.
 type Cursor struct {
-	Page    string `json:"page,omitempty"`
-	PerPage string `json:"per_page,omitempty"`
+	Page    uint32 `json:"page,omitempty"`
+	PerPage uint32 `json:"per_page,omitempty"`
 }
 
 // Errors contains error feedback from ChartMogul

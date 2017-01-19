@@ -16,13 +16,13 @@ type EnrichmentCustomer struct {
 	Address    *Address    `json:"address,omitempty"`
 
 	// Other info
-	Mrr               string `json:"mrr,omitempty"`
-	Arr               string `json:"arr,omitempty"`
-	BillingSystemURL  string `json:"billing-system-url,omitempty"`
-	ChartmogulURL     string `json:"chartmogul-url,omitempty"`
-	BillingSystemType string `json:"billing-system-type,omitempty"`
-	Currency          string `json:"currency,omitempty"`
-	CurrencySign      string `json:"currency-sign,omitempty"`
+	Mrr               float64 `json:"mrr,omitempty"`
+	Arr               float64 `json:"arr,omitempty"`
+	BillingSystemURL  string  `json:"billing-system-url,omitempty"`
+	ChartmogulURL     string  `json:"chartmogul-url,omitempty"`
+	BillingSystemType string  `json:"billing-system-type,omitempty"`
+	Currency          string  `json:"currency,omitempty"`
+	CurrencySign      string  `json:"currency-sign,omitempty"`
 
 	// For update
 	Company            string `json:"company,omitempty"`
