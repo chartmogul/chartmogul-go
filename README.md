@@ -175,7 +175,8 @@ which is handy eg. when you upload multiple invoices - to know, which one had is
 type Errors map[string]string
 ```
 
-Non-2xx statuses and network problems will also be returned as a second parameter for standard:
+Non-2xx statuses and network problems will also be returned as a value `error`
+for standard binary ok/problem handling:
 
 ```go
 _, err := api.ImportListPlans(nil)
@@ -184,14 +185,33 @@ if err != nil {
 }
 ```
 
-These errors can be either `HTTPError` or `RequestErrors` (network issues).
-The `HTTPError.StatusCode == 404` is a coarse possibility to react on errors like
-HTTP 404 Not Found.
+Such errors are `HTTPError` wrapped in [errors with stack](https://github.com/pkg/errors).
+```go
+type HTTPError interface {
+	StatusCode() int
+	Status() string
+	Response() string
+}
+```
+
+```go
+// If you want to check specific HTTP status:
+switch e := errors.Cause(err).(type) {
+    case *HTTPError:
+        if e.StatusCode() == 422 {
+            // special reaction
+        }
+}
+```
+
+If there are network/TLS issues it will be `RequestErrors interface`.
+This has the method `Errors() []error`.
 
 For fine-grain reaction you can use the parsed errors from
-API in the primary return structures, when there's an `Errors` field.
-You can use hepler methods like `Errors.IsAlreadyExists()` or
-`Errors.IsInvoiceAndTransactionAlreadyExist()` to spare code on checking map contents.
+API in the primary return structures, when there's an `Errors` or `Error` field.
+You can use hepler methods to spare code on checking map contents:
+* `Errors.IsAlreadyExists()`
+* `Errors.IsInvoiceAndTransactionAlreadyExist()`
 
 ## Development
 

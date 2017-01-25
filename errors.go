@@ -4,28 +4,52 @@ import (
 	"strings"
 
 	"github.com/parnurzeal/gorequest"
+	"github.com/pkg/errors"
 )
 
 // HTTPError is wrapper to easily handle HTTP states.
-type HTTPError struct {
-	StatusCode int
-	Status     string
-	Response   string
-}
-
-func (e HTTPError) Error() string {
-	return strings.Join([]string{string(e.StatusCode), e.Status, e.Response}, ": ")
+type HTTPError interface {
+	StatusCode() int
+	Status() string
+	Response() string
 }
 
 // RequestErrors wraps multiple request errors to normal 1 error struct.
-type RequestErrors struct {
-	Errors []error
+type RequestErrors interface {
+	Errors() []error
 }
 
-func (e RequestErrors) Error() string {
-	errs := make([]string, len(e.Errors))
+type httpError struct {
+	statusCode int
+	status     string
+	response   string
+}
+
+func (e httpError) StatusCode() int {
+	return e.statusCode
+}
+func (e httpError) Status() string {
+	return e.status
+}
+func (e httpError) Response() string {
+	return e.response
+}
+func (e httpError) Error() string {
+	return strings.Join([]string{string(e.statusCode), e.status, e.response}, ": ")
+}
+
+type requestErrors struct {
+	errors []error
+}
+
+func (e requestErrors) Errors() []error {
+	return e.errors
+}
+
+func (e requestErrors) Error() string {
+	errs := make([]string, len(e.errors))
 	for i := range errs {
-		errs[i] = e.Errors[i].Error()
+		errs[i] = e.errors[i].Error()
 	}
 	return strings.Join(errs, "; ")
 }
@@ -36,13 +60,14 @@ func (e RequestErrors) Error() string {
 // In case of no errors returns nil.
 func wrapErrors(response gorequest.Response, body []byte, errs []error) error {
 	if response != nil && (response.StatusCode < 200 || response.StatusCode >= 300) {
-		return &HTTPError{
-			StatusCode: response.StatusCode,
-			Status:     response.Status,
-			Response:   string(body)}
+		return errors.Wrap(&httpError{
+			statusCode: response.StatusCode,
+			status:     response.Status,
+			response:   string(body)},
+			"API error")
 	}
 	if len(errs) != 0 {
-		return &RequestErrors{errs}
+		return errors.Wrap(&requestErrors{errs}, "Request error")
 	}
 	return nil
 }
