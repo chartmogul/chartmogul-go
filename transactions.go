@@ -21,11 +21,11 @@ func (t Transaction) String() string {
 	return fmt.Sprintf("Transaction(%v) %v %v (%v)", t.ExternalID, t.Result, t.Type, t.Date)
 }
 
-// ImportCreateTransaction loads an transaction to a customer in Chartmogul.
+// CreateTransaction loads an transaction to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
 //
 // See https://dev.chartmogul.com/reference#import-customers-transactions
-func (api API) ImportCreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error) {
+func (api API) CreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error) {
 	result := &Transaction{}
 	path := strings.Replace(transactionsEndpoint, ":invoiceUUID", invoiceUUID, 1)
 	return result, api.create(path, transaction, result)

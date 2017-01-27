@@ -40,50 +40,46 @@ var timeout = 30 * time.Second
 type IApi interface {
 	Ping() (res bool, err error)
 	// Data sources
-	ImportCreateDataSource(name string) (*DataSource, error)
-	ImportRetrieveDataSource(dataSourceUUID string) (*DataSource, error)
-	ImportListDataSources() (*DataSources, error)
-	ImportDeleteDataSource(dataSourceUUID string) error
-	// Customers
-	ImportCreateCustomer(customer *Customer) (*Customer, error)
-	ImportListCustomers(importListCustomersParams *ImportListCustomersParams) (*Customers, error)
-	ImportDeleteCustomer(uuid string) error
+	CreateDataSource(name string) (*DataSource, error)
+	RetrieveDataSource(dataSourceUUID string) (*DataSource, error)
+	ListDataSources() (*DataSources, error)
+	DeleteDataSource(dataSourceUUID string) error
 	// Invoices
-	ImportCreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
-	ImportListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
+	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
+	ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	// Plans
-	ImportCreatePlan(plan *Plan) (result *Plan, err error)
-	ImportRetrievePlan(planUUID string) (*Plan, error)
-	ImportListPlans(listPlansParams *ListPlansParams) (*Plans, error)
-	ImportUpdatePlan(plan *Plan, planUUID string) (*Plan, error)
-	ImportDeletePlan(planUUID string) error
+	CreatePlan(plan *Plan) (result *Plan, err error)
+	RetrievePlan(planUUID string) (*Plan, error)
+	ListPlans(listPlansParams *ListPlansParams) (*Plans, error)
+	UpdatePlan(plan *Plan, planUUID string) (*Plan, error)
+	DeletePlan(planUUID string) error
 	// Subscriptions
-	ImportCancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error)
-	ImportListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
+	CancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error)
+	ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
 	// Transactions
-	ImportCreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error)
+	CreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error)
 
-	// Enrichment - Customers
-	EnrichmentCreateCustomer(newCustomer *NewCustomer) (*EnrichmentCustomer, error)
-	EnrichmentRetrieveCustomer(customerUUID string) (*EnrichmentCustomer, error)
-	EnrichmentUpdateCustomer(enrichmentCustomer *EnrichmentCustomer, customerUUID string) (*EnrichmentCustomer, error)
-	EnrichmentListCustomers(enrichmentListCustomersParams *EnrichmentListCustomersParams) (*EnrichmentCustomers, error)
-	EnrichmentSearchCustomers(enrichmentSearchCustomersParams *EnrichmentSearchCustomersParams) (*EnrichmentCustomers, error)
-	EnrichmentMergeCustomers(enrichmentMergeCustomersParams *EnrichmentMergeCustomersParams) error
+	// Customers
+	CreateCustomer(newCustomer *NewCustomer) (*Customer, error)
+	RetrieveCustomer(customerUUID string) (*Customer, error)
+	UpdateCustomer(Customer *Customer, customerUUID string) (*Customer, error)
+	ListCustomers(ListCustomersParams *ListCustomersParams) (*Customers, error)
+	SearchCustomers(SearchCustomersParams *SearchCustomersParams) (*Customers, error)
+	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
 
-	// Enrichment - Cusomer Attributes
-	EnrichmentRetrieveCustomersAttributes(customerUUID string) (*AttributesResult, error)
+	//  - Cusomer Attributes
+	RetrieveCustomersAttributes(customerUUID string) (*AttributesResult, error)
 
-	// Enrichment - Tags
-	EnrichmentAddTagsToCustomer(customerUUID string, tags []string) (*TagsResult, error)
-	EnrichmentAddTagsToCustomersWithEmail(email string, tags []string) (*EnrichmentCustomers, error)
-	EnrichmentRemoveTagsFromCustomer(customerUUID string, tags []string) (*TagsResult, error)
+	//  Tags
+	AddTagsToCustomer(customerUUID string, tags []string) (*TagsResult, error)
+	AddTagsToCustomersWithEmail(email string, tags []string) (*Customers, error)
+	RemoveTagsFromCustomer(customerUUID string, tags []string) (*TagsResult, error)
 
-	// Enrichment - Custom Attributes
-	EnrichmentAddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error)
-	EnrichmentAddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*EnrichmentCustomers, error)
-	EnrichmentUpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error)
-	EnrichmentRemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error)
+	// Custom Attributes
+	AddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error)
+	AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error)
+	UpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error)
+	RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error)
 
 	// Metrics
 	MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult, error)

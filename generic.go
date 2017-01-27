@@ -47,7 +47,7 @@ func (api API) merge(path string, input interface{}) error {
 }
 
 // updateImpl adds another meta level, because this same pattern
-// uses multiple HTTP methods in Enrichment API.
+// uses multiple HTTP methods in  API.
 func (api API) updateImpl(path string, uuid string, input interface{}, output interface{}, method string) error {
 	path = strings.Replace(path, ":uuid", uuid, 1)
 	path = prepareURL(path)

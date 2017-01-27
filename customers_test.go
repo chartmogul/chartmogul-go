@@ -13,15 +13,15 @@ func TestImportCustomers(t *testing.T) {
 		return
 	}
 
-	ds, err := api.ImportCreateDataSource("customers test")
+	ds, err := api.CreateDataSource("customers test")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	defer api.ImportDeleteDataSource(ds.UUID)
+	defer api.DeleteDataSource(ds.UUID)
 	logrus.Debug("Data source created.")
 
-	createdCustomer, err := api.ImportCreateCustomer(&Customer{
+	createdCustomer, err := api.CreateCustomer(&NewCustomer{
 		DataSourceUUID: ds.UUID,
 		ExternalID:     "TestImportCustomers_01",
 		Name:           "Test customer",
@@ -32,13 +32,13 @@ func TestImportCustomers(t *testing.T) {
 	}
 	logrus.Debug("Customer created.")
 
-	listRes, err := api.ImportListCustomers(&ImportListCustomersParams{DataSourceUUID: ds.UUID})
+	listRes, err := api.ListCustomers(&ListCustomersParams{DataSourceUUID: ds.UUID})
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	found := false
-	for _, c := range listRes.Customers {
+	for _, c := range listRes.Entries {
 		if c.UUID == createdCustomer.UUID {
 			found = true
 			break
@@ -49,7 +49,7 @@ func TestImportCustomers(t *testing.T) {
 	}
 	logrus.Debug("Customer found.")
 
-	createdCustomer, err = api.ImportCreateCustomer(&Customer{
+	createdCustomer, err = api.CreateCustomer(&NewCustomer{
 		DataSourceUUID: ds.UUID,
 		ExternalID:     "TestImportCustomers_01",
 		Name:           "Test duplicate customer",

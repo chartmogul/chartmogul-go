@@ -15,7 +15,7 @@ func TestImportDataSources(t *testing.T) {
 		return
 	}
 
-	ds, err := api.ImportCreateDataSource(dsTestName)
+	ds, err := api.CreateDataSource(dsTestName)
 	if err != nil {
 		t.Error(err)
 	} else if ds.Name != dsTestName {
@@ -27,7 +27,7 @@ func TestImportDataSources(t *testing.T) {
 	}
 	logrus.Debug("Data source created.")
 
-	res, err := api.ImportListDataSources()
+	res, err := api.ListDataSources()
 	if err != nil {
 		t.Error(err)
 	}
@@ -43,7 +43,7 @@ func TestImportDataSources(t *testing.T) {
 	}
 	logrus.Debug("Data source found.")
 
-	err = api.ImportDeleteDataSource(ds.UUID)
+	err = api.DeleteDataSource(ds.UUID)
 	if err != nil {
 		t.Error(err)
 	}

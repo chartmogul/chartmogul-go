@@ -28,9 +28,9 @@ type CustomAttribute struct {
 }
 
 const (
-	enrichmentCustomersAttributesEndpoint      = "customers/:uuid/attributes"
-	enrichmentCustomerCustomAttributesEndpoint = "customers/:uuid/attributes/custom"
-	enrichmentCustomAttributesEndpoint         = "customers/attributes/custom"
+	customersAttributesEndpoint      = "customers/:uuid/attributes"
+	customerCustomAttributesEndpoint = "customers/:uuid/attributes/custom"
+	customAttributesEndpoint         = "customers/attributes/custom"
 
 	// AttrTypeString is one of the possible data types for custom attributes.
 	AttrTypeString = "String"
@@ -42,56 +42,56 @@ const (
 	AttrTypeBoolean = "Boolean"
 )
 
-// EnrichmentRetrieveCustomersAttributes returns attributes for given customer UUID.
+// RetrieveCustomersAttributes returns attributes for given customer UUID.
 //
 // See https://dev.chartmogul.com/reference#customer-attributes
-func (api API) EnrichmentRetrieveCustomersAttributes(customerUUID string) (*AttributesResult, error) {
+func (api API) RetrieveCustomersAttributes(customerUUID string) (*AttributesResult, error) {
 	output := &AttributesResult{}
-	err := api.retrieve(enrichmentCustomersAttributesEndpoint, customerUUID, output)
+	err := api.retrieve(customersAttributesEndpoint, customerUUID, output)
 	return output, err
 }
 
-// EnrichmentAddCustomAttributesToCustomer adds custom attributes to specific customer.
+// AddCustomAttributesToCustomer adds custom attributes to specific customer.
 //
 // See https://dev.chartmogul.com/reference#add-custom-attributes-to-customer
-func (api API) EnrichmentAddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error) {
+func (api API) AddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
-	err := api.add(enrichmentCustomerCustomAttributesEndpoint,
+	err := api.add(customerCustomAttributesEndpoint,
 		customerUUID,
 		&attributesDefinition{Custom: customAttributes},
 		output)
 	return output, err
 }
 
-// EnrichmentAddCustomAttributesWithEmail adds custom attributes to customers with specific email.
+// AddCustomAttributesWithEmail adds custom attributes to customers with specific email.
 //
 // See https://dev.chartmogul.com/reference#add-custom-attributes-to-customers-with-email
-func (api API) EnrichmentAddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*EnrichmentCustomers, error) {
-	output := &EnrichmentCustomers{}
-	err := api.create(enrichmentCustomAttributesEndpoint,
+func (api API) AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error) {
+	output := &Customers{}
+	err := api.create(customAttributesEndpoint,
 		&attributesDefinition{Email: email, Custom: customAttributes},
 		output)
 	return output, err
 }
 
-// EnrichmentUpdateCustomAttributesOfCustomer updates custom attributes of a specific customer.
+// UpdateCustomAttributesOfCustomer updates custom attributes of a specific customer.
 //
 // See https://dev.chartmogul.com/reference#update-custom-attributes-of-customer
-func (api API) EnrichmentUpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error) {
+func (api API) UpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
-	err := api.putTo(enrichmentCustomerCustomAttributesEndpoint,
+	err := api.putTo(customerCustomAttributesEndpoint,
 		customerUUID,
 		&CustomAttributes{Custom: customAttributes},
 		output)
 	return output, err
 }
 
-// EnrichmentRemoveCustomAttributes removes a list of custom attributes from a specific customer.
+// RemoveCustomAttributes removes a list of custom attributes from a specific customer.
 //
 // See https://dev.chartmogul.com/reference#remove-custom-attributes-from-customer
-func (api API) EnrichmentRemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error) {
+func (api API) RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
-	err := api.putTo(enrichmentCustomerCustomAttributesEndpoint,
+	err := api.putTo(customerCustomAttributesEndpoint,
 		customerUUID,
 		&deleteCustomAttrs{Custom: customAttributes},
 		output)

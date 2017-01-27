@@ -2,8 +2,8 @@ package chartmogul
 
 import "strings"
 
-const importSubscriptionsEndpoint = "import/customers/:customerUUID/subscriptions"
-const importCancelSubscriptionEndpoint = "import/subscriptions/:uuid"
+const subscriptionsEndpoint = "import/customers/:customerUUID/subscriptions"
+const cancelSubscriptionEndpoint = "import/subscriptions/:uuid"
 
 // Subscription represents Import API subscription in ChartMogul.
 type Subscription struct {
@@ -23,28 +23,28 @@ type Subscriptions struct {
 	CurrentPage   uint32         `json:"current_page"`
 }
 
-// importCreateSubscriptionCall represents arguments to be marshalled into JSON.
-type importCancelSubscriptionParams struct {
+// cancelSubscriptionParams represents arguments to be marshalled into JSON.
+type cancelSubscriptionParams struct {
 	CancelledAt string `json:"cancelled_at"`
 }
 
-// ImportCancelSubscription creates an Import API Data Source in ChartMogul.
+// CancelSubscription creates an Import API Data Source in ChartMogul.
 //
 // See https://dev.chartmogul.com/v1.0/reference#cancel-a-customers-subscription
-func (api API) ImportCancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error) {
+func (api API) CancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error) {
 	result := &Subscription{}
-	return result, api.update(importCancelSubscriptionEndpoint,
+	return result, api.update(cancelSubscriptionEndpoint,
 		subscriptionUUID,
-		importCancelSubscriptionParams{CancelledAt: cancelledAt},
+		cancelSubscriptionParams{CancelledAt: cancelledAt},
 		result)
 }
 
-// ImportListSubscriptions lists all subscriptions for cutomer of given UUID.
+// ListSubscriptions lists all subscriptions for cutomer of given UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#list-a-customers-subscriptions
-func (api API) ImportListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error) {
+func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error) {
 	result := &Subscriptions{}
-	path := strings.Replace(importSubscriptionsEndpoint, ":customerUUID", customerUUID, 1)
+	path := strings.Replace(subscriptionsEndpoint, ":customerUUID", customerUUID, 1)
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {
 		query = append(query, *cursor)

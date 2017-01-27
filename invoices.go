@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-const importInvoicesEndpoint = "import/customers/:customerUUID/invoices"
+const invoicesEndpoint = "import/customers/:customerUUID/invoices"
 
 // Invoices is wrapper for bulk importing invoices
 type Invoices struct {
@@ -60,27 +60,27 @@ type LineItem struct {
 	Type                   string `json:"type"`
 }
 
-// ImportCreateInvoices loads an invoice to a customer in Chartmogul.
+// CreateInvoices loads an invoice to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
 //
 // See https://dev.chartmogul.com/reference#import-customers-invoices
-func (api API) ImportCreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error) {
+func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error) {
 	if len(invoices) == 0 {
 		return nil, nil
 	}
 	input := Invoices{Invoices: invoices}
 	result := &Invoices{}
 
-	path := strings.Replace(importInvoicesEndpoint, ":customerUUID", customerUUID, 1)
+	path := strings.Replace(invoicesEndpoint, ":customerUUID", customerUUID, 1)
 	return result, api.create(path, input, result)
 }
 
-// ImportListInvoices lists all imported invoices of customer with given UUID.
+// ListInvoices lists all imported invoices of customer with given UUID.
 //
 // See https://dev.chartmogul.com/reference#list-customers-invoices
-func (api API) ImportListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
+func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
-	path := strings.Replace(importInvoicesEndpoint, ":customerUUID", customerUUID, 1)
+	path := strings.Replace(invoicesEndpoint, ":customerUUID", customerUUID, 1)
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {
 		query = append(query, *cursor)

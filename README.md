@@ -68,80 +68,70 @@ Available methods in Import API:
 #### [Data Sources](https://dev.chartmogul.com/docs/data-sources)
 
 ```go
-api.ImportCreateDataSource("name")
-api.ImportListDataSources()
-api.ImportDeleteDataSource("uuid")
+api.CreateDataSource("name")
+api.ListDataSources()
+api.DeleteDataSource("uuid")
 ```
 
-#### [Customers](https://dev.chartmogul.com/docs/customers)
+#### [Customers](https://dev.chartmogul.com/docs/retrieve-customer)
 
 ```go
-api.ImportCreateCustomer(&cm.Customer{Name: "name", ExternalID: "external_id"}, "dataSourceUUID")
-api.ImportListCustomers(&cm.ImportListCustomersParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
-api.ImportDeleteCustomer("uuid")
+api.CreateCustomer(&NewCustomer{})
+api.RetrieveCustomer("customerUUID")
+api.SearchCustomers(&cm.SearchCustomersParams{})
+api.ListCustomers(&cm.ListCustomersParams{})
+api.UpdateCustomer(&cm.Customer{}, "customerUUID")
+api.MergeCustomers(&cm.MergeCustomersParams{})
 ```
 
-#### [Plans](https://dev.chartmogul.com/docs/plans)
+#### [Plans](https://dev.chartmogul.com/reference#import-plan)
 
 ```go
-api.ImportCreatePlan(&cm.Plan{Name: "name", ExternalID: "external_id"}, "dataSourceUUID")
-api.ImportListPlans(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
+api.CreatePlan(&cm.Plan{Name: "name", ExternalID: "external_id"}, "dataSourceUUID")
+api.RetrievePlan("planUUID")
+api.ListPlans(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
+api.UpdatePlan(&cm.Plan{}, "planUUID")
+api.DeletePlan("planUUID")
 ```
 
 #### [Invoices](https://dev.chartmogul.com/docs/invoices)
 
 ```go
-api.ImportCreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
-api.ImportListInvoices(&cm.Cursor{}, "customerUUID")
+api.CreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
+api.ListInvoices(&cm.Cursor{}, "customerUUID")
 ```
 
 #### [Transactions](https://dev.chartmogul.com/docs/transactions)
 
 ```go
-api.ImportCreateTransaction(&cm.Transaction{}, "invoiceUUID")
+api.CreateTransaction(&cm.Transaction{}, "invoiceUUID")
 ```
 
 #### [Subscriptions](https://dev.chartmogul.com/docs/subscriptions)
 
 ```go
-api.ImportCancelSubscription("subscriptionUUID", "2005-01-01T01:02:03.000Z")
-api.ImportListSubscriptions(&cm.Cursor{}, "customerUUID")
-```
-
-### Enrichment API
-
-Available methods in Enrichment API:
-
-
-#### [Customers](https://dev.chartmogul.com/docs/retrieve-customer)
-
-```go
-api.EnrichmentCreateCustomer(&NewCustomer{})
-api.EnrichmentRetrieveCustomer("customerUUID")
-api.EnrichmentSearchCustomers(&cm.EnrichmentSearchCustomersParams{})
-api.EnrichmentListCustomers(&cm.EnrichmentListCustomersParams{})
-api.EnrichmentUpdateCustomer(&cm.EnrichmentCustomer{}, "customerUUID")
-api.EnrichmentMergeCustomers(&cm.EnrichmentMergeCustomersParams{})
+api.CancelSubscription("subscriptionUUID", "2005-01-01T01:02:03.000Z")
+api.ListSubscriptions(&cm.Cursor{}, "customerUUID")
 ```
 
 #### [Customer Attributes](https://dev.chartmogul.com/docs/customer-attributes)
 
 ```go
-api.EnrichmentRetrieveCustomersAttributes("customerUUID")
+api.RetrieveCustomersAttributes("customerUUID")
 ```
 
 #### [Tags](https://dev.chartmogul.com/docs/tags)
 
 ```go
-api.EnrichmentAddTagsToCustomer("customerUUID", []string{})
-api.EnrichmentAddTagsToCustomersWithEmail("email@customer.com", []string{})
+api.AddTagsToCustomer("customerUUID", []string{})
+api.AddTagsToCustomersWithEmail("email@customer.com", []string{})
 ```
 
 
 #### [Custom Attributes](https://dev.chartmogul.com/docs/custom-attributes)
 
 ```go
-api.EnrichmentAddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
+api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
 ```
 
 
