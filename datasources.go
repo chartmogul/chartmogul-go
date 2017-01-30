@@ -26,7 +26,7 @@ const (
 
 // CreateDataSource creates an API Data Source in ChartMogul.
 //
-// See https://dev.chartmogul.com/v1.0/reference#create-data-source
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
 func (api API) CreateDataSource(name string) (*DataSource, error) {
 	ds := &DataSource{}
 	err := api.create(dataSourcesEndpoint, createDataSourceCall{Name: name}, ds)
@@ -34,6 +34,8 @@ func (api API) CreateDataSource(name string) (*DataSource, error) {
 }
 
 // RetrieveDataSource returns one Data Source by UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
 func (api API) RetrieveDataSource(dataSourceUUID string) (*DataSource, error) {
 	result := &DataSource{}
 	return result, api.retrieve(singleDataSourceEndpoint, dataSourceUUID, result)
@@ -41,7 +43,7 @@ func (api API) RetrieveDataSource(dataSourceUUID string) (*DataSource, error) {
 
 // ListDataSources lists all available Data Sources (no paging).
 //
-// See https://dev.chartmogul.com/v1.0/reference#list-data-sources
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
 func (api API) ListDataSources() (*DataSources, error) {
 	ds := &DataSources{}
 	err := api.list(dataSourcesEndpoint, ds)
@@ -50,7 +52,7 @@ func (api API) ListDataSources() (*DataSources, error) {
 
 // DeleteDataSource deletes the data source identified by its UUID.
 //
-// See https://dev.chartmogul.com/reference#delete-a-data-source
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
 func (api API) DeleteDataSource(uuid string) error {
 	return api.delete(singleDataSourceEndpoint, uuid)
 }

@@ -18,7 +18,7 @@ const (
 
 // AddTagsToCustomer gives customer new tags.
 //
-// See https://dev.chartmogul.com/reference#add-tags-to-customer
+// See https://dev.chartmogul.com/v1.0/reference#tags
 func (api API) AddTagsToCustomer(customerUUID string, tags []string) (*TagsResult, error) {
 	output := &TagsResult{}
 	err := api.add(customerTagsEndpoint,
@@ -31,7 +31,7 @@ func (api API) AddTagsToCustomer(customerUUID string, tags []string) (*TagsResul
 // AddTagsToCustomersWithEmail gives new tags to (multiple) customers
 // identified by e-mail only.
 //
-// See https://dev.chartmogul.com/reference#add-tags-to-customers-with-email
+// See https://dev.chartmogul.com/v1.0/reference#tags
 func (api API) AddTagsToCustomersWithEmail(email string, tags []string) (*Customers, error) {
 	output := &Customers{}
 	err := api.create(tagsEndpoint,
@@ -46,7 +46,7 @@ func (api API) AddTagsToCustomersWithEmail(email string, tags []string) (*Custom
 
 // RemoveTagsFromCustomer deletes passed tags from customer of given UUID.
 //
-// See https://dev.chartmogul.com/reference#remove-tags-from-customer
+// See https://dev.chartmogul.com/v1.0/reference#tags
 func (api API) RemoveTagsFromCustomer(customerUUID string, tags []string) (*TagsResult, error) {
 	output := &TagsResult{}
 	err := api.deleteWhat(customerTagsEndpoint,

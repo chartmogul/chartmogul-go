@@ -30,7 +30,7 @@ type cancelSubscriptionParams struct {
 
 // CancelSubscription creates an Import API Data Source in ChartMogul.
 //
-// See https://dev.chartmogul.com/v1.0/reference#cancel-a-customers-subscription
+// See https://dev.chartmogul.com/v1.0/reference#subscriptions
 func (api API) CancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error) {
 	result := &Subscription{}
 	return result, api.update(cancelSubscriptionEndpoint,
@@ -41,7 +41,7 @@ func (api API) CancelSubscription(subscriptionUUID string, cancelledAt string) (
 
 // ListSubscriptions lists all subscriptions for cutomer of given UUID.
 //
-// See https://dev.chartmogul.com/v1.0/reference#list-a-customers-subscriptions
+// See https://dev.chartmogul.com/v1.0/reference#subscriptions
 func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error) {
 	result := &Subscriptions{}
 	path := strings.Replace(subscriptionsEndpoint, ":customerUUID", customerUUID, 1)

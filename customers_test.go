@@ -6,7 +6,7 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
-// TestImportDataSource tests creation, listing & deletion of Data Sources.
+// TestImportCustomers tests creation & listing of customers + duplicate error.
 func TestImportCustomers(t *testing.T) {
 	if !*cm {
 		t.SkipNow()
@@ -26,6 +26,7 @@ func TestImportCustomers(t *testing.T) {
 		ExternalID:     "TestImportCustomers_01",
 		Name:           "Test customer",
 	})
+	toBeDeletedUUID := createdCustomer.UUID
 	if err != nil {
 		t.Error(err)
 		return
@@ -60,5 +61,10 @@ func TestImportCustomers(t *testing.T) {
 		logrus.Debug("Correct AlreadyExists.")
 	} else {
 		t.Errorf("Incorrect error: %v", createdCustomer.Errors)
+	}
+
+	err = api.DeleteCustomer(toBeDeletedUUID)
+	if err != nil {
+		t.Errorf("Couldn't delete customer: %v", err)
 	}
 }

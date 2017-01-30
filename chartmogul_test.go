@@ -10,8 +10,8 @@ import (
 
 var (
 	cm    = flag.Bool("cm", false, "run integration library tests against ChartMogul")
+	token = flag.String("token", "", "account token for CM test")
 	key   = flag.String("key", "", "access key for CM test")
-	token = flag.String("token", "", "access token for CM test")
 	api   = API{}
 )
 
@@ -25,6 +25,9 @@ func TestMain(m *testing.M) {
 			logrus.Info("Please supply testing account key and token on cmd line to run live tests.")
 		}
 		*cm = false
+	} else {
+		api.AccountToken = *token
+		api.AccessKey = *key
 	}
 
 	result := m.Run()

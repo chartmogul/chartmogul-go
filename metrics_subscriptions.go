@@ -30,7 +30,7 @@ const metricsSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
 // MetricsListSubscriptions lists all subscriptions for cutomer of a given UUID.
 //
-// See https://dev.chartmogul.com/reference#list-customer-subscriptions
+// See https://dev.chartmogul.com/v1.0/reference#list-customer-subscriptions
 func (api API) MetricsListSubscriptions(cursor *Cursor, customerUUID string) (*MetricsSubscriptions, error) {
 	result := &MetricsSubscriptions{}
 	path := strings.Replace(metricsSubscriptionsEndpoint, ":uuid", customerUUID, 1)

@@ -149,7 +149,7 @@ const (
 
 // CreateCustomer loads the customer to Chartmogul. New endpoint - with attributes.
 //
-// See https://dev.chartmogul.com/reference#customers-1
+// See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) CreateCustomer(newCustomer *NewCustomer) (*Customer, error) {
 	result := &Customer{}
 	return result, api.create(customersEndpoint, newCustomer, result)
@@ -157,7 +157,7 @@ func (api API) CreateCustomer(newCustomer *NewCustomer) (*Customer, error) {
 
 // RetrieveCustomer returns one customer as in API.
 //
-// See https://dev.chartmogul.com/reference#retrieve-customer
+// See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) RetrieveCustomer(customerUUID string) (*Customer, error) {
 	result := &Customer{}
 	return result, api.retrieve(singleCustomerEndpoint, customerUUID, result)
@@ -165,7 +165,7 @@ func (api API) RetrieveCustomer(customerUUID string) (*Customer, error) {
 
 // UpdateCustomer updates one customer in API.
 //
-// See https://dev.chartmogul.com/reference#update-a-customer
+// See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Customer, error) {
 	result := &Customer{}
 	return result, api.update(singleCustomerEndpoint,
@@ -176,7 +176,7 @@ func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Custome
 
 // ListCustomers lists all Customers for cutomer of given UUID.
 //
-// See https://dev.chartmogul.com/v1.0/reference#list-a-customers-Customers
+// See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) ListCustomers(listCustomersParams *ListCustomersParams) (*Customers, error) {
 	result := &Customers{}
 	query := make([]interface{}, 0, 1)
@@ -188,7 +188,7 @@ func (api API) ListCustomers(listCustomersParams *ListCustomersParams) (*Custome
 
 // SearchCustomers lists all Customers for cutomer of given UUID.
 //
-// See https://dev.chartmogul.com/reference#search-for-customers
+// See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) SearchCustomers(searchCustomersParams *SearchCustomersParams) (*Customers, error) {
 	result := &Customers{}
 	return result, api.list(searchCustomersEndpoint, result, *searchCustomersParams)
@@ -196,7 +196,14 @@ func (api API) SearchCustomers(searchCustomersParams *SearchCustomersParams) (*C
 
 // MergeCustomers merges two cutomers.
 //
-// See https://dev.chartmogul.com/reference#merge-customers
+// See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) MergeCustomers(mergeCustomersParams *MergeCustomersParams) error {
 	return api.list(mergeCustomersEndpoint, *mergeCustomersParams)
+}
+
+// DeleteCustomer deletes one customer by UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#customers
+func (api API) DeleteCustomer(customerUUID string) error {
+	return api.delete(singleCustomerEndpoint, customerUUID)
 }

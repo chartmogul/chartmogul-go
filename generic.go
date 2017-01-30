@@ -9,7 +9,7 @@ import (
 // The methods here encompass common boilerplate for CRUD REST operations.
 // They'd be generics if Go had generics...
 // so these methods do *not* properly check types.
-// Eg. nils cannot be easily checked if of type interfac{}
+// Eg. nils cannot be easily checked (without reflection).
 
 // CREATE
 func (api API) create(path string, input interface{}, output interface{}) error {

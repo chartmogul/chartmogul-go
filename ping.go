@@ -5,9 +5,7 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
-// Ping is the authentication test endpoint.
-//
-// See https://dev.chartmogul.com/v1.0/docs/authentication
+// Ping is simple struct for the authentication test endpoint.
 type Ping struct {
 	Data string
 }

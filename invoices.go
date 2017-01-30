@@ -63,7 +63,7 @@ type LineItem struct {
 // CreateInvoices loads an invoice to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
 //
-// See https://dev.chartmogul.com/reference#import-customers-invoices
+// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error) {
 	if len(invoices) == 0 {
 		return nil, nil
@@ -77,7 +77,7 @@ func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoic
 
 // ListInvoices lists all imported invoices of customer with given UUID.
 //
-// See https://dev.chartmogul.com/reference#list-customers-invoices
+// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
 	path := strings.Replace(invoicesEndpoint, ":customerUUID", customerUUID, 1)

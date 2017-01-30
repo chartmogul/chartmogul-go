@@ -27,7 +27,7 @@ const metricsActivitiesEndpoint = "customers/:uuid/activities"
 
 // MetricsListActivities lists all activities for cutomer of a given UUID.
 //
-// See https://dev.chartmogul.com/reference#list-customer-activities
+// See https://dev.chartmogul.com/v1.0/reference#list-customer-activities
 func (api API) MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error) {
 	result := &MetricsActivities{}
 	path := strings.Replace(metricsActivitiesEndpoint, ":uuid", customerUUID, 1)
