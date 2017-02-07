@@ -46,6 +46,12 @@ api := cm.API{
     AccountToken: os.Getenv("CHARTMOGUL_ACCOUNT_TOKEN"),
     AccessKey:    os.Getenv("CHARTMOGUL_SECRET_KEY"),
 }
+
+// Try authentication
+ok, err := api.Ping()
+if err != nil {
+    fmt.Printf("This didn't work out: %v", err)
+}
 ```
 
 This struct has all the methods you can use to interact with ChartMogul.
