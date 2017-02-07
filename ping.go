@@ -1,7 +1,6 @@
 package chartmogul
 
 import (
-	"github.com/chartmogul/gocardless-integration/util"
 	"github.com/parnurzeal/gorequest"
 )
 
@@ -18,5 +17,5 @@ const pingEndpoint = "ping"
 func (api API) Ping() (bool, error) {
 	ping := &Ping{}
 	res, body, errs := api.req(gorequest.New().Get(prepareURL(pingEndpoint))).EndStruct(ping)
-	return ping.Data == "pong!", util.LogErrors(res, body, errs)
+	return ping.Data == "pong!", wrapErrors(res, body, errs)
 }
