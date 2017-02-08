@@ -23,19 +23,20 @@ type Subscriptions struct {
 	CurrentPage   uint32         `json:"current_page"`
 }
 
-// cancelSubscriptionParams represents arguments to be marshalled into JSON.
-type cancelSubscriptionParams struct {
-	CancelledAt string `json:"cancelled_at"`
+// CancelSubscriptionParams represents arguments to be marshalled into JSON.
+type CancelSubscriptionParams struct {
+	CancelledAt       string   `json:"cancelled_at,omitempty"`
+	CancellationDates []string `json:"cancellation_dates,omitempty"`
 }
 
 // CancelSubscription creates an Import API Data Source in ChartMogul.
 //
 // See https://dev.chartmogul.com/v1.0/reference#subscriptions
-func (api API) CancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error) {
+func (api API) CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error) {
 	result := &Subscription{}
 	return result, api.update(cancelSubscriptionEndpoint,
 		subscriptionUUID,
-		cancelSubscriptionParams{CancelledAt: cancelledAt},
+		*cancelSubscriptionParams,
 		result)
 }
 

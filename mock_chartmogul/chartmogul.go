@@ -73,7 +73,7 @@ func (_mr *_MockIApiRecorder) AddTagsToCustomersWithEmail(arg0, arg1 interface{}
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "AddTagsToCustomersWithEmail", arg0, arg1)
 }
 
-func (_m *MockIApi) CancelSubscription(_param0 string, _param1 string) (*chartmogul_go.Subscription, error) {
+func (_m *MockIApi) CancelSubscription(_param0 string, _param1 *chartmogul_go.CancelSubscriptionParams) (*chartmogul_go.Subscription, error) {
 	ret := _m.ctrl.Call(_m, "CancelSubscription", _param0, _param1)
 	ret0, _ := ret[0].(*chartmogul_go.Subscription)
 	ret1, _ := ret[1].(error)

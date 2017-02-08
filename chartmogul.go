@@ -54,7 +54,7 @@ type IApi interface {
 	UpdatePlan(plan *Plan, planUUID string) (*Plan, error)
 	DeletePlan(planUUID string) error
 	// Subscriptions
-	CancelSubscription(subscriptionUUID string, cancelledAt string) (*Subscription, error)
+	CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error)
 	ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
 	// Transactions
 	CreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error)

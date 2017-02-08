@@ -82,11 +82,11 @@ api.DeleteDataSource("uuid")
 #### [Customers](https://dev.chartmogul.com/docs/retrieve-customer)
 
 ```go
-api.CreateCustomer(&NewCustomer{})
+api.CreateCustomer(&cm.NewCustomer{})
 api.RetrieveCustomer("customerUUID")
 api.SearchCustomers(&cm.SearchCustomersParams{})
 api.ListCustomers(&cm.ListCustomersParams{})
-api.UpdateCustomer(&cm.Customer{}, "customerUUID")
+api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
 ```
 
@@ -116,7 +116,8 @@ api.CreateTransaction(&cm.Transaction{}, "invoiceUUID")
 #### [Subscriptions](https://dev.chartmogul.com/docs/subscriptions)
 
 ```go
-api.CancelSubscription("subscriptionUUID", "2005-01-01T01:02:03.000Z")
+api.CancelSubscription("subscriptionUUID", &cm.CancelSubscriptionParams{CancelledAt: "2005-01-01T01:02:03.000Z"})
+api.CancelSubscription("subscriptionUUID", &cm.CancelSubscriptionParams{CancellationDates: []string{"2005-01-01T01:02:03.000Z", "2006-10-21T11:21:13.000Z"}})
 api.ListSubscriptions(&cm.Cursor{}, "customerUUID")
 ```
 
