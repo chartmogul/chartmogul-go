@@ -24,9 +24,6 @@
 <hr>
 <br>
 
-## Warning
-Library in testing stage and subject to possibly great changes!
-
 ## Installation
 
 This library requires Go 1.7.3 or above.
