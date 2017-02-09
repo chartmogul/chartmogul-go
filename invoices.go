@@ -1,9 +1,6 @@
 package chartmogul
 
-import (
-	"fmt"
-	"strings"
-)
+import "strings"
 
 const invoicesEndpoint = "import/customers/:customerUUID/invoices"
 
@@ -16,13 +13,6 @@ type Invoices struct {
 	Invoices     []*Invoice `json:"invoices"`
 }
 
-func (i Invoices) String() string {
-	if i.Error != "" {
-		return fmt.Sprintf(logFormatting, i.CustomerUUID, i.Error, i.CurrentPage, i.TotalPages)
-	}
-	return fmt.Sprintf(logFormatting, i.CustomerUUID, i.Invoices, i.CurrentPage, i.TotalPages)
-}
-
 // Invoice is the data for ChartMogul to auto-generate subscriptions.
 type Invoice struct {
 	UUID         string         `json:"uuid,omitempty"`
@@ -33,13 +23,6 @@ type Invoice struct {
 	LineItems    []*LineItem    `json:"line_items"`
 	Transactions []*Transaction `json:"transactions,omitempty"`
 	Errors       *Errors        `json:"errors,omitempty"`
-}
-
-func (i Invoice) String() string {
-	if i.Errors != nil && len(*i.Errors) != 0 {
-		return fmt.Sprintf("Invoice{%v (%v)}: %v", i.UUID, i.ExternalID, *i.Errors)
-	}
-	return fmt.Sprintf("Invoice{%v (%v): items %v, tx %v}", i.UUID, i.ExternalID, len(i.LineItems), len(i.Transactions))
 }
 
 // LineItem represents a singular items of the invoices

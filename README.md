@@ -218,6 +218,8 @@ To work on the library:
 * Push to the branch (`git push origin my-new-feature`)
 * Create a new Pull Request
 
+* We recommend [`github.com/davecgh/go-spew/spew`](https://github.com/davecgh/go-spew/spew) for debugging data (reference documentation output done using this library).
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/chartmogul/chartmogul-go.
