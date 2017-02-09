@@ -1,10 +1,5 @@
 package chartmogul
 
-// AttributesResult is necessary for the the GET attributes call, has just one field.
-type AttributesResult struct {
-	Attributes *Attributes `json:"attributes"`
-}
-
 // attributesDefinition is internal struct used to define multiple new custom attributes.
 type attributesDefinition struct {
 	Email  string             `json:"email,omitempty"`
@@ -45,8 +40,8 @@ const (
 // RetrieveCustomersAttributes returns attributes for given customer UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#customer-attributes
-func (api API) RetrieveCustomersAttributes(customerUUID string) (*AttributesResult, error) {
-	output := &AttributesResult{}
+func (api API) RetrieveCustomersAttributes(customerUUID string) (*Attributes, error) {
+	output := &Attributes{}
 	err := api.retrieve(customersAttributesEndpoint, customerUUID, output)
 	return output, err
 }

@@ -389,9 +389,9 @@ func (_mr *_MockIApiRecorder) RetrieveCustomer(arg0 interface{}) *gomock.Call {
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "RetrieveCustomer", arg0)
 }
 
-func (_m *MockIApi) RetrieveCustomersAttributes(_param0 string) (*chartmogul_go.AttributesResult, error) {
+func (_m *MockIApi) RetrieveCustomersAttributes(_param0 string) (*chartmogul_go.Attributes, error) {
 	ret := _m.ctrl.Call(_m, "RetrieveCustomersAttributes", _param0)
-	ret0, _ := ret[0].(*chartmogul_go.AttributesResult)
+	ret0, _ := ret[0].(*chartmogul_go.Attributes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

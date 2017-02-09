@@ -68,7 +68,7 @@ type IApi interface {
 	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
 
 	//  - Cusomer Attributes
-	RetrieveCustomersAttributes(customerUUID string) (*AttributesResult, error)
+	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)
 
 	//  Tags
 	AddTagsToCustomer(customerUUID string, tags []string) (*TagsResult, error)
