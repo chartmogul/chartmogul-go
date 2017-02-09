@@ -1,9 +1,6 @@
 package chartmogul
 
-import (
-	"fmt"
-	"strings"
-)
+import "strings"
 
 const transactionsEndpoint = "import/invoices/:invoiceUUID/transactions"
 
@@ -15,10 +12,6 @@ type Transaction struct {
 	Result     string `json:"result"`
 	Type       string `json:"type"`
 	Errors     Errors `json:"errors,omitempty"`
-}
-
-func (t Transaction) String() string {
-	return fmt.Sprintf("Transaction(%v) %v %v (%v)", t.ExternalID, t.Result, t.Type, t.Date)
 }
 
 // CreateTransaction loads an transaction to a customer in Chartmogul.

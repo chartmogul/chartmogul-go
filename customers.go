@@ -115,6 +115,7 @@ type ListCustomersParams struct {
 // SearchCustomersParams - just email now.
 type SearchCustomersParams struct {
 	Email string `json:"email,omitempty"`
+	Cursor
 }
 
 // Customers is result of listing customers in API.
