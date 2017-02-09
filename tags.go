@@ -35,7 +35,7 @@ func (api API) AddTagsToCustomer(customerUUID string, tags []string) (*TagsResul
 func (api API) AddTagsToCustomersWithEmail(email string, tags []string) (*Customers, error) {
 	output := &Customers{}
 	err := api.create(tagsEndpoint,
-		&TagsByEmail{Tags: tags},
+		&TagsByEmail{Email: email, Tags: tags},
 		output)
 	// API doesn't have paging, but the struct does
 	output.Page = 1

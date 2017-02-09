@@ -86,7 +86,7 @@ func (api API) UpdateCustomAttributesOfCustomer(customerUUID string, customAttri
 // See https://dev.chartmogul.com/v1.0/reference#customer-attributes
 func (api API) RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
-	err := api.putTo(customerCustomAttributesEndpoint,
+	err := api.deleteWhat(customerCustomAttributesEndpoint,
 		customerUUID,
 		&deleteCustomAttrs{Custom: customAttributes},
 		output)
