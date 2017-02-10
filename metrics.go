@@ -11,15 +11,15 @@ type MetricsFilter struct {
 
 // AllMetrics represents results of Metrics API.
 type AllMetrics struct {
-	Date              int `json:"date"`
-	CustomerChurnRate int `json:"customer-churn-rate"`
-	MrrChurnRate      int `json:"mrr-churn-rate"`
-	Ltv               int `json:"ltv"`
-	Customers         int `json:"customers"`
-	Asp               int `json:"asp"`
-	Arpa              int `json:"arpa"`
-	Arr               int `json:"arr"`
-	Mrr               int `json:"mrr"`
+	Date              string  `json:"date"`
+	CustomerChurnRate float64 `json:"customer-churn-rate"`
+	MrrChurnRate      float64 `json:"mrr-churn-rate"`
+	Ltv               float64 `json:"ltv"`
+	Customers         uint32  `json:"customers"`
+	Asp               float64 `json:"asp"`
+	Arpa              float64 `json:"arpa"`
+	Arr               float64 `json:"arr"`
+	Mrr               float64 `json:"mrr"`
 }
 
 // MetricsResult represents results of Metrics API.
@@ -152,7 +152,7 @@ const (
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-all-key-metrics
 func (api API) MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult, error) {
 	output := &MetricsResult{}
-	err := api.list(metricsEndpoint, output, metricsFilter)
+	err := api.list(metricsEndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -161,7 +161,7 @@ func (api API) MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult,
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-mrr
 func (api API) MetricsRetrieveMRR(metricsFilter *MetricsFilter) (*MRRResult, error) {
 	output := &MRRResult{}
-	err := api.list(metricsMRREndpoint, output, metricsFilter)
+	err := api.list(metricsMRREndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -170,7 +170,7 @@ func (api API) MetricsRetrieveMRR(metricsFilter *MetricsFilter) (*MRRResult, err
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-arr
 func (api API) MetricsRetrieveARR(metricsFilter *MetricsFilter) (*ARRResult, error) {
 	output := &ARRResult{}
-	err := api.list(metricsARREndpoint, output, metricsFilter)
+	err := api.list(metricsARREndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -179,7 +179,7 @@ func (api API) MetricsRetrieveARR(metricsFilter *MetricsFilter) (*ARRResult, err
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-arpa
 func (api API) MetricsRetrieveARPA(metricsFilter *MetricsFilter) (*ARPAResult, error) {
 	output := &ARPAResult{}
-	err := api.list(metricsARPAEndpoint, output, metricsFilter)
+	err := api.list(metricsARPAEndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -188,7 +188,7 @@ func (api API) MetricsRetrieveARPA(metricsFilter *MetricsFilter) (*ARPAResult, e
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-asp
 func (api API) MetricsRetrieveASP(metricsFilter *MetricsFilter) (*ASPResult, error) {
 	output := &ASPResult{}
-	err := api.list(metricsASPEndpoint, output, metricsFilter)
+	err := api.list(metricsASPEndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -197,7 +197,7 @@ func (api API) MetricsRetrieveASP(metricsFilter *MetricsFilter) (*ASPResult, err
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-customer-count
 func (api API) MetricsRetrieveCustomerCount(metricsFilter *MetricsFilter) (*CustomerCountResult, error) {
 	output := &CustomerCountResult{}
-	err := api.list(metricsCustomerCountEndpoint, output, metricsFilter)
+	err := api.list(metricsCustomerCountEndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -206,7 +206,7 @@ func (api API) MetricsRetrieveCustomerCount(metricsFilter *MetricsFilter) (*Cust
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-customer-churn-rate
 func (api API) MetricsRetrieveCustomerChurnRate(metricsFilter *MetricsFilter) (*CustomerChurnRateResult, error) {
 	output := &CustomerChurnRateResult{}
-	err := api.list(metricsCustomerChurnRateEndpoint, output, metricsFilter)
+	err := api.list(metricsCustomerChurnRateEndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -215,7 +215,7 @@ func (api API) MetricsRetrieveCustomerChurnRate(metricsFilter *MetricsFilter) (*
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-mrr-churn-rate
 func (api API) MetricsRetrieveMRRChurnRate(metricsFilter *MetricsFilter) (*MRRChurnRateResult, error) {
 	output := &MRRChurnRateResult{}
-	err := api.list(metricsMRRChurnRateEndpoint, output, metricsFilter)
+	err := api.list(metricsMRRChurnRateEndpoint, output, *metricsFilter)
 	return output, err
 }
 
@@ -224,6 +224,6 @@ func (api API) MetricsRetrieveMRRChurnRate(metricsFilter *MetricsFilter) (*MRRCh
 // See https://dev.chartmogul.com/v1.0/reference#retrieve-ltv
 func (api API) MetricsRetrieveLTV(metricsFilter *MetricsFilter) (*LTVResult, error) {
 	output := &LTVResult{}
-	err := api.list(metricsLTVEndpoint, output, metricsFilter)
+	err := api.list(metricsLTVEndpoint, output, *metricsFilter)
 	return output, err
 }

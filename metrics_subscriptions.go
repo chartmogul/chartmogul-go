@@ -4,18 +4,18 @@ import "strings"
 
 // MetricsSubscription represents Metrics API subscription in ChartMogul.
 type MetricsSubscription struct {
-	ID                uint64 `json:"id"`
-	Plan              string `json:"plan"`
-	Quantity          string `json:"quantity"`
-	MRR               string `json:"mrr"`
-	ARR               string `json:"arr"`
-	Status            string `json:"status"`
-	BillingCycle      string `json:"billing-cycle"`
-	BillingCycleCount string `json:"billing-cycle-count"`
-	StartDate         string `json:"start-date"`
-	EndDate           string `json:"end-date"`
-	Currency          string `json:"currency"`
-	CurrencySign      string `json:"currency-sign"`
+	ID                uint64  `json:"id"`
+	Plan              string  `json:"plan"`
+	Quantity          uint32  `json:"quantity"`
+	MRR               float64 `json:"mrr"`
+	ARR               float64 `json:"arr"`
+	Status            string  `json:"status"`
+	BillingCycle      string  `json:"billing-cycle"`
+	BillingCycleCount uint32  `json:"billing-cycle-count"`
+	StartDate         string  `json:"start-date"`
+	EndDate           string  `json:"end-date"`
+	Currency          string  `json:"currency"`
+	CurrencySign      string  `json:"currency-sign"`
 }
 
 // MetricsSubscriptions is the result of listing subscriptions in Metrics API.
