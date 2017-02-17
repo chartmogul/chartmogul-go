@@ -191,10 +191,10 @@ type HTTPError interface {
 ```go
 // If you want to check specific HTTP status:
 switch e := errors.Cause(err).(type) {
-    case *HTTPError:
-        if e.StatusCode() == 422 {
-            // special reaction
-        }
+case *cm.HTTPError:
+    if e.StatusCode() == 422 {
+        // special reaction
+    }
 }
 ```
 

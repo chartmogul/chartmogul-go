@@ -28,6 +28,7 @@ type Invoice struct {
 // LineItem represents a singular items of the invoices
 type LineItem struct {
 	UUID                   string `json:"uuid,omitempty"`
+	AccountCode            string `json:"account_code,omitempty"`
 	AmountInCents          int    `json:"amount_in_cents,omitempty"`
 	CancelledAt            string `json:"cancelled_at,omitempty"`
 	Description            string `json:"description,omitempty"`
@@ -40,6 +41,7 @@ type LineItem struct {
 	ServicePeriodEnd       string `json:"service_period_end,omitempty"`
 	ServicePeriodStart     string `json:"service_period_start,omitempty"`
 	SubscriptionExternalID string `json:"subscription_external_id,omitempty"`
+	SubscriptionUUID       string `json:"subscription_uuid,omitempty"`
 	TaxAmountInCents       int    `json:"tax_amount_in_cents,omitempty"`
 	Type                   string `json:"type"`
 }
