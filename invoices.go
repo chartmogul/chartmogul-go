@@ -27,6 +27,7 @@ type Invoice struct {
 
 // LineItem represents a singular items of the invoices
 type LineItem struct {
+	UUID                   string `json:"uuid,omitempty"`
 	AmountInCents          int    `json:"amount_in_cents,omitempty"`
 	CancelledAt            string `json:"cancelled_at,omitempty"`
 	Description            string `json:"description,omitempty"`
