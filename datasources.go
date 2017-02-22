@@ -7,6 +7,7 @@ type DataSource struct {
 	Name      string `json:"name"`
 	CreatedAt string `json:"created_at"`
 	Status    string `json:"status"`
+	System    string `json:"system"`
 }
 
 // DataSources is the result of listing data sources, but doesn't contain any paging.
