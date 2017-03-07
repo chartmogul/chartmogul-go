@@ -24,6 +24,9 @@
 <hr>
 <br>
 
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](http://godoc.org/github.com/chartmogul/chartmogul-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/chartmogul/chartmogul-go)](https://goreportcard.com/report/github.com/chartmogul/chartmogul-go)
+
 ## Installation
 
 This library requires Go 1.7.3 or above.
@@ -73,6 +76,7 @@ Available methods in Import API:
 ```go
 api.CreateDataSource("name")
 api.ListDataSources()
+api.RetrieveDataSource("uuid")
 api.DeleteDataSource("uuid")
 ```
 

@@ -18,7 +18,6 @@ import (
 )
 
 const (
-	url           = "https://api.chartmogul.com/v1/%v"
 	logFormatting = "%v: %v (page %v of %v)"
 
 	// ErrKeyExternalID is key in Errors map indicating there's a problem with External ID of the resource.
@@ -33,7 +32,10 @@ const (
 	ErrValInvoiceExternalIDExists = "The external ID for this invoice already exists in our system."
 )
 
-var timeout = 30 * time.Second
+var (
+	url     = "https://api.chartmogul.com/v1/%v"
+	timeout = 30 * time.Second
+)
 
 // IApi defines the interface of the library.
 // Necessary eg. for mocks in testing.
@@ -149,9 +151,14 @@ func (e Errors) IsInvoiceAndTransactionAlreadyExist() (is bool) {
 		msg1 == ErrValInvoiceExternalIDExists && msg2 == ErrValExternalIDExists
 }
 
-// Setup configures static globals for the library
+// Setup configures global timeout for the library.
 func Setup(timeoutConf time.Duration) {
 	timeout = timeoutConf
+}
+
+// SetURL changes target URL for the module globally.
+func SetURL(specialURL string) {
+	url = specialURL
 }
 
 func prepareURL(path string) string {
