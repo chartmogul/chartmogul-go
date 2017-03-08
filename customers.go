@@ -4,13 +4,15 @@ package chartmogul
 type Customer struct {
 	ID uint32 `json:"id,omitempty"`
 	// Basic info
-	DataSourceUUID string `json:"data_source_uuid,omitempty"`
-	UUID           string `json:"uuid,omitempty"`
-	ExternalID     string `json:"external_id,omitempty"`
-	Name           string `json:"name,omitempty"`
-	Email          string `json:"email,omitempty"`
-	Status         string `json:"status,omitempty"`
-	CustomerSince  string `json:"customer-since,omitempty"`
+	DataSourceUUID  string   `json:"data_source_uuid,omitempty"`
+	DataSourceUUIDs []string `json:"data_source_uuids,omitempty"`
+	UUID            string   `json:"uuid,omitempty"`
+	ExternalID      string   `json:"external_id,omitempty"`
+	ExternalIDs     []string `json:"external_ids,omitempty"`
+	Name            string   `json:"name,omitempty"`
+	Email           string   `json:"email,omitempty"`
+	Status          string   `json:"status,omitempty"`
+	CustomerSince   string   `json:"customer-since,omitempty"`
 
 	Attributes *Attributes `json:"attributes,omitempty"`
 	Address    *Address    `json:"address,omitempty"`
