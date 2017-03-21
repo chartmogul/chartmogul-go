@@ -13,6 +13,7 @@ type Plan struct {
 	Name           string `json:"name,omitempty"`
 	IntervalCount  uint32 `json:"interval_count,omitempty"`
 	IntervalUnit   string `json:"interval_unit,omitempty"`
+	Errors         Errors `json:"errors,omitempty"`
 }
 
 // Plans is result of listing: plans + paging.

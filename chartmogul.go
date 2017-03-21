@@ -30,6 +30,8 @@ const (
 	ErrValExternalIDExists = "has already been taken"
 	// ErrValInvoiceExternalIDExists = invoice already exists
 	ErrValInvoiceExternalIDExists = "The external ID for this invoice already exists in our system."
+	// ErrValPlanExternalIDExists = plan already exists
+	ErrValPlanExternalIDExists = "A plan with this identifier already exists in our system."
 )
 
 var (
@@ -134,6 +136,7 @@ func (e Errors) IsAlreadyExists() (is bool) {
 	}
 	return ok && (msg == ErrValExternalIDExists ||
 		msg == ErrValCustomerExternalIDExists ||
+		msg == ErrValPlanExternalIDExists ||
 		msg == ErrValInvoiceExternalIDExists)
 }
 

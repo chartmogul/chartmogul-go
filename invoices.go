@@ -29,7 +29,7 @@ type Invoice struct {
 type LineItem struct {
 	UUID                   string `json:"uuid,omitempty"`
 	AccountCode            string `json:"account_code,omitempty"`
-	AmountInCents          int    `json:"amount_in_cents,omitempty"`
+	AmountInCents          int    `json:"amount_in_cents"`
 	CancelledAt            string `json:"cancelled_at,omitempty"`
 	Description            string `json:"description,omitempty"`
 	DiscountAmountInCents  int    `json:"discount_amount_in_cents,omitempty"`
