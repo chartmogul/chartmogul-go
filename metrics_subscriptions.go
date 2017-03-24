@@ -5,6 +5,7 @@ import "strings"
 // MetricsSubscription represents Metrics API subscription in ChartMogul.
 type MetricsSubscription struct {
 	ID                uint64  `json:"id"`
+	ExternalID        string  `json:"external_id"`
 	Plan              string  `json:"plan"`
 	Quantity          uint32  `json:"quantity"`
 	MRR               float64 `json:"mrr"`
