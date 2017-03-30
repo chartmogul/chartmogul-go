@@ -24,6 +24,8 @@ const (
 	ErrKeyExternalID = "external_id"
 	// ErrKeyTransactionExternalID is key in Errors map indicating there's a problem with External ID of the transaction.
 	ErrKeyTransactionExternalID = "transactions.external_id"
+	// ErrKeyName - data source name
+	ErrKeyName = "name"
 	// ErrValCustomerExternalIDExists = can't import new customer with the same external ID
 	ErrValCustomerExternalIDExists = "The external ID for this customer already exists in our system."
 	// ErrValExternalIDExists = can't save Transaction, because it exists already.
@@ -32,6 +34,8 @@ const (
 	ErrValInvoiceExternalIDExists = "The external ID for this invoice already exists in our system."
 	// ErrValPlanExternalIDExists = plan already exists
 	ErrValPlanExternalIDExists = "A plan with this identifier already exists in our system."
+	// ErrValHasAlreadyBeenTaken = data source name taken
+	ErrValHasAlreadyBeenTaken = "Has already been taken."
 )
 
 var (
@@ -135,10 +139,14 @@ func (e Errors) IsAlreadyExists() (is bool) {
 	if !ok {
 		msg, ok = e[ErrKeyTransactionExternalID]
 	}
-	return ok && (msg == ErrValExternalIDExists ||
+	if !ok {
+		msg, ok = e[ErrKeyName]
+		return ok && msg == ErrValHasAlreadyBeenTaken
+	}
+	return msg == ErrValExternalIDExists ||
 		msg == ErrValCustomerExternalIDExists ||
 		msg == ErrValPlanExternalIDExists ||
-		msg == ErrValInvoiceExternalIDExists)
+		msg == ErrValInvoiceExternalIDExists
 }
 
 // IsInvoiceAndTransactionAlreadyExist occurs when both invoice and tx exist already.
