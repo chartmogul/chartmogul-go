@@ -11,7 +11,7 @@ type Ping struct {
 
 const pingEndpoint = "ping"
 
-// Ping is the authentication test endpoint.
+// Ping is the authentication test endpoint. Doesn't retry on 429.
 //
 // See https://dev.chartmogul.com/v1.0/docs/authentication
 func (api API) Ping() (bool, error) {
