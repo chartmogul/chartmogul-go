@@ -15,7 +15,7 @@ import (
 // Eg. nils cannot be easily checked (without reflection).
 
 // static internal error helper
-var errRateLimit = errors.New("Rate limit reached")
+var errRetry = errors.New("Retrying")
 
 // CREATE
 func (api API) create(path string, input interface{}, output interface{}) error {
@@ -27,13 +27,13 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 		Post(prepareURL(path))).
 		SendStruct(input)
 
-	// Retry on HTTP 429 rate limit, see:
+	// Retry on HTTP 429 rate limit, or network error, see:
 	// https://dev.chartmogul.com/docs/rate-limits
 	// https://godoc.org/github.com/cenkalti/backoff#pkg-constants
 	backoff.Retry(func() error {
 		res, body, errs = req.EndStruct(output)
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
@@ -54,8 +54,8 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 
 	backoff.Retry(func() error {
 		res, body, errs = req.EndStruct(output)
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
@@ -72,8 +72,8 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 
 	backoff.Retry(func() error {
 		res, body, errs = req.EndStruct(output)
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
@@ -92,8 +92,8 @@ func (api API) merge(path string, input interface{}) error {
 
 	backoff.Retry(func() error {
 		res, body, errs = req.End()
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
@@ -123,8 +123,8 @@ func (api API) updateImpl(path string, uuid string, input interface{}, output in
 
 	backoff.Retry(func() error {
 		res, body, errs = req.EndStruct(output)
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
@@ -156,8 +156,8 @@ func (api API) delete(path string, uuid string) error {
 
 	backoff.Retry(func() error {
 		res, body, errs = req.End()
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
@@ -175,8 +175,8 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 
 	backoff.Retry(func() error {
 		res, body, errs = req.EndStruct(output)
-		if res.StatusCode == http.StatusTooManyRequests {
-			return errRateLimit
+		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			return errRetry
 		}
 		return nil
 	}, backoff.NewExponentialBackOff())
