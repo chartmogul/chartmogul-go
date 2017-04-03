@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/cenkalti/backoff"
 	"github.com/parnurzeal/gorequest"
 )
@@ -22,17 +23,20 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 	var res gorequest.Response
 	var body []byte
 	var errs []error
-	// This request object will be reused for consequent retries
-	req := api.req(gorequest.New().
-		Post(prepareURL(path))).
-		SendStruct(input)
 
 	// Retry on HTTP 429 rate limit, or network error, see:
 	// https://dev.chartmogul.com/docs/rate-limits
 	// https://godoc.org/github.com/cenkalti/backoff#pkg-constants
 	backoff.Retry(func() error {
-		res, body, errs = req.EndStruct(output)
+		res, body, errs = api.req(gorequest.New().
+			Post(prepareURL(path))).
+			SendStruct(input).
+			EndStruct(output)
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+			logrus.Info(errs)
+			if res != nil {
+				logrus.Info(res.StatusCode)
+			}
 			return errRetry
 		}
 		return nil
@@ -47,12 +51,12 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 	var res gorequest.Response
 	var body []byte
 	var errs []error
-	req := api.req(gorequest.New().Get(prepareURL(path)))
-	for _, q := range query {
-		req.Query(q)
-	}
 
 	backoff.Retry(func() error {
+		req := api.req(gorequest.New().Get(prepareURL(path)))
+		for _, q := range query {
+			req.Query(q)
+		}
 		res, body, errs = req.EndStruct(output)
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
 			return errRetry
@@ -68,10 +72,10 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 	var body []byte
 	var errs []error
 	path = strings.Replace(path, ":uuid", uuid, 1)
-	req := api.req(gorequest.New().Get(prepareURL(path)))
 
 	backoff.Retry(func() error {
-		res, body, errs = req.EndStruct(output)
+		res, body, errs = api.req(gorequest.New().Get(prepareURL(path))).
+			EndStruct(output)
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
 			return errRetry
 		}
@@ -86,12 +90,12 @@ func (api API) merge(path string, input interface{}) error {
 	var res gorequest.Response
 	var body string
 	var errs []error
-	req := api.req(gorequest.New().
-		Post(prepareURL(path))).
-		SendStruct(input)
 
 	backoff.Retry(func() error {
-		res, body, errs = req.End()
+		res, body, errs = api.req(gorequest.New().
+			Post(prepareURL(path))).
+			SendStruct(input).
+			End()
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
 			return errRetry
 		}
@@ -110,18 +114,18 @@ func (api API) updateImpl(path string, uuid string, input interface{}, output in
 
 	path = strings.Replace(path, ":uuid", uuid, 1)
 	path = prepareURL(path)
-	req := gorequest.New()
-	switch method {
-	case "update":
-		req = req.Patch(path)
-	case "add":
-		req = req.Post(path)
-	case "putTo":
-		req = req.Put(path)
-	}
-	req = api.req(req).SendStruct(input)
 
 	backoff.Retry(func() error {
+		req := gorequest.New()
+		switch method {
+		case "update":
+			req = req.Patch(path)
+		case "add":
+			req = req.Post(path)
+		case "putTo":
+			req = req.Put(path)
+		}
+		req = api.req(req).SendStruct(input)
 		res, body, errs = req.EndStruct(output)
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
 			return errRetry
@@ -152,10 +156,10 @@ func (api API) delete(path string, uuid string) error {
 	var body string
 	var errs []error
 	path = strings.Replace(path, ":uuid", uuid, 1)
-	req := api.req(gorequest.New().Delete(prepareURL(path)))
 
 	backoff.Retry(func() error {
-		res, body, errs = req.End()
+		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
+			End()
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
 			return errRetry
 		}
@@ -170,11 +174,11 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 	var body []byte
 	var errs []error
 	path = strings.Replace(path, ":uuid", uuid, 1)
-	req := api.req(gorequest.New().Delete(prepareURL(path))).
-		SendStruct(input)
 
 	backoff.Retry(func() error {
-		res, body, errs = req.EndStruct(output)
+		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
+			SendStruct(input).
+			EndStruct(output)
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
 			return errRetry
 		}
