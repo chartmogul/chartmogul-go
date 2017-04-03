@@ -4,13 +4,25 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
-func TestRequest(t *testing.T) {
+func TestRetryStatusTooManyRequests(t *testing.T) {
+	var i int
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
-				// do nothing
+
+				if i == 0 {
+					w.Header().Set("Content-Type", "application/json")
+					w.WriteHeader(http.StatusTooManyRequests)
+					w.Write([]byte("{errors: \"nooo\"}"))
+				} else if i == 1 {
+					w.Header().Set("Content-Type", "application/json")
+					w.Write([]byte("{}"))
+				}
+				i++
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
@@ -19,7 +31,9 @@ func TestRequest(t *testing.T) {
 		AccountToken: "token",
 		AccessKey:    "key",
 	}
-	tested.delete("path1/:uuid", "uuid1")
+	err := tested.delete("path1/:uuid", "uuid1")
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Expected to retry")
+	}
 }
-
-//TODO: write unit tests for multiple parallel backed off requests
