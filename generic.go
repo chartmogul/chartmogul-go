@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/cenkalti/backoff"
 	"github.com/parnurzeal/gorequest"
 )
@@ -33,10 +32,6 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 			SendStruct(input).
 			EndStruct(output)
 		if res == nil || res.StatusCode == http.StatusTooManyRequests {
-			logrus.Info(errs)
-			if res != nil {
-				logrus.Info(res.StatusCode)
-			}
 			return errRetry
 		}
 		return nil
