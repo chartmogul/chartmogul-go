@@ -68,10 +68,12 @@ export GODEBUG=http2client=0
 ## Usage
 
 ### Rate Limits
-The library limits itself on HTTP 429, so that you don't have to manually handle rate limiting. See:
+The library retries on HTTP 429 (rate limit reached), so that you don't have to manually handle rate limiting.
+See:
 [ChartMogul: Rate Limits](https://dev.chartmogul.com/docs/rate-limits) &amp;
 [BackOff constants](https://godoc.org/github.com/cenkalti/backoff#pkg-constants).
 Exponential back-off algorithm is used.
+It also automatically retries on network errors, eg. when the server can't be reached.
 
 The API calls will retry automatically and block (several minutes), therefore it's still advisable
 to only use reasonable parallelism. In case it keeps failing after maximum retry period, it will
