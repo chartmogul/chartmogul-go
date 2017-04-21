@@ -17,9 +17,17 @@ type deleteCustomAttrs struct {
 
 // CustomAttribute = typed custom attribute.
 type CustomAttribute struct {
-	Type  string      `json:"type"`
-	Key   string      `json:"key"`
-	Value interface{} `json:"value"`
+	Type   string      `json:"type"`
+	Key    string      `json:"key"`
+	Value  interface{} `json:"value"`
+	Source string      `json:"source,omitempty"`
+}
+
+// AttributeWithSource covers the special case when you need to update customer's attribute
+// and chage the source which shows in the ChartMogul UI.
+type AttributeWithSource struct {
+	Value  interface{} `json:"value"`
+	Source string      `json:"source"`
 }
 
 const (
