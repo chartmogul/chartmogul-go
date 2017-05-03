@@ -2,9 +2,13 @@ package chartmogul
 
 import "strings"
 
-const invoicesEndpoint = "import/customers/:customerUUID/invoices"
+const (
+	invoicesEndpoint          = "invoices"
+	customersInvoicesEndpoint = "import/customers/:customerUUID/invoices"
+)
 
 // Invoices is wrapper for bulk importing invoices
+// In case of /v1/invoices endpoint, the customer_uuid is on individual invoices and here it's empty.
 type Invoices struct {
 	CustomerUUID string     `json:"customer_uuid,omitempty"`
 	CurrentPage  uint32     `json:"current_page,omitempty"`
@@ -16,6 +20,7 @@ type Invoices struct {
 // Invoice is the data for ChartMogul to auto-generate subscriptions.
 type Invoice struct {
 	UUID         string         `json:"uuid,omitempty"`
+	CustomerUUID string         `json:"customer_uuid,omitempty"`
 	Currency     string         `json:"currency"`
 	Date         string         `json:"date"`
 	DueDate      string         `json:"due_date,omitempty"`
@@ -46,6 +51,14 @@ type LineItem struct {
 	Type                   string `json:"type"`
 }
 
+// ListAllInvoicesParams optional parameters for ListAllInvoices
+type ListAllInvoicesParams struct {
+	CustomerUUID   string `json:"customer_uuid,omitempty"`
+	DataSourceUUID string `json:"data_source_uuid,omitempty"`
+	ExternalID     string `json:"external_id,omitempty"`
+	Cursor
+}
+
 // CreateInvoices loads an invoice to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
 //
@@ -57,19 +70,32 @@ func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoic
 	input := Invoices{Invoices: invoices}
 	result := &Invoices{}
 
-	path := strings.Replace(invoicesEndpoint, ":customerUUID", customerUUID, 1)
+	path := strings.Replace(customersInvoicesEndpoint, ":customerUUID", customerUUID, 1)
 	return result, api.create(path, input, result)
 }
 
-// ListInvoices lists all imported invoices of customer with given UUID.
+// ListInvoices lists all imported invoices for a customer.
 //
 // See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
-	path := strings.Replace(invoicesEndpoint, ":customerUUID", customerUUID, 1)
+	path := strings.Replace(customersInvoicesEndpoint, ":customerUUID", customerUUID, 1)
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {
 		query = append(query, *cursor)
 	}
 	return result, api.list(path, result, query...)
+}
+
+// ListAllInvoices lists all imported invoices. Use parameters to narrow down the search/for paging.
+// listAllInvoicesParams can be nil, in which case default values on API are used.
+//
+// See https://dev.chartmogul.com/v1.0/reference#invoices
+func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error) {
+	result := &Invoices{}
+	query := make([]interface{}, 0, 1)
+	if listAllInvoicesParams != nil {
+		query = append(query, *listAllInvoicesParams)
+	}
+	return result, api.list(invoicesEndpoint, result, query...)
 }

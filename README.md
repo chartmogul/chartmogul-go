@@ -120,6 +120,7 @@ api.DeletePlan("planUUID")
 ```go
 api.CreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
 api.ListInvoices(&cm.Cursor{}, "customerUUID")
+api.ListAllInvoices(&cm.ListAllInvoicesParams{})
 ```
 
 #### [Transactions](https://dev.chartmogul.com/docs/transactions)
