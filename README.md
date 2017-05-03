@@ -5,7 +5,9 @@
 <h3 align="center">Official ChartMogul API Go Client</h3>
 
 <p align="center"><code>chartmogul-go</code> provides convenient Golang bindings for <a href="https://dev.chartmogul.com">ChartMogul's API</a>.</p>
-
+<p align="center">
+  <a href="https://travis-ci.org/chartmogul/chartmogul-go"><img src="https://travis-ci.org/chartmogul/chartmogul-go.svg?branch=master" alt="Build Status"/></a>
+</p>
 <hr>
 
 <p align="center">
@@ -120,6 +122,7 @@ api.DeletePlan("planUUID")
 ```go
 api.CreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
 api.ListInvoices(&cm.Cursor{}, "customerUUID")
+api.ListAllInvoices(&cm.ListAllInvoicesParams{})
 ```
 
 #### [Transactions](https://dev.chartmogul.com/docs/transactions)

@@ -169,6 +169,17 @@ func (_mr *_MockIApiRecorder) DeletePlan(arg0 interface{}) *gomock.Call {
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "DeletePlan", arg0)
 }
 
+func (_m *MockIApi) ListAllInvoices(_param0 *chartmogul_go.ListAllInvoicesParams) (*chartmogul_go.Invoices, error) {
+	ret := _m.ctrl.Call(_m, "ListAllInvoices", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.Invoices)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) ListAllInvoices(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ListAllInvoices", arg0)
+}
+
 func (_m *MockIApi) ListCustomers(_param0 *chartmogul_go.ListCustomersParams) (*chartmogul_go.Customers, error) {
 	ret := _m.ctrl.Call(_m, "ListCustomers", _param0)
 	ret0, _ := ret[0].(*chartmogul_go.Customers)
