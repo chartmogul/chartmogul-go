@@ -4,6 +4,7 @@ import "strings"
 
 const (
 	invoicesEndpoint          = "invoices"
+	singleInvoiceEndpoint     = "invoices/:uuid"
 	customersInvoicesEndpoint = "import/customers/:customerUUID/invoices"
 )
 
@@ -98,4 +99,11 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 		query = append(query, *listAllInvoicesParams)
 	}
 	return result, api.list(invoicesEndpoint, result, query...)
+}
+
+// DeleteInvoice deletes one invoice by UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#invoices
+func (api API) DeleteInvoice(invoiceUUID string) error {
+	return api.delete(singleInvoiceEndpoint, invoiceUUID)
 }
