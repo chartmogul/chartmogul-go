@@ -12,6 +12,7 @@ package chartmogul
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/parnurzeal/gorequest"
@@ -41,6 +42,7 @@ const (
 var (
 	url     = "https://api.chartmogul.com/v1/%v"
 	timeout = 30 * time.Second
+	client  *http.Client
 )
 
 // IApi defines the interface of the library.
@@ -175,12 +177,20 @@ func SetURL(specialURL string) {
 	url = specialURL
 }
 
+// SetClient changes globally the client - for VCR integration tests.
+func SetClient(newClient *http.Client) {
+	client = newClient
+}
+
 func prepareURL(path string) string {
 	return fmt.Sprintf(url, path)
 }
 
 func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 	// defaults for client go here:
+	if client != nil {
+		req.Client = client
+	}
 	return req.Timeout(timeout).
 		SetBasicAuth(api.AccountToken, api.AccessKey).
 		Set("Content-Type", "application/json")
