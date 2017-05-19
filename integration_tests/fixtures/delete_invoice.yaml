@@ -1,0 +1,249 @@
+---
+version: 1
+rwmutex: {}
+interactions:
+- request:
+    body: '{"name":"Test Delete Invoice 1"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a","name":"Test Delete Invoice
+      1","system":"Import API","created_at":"2017-05-19T10:27:22.499Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Content-Length:
+      - "159"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 19 May 2017 10:27:22 GMT
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 201 Created
+    status: 201 Created
+    code: 201
+- request:
+    body: '{"data_source_uuid":"ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a","external_id":"ext_plan","interval_count":1,"interval_unit":"month","name":"test
+      plan"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/plans
+    method: POST
+  response:
+    body: '{"external_id":"ext_plan","name":"test plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a","uuid":"pl_beeb862c-3c7d-11e7-84fc-43f9ecdf2ca1"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 May 2017 10:27:23 GMT
+      Etag:
+      - W/"a875e29ab8e1dec34391ee65be39fd6c"
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 201 Created
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 43680a3e-32ae-4322-8398-31fc8120093a
+      X-Runtime:
+      - "0.412543"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+- request:
+    body: '{"data_source_uuid":"ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a","email":"petr@chartmogul.com","external_id":"ext_customer","name":"Test
+      Delete Invoice"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":76987,"uuid":"cus_c01b0a18-3c7d-11e7-84fc-e3e6a7693159","external_id":"ext_customer","name":"Test
+      Delete Invoice","email":"petr@chartmogul.com","status":"Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a","data_source_uuids":["ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a"],"external_ids":["ext_customer"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://staging.chartmogul.com/#customers/76987-Test_Delete_Invoice","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Content-Length:
+      - "792"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 19 May 2017 10:27:25 GMT
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 201 Created
+    status: 201 Created
+    code: 201
+- request:
+    body: '{"invoices":[{"currency":"EUR","date":"2017-05-19T12:27:26+02:00","external_id":"INV_to_be_deleted","line_items":[{"amount_in_cents":4500,"description":"fake_item","quantity":2,"type":"one_time"},{"amount_in_cents":10000,"external_id":"ext_line_item","plan_uuid":"pl_beeb862c-3c7d-11e7-84fc-43f9ecdf2ca1","quantity":10,"service_period_end":"2017-05-31T00:00:00.000Z","service_period_start":"2017-05-01T00:00:00.000Z","subscription_external_id":"ext_subscription","type":"subscription"}],"transactions":[{"date":"2017-05-19T15:27:26+02:00","result":"successful","type":"payment"}]}]}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/import/customers/cus_c01b0a18-3c7d-11e7-84fc-e3e6a7693159/invoices
+    method: POST
+  response:
+    body: '{"invoices":[{"uuid":"inv_d489aafa-778b-4b6a-8dec-ca8ecdcd592c","external_id":"INV_to_be_deleted","date":"2017-05-19T10:27:26.000Z","due_date":null,"currency":"EUR","line_items":[{"uuid":"li_d3d792a0-69f1-4818-9b59-645cdd7be953","external_id":"ext_line_item","type":"subscription","subscription_uuid":"sub_ded8b7c3-5d10-45ea-abce-d204416fdbcb","subscription_external_id":"ext_subscription","plan_uuid":"pl_beeb862c-3c7d-11e7-84fc-43f9ecdf2ca1","prorated":false,"service_period_start":"2017-05-01T00:00:00.000Z","service_period_end":"2017-05-31T00:00:00.000Z","amount_in_cents":10000,"quantity":10,"discount_code":"","discount_amount_in_cents":0,"tax_amount_in_cents":0,"account_code":""},{"uuid":"li_801bb322-f647-4bcc-9a6a-55c2ea47f2e9","external_id":null,"type":"one_time","description":"fake_item","amount_in_cents":4500,"quantity":2,"discount_code":"","discount_amount_in_cents":0,"tax_amount_in_cents":0,"account_code":""}],"transactions":[{"uuid":"tr_866a4e20-4cfe-4a67-a13c-10c089c44f17","external_id":null,"type":"payment","date":"2017-05-19T13:27:26.000Z","result":"successful"}]}]}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 May 2017 10:27:27 GMT
+      Etag:
+      - W/"47158581f8acf4841d8543b0bcfaaedb"
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 517d4fa9-3de9-402f-bb20-06131050c586
+      X-Runtime:
+      - "2.093987"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/invoices/inv_d489aafa-778b-4b6a-8dec-ca8ecdcd592c
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Cache-Control:
+      - no-cache
+      Date:
+      - Fri, 19 May 2017 10:27:28 GMT
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - b638b518-c34c-494a-adf2-455e6b372f6f
+      X-Runtime:
+      - "0.557092"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 204 No Content
+    code: 204
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/import/customers/cus_c01b0a18-3c7d-11e7-84fc-e3e6a7693159/invoices
+    method: GET
+  response:
+    body: '{"customer_uuid":"cus_c01b0a18-3c7d-11e7-84fc-e3e6a7693159","invoices":[],"current_page":1,"total_pages":0}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 May 2017 10:27:29 GMT
+      Etag:
+      - W/"a1723f41710ee54400af346be8e94020"
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Strict-Transport-Security:
+      - max-age=15768000
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - a7a7ac3b-08a0-4da2-9eca-022e57f13cdc
+      X-Runtime:
+      - "0.559304"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 200 OK
+    code: 200
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic ABCDEF=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/data_sources/ds_bea027fe-3c7d-11e7-84fc-7b2ee6e8020a
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Date:
+      - Fri, 19 May 2017 10:27:30 GMT
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 204 No Content
+    status: 204 No Content
+    code: 204

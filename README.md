@@ -123,6 +123,7 @@ api.DeletePlan("planUUID")
 api.CreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
 api.ListInvoices(&cm.Cursor{}, "customerUUID")
 api.ListAllInvoices(&cm.ListAllInvoicesParams{})
+api.DeleteInvoice("invoiceUUID")
 ```
 
 #### [Transactions](https://dev.chartmogul.com/docs/transactions)
@@ -240,6 +241,10 @@ To work on the library:
 * Create a new Pull Request
 
 * We recommend [`github.com/davecgh/go-spew/spew`](https://github.com/davecgh/go-spew/spew) for debugging data (reference documentation output done using this library).
+
+### Testing
+* Use `net/http/httptest` for mocking HTTP server directly, see file `generic_test.go` for examples.
+* For `integration_tests` against real API use `github.com/dnaeon/go-vcr` library. Be careful to remove your API credentials from fixtures before committing! If Import API App changes, re-record the affected integration tests (by deleting fixtures).
 
 ## Contributing
 

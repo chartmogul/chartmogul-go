@@ -93,3 +93,31 @@ func TestNewInvoicesAllListing(t *testing.T) {
 		t.Fatal("Unexpected values")
 	}
 }
+
+func TestDeleteInvoice(t *testing.T) {
+
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expected := "/v/invoices/inv_123"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				w.WriteHeader(http.StatusNoContent)
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		AccountToken: "token",
+		AccessKey:    "key",
+	}
+	err := tested.DeleteInvoice("inv_123")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
