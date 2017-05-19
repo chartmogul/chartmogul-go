@@ -242,6 +242,10 @@ To work on the library:
 
 * We recommend [`github.com/davecgh/go-spew/spew`](https://github.com/davecgh/go-spew/spew) for debugging data (reference documentation output done using this library).
 
+### Testing
+* Use `net/http/httptest` for mocking HTTP server directly, see file `generic_test.go` for examples.
+* For `integration_tests` against real API use `github.com/dnaeon/go-vcr` library. Be careful to remove your API credentials from fixtures before committing! If Import API App changes, re-record the affected integration tests (by deleting fixtures).
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/chartmogul/chartmogul-go.
