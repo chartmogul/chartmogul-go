@@ -13,7 +13,6 @@ import (
 	"github.com/dnaeon/go-vcr/recorder"
 )
 
-// "github.com/seborama/govcr"
 func TestDeleteInvoice(t *testing.T) {
 	if testing.Short() {
 		t.Skip("Integration test.")
