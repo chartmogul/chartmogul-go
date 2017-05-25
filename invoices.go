@@ -101,6 +101,14 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 	return result, api.list(invoicesEndpoint, result, query...)
 }
 
+// RetrieveInvoice returns one Invoice by UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#invoices
+func (api API) RetrieveInvoice(invoiceUUID string) (*Invoice, error) {
+	result := &Invoice{}
+	return result, api.retrieve(singleInvoiceEndpoint, invoiceUUID, result)
+}
+
 // DeleteInvoice deletes one invoice by UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#invoices

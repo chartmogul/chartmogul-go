@@ -123,6 +123,7 @@ api.DeletePlan("planUUID")
 api.CreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
 api.ListInvoices(&cm.Cursor{}, "customerUUID")
 api.ListAllInvoices(&cm.ListAllInvoicesParams{})
+api.RetrieveInvoice("invoiceUUID")
 api.DeleteInvoice("invoiceUUID")
 ```
 

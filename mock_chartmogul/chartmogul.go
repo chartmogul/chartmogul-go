@@ -442,6 +442,17 @@ func (_mr *_MockIApiRecorder) RetrieveDataSource(arg0 interface{}) *gomock.Call 
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "RetrieveDataSource", arg0)
 }
 
+func (_m *MockIApi) RetrieveInvoice(_param0 string) (*chartmogul_go.Invoice, error) {
+	ret := _m.ctrl.Call(_m, "RetrieveInvoice", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.Invoice)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) RetrieveInvoice(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "RetrieveInvoice", arg0)
+}
+
 func (_m *MockIApi) RetrievePlan(_param0 string) (*chartmogul_go.Plan, error) {
 	ret := _m.ctrl.Call(_m, "RetrievePlan", _param0)
 	ret0, _ := ret[0].(*chartmogul_go.Plan)
