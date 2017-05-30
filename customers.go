@@ -134,7 +134,7 @@ type Customers struct {
 // MergeCustomersParams - identify source and target for merging.
 type MergeCustomersParams struct {
 	From CustID `json:"from"`
-	To   CustID `json:"to"`
+	Into CustID `json:"into"`
 }
 
 // CustID - use either DataSourceUUID & ExternalID or CustomerUUID
@@ -202,7 +202,7 @@ func (api API) SearchCustomers(searchCustomersParams *SearchCustomersParams) (*C
 //
 // See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) MergeCustomers(mergeCustomersParams *MergeCustomersParams) error {
-	return api.list(mergeCustomersEndpoint, *mergeCustomersParams)
+	return api.merge(mergeCustomersEndpoint, *mergeCustomersParams)
 }
 
 // DeleteCustomer deletes one customer by UUID.
