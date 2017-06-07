@@ -20,15 +20,16 @@ type Invoices struct {
 
 // Invoice is the data for ChartMogul to auto-generate subscriptions.
 type Invoice struct {
-	UUID         string         `json:"uuid,omitempty"`
-	CustomerUUID string         `json:"customer_uuid,omitempty"`
-	Currency     string         `json:"currency"`
-	Date         string         `json:"date"`
-	DueDate      string         `json:"due_date,omitempty"`
-	ExternalID   string         `json:"external_id"`
-	LineItems    []*LineItem    `json:"line_items"`
-	Transactions []*Transaction `json:"transactions,omitempty"`
-	Errors       *Errors        `json:"errors,omitempty"`
+	UUID           string         `json:"uuid,omitempty"`
+	CustomerUUID   string         `json:"customer_uuid,omitempty"`
+	Currency       string         `json:"currency"`
+	DataSourceUUID string         `json:"data_source_uuid,omitempty"`
+	Date           string         `json:"date"`
+	DueDate        string         `json:"due_date,omitempty"`
+	ExternalID     string         `json:"external_id"`
+	LineItems      []*LineItem    `json:"line_items"`
+	Transactions   []*Transaction `json:"transactions,omitempty"`
+	Errors         *Errors        `json:"errors,omitempty"`
 }
 
 // LineItem represents a singular items of the invoices
