@@ -149,6 +149,16 @@ func (_mr *_MockIApiRecorder) DeleteCustomer(arg0 interface{}) *gomock.Call {
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "DeleteCustomer", arg0)
 }
 
+func (_m *MockIApi) DeleteCustomerInvoices(_param0 string, _param1 string) error {
+	ret := _m.ctrl.Call(_m, "DeleteCustomerInvoices", _param0, _param1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+func (_mr *_MockIApiRecorder) DeleteCustomerInvoices(arg0, arg1 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "DeleteCustomerInvoices", arg0, arg1)
+}
+
 func (_m *MockIApi) DeleteDataSource(_param0 string) error {
 	ret := _m.ctrl.Call(_m, "DeleteDataSource", _param0)
 	ret0, _ := ret[0].(error)

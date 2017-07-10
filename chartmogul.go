@@ -80,6 +80,7 @@ type IApi interface {
 	SearchCustomers(SearchCustomersParams *SearchCustomersParams) (*Customers, error)
 	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
 	DeleteCustomer(customerUUID string) error
+	DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error
 
 	//  - Cusomer Attributes
 	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)
