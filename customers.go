@@ -215,10 +215,10 @@ func (api API) DeleteCustomer(customerUUID string) error {
 	return api.delete(singleCustomerEndpoint, customerUUID)
 }
 
-// PurgeCustomer deletes all customer's invoices by UUID for given data source UUID.
+// DeleteCustomerInvoices deletes all customer's invoices by UUID for given data source UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#customers
-func (api API) PurgeCustomer(dataSourceUUID, customerUUID string) error {
+func (api API) DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error {
 	path := strings.Replace(purgeCustomerEndpoint, ":data_source_uuid", dataSourceUUID, 1)
 	return api.delete(path, customerUUID)
 }

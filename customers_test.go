@@ -154,7 +154,7 @@ func TestPurgeCustomer(t *testing.T) {
 		AccountToken: "token",
 		AccessKey:    "key",
 	}
-	err := tested.PurgeCustomer("dataSourceUUID", "customerUUID")
+	err := tested.DeleteCustomerInvoices("dataSourceUUID", "customerUUID")
 
 	if err != nil {
 		spew.Dump(err)
