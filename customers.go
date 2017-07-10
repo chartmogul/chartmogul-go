@@ -147,11 +147,11 @@ type CustID struct {
 }
 
 const (
-	singleCustomerEndpoint  = "customers/:uuid"
-	purgeCustomerEndpoint   = "data_sources/:data_source_uuid/customers/:uuid/invoices"
-	customersEndpoint       = "customers"
-	searchCustomersEndpoint = "customers/search"
-	mergeCustomersEndpoint  = "customers/merges"
+	singleCustomerEndpoint         = "customers/:uuid"
+	deleteCustomerInvoicesEndpoint = "data_sources/:data_source_uuid/customers/:uuid/invoices"
+	customersEndpoint              = "customers"
+	searchCustomersEndpoint        = "customers/search"
+	mergeCustomersEndpoint         = "customers/merges"
 )
 
 // CreateCustomer loads the customer to Chartmogul. New endpoint - with attributes.
@@ -219,6 +219,6 @@ func (api API) DeleteCustomer(customerUUID string) error {
 //
 // See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error {
-	path := strings.Replace(purgeCustomerEndpoint, ":data_source_uuid", dataSourceUUID, 1)
+	path := strings.Replace(deleteCustomerInvoicesEndpoint, ":data_source_uuid", dataSourceUUID, 1)
 	return api.delete(path, customerUUID)
 }
