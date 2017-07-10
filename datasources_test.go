@@ -1,9 +1,8 @@
 package chartmogul
 
 import (
+	"log"
 	"testing"
-
-	"github.com/Sirupsen/logrus"
 )
 
 const dsTestName = "some name"
@@ -25,7 +24,7 @@ func TestImportDataSources(t *testing.T) {
 	} else if ds.CreatedAt == "" || ds.Status == "" {
 		t.Errorf("Data source has empty attributes! %+v", ds)
 	}
-	logrus.Debug("Data source created.")
+	log.Println("Data source created.")
 
 	res, err := api.ListDataSources()
 	if err != nil {
@@ -41,11 +40,11 @@ func TestImportDataSources(t *testing.T) {
 	if !found {
 		t.Errorf("Data source not found in listing! %+v", res)
 	}
-	logrus.Debug("Data source found.")
+	log.Println("Data source found.")
 
 	err = api.DeleteDataSource(ds.UUID)
 	if err != nil {
 		t.Error(err)
 	}
-	logrus.Debug("Data source deleted.")
+	log.Println("Data source deleted.")
 }
