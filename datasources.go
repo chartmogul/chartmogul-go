@@ -24,6 +24,7 @@ type createDataSourceCall struct {
 const (
 	dataSourcesEndpoint      = "data_sources"
 	singleDataSourceEndpoint = "data_sources/:uuid"
+	purgeDataSourceEndpoint  = "data_sources/:uuid/dependent"
 )
 
 // CreateDataSource creates an API Data Source in ChartMogul.
@@ -57,4 +58,11 @@ func (api API) ListDataSources() (*DataSources, error) {
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
 func (api API) DeleteDataSource(uuid string) error {
 	return api.delete(singleDataSourceEndpoint, uuid)
+}
+
+// PurgeDataSource deletes all the data in the data source, but keeps the UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
+func (api API) PurgeDataSource(uuid string) error {
+	return api.delete(purgeDataSourceEndpoint, uuid)
 }

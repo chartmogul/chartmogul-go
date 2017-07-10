@@ -53,6 +53,7 @@ type IApi interface {
 	CreateDataSource(name string) (*DataSource, error)
 	RetrieveDataSource(dataSourceUUID string) (*DataSource, error)
 	ListDataSources() (*DataSources, error)
+	PurgeDataSource(uuid string) error
 	DeleteDataSource(dataSourceUUID string) error
 	// Invoices
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
