@@ -1,5 +1,7 @@
 package chartmogul
 
+import "strings"
+
 // Customer is the customer as represented in the API.
 type Customer struct {
 	ID uint32 `json:"id,omitempty"`
@@ -146,6 +148,7 @@ type CustID struct {
 
 const (
 	singleCustomerEndpoint  = "customers/:uuid"
+	purgeCustomerEndpoint   = "data_sources/:data_source_uuid/customers/:uuid/invoices"
 	customersEndpoint       = "customers"
 	searchCustomersEndpoint = "customers/search"
 	mergeCustomersEndpoint  = "customers/merges"
@@ -210,4 +213,12 @@ func (api API) MergeCustomers(mergeCustomersParams *MergeCustomersParams) error 
 // See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) DeleteCustomer(customerUUID string) error {
 	return api.delete(singleCustomerEndpoint, customerUUID)
+}
+
+// PurgeCustomer deletes all customer's invoices by UUID for given data source UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#customers
+func (api API) PurgeCustomer(dataSourceUUID, customerUUID string) error {
+	path := strings.Replace(purgeCustomerEndpoint, ":data_source_uuid", dataSourceUUID, 1)
+	return api.delete(path, customerUUID)
 }
