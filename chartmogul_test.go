@@ -4,8 +4,6 @@ import (
 	"flag"
 	"os"
 	"testing"
-
-	"github.com/Sirupsen/logrus"
 )
 
 var (
@@ -17,12 +15,9 @@ var (
 
 func TestMain(m *testing.M) {
 	flag.Parse()
-	if testing.Verbose() {
-		logrus.SetLevel(logrus.DebugLevel)
-	}
 	if *key == "" || *token == "" {
 		if *cm {
-			logrus.Info("Please supply testing account key and token on cmd line to run live tests.")
+			panic("Please supply testing account key and token on cmd line to run live tests.")
 		}
 		*cm = false
 	} else {

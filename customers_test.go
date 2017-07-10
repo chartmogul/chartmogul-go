@@ -3,12 +3,12 @@ package chartmogul
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/davecgh/go-spew/spew"
 )
 
@@ -25,7 +25,7 @@ func TestImportCustomers(t *testing.T) {
 		return
 	}
 	defer api.DeleteDataSource(ds.UUID)
-	logrus.Debug("Data source created.")
+	log.Println("Data source created.")
 
 	createdCustomer, err := api.CreateCustomer(&NewCustomer{
 		DataSourceUUID: ds.UUID,
@@ -37,7 +37,7 @@ func TestImportCustomers(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	logrus.Debug("Customer created.")
+	log.Println("Customer created.")
 
 	listRes, err := api.ListCustomers(&ListCustomersParams{DataSourceUUID: ds.UUID})
 	if err != nil {
@@ -54,7 +54,7 @@ func TestImportCustomers(t *testing.T) {
 	if !found {
 		t.Errorf("Customer not found in listing! %+v", listRes)
 	}
-	logrus.Debug("Customer found.")
+	log.Println("Customer found.")
 
 	createdCustomer, err = api.CreateCustomer(&NewCustomer{
 		DataSourceUUID: ds.UUID,
@@ -64,7 +64,7 @@ func TestImportCustomers(t *testing.T) {
 	if err == nil {
 		t.Error("No error on duplicate customer!")
 	} else if createdCustomer.Errors.IsAlreadyExists() {
-		logrus.Debug("Correct AlreadyExists.")
+		log.Println("Correct AlreadyExists.")
 	} else {
 		t.Errorf("Incorrect error: %v", createdCustomer.Errors)
 	}
