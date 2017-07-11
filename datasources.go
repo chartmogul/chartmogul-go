@@ -16,6 +16,12 @@ type DataSources struct {
 	DataSources []*DataSource `json:"data_sources"`
 }
 
+// ListDataSourcesParams are optional parameters for listing data sources.
+type ListDataSourcesParams struct {
+	Name   string `json:"name,omitempty"`
+	System string `json:"system,omitempty"`
+}
+
 // createDataSourceCall represents arguments to be marshalled into JSON.
 type createDataSourceCall struct {
 	Name string `json:"name"`
@@ -60,6 +66,20 @@ func (api API) RetrieveDataSource(dataSourceUUID string) (*DataSource, error) {
 func (api API) ListDataSources() (*DataSources, error) {
 	ds := &DataSources{}
 	err := api.list(dataSourcesEndpoint, ds)
+	return ds, err
+}
+
+// ListDataSources2 lists all available Data Sources (no paging).
+// * Allows filtering.
+//
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
+func (api API) ListDataSources2(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error) {
+	ds := &DataSources{}
+	query := make([]interface{}, 0, 1)
+	if listDataSourcesParams != nil {
+		query = append(query, *listDataSourcesParams)
+	}
+	err := api.list(dataSourcesEndpoint, ds, query...)
 	return ds, err
 }
 
