@@ -36,6 +36,16 @@ func (api API) CreateDataSource(name string) (*DataSource, error) {
 	return ds, err
 }
 
+// CreateDataSource2 creates an API Data Source in ChartMogul.
+// * Allows other parameters than just the name.
+//
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
+func (api API) CreateDataSource2(dataSource *DataSource) (*DataSource, error) {
+	ds := &DataSource{}
+	err := api.create(dataSourcesEndpoint, dataSource, ds)
+	return ds, err
+}
+
 // RetrieveDataSource returns one Data Source by UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
@@ -63,6 +73,6 @@ func (api API) DeleteDataSource(uuid string) error {
 // PurgeDataSource deletes all the data in the data source, but keeps the UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
-func (api API) PurgeDataSource(uuid string) error {
-	return api.delete(purgeDataSourceEndpoint, uuid)
+func (api API) PurgeDataSource(dataSourceUUID string) error {
+	return api.delete(purgeDataSourceEndpoint, dataSourceUUID)
 }
