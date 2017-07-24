@@ -172,12 +172,8 @@ func TestNilListCustomers(t *testing.T) {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
-				w.Write([]byte(`{"entries": [],
-												 "current_page": 1,
-												 "total_pages": 1,
-												 "has_more": false,
-												 "per_page": 200,
-												 "page": 1}`))
+				w.Write([]byte(`{"entries": [],"current_page": 1,"total_pages": 1,
+					"has_more": false,"per_page": 200,"page": 1}`))
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")

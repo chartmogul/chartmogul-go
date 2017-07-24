@@ -42,11 +42,11 @@ func (api API) CreateDataSource(name string) (*DataSource, error) {
 	return ds, err
 }
 
-// CreateDataSource2 creates an API Data Source in ChartMogul.
+// CreateDataSourceWithSystem creates an API Data Source in ChartMogul.
 // * Allows other parameters than just the name.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
-func (api API) CreateDataSource2(dataSource *DataSource) (*DataSource, error) {
+func (api API) CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, error) {
 	ds := &DataSource{}
 	err := api.create(dataSourcesEndpoint, dataSource, ds)
 	return ds, err
@@ -69,11 +69,11 @@ func (api API) ListDataSources() (*DataSources, error) {
 	return ds, err
 }
 
-// ListDataSources2 lists all available Data Sources (no paging).
+// ListDataSourcesWithFilters lists all available Data Sources (no paging).
 // * Allows filtering.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
-func (api API) ListDataSources2(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error) {
+func (api API) ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error) {
 	ds := &DataSources{}
 	query := make([]interface{}, 0, 1)
 	if listDataSourcesParams != nil {
