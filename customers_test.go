@@ -132,7 +132,6 @@ func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-
 }
 
 func TestPurgeCustomer(t *testing.T) {
@@ -160,5 +159,74 @@ func TestPurgeCustomer(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
+}
 
+func TestNilListCustomers(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte(`{"entries": [],"current_page": 1,"total_pages": 1,
+					"has_more": false,"per_page": 200,"page": 1}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		AccountToken: "token",
+		AccessKey:    "key",
+	}
+	customers, err := tested.ListCustomers(nil)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(customers.Entries) != 0 || customers.PerPage != 200 {
+		spew.Dump(customers)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestSystemListCustomers(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers?system=whatnot" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte(`{"entries": [],
+												 "current_page": 1,
+												 "total_pages": 1,
+												 "has_more": false,
+												 "per_page": 200,
+												 "page": 1}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		AccountToken: "token",
+		AccessKey:    "key",
+	}
+	customers, err := tested.ListCustomers(&ListCustomersParams{System: "whatnot"})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(customers.Entries) != 0 || customers.PerPage != 200 {
+		spew.Dump(customers)
+		t.Fatal("Unexpected result")
+	}
 }

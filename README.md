@@ -241,7 +241,10 @@ To work on the library:
 * Push to the branch (`git push origin my-new-feature`)
 * Create a new Pull Request
 
-* We recommend [`github.com/davecgh/go-spew/spew`](https://github.com/davecgh/go-spew/spew) for debugging data (reference documentation output done using this library).
+### Recommended
+
+* [`github.com/davecgh/go-spew/spew`](https://github.com/davecgh/go-spew/spew) for debugging data (reference documentation output done using this library).
+* add pre-commit hook `go test ./...` (in `.git/hooks/pre-commit`) to have a working state always.
 
 ### Testing
 * Use `net/http/httptest` for mocking HTTP server directly, see file `generic_test.go` for examples.

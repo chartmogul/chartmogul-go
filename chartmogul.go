@@ -51,9 +51,11 @@ type IApi interface {
 	Ping() (res bool, err error)
 	// Data sources
 	CreateDataSource(name string) (*DataSource, error)
+	CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, error)
 	RetrieveDataSource(dataSourceUUID string) (*DataSource, error)
 	ListDataSources() (*DataSources, error)
-	PurgeDataSource(uuid string) error
+	ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error)
+	PurgeDataSource(dataSourceUUID string) error
 	DeleteDataSource(dataSourceUUID string) error
 	// Invoices
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)

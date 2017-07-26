@@ -106,6 +106,17 @@ func (_mr *_MockIApiRecorder) CreateDataSource(arg0 interface{}) *gomock.Call {
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "CreateDataSource", arg0)
 }
 
+func (_m *MockIApi) CreateDataSourceWithSystem(_param0 *chartmogul_go.DataSource) (*chartmogul_go.DataSource, error) {
+	ret := _m.ctrl.Call(_m, "CreateDataSourceWithSystem", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.DataSource)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) CreateDataSourceWithSystem(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "CreateDataSourceWithSystem", arg0)
+}
+
 func (_m *MockIApi) CreateInvoices(_param0 []*chartmogul_go.Invoice, _param1 string) (*chartmogul_go.Invoices, error) {
 	ret := _m.ctrl.Call(_m, "CreateInvoices", _param0, _param1)
 	ret0, _ := ret[0].(*chartmogul_go.Invoices)
@@ -220,6 +231,17 @@ func (_m *MockIApi) ListDataSources() (*chartmogul_go.DataSources, error) {
 
 func (_mr *_MockIApiRecorder) ListDataSources() *gomock.Call {
 	return _mr.mock.ctrl.RecordCall(_mr.mock, "ListDataSources")
+}
+
+func (_m *MockIApi) ListDataSourcesWithFilters(_param0 *chartmogul_go.ListDataSourcesParams) (*chartmogul_go.DataSources, error) {
+	ret := _m.ctrl.Call(_m, "ListDataSourcesWithFilters", _param0)
+	ret0, _ := ret[0].(*chartmogul_go.DataSources)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+func (_mr *_MockIApiRecorder) ListDataSourcesWithFilters(arg0 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCall(_mr.mock, "ListDataSourcesWithFilters", arg0)
 }
 
 func (_m *MockIApi) ListInvoices(_param0 *chartmogul_go.Cursor, _param1 string) (*chartmogul_go.Invoices, error) {

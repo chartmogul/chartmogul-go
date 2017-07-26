@@ -27,6 +27,7 @@ type Plans struct {
 type ListPlansParams struct {
 	DataSourceUUID string `json:"data_source_uuid"`
 	ExternalID     string `json:"external_id,omitempty"`
+	System         string `json:"system,omitempty"`
 	Cursor
 }
 
@@ -51,7 +52,11 @@ func (api API) RetrievePlan(planUUID string) (*Plan, error) {
 // See https://dev.chartmogul.com/v1.0/reference#plans
 func (api API) ListPlans(listPlansParams *ListPlansParams) (*Plans, error) {
 	result := &Plans{}
-	return result, api.list(plansEndpoint, result, *listPlansParams)
+	query := make([]interface{}, 0, 1)
+	if listPlansParams != nil {
+		query = append(query, *listPlansParams)
+	}
+	return result, api.list(plansEndpoint, result, query...)
 }
 
 // UpdatePlan returns list of plans.

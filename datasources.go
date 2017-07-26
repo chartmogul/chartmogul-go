@@ -16,6 +16,12 @@ type DataSources struct {
 	DataSources []*DataSource `json:"data_sources"`
 }
 
+// ListDataSourcesParams are optional parameters for listing data sources.
+type ListDataSourcesParams struct {
+	Name   string `json:"name,omitempty"`
+	System string `json:"system,omitempty"`
+}
+
 // createDataSourceCall represents arguments to be marshalled into JSON.
 type createDataSourceCall struct {
 	Name string `json:"name"`
@@ -36,6 +42,16 @@ func (api API) CreateDataSource(name string) (*DataSource, error) {
 	return ds, err
 }
 
+// CreateDataSourceWithSystem creates an API Data Source in ChartMogul.
+// * Allows other parameters than just the name.
+//
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
+func (api API) CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, error) {
+	ds := &DataSource{}
+	err := api.create(dataSourcesEndpoint, dataSource, ds)
+	return ds, err
+}
+
 // RetrieveDataSource returns one Data Source by UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
@@ -53,6 +69,20 @@ func (api API) ListDataSources() (*DataSources, error) {
 	return ds, err
 }
 
+// ListDataSourcesWithFilters lists all available Data Sources (no paging).
+// * Allows filtering.
+//
+// See https://dev.chartmogul.com/v1.0/reference#data-sources
+func (api API) ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error) {
+	ds := &DataSources{}
+	query := make([]interface{}, 0, 1)
+	if listDataSourcesParams != nil {
+		query = append(query, *listDataSourcesParams)
+	}
+	err := api.list(dataSourcesEndpoint, ds, query...)
+	return ds, err
+}
+
 // DeleteDataSource deletes the data source identified by its UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
@@ -63,6 +93,6 @@ func (api API) DeleteDataSource(uuid string) error {
 // PurgeDataSource deletes all the data in the data source, but keeps the UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
-func (api API) PurgeDataSource(uuid string) error {
-	return api.delete(purgeDataSourceEndpoint, uuid)
+func (api API) PurgeDataSource(dataSourceUUID string) error {
+	return api.delete(purgeDataSourceEndpoint, dataSourceUUID)
 }
