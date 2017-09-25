@@ -42,7 +42,6 @@ const (
 var (
 	url     = "https://api.chartmogul.com/v1/%v"
 	timeout = 30 * time.Second
-	client  *http.Client
 )
 
 // IApi defines the interface of the library.
@@ -119,6 +118,7 @@ type IApi interface {
 type API struct {
 	AccountToken string
 	AccessKey    string
+	Client       *http.Client
 }
 
 // Cursor contains query parameters for paging in CM.
@@ -182,9 +182,9 @@ func SetURL(specialURL string) {
 	url = specialURL
 }
 
-// SetClient changes globally the client - for VCR integration tests.
-func SetClient(newClient *http.Client) {
-	client = newClient
+// SetClient changes the client - for VCR integration tests.
+func (api *API) SetClient(newClient *http.Client) {
+	api.Client = newClient
 }
 
 func prepareURL(path string) string {
@@ -193,8 +193,8 @@ func prepareURL(path string) string {
 
 func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 	// defaults for client go here:
-	if client != nil {
-		req.Client = client
+	if api.Client != nil {
+		req.Client = api.Client
 	}
 	return req.Timeout(timeout).
 		SetBasicAuth(api.AccountToken, api.AccessKey).
