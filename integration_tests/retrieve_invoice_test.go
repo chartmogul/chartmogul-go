@@ -26,7 +26,7 @@ func TestRetrieveInvoice(t *testing.T) {
 	defer r.Stop() // Make sure recorder is stopped once done with it
 
 	api := &cm.API{}
-	cm.SetClient(&http.Client{Transport: r})
+	api.SetClient(&http.Client{Transport: r})
 	gorequest.DisableTransportSwap = true
 
 	ds, err := api.CreateDataSource("Test Retrieve Invoice 1")

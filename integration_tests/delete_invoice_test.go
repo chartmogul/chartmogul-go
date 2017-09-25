@@ -24,8 +24,7 @@ func TestDeleteInvoice(t *testing.T) {
 	}
 	defer r.Stop() // Make sure recorder is stopped once done with it
 
-	api := &cm.API{}
-	cm.SetClient(&http.Client{Transport: r})
+	api := &cm.API{Client: &http.Client{Transport: r}}
 	gorequest.DisableTransportSwap = true
 
 	ds, err := api.CreateDataSource("Test Delete Invoice 1")
