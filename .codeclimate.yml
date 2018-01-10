@@ -1,4 +1,4 @@
-engines:
+plugins:
   gofmt:
     enabled: true
   golint:
@@ -6,9 +6,5 @@ engines:
   govet:
     enabled: true
 
-ratings:
-  paths:
-    - "**.go"
-
-exclude_paths:
+exclude_patterns:
 - "**/mock_*/*.go"
