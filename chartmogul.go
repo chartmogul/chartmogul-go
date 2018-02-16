@@ -150,9 +150,9 @@ func (e Errors) IsAlreadyExists() (is bool) {
 	}
 	if !ok {
 		msg, ok = e[ErrKeyName]
-		return ok && msg == ErrValHasAlreadyBeenTaken
 	}
 	return msg == ErrValExternalIDExists ||
+		msg == ErrValHasAlreadyBeenTaken ||
 		msg == ErrValCustomerExternalIDExists ||
 		msg == ErrValPlanExternalIDExists ||
 		msg == ErrValInvoiceExternalIDExists
