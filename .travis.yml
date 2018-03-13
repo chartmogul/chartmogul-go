@@ -16,3 +16,7 @@ install:
 
 after_script:
   - ./.test-coverage.sh
+
+branches:
+  only:
+    - master
