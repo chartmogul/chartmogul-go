@@ -50,6 +50,7 @@ type LineItem struct {
 	SubscriptionExternalID string `json:"subscription_external_id,omitempty"`
 	SubscriptionUUID       string `json:"subscription_uuid,omitempty"`
 	TaxAmountInCents       int    `json:"tax_amount_in_cents,omitempty"`
+	TransactionFeesInCents int    `json:"transaction_fees_in_cents,omitempty"`
 	Type                   string `json:"type"`
 }
 
