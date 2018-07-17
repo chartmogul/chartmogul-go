@@ -1,6 +1,7 @@
 package chartmogul
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/parnurzeal/gorequest"
@@ -35,7 +36,7 @@ func (e httpError) Response() string {
 	return e.response
 }
 func (e httpError) Error() string {
-	return strings.Join([]string{string(e.statusCode), e.status, e.response}, ": ")
+	return strings.Join([]string{strconv.Itoa(e.statusCode), e.status, e.response}, ": ")
 }
 
 type requestErrors struct {
