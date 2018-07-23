@@ -78,6 +78,7 @@ type IApi interface {
 	CreateCustomer(newCustomer *NewCustomer) (*Customer, error)
 	RetrieveCustomer(customerUUID string) (*Customer, error)
 	UpdateCustomer(Customer *Customer, customerUUID string) (*Customer, error)
+	UpdateCustomerV2(Customer *UpdateCustomer, customerUUID string) (*Customer, error)
 	ListCustomers(ListCustomersParams *ListCustomersParams) (*Customers, error)
 	SearchCustomers(SearchCustomersParams *SearchCustomersParams) (*Customers, error)
 	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
