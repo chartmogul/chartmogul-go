@@ -42,16 +42,15 @@ type Customer struct {
 
 // UpdateCustomer allows updating customer on the update endpoint.
 type UpdateCustomer struct {
-	Name               *string      `json:"name,omitempty"`
-	Email              *string      `json:"email,omitempty"`
-	Company            *string      `json:"company,omitempty"`
-	Country            *string      `json:"country,omitempty"`
-	State              *string      `json:"state,omitempty"`
-	City               *string      `json:"city,omitempty"`
-	LeadCreatedAt      *string      `json:"lead_created_at,omitempty"`
-	FreeTrialStartedAt *string      `json:"free_trial_started_at,omitempty"`
+	Name               *string     `json:"name,omitempty"`
+	Email              *string     `json:"email,omitempty"`
+	Company            *string     `json:"company,omitempty"`
+	Country            *string     `json:"country,omitempty"`
+	State              *string     `json:"state,omitempty"`
+	City               *string     `json:"city,omitempty"`
+	LeadCreatedAt      *string     `json:"lead_created_at,omitempty"`
+	FreeTrialStartedAt *string     `json:"free_trial_started_at,omitempty"`
 	Attributes         *Attributes `json:"attributes,omitempty"`
-	Errors             Errors      `json:"errors,omitempty"`
 }
 
 // NewCustomer allows creating customer on a new endpoint.
@@ -198,12 +197,9 @@ func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Custome
 // UpdateCustomerV2 updates one customer in API.
 //
 // See https://dev.chartmogul.com/v1.0/reference#update-a-customer
-func (api API) UpdateCustomerV2(customer *UpdateCustomer, customerUUID string) (*UpdateCustomer, error) {
-	result := &UpdateCustomer{}
-	return result, api.update(singleCustomerEndpoint,
-		customerUUID,
-		customer,
-		result)
+func (api API) UpdateCustomerV2(input *UpdateCustomer, customerUUID string) (*Customer, error) {
+	output := &Customer{}
+	return output, api.update(singleCustomerEndpoint, customerUUID, input, output)
 }
 
 // ListCustomers lists all Customers for cutomer of given UUID.

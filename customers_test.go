@@ -164,8 +164,7 @@ func TestPurgeCustomer(t *testing.T) {
 func TestUpdateCustomerSerialization(t *testing.T) {
 	empty := ""
 	cus := &UpdateCustomer{
-		Name:  &empty,
-		State: &empty,
+		Name: &empty,
 	}
 	output, err := json.Marshal(cus)
 	if err != nil {
@@ -173,7 +172,7 @@ func TestUpdateCustomerSerialization(t *testing.T) {
 	}
 
 	result := string(output)
-	if result != `{"name":"","state":""}` {
+	if result != `{"name":""}` {
 		t.Fatal("Not expected to fail")
 	}
 }
