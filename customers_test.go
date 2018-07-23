@@ -161,6 +161,23 @@ func TestPurgeCustomer(t *testing.T) {
 	}
 }
 
+func TestUpdateCustomerSerialization(t *testing.T) {
+	empty := ""
+	cus := &UpdateCustomer{
+		Name:  &empty,
+		State: &empty,
+	}
+	output, err := json.Marshal(cus)
+	if err != nil {
+		t.Fatal("Not expected to fail")
+	}
+
+	result := string(output)
+	if result != `{"name":"","state":""}` {
+		t.Fatal("Not expected to fail")
+	}
+}
+
 func TestNilListCustomers(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(

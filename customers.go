@@ -40,6 +40,20 @@ type Customer struct {
 	Errors Errors `json:"errors,omitempty"`
 }
 
+// UpdateCustomer allows updating customer on the update endpoint.
+type UpdateCustomer struct {
+	Name               *string      `json:"name,omitempty"`
+	Email              *string      `json:"email,omitempty"`
+	Company            *string      `json:"company,omitempty"`
+	Country            *string      `json:"country,omitempty"`
+	State              *string      `json:"state,omitempty"`
+	City               *string      `json:"city,omitempty"`
+	LeadCreatedAt      *string      `json:"lead_created_at,omitempty"`
+	FreeTrialStartedAt *string      `json:"free_trial_started_at,omitempty"`
+	Attributes         *Attributes `json:"attributes,omitempty"`
+	Errors             Errors      `json:"errors,omitempty"`
+}
+
 // NewCustomer allows creating customer on a new endpoint.
 type NewCustomer struct {
 	// Obligatory
@@ -175,6 +189,17 @@ func (api API) RetrieveCustomer(customerUUID string) (*Customer, error) {
 // See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Customer, error) {
 	result := &Customer{}
+	return result, api.update(singleCustomerEndpoint,
+		customerUUID,
+		customer,
+		result)
+}
+
+// UpdateCustomerV2 updates one customer in API.
+//
+// See https://dev.chartmogul.com/v1.0/reference#update-a-customer
+func (api API) UpdateCustomerV2(customer *UpdateCustomer, customerUUID string) (*UpdateCustomer, error) {
+	result := &UpdateCustomer{}
 	return result, api.update(singleCustomerEndpoint,
 		customerUUID,
 		customer,
