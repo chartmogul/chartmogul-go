@@ -77,8 +77,8 @@ type NewCustomer struct {
 // Attributes is subdocument of Customer.
 type Attributes struct {
 	Tags     []string               `json:"tags,omitempty"`
-	Stripe   *Stripe                `json:"stripe,omitempty"`
-	Clearbit *Clearbit              `json:"clearbit,omitempty"`
+	Stripe   map[string]interface{} `json:"stripe,omitempty"`
+	Clearbit map[string]interface{} `json:"clearbit,omitempty"`
 	Custom   map[string]interface{} `json:"custom,omitempty"`
 }
 
@@ -94,31 +94,6 @@ type Address struct {
 	City       string `json:"city,omitempty"`
 	State      string `json:"state,omitempty"`
 	Country    string `json:"country,omitempty"`
-}
-
-// Stripe is subdocument of Customer.
-type Stripe struct {
-	UID    uint64 `json:"uid,omitempty"`
-	Coupon bool   `json:"coupon,omitempty"`
-}
-
-// Clearbit is subdocument of Customer.
-type Clearbit struct {
-	ID        string                 `json:"id,omitempty"`
-	Name      string                 `json:"name,omitempty"`
-	LegalName string                 `json:"legalName,omitempty"`
-	Domain    string                 `json:"domain,omitempty"`
-	URL       string                 `json:"url,omitempty"`
-	Metrics   map[string]interface{} `json:"metrics,omitempty"`
-	Category  *Category              `json:"category,omitempty"`
-}
-
-// Category is subdocument of Customer.
-type Category struct {
-	Sector        string `json:"sector,omitempty"`
-	IndustryGroup string `json:"industryGroup,omitempty"`
-	Industry      string `json:"industry,omitempty"`
-	SubIndustry   string `json:"subIndustry,omitempty"`
 }
 
 // ListCustomersParams = parameters for listing customers in API.

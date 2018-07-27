@@ -85,6 +85,12 @@ func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
 					"source": "some awesome integration",
 				},
 			},
+			"stripe": map[string]interface{}{
+				"some key": map[string]interface{}{
+					"value":  "some value",
+					"source": "some awesome integration",
+				},
+			},
 		},
 	}
 
@@ -121,6 +127,11 @@ func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
 	_, err := tested.UpdateCustomer(&Customer{
 		Attributes: &Attributes{
 			Custom: map[string]interface{}{
+				"some key": AttributeWithSource{
+					Value:  "some value",
+					Source: "some awesome integration",
+				}},
+			Stripe: map[string]interface{}{
 				"some key": AttributeWithSource{
 					Value:  "some value",
 					Source: "some awesome integration",
