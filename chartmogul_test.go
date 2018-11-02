@@ -43,4 +43,14 @@ func TestPing(t *testing.T) {
 	}
 }
 
+func TestIsInvoiceAndTransactionAlreadyExist(t *testing.T) {
+	err := Errors(map[string]string{
+		"transactions.external_id": "has already been taken",
+		"external_id":              "The external ID for this invoice already exists in our system.",
+	})
+	if !err.IsInvoiceAndTransactionAlreadyExist() {
+		t.Error("expected IsInvoiceAndTransactionAlreadyExist to be true")
+	}
+}
+
 //TODO: unit tests against mocked HTTP server.

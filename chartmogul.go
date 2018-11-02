@@ -164,7 +164,7 @@ func (e Errors) IsInvoiceAndTransactionAlreadyExist() (is bool) {
 	if e == nil {
 		return
 	}
-	if len(e) == 2 {
+	if len(e) != 2 {
 		return
 	}
 	msg1, ok1 := e[ErrKeyExternalID]
