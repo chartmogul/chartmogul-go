@@ -48,6 +48,7 @@ type UpdateCustomer struct {
 	Country            *string     `json:"country,omitempty"`
 	State              *string     `json:"state,omitempty"`
 	City               *string     `json:"city,omitempty"`
+	Zip                *string     `json:"zip,omitempty"`
 	LeadCreatedAt      *string     `json:"lead_created_at,omitempty"`
 	FreeTrialStartedAt *string     `json:"free_trial_started_at,omitempty"`
 	Attributes         *Attributes `json:"attributes,omitempty"`
