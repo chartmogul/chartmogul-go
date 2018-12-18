@@ -1,26 +1,29 @@
 package chartmogul
 
-import "strings"
+import (
+	"strings"
+)
 
 const subscriptionsEndpoint = "import/customers/:customerUUID/subscriptions"
 const cancelSubscriptionEndpoint = "import/subscriptions/:uuid"
+const connectSubscriptionEndpoint = "customers/:uuid/connect_subscriptions"
 
 // Subscription represents Import API subscription in ChartMogul.
 type Subscription struct {
-	UUID              string   `json:"uuid"`
+	UUID              string   `json:"uuid,omitempty"`
 	ExternalID        string   `json:"external_id"`
-	PlanUUID          string   `json:"plan_uuid"`
+	PlanUUID          string   `json:"plan_uuid,omitempty"`
 	CustomerUUID      string   `json:"customer_uuid,omitempty"`
 	DataSourceUUID    string   `json:"data_source_uuid"`
-	CancellationDates []string `json:"cancellation_dates"`
+	CancellationDates []string `json:"cancellation_dates,omitempty"`
 }
 
 // Subscriptions is the result of listing subscriptions with paging.
 type Subscriptions struct {
 	Subscriptions []Subscription `json:"subscriptions"`
-	CustomerUUID  string         `json:"customer_uuid"`
-	TotalPages    uint32         `json:"total_pages"`
-	CurrentPage   uint32         `json:"current_page"`
+	CustomerUUID  string         `json:"customer_uuid,omitempty"`
+	TotalPages    uint32         `json:"total_pages,omitempty"`
+	CurrentPage   uint32         `json:"current_page,omitempty"`
 }
 
 // CancelSubscriptionParams represents arguments to be marshalled into JSON.
@@ -51,4 +54,14 @@ func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscrip
 		query = append(query, *cursor)
 	}
 	return result, api.list(path, result, query...)
+}
+
+// ConnectSubscriptions connects two subscription objects
+//
+// See https://dev.chartmogul.com/reference#connect-subscriptions
+func (api API) ConnectSubscriptions(customerUUID string, subscriptions []Subscription) error {
+	path := strings.Replace(connectSubscriptionEndpoint, ":uuid", customerUUID, 1)
+	return api.merge(path, Subscriptions{
+		Subscriptions: subscriptions,
+	})
 }
