@@ -105,6 +105,7 @@ api.SearchCustomers(&cm.SearchCustomersParams{})
 api.ListCustomers(&cm.ListCustomersParams{})
 api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
+api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
 ```
 
 #### [Plans](https://dev.chartmogul.com/reference#import-plan)
