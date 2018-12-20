@@ -135,4 +135,15 @@ func TestConnectSubscriptions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	//time.Sleep(time.Minute)
+	msubs, err := api.MetricsListSubscriptions(&cm.Cursor{PerPage: 200}, cus.UUID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(msubs.Entries) != 1 {
+		t.Fatal("expected one subscription")
+	}
+	if msubs.Entries[0].ExternalID != subs.Subscriptions[1].ExternalID {
+		t.Fatal("subscription external IDs do not match")
+	}
 }
