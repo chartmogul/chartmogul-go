@@ -28,8 +28,8 @@ type Subscriptions struct {
 
 // CancelSubscriptionParams represents arguments to be marshalled into JSON.
 type CancelSubscriptionParams struct {
-	CancelledAt       string   `json:"cancelled_at,omitempty"`
-	CancellationDates []string `json:"cancellation_dates,omitempty"`
+	CancelledAt       string    `json:"cancelled_at,omitempty"`
+	CancellationDates *[]string `json:"cancellation_dates,omitempty"`
 }
 
 // CancelSubscription creates an Import API Data Source in ChartMogul.

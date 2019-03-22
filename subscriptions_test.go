@@ -70,3 +70,45 @@ func TestConnectSubscriptions(t *testing.T) {
 		t.Fatal("Expected to retry")
 	}
 }
+
+func TestCancelSubscriptionParams(t *testing.T) {
+	emptySlice := []string{}
+	notEmptySlice := []string{"some-date"}
+	testCases := map[string]struct {
+		param *CancelSubscriptionParams
+		exp   string
+	}{
+		"clearing cancellation history": {
+			param: &CancelSubscriptionParams{
+				CancellationDates: &emptySlice,
+			},
+			exp: `{"cancellation_dates":[]}`,
+		},
+		"setting cancellation history": {
+			param: &CancelSubscriptionParams{
+				CancellationDates: &notEmptySlice,
+			},
+			exp: `{"cancellation_dates":["some-date"]}`,
+		},
+		"not using cancellation history": {
+			param: &CancelSubscriptionParams{
+				CancelledAt: "some-date",
+			},
+			exp: `{"cancelled_at":"some-date"}`,
+		},
+	}
+
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			got, err := json.Marshal(tc.param)
+			if err != nil {
+				spew.Dump(err)
+				t.Error("Expected not error")
+			}
+			if string(got) != tc.exp {
+				spew.Dump(tc.exp, string(got))
+				t.Error("Doesn't equal expected value")
+			}
+		})
+	}
+}
