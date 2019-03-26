@@ -11,7 +11,7 @@ mocks: dependencies
 	./genmocks.sh
 
 .PHONY: test
-test:
+test: dependencies
 	go test -v -timeout=10m ./...
 
 .git/hooks/pre-commit:
