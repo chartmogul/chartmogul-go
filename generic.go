@@ -26,6 +26,7 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 	// Retry on HTTP 429 rate limit, or network error, see:
 	// https://dev.chartmogul.com/docs/rate-limits
 	// https://godoc.org/github.com/cenkalti/backoff#pkg-constants
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().
 			Post(prepareURL(path))).
@@ -47,6 +48,7 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 	var body []byte
 	var errs []error
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		req := api.req(gorequest.New().Get(prepareURL(path)))
 		for _, q := range query {
@@ -68,6 +70,7 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 	var errs []error
 	path = strings.Replace(path, ":uuid", uuid, 1)
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().Get(prepareURL(path))).
 			EndStruct(output)
@@ -86,6 +89,7 @@ func (api API) merge(path string, input interface{}) error {
 	var body string
 	var errs []error
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().
 			Post(prepareURL(path))).
@@ -110,6 +114,7 @@ func (api API) updateImpl(path string, uuid string, input interface{}, output in
 	path = strings.Replace(path, ":uuid", uuid, 1)
 	path = prepareURL(path)
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		req := gorequest.New()
 		switch method {
@@ -152,6 +157,7 @@ func (api API) delete(path string, uuid string) error {
 	var errs []error
 	path = strings.Replace(path, ":uuid", uuid, 1)
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
 			End()
@@ -170,6 +176,7 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 	var errs []error
 	path = strings.Replace(path, ":uuid", uuid, 1)
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
 			SendStruct(input).

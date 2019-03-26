@@ -17,10 +17,10 @@ func TestRetryStatusTooManyRequests(t *testing.T) {
 				if i == 0 {
 					w.Header().Set("Content-Type", "application/json")
 					w.WriteHeader(http.StatusTooManyRequests)
-					w.Write([]byte("{errors: \"nooo\"}"))
+					w.Write([]byte("{errors: \"nooo\"}")) //nolint
 				} else if i == 1 {
 					w.Header().Set("Content-Type", "application/json")
-					w.Write([]byte("{}"))
+					w.Write([]byte("{}")) //nolint
 				}
 				i++
 			}))
