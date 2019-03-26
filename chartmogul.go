@@ -25,10 +25,14 @@ const (
 	ErrKeyExternalID = "external_id"
 	// ErrKeyTransactionExternalID is key in Errors map indicating there's a problem with External ID of the transaction.
 	ErrKeyTransactionExternalID = "transactions.external_id"
+	// ErrKeyLineItemsExternalID indicates problem with one/any of line items' external IDs
+	ErrKeyLineItemsExternalID = "line_items.external_id"
 	// ErrKeyName - data source name
 	ErrKeyName = "name"
 	// ErrValCustomerExternalIDExists = can't import new customer with the same external ID
 	ErrValCustomerExternalIDExists = "The external ID for this customer already exists in our system."
+	// ErrValLineItemExternalIDExists = can't import invoice, b'c line item external ID exists
+	ErrValLineItemExternalIDExists = "The external ID for this line item already exists in our system."
 	// ErrValExternalIDExists = can't save Transaction, because it exists already.
 	ErrValExternalIDExists = "has already been taken"
 	// ErrValInvoiceExternalIDExists = invoice already exists
@@ -159,7 +163,42 @@ func (e Errors) IsAlreadyExists() (is bool) {
 		msg == ErrValInvoiceExternalIDExists
 }
 
+// IsInvoiceAndItsEntitiesAlreadyExist returns true if:
+// * invoice already exists AND
+// * ANY other entities (line items, transactions) already exist AND
+// * no other error
+//
+// So, eg. if the invoice doesn't exist, but the transaction does,
+// you have a different problem (duplicating txns) and this returns false.
+func (e Errors) IsInvoiceAndItsEntitiesAlreadyExist() (is bool) {
+	if e == nil {
+		return
+	}
+	if msg := e[ErrKeyExternalID]; msg != ErrValInvoiceExternalIDExists {
+		return
+	}
+	for key, val := range e {
+		switch key {
+		case ErrKeyTransactionExternalID:
+			if val != ErrValExternalIDExists {
+				return
+			}
+		case ErrKeyLineItemsExternalID:
+			if val != ErrValLineItemExternalIDExists {
+				return
+			}
+		case ErrKeyExternalID:
+			// already checked
+		default:
+			return
+		}
+	}
+
+	return true
+}
+
 // IsInvoiceAndTransactionAlreadyExist occurs when both invoice and tx exist already.
+// Use `IsInvoiceAndItsEntitiesAlreadyExist` if you'd like to catch line items as well.
 func (e Errors) IsInvoiceAndTransactionAlreadyExist() (is bool) {
 	if e == nil {
 		return
