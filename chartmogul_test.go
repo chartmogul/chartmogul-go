@@ -43,14 +43,68 @@ func TestPing(t *testing.T) {
 	}
 }
 
-func TestIsInvoiceAndTransactionAlreadyExist(t *testing.T) {
-	err := Errors(map[string]string{
-		"transactions.external_id": "has already been taken",
-		"external_id":              "The external ID for this invoice already exists in our system.",
-	})
-	if !err.IsInvoiceAndTransactionAlreadyExist() {
-		t.Error("expected IsInvoiceAndTransactionAlreadyExist to be true")
-	}
+var matchersCases = map[string]struct {
+	Errors
+	expectations map[string]bool
+}{
+	"invoice & transaction exist": {
+		Errors{
+			"transactions.external_id": "has already been taken",
+			"external_id":              "The external ID for this invoice already exists in our system.",
+		}, map[string]bool{
+			"IsAlreadyExists":                     false,
+			"IsInvoiceAndTransactionAlreadyExist": true,
+			"IsInvoiceAndItsEntitiesAlreadyExist": true,
+		},
+	},
+	"invoice exists": {
+		Errors{
+			"external_id": "The external ID for this invoice already exists in our system.",
+		}, map[string]bool{
+			"IsAlreadyExists":                     true,
+			"IsInvoiceAndTransactionAlreadyExist": false,
+			"IsInvoiceAndItsEntitiesAlreadyExist": true,
+		},
+	},
+	"invoice, line items and transactions exist": {
+		Errors{
+			"external_id":              "The external ID for this invoice already exists in our system.",
+			"transactions.external_id": "has already been taken",
+			"line_items.external_id":   "The external ID for this line item already exists in our system.",
+		}, map[string]bool{
+			"IsAlreadyExists":                     false,
+			"IsInvoiceAndTransactionAlreadyExist": false,
+			"IsInvoiceAndItsEntitiesAlreadyExist": true,
+		},
+	},
+	"transaction exists": {
+		Errors{
+			"transactions.external_id": "has already been taken",
+		}, map[string]bool{
+			"IsAlreadyExists":                     true,
+			"IsInvoiceAndTransactionAlreadyExist": false,
+			"IsInvoiceAndItsEntitiesAlreadyExist": false,
+		},
+	},
 }
 
-//TODO: unit tests against mocked HTTP server.
+func TestErrorMatchers(t *testing.T) {
+	for testName, testCase := range matchersCases {
+		for fnName, expected := range testCase.expectations {
+			var fn func() bool
+			switch fnName {
+			case "IsAlreadyExists":
+				fn = testCase.Errors.IsAlreadyExists
+			case "IsInvoiceAndTransactionAlreadyExist":
+				fn = testCase.Errors.IsInvoiceAndTransactionAlreadyExist
+			case "IsInvoiceAndItsEntitiesAlreadyExist":
+				fn = testCase.Errors.IsInvoiceAndItsEntitiesAlreadyExist
+			}
+			t.Run(testName+"/"+fnName, func(t *testing.T) {
+				if fn() != expected {
+					t.Error("unexpected match")
+				}
+			})
+		}
+	}
+}
