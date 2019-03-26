@@ -1,7 +1,5 @@
 .DEFAULT_GOAL := test
 
-export GO111MODULE=on
-
 .PHONY: dependencies
 dependencies:
 	# Get dependencies
