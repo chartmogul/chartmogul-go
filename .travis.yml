@@ -4,6 +4,8 @@ go:
   - 1.7.x
   - 1.8.x
   - 1.9.x
+  - 1.10.x
+  - 1.11.x
   - master
 
 before_script:
@@ -11,8 +13,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
-install:
-  - go get -t ./...
+script: make
 
 after_script:
   - ./.test-coverage.sh
