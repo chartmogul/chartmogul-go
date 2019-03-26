@@ -21,7 +21,7 @@ func TestConnectSubscriptions(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer r.Stop() // Make sure recorder is stopped once done with it
+	defer r.Stop() //nolint
 
 	api := &cm.API{}
 	api.SetClient(&http.Client{Transport: r})
@@ -31,7 +31,7 @@ func TestConnectSubscriptions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer api.DeleteDataSource(ds.UUID)
+	defer api.DeleteDataSource(ds.UUID) //nolint
 
 	plan1, err := api.CreatePlan(&cm.Plan{
 		DataSourceUUID: ds.UUID,

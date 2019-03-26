@@ -29,7 +29,7 @@ func TestConnectSubscriptions(t *testing.T) {
 			func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(202)
 				w.Header().Set("Content-Type", "application/json")
-				w.Write([]byte("{}"))
+				w.Write([]byte("{}")) //nolint
 
 				body, err := ioutil.ReadAll(r.Body)
 				if err != nil {

@@ -24,7 +24,7 @@ func TestImportCustomers(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	defer api.DeleteDataSource(ds.UUID)
+	defer api.DeleteDataSource(ds.UUID) //nolint
 	log.Println("Data source created.")
 
 	createdCustomer, err := api.CreateCustomer(&NewCustomer{
@@ -98,7 +98,7 @@ func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/json")
-				w.Write([]byte("{}"))
+				w.Write([]byte("{}")) //nolint
 
 				body, err := ioutil.ReadAll(r.Body)
 				if err != nil {
@@ -199,6 +199,7 @@ func TestNilListCustomers(t *testing.T) {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
+				//nolint
 				w.Write([]byte(`{"entries": [],"current_page": 1,"total_pages": 1,
 					"has_more": false,"per_page": 200,"page": 1}`))
 			}))
@@ -232,6 +233,7 @@ func TestSystemListCustomers(t *testing.T) {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
+				//nolint
 				w.Write([]byte(`{"entries": [],
 												 "current_page": 1,
 												 "total_pages": 1,

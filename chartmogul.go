@@ -19,8 +19,6 @@ import (
 )
 
 const (
-	logFormatting = "%v: %v (page %v of %v)"
-
 	// ErrKeyExternalID is key in Errors map indicating there's a problem with External ID of the resource.
 	ErrKeyExternalID = "external_id"
 	// ErrKeyTransactionExternalID is key in Errors map indicating there's a problem with External ID of the transaction.
@@ -154,7 +152,7 @@ func (e Errors) IsAlreadyExists() (is bool) {
 		msg, ok = e[ErrKeyTransactionExternalID]
 	}
 	if !ok {
-		msg, ok = e[ErrKeyName]
+		msg = e[ErrKeyName]
 	}
 	return msg == ErrValExternalIDExists ||
 		msg == ErrValHasAlreadyBeenTaken ||

@@ -105,7 +105,7 @@ func TestNewInvoicesAllListing(t *testing.T) {
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/json")
-				w.Write([]byte(listAllInvoicesExample))
+				w.Write([]byte(listAllInvoicesExample)) //nolint
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
@@ -173,7 +173,7 @@ func TestRetrieveInvoice(t *testing.T) {
 					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
 					w.WriteHeader(http.StatusNotFound)
 				}
-				w.Write([]byte(retrieveInvoiceExample))
+				w.Write([]byte(retrieveInvoiceExample)) //nolint
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
