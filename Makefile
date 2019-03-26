@@ -2,8 +2,8 @@
 
 .PHONY: dependencies
 dependencies:
-	# Get dependencies
-	go get ./... || echo "Some dependencies failed"
+	# Get dependencies, -t is required for <Go 1.11
+	go get -t ./... || echo "Some dependencies failed"
 
 .PHONY: mocks
 mocks: dependencies
