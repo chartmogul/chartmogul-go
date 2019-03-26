@@ -11,7 +11,7 @@ mocks: dependencies
 	./genmocks.sh
 
 .PHONY: test
-test: lint
+test:
 	go test -v -timeout=10m ./...
 
 .git/hooks/pre-commit:
@@ -23,7 +23,7 @@ pre-commit: .git/hooks/pre-commit lint
 	go test -timeout=20s --short ./...
 
 bin/golangci-lint:
-	wget -O - -q https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.15.0
+	wget -O - -q https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.15.0 # Go 1.11+
 
 .PHONY: lint
 lint: bin/golangci-lint
