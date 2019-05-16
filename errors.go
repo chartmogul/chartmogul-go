@@ -1,6 +1,8 @@
 package chartmogul
 
 import (
+	"net"
+	"net/http"
 	"strconv"
 	"strings"
 
@@ -71,4 +73,50 @@ func wrapErrors(response gorequest.Response, body []byte, errs []error) error {
 		return errors.Wrap(&requestErrors{errs}, "Request error")
 	}
 	return nil
+}
+
+// List of HTTP status codes which are retryable.
+var retryableHTTPStatusCodes = map[int]struct{}{
+	http.StatusTooManyRequests:     {},
+	http.StatusInternalServerError: {},
+	http.StatusBadGateway:          {},
+	http.StatusServiceUnavailable:  {},
+	// Add more HTTP status codes here.
+}
+
+//isHTTPStatusRetryable return true if error message contains the HTTP statuses that needs to be retried
+func isHTTPStatusRetryable(res gorequest.Response) (ok bool) {
+	if res == nil {
+		return false
+	}
+	_, ok = retryableHTTPStatusCodes[res.StatusCode]
+	return ok
+}
+
+// timeoutError - when reading response body takes too long
+// It's inside an internal package, so only way to assert this error is to match with following error string
+// https://github.com/golang/go/blob/master/src/internal/poll/fd.go#L40-L45
+const timeoutError = "i/o timeout"
+
+// networkError returns true if the underlying error is caused by net.OpError
+// or if it's an i/o timeout error
+func networkError(err error) bool {
+	if strings.Contains(err.Error(), timeoutError) {
+		return true
+	}
+
+	if _, ok := (err).(*net.OpError); ok {
+		return true
+	}
+	return false
+}
+
+// networkErrors checks if any of the errors is a Network related error
+func networkErrors(errs []error) bool {
+	for _, err := range errs {
+		if networkError(err) {
+			return true
+		}
+	}
+	return false
 }

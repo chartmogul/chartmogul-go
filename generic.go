@@ -2,7 +2,6 @@ package chartmogul
 
 import (
 	"errors"
-	"net/http"
 	"strings"
 
 	"github.com/cenkalti/backoff"
@@ -32,7 +31,8 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 			Post(prepareURL(path))).
 			SendStruct(input).
 			EndStruct(output)
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
@@ -54,8 +54,9 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 		for _, q := range query {
 			req.Query(q)
 		}
+
 		res, body, errs = req.EndStruct(output)
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
@@ -74,7 +75,8 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().Get(prepareURL(path))).
 			EndStruct(output)
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
@@ -95,7 +97,8 @@ func (api API) merge(path string, input interface{}) error {
 			Post(prepareURL(path))).
 			SendStruct(input).
 			End()
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
@@ -127,7 +130,8 @@ func (api API) updateImpl(path string, uuid string, input interface{}, output in
 		}
 		req = api.req(req).SendStruct(input)
 		res, body, errs = req.EndStruct(output)
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
@@ -161,7 +165,8 @@ func (api API) delete(path string, uuid string) error {
 	backoff.Retry(func() error {
 		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
 			End()
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
@@ -181,7 +186,8 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
 			SendStruct(input).
 			EndStruct(output)
-		if res == nil || res.StatusCode == http.StatusTooManyRequests {
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
 		return nil
