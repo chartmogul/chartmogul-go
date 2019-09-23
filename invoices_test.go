@@ -22,7 +22,6 @@ const oneInvoiceExample = `{
 			"type": "subscription",
 			"subscription_uuid": "sub_e6bc5407-e258-4de0-bb43-61faaf062035",
 			"subscription_external_id": "sub_external_id_123",
-			"subscription_set_external_id": "set_external_id_123",
 			"plan_uuid": "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
 			"prorated": false,
 			"service_period_start": "2015-11-01T00:00:00.000Z",
