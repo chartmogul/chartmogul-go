@@ -10,13 +10,13 @@ const connectSubscriptionEndpoint = "customers/:uuid/connect_subscriptions"
 
 // Subscription represents Import API subscription in ChartMogul.
 type Subscription struct {
-	UUID              				string   `json:"uuid,omitempty"`
-	ExternalID        				string   `json:"external_id"`
+	UUID                      string   `json:"uuid,omitempty"`
+	ExternalID                string   `json:"external_id"`
 	SubscriptionSetExternalID string   `json:"subscription_set_external_id,omitempty"`
-	PlanUUID          				string   `json:"plan_uuid,omitempty"`
-	CustomerUUID      				string   `json:"customer_uuid,omitempty"`
-	DataSourceUUID    				string   `json:"data_source_uuid"`
-	CancellationDates 				[]string `json:"cancellation_dates,omitempty"`
+	PlanUUID                  string   `json:"plan_uuid,omitempty"`
+	CustomerUUID              string   `json:"customer_uuid,omitempty"`
+	DataSourceUUID            string   `json:"data_source_uuid"`
+	CancellationDates         []string `json:"cancellation_dates,omitempty"`
 }
 
 // Subscriptions is the result of listing subscriptions with paging.

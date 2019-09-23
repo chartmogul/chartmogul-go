@@ -35,25 +35,25 @@ type Invoice struct {
 
 // LineItem represents a singular items of the invoices
 type LineItem struct {
-	UUID                   		string `json:"uuid,omitempty"`
-	AccountCode            		string `json:"account_code,omitempty"`
-	AmountInCents          		int    `json:"amount_in_cents"`
-	CancelledAt            		string `json:"cancelled_at,omitempty"`
-	Description            		string `json:"description,omitempty"`
-	DiscountAmountInCents  		int    `json:"discount_amount_in_cents,omitempty"`
-	DiscountCode           		string `json:"discount_code,omitempty"`
-	ExternalID             		string `json:"external_id,omitempty"`
-	PlanUUID               		string `json:"plan_uuid,omitempty"`
-	Prorated               		bool   `json:"prorated,omitempty"`
-	Quantity               		int    `json:"quantity,omitempty"`
-	ServicePeriodEnd       		string `json:"service_period_end,omitempty"`
-	ServicePeriodStart     		string `json:"service_period_start,omitempty"`
-	SubscriptionExternalID 		string `json:"subscription_external_id,omitempty"`
+	UUID                      string `json:"uuid,omitempty"`
+	AccountCode               string `json:"account_code,omitempty"`
+	AmountInCents             int    `json:"amount_in_cents"`
+	CancelledAt               string `json:"cancelled_at,omitempty"`
+	Description               string `json:"description,omitempty"`
+	DiscountAmountInCents     int    `json:"discount_amount_in_cents,omitempty"`
+	DiscountCode              string `json:"discount_code,omitempty"`
+	ExternalID                string `json:"external_id,omitempty"`
+	PlanUUID                  string `json:"plan_uuid,omitempty"`
+	Prorated                  bool   `json:"prorated,omitempty"`
+	Quantity                  int    `json:"quantity,omitempty"`
+	ServicePeriodEnd          string `json:"service_period_end,omitempty"`
+	ServicePeriodStart        string `json:"service_period_start,omitempty"`
+	SubscriptionExternalID 	  string `json:"subscription_external_id,omitempty"`
 	SubscriptionSetExternalID string `json:"subscription_set_external_id,omitempty"`
-	SubscriptionUUID       		string `json:"subscription_uuid,omitempty"`
-	TaxAmountInCents       		int    `json:"tax_amount_in_cents,omitempty"`
-	TransactionFeesInCents 		int    `json:"transaction_fees_in_cents,omitempty"`
-	Type                   		string `json:"type"`
+	SubscriptionUUID          string `json:"subscription_uuid,omitempty"`
+	TaxAmountInCents          int    `json:"tax_amount_in_cents,omitempty"`
+	TransactionFeesInCents    int    `json:"transaction_fees_in_cents,omitempty"`
+	Type                      string `json:"type"`
 }
 
 // ListAllInvoicesParams optional parameters for ListAllInvoices
