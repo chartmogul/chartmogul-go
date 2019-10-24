@@ -227,17 +227,17 @@ func (mr *MockIApiMockRecorder) DeleteCustomerInvoices(arg0, arg1 interface{}) *
 }
 
 // DeleteCustomerInvoicesV2 mocks base method
-func (m *MockIApi) DeleteCustomerInvoicesV2(arg0 *chartmogul_go.DeleteCustomerInvoicesParams) error {
+func (m *MockIApi) DeleteCustomerInvoicesV2(arg0, arg1 string, arg2 *chartmogul_go.DeleteCustomerInvoicesParams) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteCustomerInvoicesV2", arg0)
+	ret := m.ctrl.Call(m, "DeleteCustomerInvoicesV2", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // DeleteCustomerInvoicesV2 indicates an expected call of DeleteCustomerInvoicesV2
-func (mr *MockIApiMockRecorder) DeleteCustomerInvoicesV2(arg0 interface{}) *gomock.Call {
+func (mr *MockIApiMockRecorder) DeleteCustomerInvoicesV2(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomerInvoicesV2", reflect.TypeOf((*MockIApi)(nil).DeleteCustomerInvoicesV2), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomerInvoicesV2", reflect.TypeOf((*MockIApi)(nil).DeleteCustomerInvoicesV2), arg0, arg1, arg2)
 }
 
 // DeleteDataSource mocks base method

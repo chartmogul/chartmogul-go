@@ -172,7 +172,7 @@ func TestPurgeCustomer(t *testing.T) {
 	}
 }
 
-func TestPurgeCustomerWithCustomerExternalID(t *testing.T) {
+func TestPurgeCustomerV2WithCustomerExternalID(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
@@ -192,11 +192,37 @@ func TestPurgeCustomerWithCustomerExternalID(t *testing.T) {
 		AccessKey:    "key",
 	}
 
-	err := tested.DeleteCustomerInvoicesV2(&DeleteCustomerInvoicesParams{
-		DataSourceUUID: "dataSourceUUID",
-		CustomerUUID: "customerUUID",
+	err := tested.DeleteCustomerInvoicesV2("dataSourceUUID", "customerUUID", &DeleteCustomerInvoicesParams{
 		CustomerExternalID: "externalID",
 	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestPurgeCustomerV2WithoutCustomerExternalID(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "DELETE" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/data_sources/dataSourceUUID/customers/customerUUID/invoices" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusNoContent)
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		AccountToken: "token",
+		AccessKey:    "key",
+	}
+
+	err := tested.DeleteCustomerInvoicesV2("dataSourceUUID", "customerUUID", nil)
 
 	if err != nil {
 		spew.Dump(err)
