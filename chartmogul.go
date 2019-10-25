@@ -86,6 +86,7 @@ type IApi interface {
 	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
 	DeleteCustomer(customerUUID string) error
 	DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error
+	DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, DeleteCustomerInvoicesParams *DeleteCustomerInvoicesParams) error
 
 	//  - Cusomer Attributes
 	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)

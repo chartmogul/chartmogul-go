@@ -5,10 +5,9 @@
 package mock_chartmogul_go
 
 import (
-	reflect "reflect"
-
 	chartmogul_go "github.com/chartmogul/chartmogul-go"
 	gomock "github.com/golang/mock/gomock"
+	reflect "reflect"
 )
 
 // MockIApi is a mock of IApi interface
@@ -36,6 +35,7 @@ func (m *MockIApi) EXPECT() *MockIApiMockRecorder {
 
 // AddCustomAttributesToCustomer mocks base method
 func (m *MockIApi) AddCustomAttributesToCustomer(arg0 string, arg1 []*chartmogul_go.CustomAttribute) (*chartmogul_go.CustomAttributes, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddCustomAttributesToCustomer", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.CustomAttributes)
 	ret1, _ := ret[1].(error)
@@ -44,11 +44,13 @@ func (m *MockIApi) AddCustomAttributesToCustomer(arg0 string, arg1 []*chartmogul
 
 // AddCustomAttributesToCustomer indicates an expected call of AddCustomAttributesToCustomer
 func (mr *MockIApiMockRecorder) AddCustomAttributesToCustomer(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesToCustomer", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesToCustomer), arg0, arg1)
 }
 
 // AddCustomAttributesWithEmail mocks base method
 func (m *MockIApi) AddCustomAttributesWithEmail(arg0 string, arg1 []*chartmogul_go.CustomAttribute) (*chartmogul_go.Customers, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddCustomAttributesWithEmail", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Customers)
 	ret1, _ := ret[1].(error)
@@ -57,11 +59,13 @@ func (m *MockIApi) AddCustomAttributesWithEmail(arg0 string, arg1 []*chartmogul_
 
 // AddCustomAttributesWithEmail indicates an expected call of AddCustomAttributesWithEmail
 func (mr *MockIApiMockRecorder) AddCustomAttributesWithEmail(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesWithEmail", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesWithEmail), arg0, arg1)
 }
 
 // AddTagsToCustomer mocks base method
 func (m *MockIApi) AddTagsToCustomer(arg0 string, arg1 []string) (*chartmogul_go.TagsResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddTagsToCustomer", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.TagsResult)
 	ret1, _ := ret[1].(error)
@@ -70,11 +74,13 @@ func (m *MockIApi) AddTagsToCustomer(arg0 string, arg1 []string) (*chartmogul_go
 
 // AddTagsToCustomer indicates an expected call of AddTagsToCustomer
 func (mr *MockIApiMockRecorder) AddTagsToCustomer(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddTagsToCustomer", reflect.TypeOf((*MockIApi)(nil).AddTagsToCustomer), arg0, arg1)
 }
 
 // AddTagsToCustomersWithEmail mocks base method
 func (m *MockIApi) AddTagsToCustomersWithEmail(arg0 string, arg1 []string) (*chartmogul_go.Customers, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddTagsToCustomersWithEmail", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Customers)
 	ret1, _ := ret[1].(error)
@@ -83,11 +89,13 @@ func (m *MockIApi) AddTagsToCustomersWithEmail(arg0 string, arg1 []string) (*cha
 
 // AddTagsToCustomersWithEmail indicates an expected call of AddTagsToCustomersWithEmail
 func (mr *MockIApiMockRecorder) AddTagsToCustomersWithEmail(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddTagsToCustomersWithEmail", reflect.TypeOf((*MockIApi)(nil).AddTagsToCustomersWithEmail), arg0, arg1)
 }
 
 // CancelSubscription mocks base method
 func (m *MockIApi) CancelSubscription(arg0 string, arg1 *chartmogul_go.CancelSubscriptionParams) (*chartmogul_go.Subscription, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CancelSubscription", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Subscription)
 	ret1, _ := ret[1].(error)
@@ -96,11 +104,13 @@ func (m *MockIApi) CancelSubscription(arg0 string, arg1 *chartmogul_go.CancelSub
 
 // CancelSubscription indicates an expected call of CancelSubscription
 func (mr *MockIApiMockRecorder) CancelSubscription(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CancelSubscription", reflect.TypeOf((*MockIApi)(nil).CancelSubscription), arg0, arg1)
 }
 
 // CreateCustomer mocks base method
 func (m *MockIApi) CreateCustomer(arg0 *chartmogul_go.NewCustomer) (*chartmogul_go.Customer, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateCustomer", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Customer)
 	ret1, _ := ret[1].(error)
@@ -109,11 +119,13 @@ func (m *MockIApi) CreateCustomer(arg0 *chartmogul_go.NewCustomer) (*chartmogul_
 
 // CreateCustomer indicates an expected call of CreateCustomer
 func (mr *MockIApiMockRecorder) CreateCustomer(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCustomer", reflect.TypeOf((*MockIApi)(nil).CreateCustomer), arg0)
 }
 
 // CreateDataSource mocks base method
 func (m *MockIApi) CreateDataSource(arg0 string) (*chartmogul_go.DataSource, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateDataSource", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.DataSource)
 	ret1, _ := ret[1].(error)
@@ -122,11 +134,13 @@ func (m *MockIApi) CreateDataSource(arg0 string) (*chartmogul_go.DataSource, err
 
 // CreateDataSource indicates an expected call of CreateDataSource
 func (mr *MockIApiMockRecorder) CreateDataSource(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDataSource", reflect.TypeOf((*MockIApi)(nil).CreateDataSource), arg0)
 }
 
 // CreateDataSourceWithSystem mocks base method
 func (m *MockIApi) CreateDataSourceWithSystem(arg0 *chartmogul_go.DataSource) (*chartmogul_go.DataSource, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateDataSourceWithSystem", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.DataSource)
 	ret1, _ := ret[1].(error)
@@ -135,11 +149,13 @@ func (m *MockIApi) CreateDataSourceWithSystem(arg0 *chartmogul_go.DataSource) (*
 
 // CreateDataSourceWithSystem indicates an expected call of CreateDataSourceWithSystem
 func (mr *MockIApiMockRecorder) CreateDataSourceWithSystem(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDataSourceWithSystem", reflect.TypeOf((*MockIApi)(nil).CreateDataSourceWithSystem), arg0)
 }
 
 // CreateInvoices mocks base method
 func (m *MockIApi) CreateInvoices(arg0 []*chartmogul_go.Invoice, arg1 string) (*chartmogul_go.Invoices, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateInvoices", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Invoices)
 	ret1, _ := ret[1].(error)
@@ -148,11 +164,13 @@ func (m *MockIApi) CreateInvoices(arg0 []*chartmogul_go.Invoice, arg1 string) (*
 
 // CreateInvoices indicates an expected call of CreateInvoices
 func (mr *MockIApiMockRecorder) CreateInvoices(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateInvoices", reflect.TypeOf((*MockIApi)(nil).CreateInvoices), arg0, arg1)
 }
 
 // CreatePlan mocks base method
 func (m *MockIApi) CreatePlan(arg0 *chartmogul_go.Plan) (*chartmogul_go.Plan, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreatePlan", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Plan)
 	ret1, _ := ret[1].(error)
@@ -161,11 +179,13 @@ func (m *MockIApi) CreatePlan(arg0 *chartmogul_go.Plan) (*chartmogul_go.Plan, er
 
 // CreatePlan indicates an expected call of CreatePlan
 func (mr *MockIApiMockRecorder) CreatePlan(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePlan", reflect.TypeOf((*MockIApi)(nil).CreatePlan), arg0)
 }
 
 // CreateTransaction mocks base method
 func (m *MockIApi) CreateTransaction(arg0 *chartmogul_go.Transaction, arg1 string) (*chartmogul_go.Transaction, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateTransaction", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Transaction)
 	ret1, _ := ret[1].(error)
@@ -174,11 +194,13 @@ func (m *MockIApi) CreateTransaction(arg0 *chartmogul_go.Transaction, arg1 strin
 
 // CreateTransaction indicates an expected call of CreateTransaction
 func (mr *MockIApiMockRecorder) CreateTransaction(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTransaction", reflect.TypeOf((*MockIApi)(nil).CreateTransaction), arg0, arg1)
 }
 
 // DeleteCustomer mocks base method
 func (m *MockIApi) DeleteCustomer(arg0 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteCustomer", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -186,11 +208,13 @@ func (m *MockIApi) DeleteCustomer(arg0 string) error {
 
 // DeleteCustomer indicates an expected call of DeleteCustomer
 func (mr *MockIApiMockRecorder) DeleteCustomer(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomer", reflect.TypeOf((*MockIApi)(nil).DeleteCustomer), arg0)
 }
 
 // DeleteCustomerInvoices mocks base method
 func (m *MockIApi) DeleteCustomerInvoices(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteCustomerInvoices", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -198,11 +222,27 @@ func (m *MockIApi) DeleteCustomerInvoices(arg0, arg1 string) error {
 
 // DeleteCustomerInvoices indicates an expected call of DeleteCustomerInvoices
 func (mr *MockIApiMockRecorder) DeleteCustomerInvoices(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomerInvoices", reflect.TypeOf((*MockIApi)(nil).DeleteCustomerInvoices), arg0, arg1)
+}
+
+// DeleteCustomerInvoicesV2 mocks base method
+func (m *MockIApi) DeleteCustomerInvoicesV2(arg0, arg1 string, arg2 *chartmogul_go.DeleteCustomerInvoicesParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteCustomerInvoicesV2", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteCustomerInvoicesV2 indicates an expected call of DeleteCustomerInvoicesV2
+func (mr *MockIApiMockRecorder) DeleteCustomerInvoicesV2(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomerInvoicesV2", reflect.TypeOf((*MockIApi)(nil).DeleteCustomerInvoicesV2), arg0, arg1, arg2)
 }
 
 // DeleteDataSource mocks base method
 func (m *MockIApi) DeleteDataSource(arg0 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteDataSource", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -210,11 +250,13 @@ func (m *MockIApi) DeleteDataSource(arg0 string) error {
 
 // DeleteDataSource indicates an expected call of DeleteDataSource
 func (mr *MockIApiMockRecorder) DeleteDataSource(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDataSource", reflect.TypeOf((*MockIApi)(nil).DeleteDataSource), arg0)
 }
 
 // DeleteInvoice mocks base method
 func (m *MockIApi) DeleteInvoice(arg0 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteInvoice", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -222,11 +264,13 @@ func (m *MockIApi) DeleteInvoice(arg0 string) error {
 
 // DeleteInvoice indicates an expected call of DeleteInvoice
 func (mr *MockIApiMockRecorder) DeleteInvoice(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteInvoice", reflect.TypeOf((*MockIApi)(nil).DeleteInvoice), arg0)
 }
 
 // DeletePlan mocks base method
 func (m *MockIApi) DeletePlan(arg0 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeletePlan", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -234,11 +278,13 @@ func (m *MockIApi) DeletePlan(arg0 string) error {
 
 // DeletePlan indicates an expected call of DeletePlan
 func (mr *MockIApiMockRecorder) DeletePlan(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeletePlan", reflect.TypeOf((*MockIApi)(nil).DeletePlan), arg0)
 }
 
 // ListAllInvoices mocks base method
 func (m *MockIApi) ListAllInvoices(arg0 *chartmogul_go.ListAllInvoicesParams) (*chartmogul_go.Invoices, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAllInvoices", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Invoices)
 	ret1, _ := ret[1].(error)
@@ -247,11 +293,13 @@ func (m *MockIApi) ListAllInvoices(arg0 *chartmogul_go.ListAllInvoicesParams) (*
 
 // ListAllInvoices indicates an expected call of ListAllInvoices
 func (mr *MockIApiMockRecorder) ListAllInvoices(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAllInvoices", reflect.TypeOf((*MockIApi)(nil).ListAllInvoices), arg0)
 }
 
 // ListCustomers mocks base method
 func (m *MockIApi) ListCustomers(arg0 *chartmogul_go.ListCustomersParams) (*chartmogul_go.Customers, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListCustomers", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Customers)
 	ret1, _ := ret[1].(error)
@@ -260,11 +308,13 @@ func (m *MockIApi) ListCustomers(arg0 *chartmogul_go.ListCustomersParams) (*char
 
 // ListCustomers indicates an expected call of ListCustomers
 func (mr *MockIApiMockRecorder) ListCustomers(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCustomers", reflect.TypeOf((*MockIApi)(nil).ListCustomers), arg0)
 }
 
 // ListDataSources mocks base method
 func (m *MockIApi) ListDataSources() (*chartmogul_go.DataSources, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListDataSources")
 	ret0, _ := ret[0].(*chartmogul_go.DataSources)
 	ret1, _ := ret[1].(error)
@@ -273,11 +323,13 @@ func (m *MockIApi) ListDataSources() (*chartmogul_go.DataSources, error) {
 
 // ListDataSources indicates an expected call of ListDataSources
 func (mr *MockIApiMockRecorder) ListDataSources() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDataSources", reflect.TypeOf((*MockIApi)(nil).ListDataSources))
 }
 
 // ListDataSourcesWithFilters mocks base method
 func (m *MockIApi) ListDataSourcesWithFilters(arg0 *chartmogul_go.ListDataSourcesParams) (*chartmogul_go.DataSources, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListDataSourcesWithFilters", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.DataSources)
 	ret1, _ := ret[1].(error)
@@ -286,11 +338,13 @@ func (m *MockIApi) ListDataSourcesWithFilters(arg0 *chartmogul_go.ListDataSource
 
 // ListDataSourcesWithFilters indicates an expected call of ListDataSourcesWithFilters
 func (mr *MockIApiMockRecorder) ListDataSourcesWithFilters(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDataSourcesWithFilters", reflect.TypeOf((*MockIApi)(nil).ListDataSourcesWithFilters), arg0)
 }
 
 // ListInvoices mocks base method
 func (m *MockIApi) ListInvoices(arg0 *chartmogul_go.Cursor, arg1 string) (*chartmogul_go.Invoices, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListInvoices", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Invoices)
 	ret1, _ := ret[1].(error)
@@ -299,11 +353,13 @@ func (m *MockIApi) ListInvoices(arg0 *chartmogul_go.Cursor, arg1 string) (*chart
 
 // ListInvoices indicates an expected call of ListInvoices
 func (mr *MockIApiMockRecorder) ListInvoices(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListInvoices", reflect.TypeOf((*MockIApi)(nil).ListInvoices), arg0, arg1)
 }
 
 // ListPlans mocks base method
 func (m *MockIApi) ListPlans(arg0 *chartmogul_go.ListPlansParams) (*chartmogul_go.Plans, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListPlans", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Plans)
 	ret1, _ := ret[1].(error)
@@ -312,11 +368,13 @@ func (m *MockIApi) ListPlans(arg0 *chartmogul_go.ListPlansParams) (*chartmogul_g
 
 // ListPlans indicates an expected call of ListPlans
 func (mr *MockIApiMockRecorder) ListPlans(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPlans", reflect.TypeOf((*MockIApi)(nil).ListPlans), arg0)
 }
 
 // ListSubscriptions mocks base method
 func (m *MockIApi) ListSubscriptions(arg0 *chartmogul_go.Cursor, arg1 string) (*chartmogul_go.Subscriptions, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListSubscriptions", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Subscriptions)
 	ret1, _ := ret[1].(error)
@@ -325,11 +383,13 @@ func (m *MockIApi) ListSubscriptions(arg0 *chartmogul_go.Cursor, arg1 string) (*
 
 // ListSubscriptions indicates an expected call of ListSubscriptions
 func (mr *MockIApiMockRecorder) ListSubscriptions(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSubscriptions", reflect.TypeOf((*MockIApi)(nil).ListSubscriptions), arg0, arg1)
 }
 
 // MergeCustomers mocks base method
 func (m *MockIApi) MergeCustomers(arg0 *chartmogul_go.MergeCustomersParams) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MergeCustomers", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -337,11 +397,13 @@ func (m *MockIApi) MergeCustomers(arg0 *chartmogul_go.MergeCustomersParams) erro
 
 // MergeCustomers indicates an expected call of MergeCustomers
 func (mr *MockIApiMockRecorder) MergeCustomers(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MergeCustomers", reflect.TypeOf((*MockIApi)(nil).MergeCustomers), arg0)
 }
 
 // MetricsListActivities mocks base method
 func (m *MockIApi) MetricsListActivities(arg0 *chartmogul_go.Cursor, arg1 string) (*chartmogul_go.MetricsActivities, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsListActivities", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.MetricsActivities)
 	ret1, _ := ret[1].(error)
@@ -350,11 +412,13 @@ func (m *MockIApi) MetricsListActivities(arg0 *chartmogul_go.Cursor, arg1 string
 
 // MetricsListActivities indicates an expected call of MetricsListActivities
 func (mr *MockIApiMockRecorder) MetricsListActivities(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListActivities), arg0, arg1)
 }
 
 // MetricsListSubscriptions mocks base method
 func (m *MockIApi) MetricsListSubscriptions(arg0 *chartmogul_go.Cursor, arg1 string) (*chartmogul_go.MetricsSubscriptions, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsListSubscriptions", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.MetricsSubscriptions)
 	ret1, _ := ret[1].(error)
@@ -363,11 +427,13 @@ func (m *MockIApi) MetricsListSubscriptions(arg0 *chartmogul_go.Cursor, arg1 str
 
 // MetricsListSubscriptions indicates an expected call of MetricsListSubscriptions
 func (mr *MockIApiMockRecorder) MetricsListSubscriptions(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListSubscriptions", reflect.TypeOf((*MockIApi)(nil).MetricsListSubscriptions), arg0, arg1)
 }
 
 // MetricsRetrieveARPA mocks base method
 func (m *MockIApi) MetricsRetrieveARPA(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.ARPAResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveARPA", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.ARPAResult)
 	ret1, _ := ret[1].(error)
@@ -376,11 +442,13 @@ func (m *MockIApi) MetricsRetrieveARPA(arg0 *chartmogul_go.MetricsFilter) (*char
 
 // MetricsRetrieveARPA indicates an expected call of MetricsRetrieveARPA
 func (mr *MockIApiMockRecorder) MetricsRetrieveARPA(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveARPA", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveARPA), arg0)
 }
 
 // MetricsRetrieveARR mocks base method
 func (m *MockIApi) MetricsRetrieveARR(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.ARRResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveARR", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.ARRResult)
 	ret1, _ := ret[1].(error)
@@ -389,11 +457,13 @@ func (m *MockIApi) MetricsRetrieveARR(arg0 *chartmogul_go.MetricsFilter) (*chart
 
 // MetricsRetrieveARR indicates an expected call of MetricsRetrieveARR
 func (mr *MockIApiMockRecorder) MetricsRetrieveARR(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveARR", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveARR), arg0)
 }
 
 // MetricsRetrieveASP mocks base method
 func (m *MockIApi) MetricsRetrieveASP(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.ASPResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveASP", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.ASPResult)
 	ret1, _ := ret[1].(error)
@@ -402,11 +472,13 @@ func (m *MockIApi) MetricsRetrieveASP(arg0 *chartmogul_go.MetricsFilter) (*chart
 
 // MetricsRetrieveASP indicates an expected call of MetricsRetrieveASP
 func (mr *MockIApiMockRecorder) MetricsRetrieveASP(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveASP", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveASP), arg0)
 }
 
 // MetricsRetrieveAll mocks base method
 func (m *MockIApi) MetricsRetrieveAll(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.MetricsResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveAll", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.MetricsResult)
 	ret1, _ := ret[1].(error)
@@ -415,11 +487,13 @@ func (m *MockIApi) MetricsRetrieveAll(arg0 *chartmogul_go.MetricsFilter) (*chart
 
 // MetricsRetrieveAll indicates an expected call of MetricsRetrieveAll
 func (mr *MockIApiMockRecorder) MetricsRetrieveAll(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveAll", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveAll), arg0)
 }
 
 // MetricsRetrieveCustomerChurnRate mocks base method
 func (m *MockIApi) MetricsRetrieveCustomerChurnRate(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.CustomerChurnRateResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveCustomerChurnRate", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.CustomerChurnRateResult)
 	ret1, _ := ret[1].(error)
@@ -428,11 +502,13 @@ func (m *MockIApi) MetricsRetrieveCustomerChurnRate(arg0 *chartmogul_go.MetricsF
 
 // MetricsRetrieveCustomerChurnRate indicates an expected call of MetricsRetrieveCustomerChurnRate
 func (mr *MockIApiMockRecorder) MetricsRetrieveCustomerChurnRate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveCustomerChurnRate", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveCustomerChurnRate), arg0)
 }
 
 // MetricsRetrieveCustomerCount mocks base method
 func (m *MockIApi) MetricsRetrieveCustomerCount(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.CustomerCountResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveCustomerCount", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.CustomerCountResult)
 	ret1, _ := ret[1].(error)
@@ -441,11 +517,13 @@ func (m *MockIApi) MetricsRetrieveCustomerCount(arg0 *chartmogul_go.MetricsFilte
 
 // MetricsRetrieveCustomerCount indicates an expected call of MetricsRetrieveCustomerCount
 func (mr *MockIApiMockRecorder) MetricsRetrieveCustomerCount(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveCustomerCount", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveCustomerCount), arg0)
 }
 
 // MetricsRetrieveLTV mocks base method
 func (m *MockIApi) MetricsRetrieveLTV(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.LTVResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveLTV", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.LTVResult)
 	ret1, _ := ret[1].(error)
@@ -454,11 +532,13 @@ func (m *MockIApi) MetricsRetrieveLTV(arg0 *chartmogul_go.MetricsFilter) (*chart
 
 // MetricsRetrieveLTV indicates an expected call of MetricsRetrieveLTV
 func (mr *MockIApiMockRecorder) MetricsRetrieveLTV(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveLTV", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveLTV), arg0)
 }
 
 // MetricsRetrieveMRR mocks base method
 func (m *MockIApi) MetricsRetrieveMRR(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.MRRResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveMRR", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.MRRResult)
 	ret1, _ := ret[1].(error)
@@ -467,11 +547,13 @@ func (m *MockIApi) MetricsRetrieveMRR(arg0 *chartmogul_go.MetricsFilter) (*chart
 
 // MetricsRetrieveMRR indicates an expected call of MetricsRetrieveMRR
 func (mr *MockIApiMockRecorder) MetricsRetrieveMRR(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveMRR", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveMRR), arg0)
 }
 
 // MetricsRetrieveMRRChurnRate mocks base method
 func (m *MockIApi) MetricsRetrieveMRRChurnRate(arg0 *chartmogul_go.MetricsFilter) (*chartmogul_go.MRRChurnRateResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsRetrieveMRRChurnRate", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.MRRChurnRateResult)
 	ret1, _ := ret[1].(error)
@@ -480,11 +562,13 @@ func (m *MockIApi) MetricsRetrieveMRRChurnRate(arg0 *chartmogul_go.MetricsFilter
 
 // MetricsRetrieveMRRChurnRate indicates an expected call of MetricsRetrieveMRRChurnRate
 func (mr *MockIApiMockRecorder) MetricsRetrieveMRRChurnRate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsRetrieveMRRChurnRate", reflect.TypeOf((*MockIApi)(nil).MetricsRetrieveMRRChurnRate), arg0)
 }
 
 // Ping mocks base method
 func (m *MockIApi) Ping() (bool, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Ping")
 	ret0, _ := ret[0].(bool)
 	ret1, _ := ret[1].(error)
@@ -493,11 +577,13 @@ func (m *MockIApi) Ping() (bool, error) {
 
 // Ping indicates an expected call of Ping
 func (mr *MockIApiMockRecorder) Ping() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Ping", reflect.TypeOf((*MockIApi)(nil).Ping))
 }
 
 // PurgeDataSource mocks base method
 func (m *MockIApi) PurgeDataSource(arg0 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "PurgeDataSource", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -505,11 +591,13 @@ func (m *MockIApi) PurgeDataSource(arg0 string) error {
 
 // PurgeDataSource indicates an expected call of PurgeDataSource
 func (mr *MockIApiMockRecorder) PurgeDataSource(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PurgeDataSource", reflect.TypeOf((*MockIApi)(nil).PurgeDataSource), arg0)
 }
 
 // RemoveCustomAttributes mocks base method
 func (m *MockIApi) RemoveCustomAttributes(arg0 string, arg1 []string) (*chartmogul_go.CustomAttributes, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RemoveCustomAttributes", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.CustomAttributes)
 	ret1, _ := ret[1].(error)
@@ -518,11 +606,13 @@ func (m *MockIApi) RemoveCustomAttributes(arg0 string, arg1 []string) (*chartmog
 
 // RemoveCustomAttributes indicates an expected call of RemoveCustomAttributes
 func (mr *MockIApiMockRecorder) RemoveCustomAttributes(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveCustomAttributes", reflect.TypeOf((*MockIApi)(nil).RemoveCustomAttributes), arg0, arg1)
 }
 
 // RemoveTagsFromCustomer mocks base method
 func (m *MockIApi) RemoveTagsFromCustomer(arg0 string, arg1 []string) (*chartmogul_go.TagsResult, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RemoveTagsFromCustomer", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.TagsResult)
 	ret1, _ := ret[1].(error)
@@ -531,11 +621,13 @@ func (m *MockIApi) RemoveTagsFromCustomer(arg0 string, arg1 []string) (*chartmog
 
 // RemoveTagsFromCustomer indicates an expected call of RemoveTagsFromCustomer
 func (mr *MockIApiMockRecorder) RemoveTagsFromCustomer(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveTagsFromCustomer", reflect.TypeOf((*MockIApi)(nil).RemoveTagsFromCustomer), arg0, arg1)
 }
 
 // RetrieveCustomer mocks base method
 func (m *MockIApi) RetrieveCustomer(arg0 string) (*chartmogul_go.Customer, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveCustomer", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Customer)
 	ret1, _ := ret[1].(error)
@@ -544,11 +636,13 @@ func (m *MockIApi) RetrieveCustomer(arg0 string) (*chartmogul_go.Customer, error
 
 // RetrieveCustomer indicates an expected call of RetrieveCustomer
 func (mr *MockIApiMockRecorder) RetrieveCustomer(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCustomer", reflect.TypeOf((*MockIApi)(nil).RetrieveCustomer), arg0)
 }
 
 // RetrieveCustomersAttributes mocks base method
 func (m *MockIApi) RetrieveCustomersAttributes(arg0 string) (*chartmogul_go.Attributes, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveCustomersAttributes", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Attributes)
 	ret1, _ := ret[1].(error)
@@ -557,11 +651,13 @@ func (m *MockIApi) RetrieveCustomersAttributes(arg0 string) (*chartmogul_go.Attr
 
 // RetrieveCustomersAttributes indicates an expected call of RetrieveCustomersAttributes
 func (mr *MockIApiMockRecorder) RetrieveCustomersAttributes(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCustomersAttributes", reflect.TypeOf((*MockIApi)(nil).RetrieveCustomersAttributes), arg0)
 }
 
 // RetrieveDataSource mocks base method
 func (m *MockIApi) RetrieveDataSource(arg0 string) (*chartmogul_go.DataSource, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveDataSource", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.DataSource)
 	ret1, _ := ret[1].(error)
@@ -570,11 +666,13 @@ func (m *MockIApi) RetrieveDataSource(arg0 string) (*chartmogul_go.DataSource, e
 
 // RetrieveDataSource indicates an expected call of RetrieveDataSource
 func (mr *MockIApiMockRecorder) RetrieveDataSource(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveDataSource", reflect.TypeOf((*MockIApi)(nil).RetrieveDataSource), arg0)
 }
 
 // RetrieveInvoice mocks base method
 func (m *MockIApi) RetrieveInvoice(arg0 string) (*chartmogul_go.Invoice, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveInvoice", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Invoice)
 	ret1, _ := ret[1].(error)
@@ -583,11 +681,13 @@ func (m *MockIApi) RetrieveInvoice(arg0 string) (*chartmogul_go.Invoice, error) 
 
 // RetrieveInvoice indicates an expected call of RetrieveInvoice
 func (mr *MockIApiMockRecorder) RetrieveInvoice(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveInvoice", reflect.TypeOf((*MockIApi)(nil).RetrieveInvoice), arg0)
 }
 
 // RetrievePlan mocks base method
 func (m *MockIApi) RetrievePlan(arg0 string) (*chartmogul_go.Plan, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrievePlan", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Plan)
 	ret1, _ := ret[1].(error)
@@ -596,11 +696,13 @@ func (m *MockIApi) RetrievePlan(arg0 string) (*chartmogul_go.Plan, error) {
 
 // RetrievePlan indicates an expected call of RetrievePlan
 func (mr *MockIApiMockRecorder) RetrievePlan(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrievePlan", reflect.TypeOf((*MockIApi)(nil).RetrievePlan), arg0)
 }
 
 // SearchCustomers mocks base method
 func (m *MockIApi) SearchCustomers(arg0 *chartmogul_go.SearchCustomersParams) (*chartmogul_go.Customers, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SearchCustomers", arg0)
 	ret0, _ := ret[0].(*chartmogul_go.Customers)
 	ret1, _ := ret[1].(error)
@@ -609,11 +711,13 @@ func (m *MockIApi) SearchCustomers(arg0 *chartmogul_go.SearchCustomersParams) (*
 
 // SearchCustomers indicates an expected call of SearchCustomers
 func (mr *MockIApiMockRecorder) SearchCustomers(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchCustomers", reflect.TypeOf((*MockIApi)(nil).SearchCustomers), arg0)
 }
 
 // UpdateCustomAttributesOfCustomer mocks base method
 func (m *MockIApi) UpdateCustomAttributesOfCustomer(arg0 string, arg1 map[string]interface{}) (*chartmogul_go.CustomAttributes, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateCustomAttributesOfCustomer", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.CustomAttributes)
 	ret1, _ := ret[1].(error)
@@ -622,11 +726,13 @@ func (m *MockIApi) UpdateCustomAttributesOfCustomer(arg0 string, arg1 map[string
 
 // UpdateCustomAttributesOfCustomer indicates an expected call of UpdateCustomAttributesOfCustomer
 func (mr *MockIApiMockRecorder) UpdateCustomAttributesOfCustomer(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomAttributesOfCustomer", reflect.TypeOf((*MockIApi)(nil).UpdateCustomAttributesOfCustomer), arg0, arg1)
 }
 
 // UpdateCustomer mocks base method
 func (m *MockIApi) UpdateCustomer(arg0 *chartmogul_go.Customer, arg1 string) (*chartmogul_go.Customer, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateCustomer", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Customer)
 	ret1, _ := ret[1].(error)
@@ -635,11 +741,13 @@ func (m *MockIApi) UpdateCustomer(arg0 *chartmogul_go.Customer, arg1 string) (*c
 
 // UpdateCustomer indicates an expected call of UpdateCustomer
 func (mr *MockIApiMockRecorder) UpdateCustomer(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomer", reflect.TypeOf((*MockIApi)(nil).UpdateCustomer), arg0, arg1)
 }
 
 // UpdateCustomerV2 mocks base method
 func (m *MockIApi) UpdateCustomerV2(arg0 *chartmogul_go.UpdateCustomer, arg1 string) (*chartmogul_go.Customer, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateCustomerV2", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Customer)
 	ret1, _ := ret[1].(error)
@@ -648,11 +756,13 @@ func (m *MockIApi) UpdateCustomerV2(arg0 *chartmogul_go.UpdateCustomer, arg1 str
 
 // UpdateCustomerV2 indicates an expected call of UpdateCustomerV2
 func (mr *MockIApiMockRecorder) UpdateCustomerV2(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomerV2", reflect.TypeOf((*MockIApi)(nil).UpdateCustomerV2), arg0, arg1)
 }
 
 // UpdatePlan mocks base method
 func (m *MockIApi) UpdatePlan(arg0 *chartmogul_go.Plan, arg1 string) (*chartmogul_go.Plan, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdatePlan", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul_go.Plan)
 	ret1, _ := ret[1].(error)
@@ -661,5 +771,6 @@ func (m *MockIApi) UpdatePlan(arg0 *chartmogul_go.Plan, arg1 string) (*chartmogu
 
 // UpdatePlan indicates an expected call of UpdatePlan
 func (mr *MockIApiMockRecorder) UpdatePlan(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePlan", reflect.TypeOf((*MockIApi)(nil).UpdatePlan), arg0, arg1)
 }

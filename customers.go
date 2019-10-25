@@ -135,6 +135,11 @@ type CustID struct {
 	CustomerUUID   string `json:"customer_uuid,omitempty"`
 }
 
+// DeleteCustomerInvoicesParams - optional param for deleting all customer invoices.
+type DeleteCustomerInvoicesParams struct {
+	CustomerExternalID string
+}
+
 const (
 	singleCustomerEndpoint         = "customers/:uuid"
 	deleteCustomerInvoicesEndpoint = "data_sources/:data_source_uuid/customers/:uuid/invoices"
@@ -217,5 +222,18 @@ func (api API) DeleteCustomer(customerUUID string) error {
 // See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error {
 	path := strings.Replace(deleteCustomerInvoicesEndpoint, ":data_source_uuid", dataSourceUUID, 1)
+	return api.delete(path, customerUUID)
+}
+
+// DeleteCustomerInvoicesV2 deletes all customer's invoices by UUID & ExternalID for given data source UUID.
+//
+// See https://dev.chartmogul.com/v1.0/reference#customers
+func (api API) DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, deleteCustomerInvoicesParams *DeleteCustomerInvoicesParams) error {
+	path := strings.Replace(deleteCustomerInvoicesEndpoint, ":data_source_uuid", dataSourceUUID, 1)
+
+	if deleteCustomerInvoicesParams != nil && len(deleteCustomerInvoicesParams.CustomerExternalID) > 0 {
+		path += "?customer_external_id=" + deleteCustomerInvoicesParams.CustomerExternalID
+	}
+
 	return api.delete(path, customerUUID)
 }
