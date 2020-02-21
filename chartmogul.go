@@ -70,6 +70,13 @@ type IApi interface {
 	ListPlans(listPlansParams *ListPlansParams) (*Plans, error)
 	UpdatePlan(plan *Plan, planUUID string) (*Plan, error)
 	DeletePlan(planUUID string) error
+	// Plan Groups
+	CreatePlanGroup(planGroup *PlanGroup) (result *PlanGroup, err error)
+	RetrievePlanGroup(planGroupUUID string) (*PlanGroup, error)
+	ListPlanGroups(cursor *Cursor) (*PlanGroups, error)
+	UpdatePlanGroup(plan *PlanGroup, planGroupUUID string) (*PlanGroup, error)
+	DeletePlanGroup(planGroupUUID string) error
+	ListPlanGroupPlans(cursor *Cursor, planGroupUUID string) (*PlanGroupPlans, error)
 	// Subscriptions
 	CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error)
 	ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
