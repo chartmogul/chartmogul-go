@@ -124,8 +124,8 @@ api.DeletePlan("planUUID")
 api.CreatePlanGroup(&cm.PlanGroup{Name: "name", Plans: [plan]})
 api.RetrievePlanGroup("planGroupUUID")
 api.ListPlanGroups(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
-api.UpdatePlan(&cm.PlanGroup{}, "planGroupUUID")
-api.DeletePlan("planGroupUUID")
+api.UpdatePlanGroup(&cm.PlanGroup{}, "planGroupUUID")
+api.DeletePlanGroup("planGroupUUID")
 api.ListPlanGroupPlans(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}},  "planGroupUUID")
 ```
 
