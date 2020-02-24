@@ -3,9 +3,7 @@ package integration
 import (
 	"log"
 	"net/http"
-	//	"reflect"
 	"testing"
-	//	"time"
 
 	cm "github.com/chartmogul/chartmogul-go"
 	"github.com/davecgh/go-spew/spew"
