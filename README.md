@@ -121,7 +121,7 @@ api.DeletePlan("planUUID")
 #### [Plan Groups](https://dev.chartmogul.com/reference#plan_groups)
 
 ```go
-api.CreatePlanGroup(&cm.PlanGroup{Name: "name", Plans: [plan]})
+api.CreatePlanGroup(&cm.PlanGroup{Name: "name", Plans: []*string{&planOne.UUID, &planTwo.UUID}})
 api.RetrievePlanGroup("planGroupUUID")
 api.ListPlanGroups(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
 api.UpdatePlanGroup(&cm.PlanGroup{}, "planGroupUUID")
