@@ -48,7 +48,7 @@ type LineItem struct {
 	Quantity                  int    `json:"quantity,omitempty"`
 	ServicePeriodEnd          string `json:"service_period_end,omitempty"`
 	ServicePeriodStart        string `json:"service_period_start,omitempty"`
-	SubscriptionExternalID 	  string `json:"subscription_external_id,omitempty"`
+	SubscriptionExternalID    string `json:"subscription_external_id,omitempty"`
 	SubscriptionSetExternalID string `json:"subscription_set_external_id,omitempty"`
 	SubscriptionUUID          string `json:"subscription_uuid,omitempty"`
 	TaxAmountInCents          int    `json:"tax_amount_in_cents,omitempty"`
