@@ -1,3 +1,6 @@
+os: linux
+dist: bionic
+
 language: go
 
 matrix:
@@ -11,6 +14,8 @@ matrix:
   - go: 1.12.x
     env: GO111MODULE=on
     script: make lint test
+  - go: 1.13.x
+  - go: 1.14.x
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
