@@ -183,6 +183,21 @@ func (mr *MockIApiMockRecorder) CreatePlan(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePlan", reflect.TypeOf((*MockIApi)(nil).CreatePlan), arg0)
 }
 
+// CreatePlanGroup mocks base method
+func (m *MockIApi) CreatePlanGroup(arg0 *chartmogul_go.PlanGroup) (*chartmogul_go.PlanGroup, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreatePlanGroup", arg0)
+	ret0, _ := ret[0].(*chartmogul_go.PlanGroup)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreatePlanGroup indicates an expected call of CreatePlanGroup
+func (mr *MockIApiMockRecorder) CreatePlanGroup(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePlanGroup", reflect.TypeOf((*MockIApi)(nil).CreatePlanGroup), arg0)
+}
+
 // CreateTransaction mocks base method
 func (m *MockIApi) CreateTransaction(arg0 *chartmogul_go.Transaction, arg1 string) (*chartmogul_go.Transaction, error) {
 	m.ctrl.T.Helper()
@@ -282,6 +297,20 @@ func (mr *MockIApiMockRecorder) DeletePlan(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeletePlan", reflect.TypeOf((*MockIApi)(nil).DeletePlan), arg0)
 }
 
+// DeletePlanGroup mocks base method
+func (m *MockIApi) DeletePlanGroup(arg0 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeletePlanGroup", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeletePlanGroup indicates an expected call of DeletePlanGroup
+func (mr *MockIApiMockRecorder) DeletePlanGroup(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeletePlanGroup", reflect.TypeOf((*MockIApi)(nil).DeletePlanGroup), arg0)
+}
+
 // ListAllInvoices mocks base method
 func (m *MockIApi) ListAllInvoices(arg0 *chartmogul_go.ListAllInvoicesParams) (*chartmogul_go.Invoices, error) {
 	m.ctrl.T.Helper()
@@ -355,6 +384,36 @@ func (m *MockIApi) ListInvoices(arg0 *chartmogul_go.Cursor, arg1 string) (*chart
 func (mr *MockIApiMockRecorder) ListInvoices(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListInvoices", reflect.TypeOf((*MockIApi)(nil).ListInvoices), arg0, arg1)
+}
+
+// ListPlanGroupPlans mocks base method
+func (m *MockIApi) ListPlanGroupPlans(arg0 *chartmogul_go.Cursor, arg1 string) (*chartmogul_go.PlanGroupPlans, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListPlanGroupPlans", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul_go.PlanGroupPlans)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListPlanGroupPlans indicates an expected call of ListPlanGroupPlans
+func (mr *MockIApiMockRecorder) ListPlanGroupPlans(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPlanGroupPlans", reflect.TypeOf((*MockIApi)(nil).ListPlanGroupPlans), arg0, arg1)
+}
+
+// ListPlanGroups mocks base method
+func (m *MockIApi) ListPlanGroups(arg0 *chartmogul_go.Cursor) (*chartmogul_go.PlanGroups, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListPlanGroups", arg0)
+	ret0, _ := ret[0].(*chartmogul_go.PlanGroups)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListPlanGroups indicates an expected call of ListPlanGroups
+func (mr *MockIApiMockRecorder) ListPlanGroups(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPlanGroups", reflect.TypeOf((*MockIApi)(nil).ListPlanGroups), arg0)
 }
 
 // ListPlans mocks base method
@@ -700,6 +759,21 @@ func (mr *MockIApiMockRecorder) RetrievePlan(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrievePlan", reflect.TypeOf((*MockIApi)(nil).RetrievePlan), arg0)
 }
 
+// RetrievePlanGroup mocks base method
+func (m *MockIApi) RetrievePlanGroup(arg0 string) (*chartmogul_go.PlanGroup, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrievePlanGroup", arg0)
+	ret0, _ := ret[0].(*chartmogul_go.PlanGroup)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrievePlanGroup indicates an expected call of RetrievePlanGroup
+func (mr *MockIApiMockRecorder) RetrievePlanGroup(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrievePlanGroup", reflect.TypeOf((*MockIApi)(nil).RetrievePlanGroup), arg0)
+}
+
 // SearchCustomers mocks base method
 func (m *MockIApi) SearchCustomers(arg0 *chartmogul_go.SearchCustomersParams) (*chartmogul_go.Customers, error) {
 	m.ctrl.T.Helper()
@@ -773,4 +847,19 @@ func (m *MockIApi) UpdatePlan(arg0 *chartmogul_go.Plan, arg1 string) (*chartmogu
 func (mr *MockIApiMockRecorder) UpdatePlan(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePlan", reflect.TypeOf((*MockIApi)(nil).UpdatePlan), arg0, arg1)
+}
+
+// UpdatePlanGroup mocks base method
+func (m *MockIApi) UpdatePlanGroup(arg0 *chartmogul_go.PlanGroup, arg1 string) (*chartmogul_go.PlanGroup, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdatePlanGroup", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul_go.PlanGroup)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdatePlanGroup indicates an expected call of UpdatePlanGroup
+func (mr *MockIApiMockRecorder) UpdatePlanGroup(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePlanGroup", reflect.TypeOf((*MockIApi)(nil).UpdatePlanGroup), arg0, arg1)
 }
