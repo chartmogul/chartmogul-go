@@ -6,7 +6,7 @@
 
 <p align="center"><code>chartmogul-go</code> provides convenient Golang bindings for <a href="https://dev.chartmogul.com">ChartMogul's API</a>.</p>
 <p align="center">
-  <a href="https://travis-ci.org/chartmogul/chartmogul-go"><img src="https://travis-ci.org/chartmogul/chartmogul-go.svg?branch=master" alt="Build Status"/></a>
+  <a href="https://travis-ci.org/chartmogul/chartmogul-go"><img src="https://travis-ci.org/chartmogul/chartmogul-go.svg?branch=main" alt="Build Status"/></a>
 </p>
 <hr>
 
