@@ -311,6 +311,20 @@ func (mr *MockIApiMockRecorder) DeletePlanGroup(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeletePlanGroup", reflect.TypeOf((*MockIApi)(nil).DeletePlanGroup), arg0)
 }
 
+// EmptyDataSource mocks base method
+func (m *MockIApi) EmptyDataSource(arg0 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EmptyDataSource", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// EmptyDataSource indicates an expected call of EmptyDataSource
+func (mr *MockIApiMockRecorder) EmptyDataSource(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EmptyDataSource", reflect.TypeOf((*MockIApi)(nil).EmptyDataSource), arg0)
+}
+
 // ListAllInvoices mocks base method
 func (m *MockIApi) ListAllInvoices(arg0 *chartmogul.ListAllInvoicesParams) (*chartmogul.Invoices, error) {
 	m.ctrl.T.Helper()
@@ -638,20 +652,6 @@ func (m *MockIApi) Ping() (bool, error) {
 func (mr *MockIApiMockRecorder) Ping() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Ping", reflect.TypeOf((*MockIApi)(nil).Ping))
-}
-
-// PurgeAllDataSourceData mocks base method
-func (m *MockIApi) PurgeAllDataSourceData(arg0 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "PurgeAllDataSourceData", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// PurgeAllDataSourceData indicates an expected call of PurgeAllDataSourceData
-func (mr *MockIApiMockRecorder) PurgeAllDataSourceData(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PurgeAllDataSourceData", reflect.TypeOf((*MockIApi)(nil).PurgeAllDataSourceData), arg0)
 }
 
 // PurgeDataSource mocks base method
