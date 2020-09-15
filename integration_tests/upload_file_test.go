@@ -2,12 +2,12 @@ package integration
 
 import (
 	cm "github.com/chartmogul/chartmogul-go"
+	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/parnurzeal/gorequest"
 	"log"
 	"net/http"
+	"strings"
 	"testing"
-
-	"github.com/dnaeon/go-vcr/recorder"
 )
 
 func TestUploadCSVFile(t *testing.T) {
@@ -21,27 +21,29 @@ func TestUploadCSVFile(t *testing.T) {
 	}
 	defer r.Stop() //nolint
 
-	api := &cm.API{AccountToken: "5d490f3d8bf161bdc914fff6708bdc6b", AccessKey: "cb26b59dae523d0d62adfc143f24866e"}
+	api := &cm.API{}
 	api.SetClient(&http.Client{Transport: r})
 	gorequest.DisableTransportSwap = true
 
-	/*ds, err := api.CreateDataSource("Test upload file")
+	ds, err := api.CreateDataSource("Testing CSV batch upload file")
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer api.DeleteDataSource(ds.UUID) //nolint
-	*/
-	//f, _ := filepath.Abs("./fixtures/invoices.csv")
-	//csvContent, _ := ioutil.ReadFile(f)
 
 	uploadJob, err := api.UploadCSVFile("./fixtures/invoices.csv", &cm.CsvUploadRequest{
-		DataSourceUUID: "035e73a2-f43e-11ea-9f8b-0ff773344dee",
+		DataSourceUUID: strings.Replace(ds.UUID, "ds_", "", 1),
 		DataType:       "invoice",
 		BatchName:      "Invoices Upload"})
 
 	if err != nil {
 		t.Fatal(err)
 	}
+	if uploadJob.OriginalName != "invoices.csv" {
+		t.Fatal("Wrong Original Name")
+	}
 
-	log.Print(uploadJob)
+	if uploadJob.BatchName != "Invoices Upload" {
+		t.Fatal("Wrong batch_name")
+	}
 }

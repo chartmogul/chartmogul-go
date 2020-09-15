@@ -42,7 +42,7 @@ const (
 )
 
 var (
-	url     = "https://api-beta.chartmogul.com/v1/%v"
+	url     = "https://api.chartmogul.com/v1/%v"
 	timeout = 30 * time.Second
 )
 
@@ -126,7 +126,7 @@ type IApi interface {
 	MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error)
 
 	// CSV Upload
-	UploadCSVFile(uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error)
+	UploadCSVFile(filePath string, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error)
 }
 
 // API is the handle for communicating with Chartmogul.
@@ -251,8 +251,17 @@ func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 		Set("Content-Type", "application/json")
 }
 
-func (api API) multipart_req(req *http.Request) *http.Request {
-	// defaults for client go here:
+func (api API) multipartReq(req *http.Request) *http.Request {
 	req.SetBasicAuth(api.AccountToken, api.AccessKey)
 	return req
+}
+
+func (api API) defaultClient() *http.Client {
+	// defaults for client go here:
+	if api.Client != nil {
+		return api.Client
+	}
+	client := &http.Client{}
+	client.Timeout = timeout
+	return client
 }

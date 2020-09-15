@@ -4,16 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
+	"github.com/cenkalti/backoff"
+	"github.com/parnurzeal/gorequest"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	"net/textproto"
 	"os"
 	"strings"
-
-	"github.com/cenkalti/backoff"
-	"github.com/parnurzeal/gorequest"
 )
 
 // The methods here encompass common boilerplate for CRUD REST operations.
@@ -68,16 +65,23 @@ func (api API) prepareMultiPartRequest(path string, filePath string, input inter
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
 
-	h := make(textproto.MIMEHeader)
-	h.Set("Content-Disposition", fmt.Sprintf(`form-data; name="%s"; filename="%s"`, "file", fi.Name()))
-	h.Set("Content-Type", "text/csv")
-	h.Set("Encoding", "UTF-8")
-	part, err := writer.CreatePart(h)
+	part, err := writer.CreateFormFile("file", fi.Name())
+
 	if err != nil {
 		return nil, err
 	}
 	part.Write(fileContents)
 	writer.WriteField("type", "invoice")
+
+	var inputMap map[string]string
+	inputJson, _ := json.Marshal(input)
+	json.Unmarshal(inputJson, &inputMap)
+
+	for key, val := range inputMap {
+		if key != "data_source_uuid" {
+			_ = writer.WriteField(key, val)
+		}
+	}
 
 	err = writer.Close()
 	if err != nil {
@@ -99,15 +103,18 @@ func (api API) upload(path string, filePath string, input interface{}, output in
 		request, err := api.prepareMultiPartRequest(path, filePath, input)
 
 		if err == nil {
-			res, err = api.Client.Do(api.multipart_req(request))
+			request = api.multipartReq(request)
+			res, err = api.defaultClient().Do(request)
 			if err == nil {
 				err = json.NewDecoder(res.Body).Decode(output)
 			}
 		}
-
-		/*if networkError(err) || isHTTPStatusRetryable(res) {
+		if err != nil {
+			errs = append(errs, err)
+		}
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
-		}*/
+		}
 		return nil
 	}, backoff.NewExponentialBackOff())
 

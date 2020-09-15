@@ -1,0 +1,142 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"Testing CSV batch upload file"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic NWQ0OTBmM2Q4YmYxNjFiZGM5MTRmZmY2NzA4YmRjNmI6Y2IyNmI1OWRhZTUyM2QwZDYyYWRmYzE0M2YyNDg2NmU=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_f47e4be2-f7a7-11ea-9f8b-cb4c4307dc54","name":"Testing CSV batch
+      upload file","system":"Import API","created_at":"2020-09-15T23:05:32.150Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 15 Sep 2020 23:05:32 GMT
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 201 Created
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: "--7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382\r\nContent-Disposition:
+      form-data; name=\"file\"; filename=\"invoices.csv\"\r\nContent-Type: application/octet-stream\r\n\r\nCustomer
+      external ID,Invoice external ID,Invoiced date,Due date,Currency\nI-TVNB6F1J8NA6,7G969786RL3461740-Com1597326157,2020-08-13
+      13:42:37 UTC,,USD\nI-TVNB6F1J8NA6,0RT13055MV0037839-Com1597613377,2020-08-16
+      21:29:37 UTC,,USD\nI-TVNB6F1J8NA6,2L614316VL183161C-Com1597614875,2020-08-16
+      21:54:35 UTC,,USD\nI-TVNB6F1J8NA6,9R498590NU569570X-Com1597615977,2020-08-16
+      22:12:57 UTC,,USD\nI-TVNB6F1J8NA6,021483902D033591U-Com1597617232,2020-08-16
+      22:33:52 UTC,,USD\nI-TVNB6F1J8NA6,8H8504497V054352R-Com1597701052,2020-08-17
+      21:50:52 UTC,,USD\nI-TVNB6F1J8NA6,2EN832950L079263J-Com1597802208,2020-08-19
+      01:56:48 UTC,,USD\nI-TVNB6F1J8NA6,9TP80967CE665634S-Com1597864449,2020-08-19
+      19:14:09 UTC,,USD\nI-TVNB6F1J8NA6,54E90273VJ130974G-Com1597919575,2020-08-20
+      10:32:55 UTC,,USD\nI-TVNB6F1J8NA6,75412528WW619223K-Com1598024882,2020-08-21
+      15:48:02 UTC,,USD\nI-TVNB6F1J8NA6,0V178253F40299250-Com1598092678,2020-08-22
+      10:37:58 UTC,,USD\nI-TVNB6F1J8NA6,2UD747092W0037141-Com1598183720,2020-08-23
+      11:55:20 UTC,,USD\nI-TVNB6F1J8NA6,063199589L357914X-Com1598272284,2020-08-24
+      12:31:24 UTC,,USD\nI-TVNB6F1J8NA6,09C43234XF418650N-Com1598400311,2020-08-26
+      00:05:11 UTC,,USD\nI-TVNB6F1J8NA6,76112670JR990001C-Com1598437030,2020-08-26
+      10:17:10 UTC,,USD\nI-TVNB6F1J8NA6,7KS16653FR6003022-Com1598541140,2020-08-27
+      15:12:20 UTC,,USD\nI-TVNB6F1J8NA6,73L57259UX180732E-Com1598648595,2020-08-28
+      21:03:15 UTC,,USD\nI-TVNB6F1J8NA6,0BW16877PD6360907-Com1598696759,2020-08-29
+      10:25:59 UTC,,USD\nI-TVNB6F1J8NA6,8VH0682087503062E-Com1598809608,2020-08-30
+      17:46:48 UTC,,USD\nI-TVNB6F1J8NA6,1G400622PY1831215-Com1598874134,2020-08-31
+      11:42:14 UTC,,USD\nI-TVNB6F1J8NA6,4GH11850FD733052Y-Com1598994831,2020-09-01
+      21:13:51 UTC,,USD\nI-TVNB6F1J8NA6,8ND096490V5695445-Com1599086322,2020-09-02
+      22:38:42 UTC,,USD\nI-TVNB6F1J8NA6,2J929584CM472561B-Com1599156770,2020-09-03
+      18:12:50 UTC,,USD\nI-TVNB6F1J8NA6,9DK44233CN7441346-Com1599222640,2020-09-04
+      12:30:40 UTC,,USD\nI-TVNB6F1J8NA6,81212047VB980274E-Com1599340656,2020-09-05
+      21:17:36 UTC,,USD\nI-TVNB6F1J8NA6,5GM23370B9500601J-Com1599427375,2020-09-06
+      21:22:55 UTC,,USD\nI-TVNB6F1J8NA6,5C195963R4268314K-Com1599474898,2020-09-07
+      10:34:58 UTC,,USD\nI-TVNB6F1J8NA6,5C123452FJ4550055-Com1599575682,2020-09-08
+      14:34:42 UTC,,USD\nI-TVNB6F1J8NA6,40F7850223479101B-Com1599658650,2020-09-09
+      13:37:30 UTC,,USD\nI-TVNB6F1J8NA6,72N793164G454850B-Com1599772809,2020-09-10
+      21:20:09 UTC,,USD\nI-TVNB6F1J8NA6,5D561956DX561461E-Com1599824691,2020-09-11
+      11:44:51 UTC,,USD\r\n--7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382\r\nContent-Disposition:
+      form-data; name=\"type\"\r\n\r\ninvoice\r\n--7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382\r\nContent-Disposition:
+      form-data; name=\"data_source_uuid\"\r\n\r\nf47e4be2-f7a7-11ea-9f8b-cb4c4307dc54\r\n--7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382\r\nContent-Disposition:
+      form-data; name=\"data_type\"\r\n\r\ninvoice\r\n--7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382\r\nContent-Disposition:
+      form-data; name=\"batch_name\"\r\n\r\nInvoices Upload\r\n--7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382--\r\n"
+    form: {}
+    headers:
+      Authorization:
+      - Basic NWQ0OTBmM2Q4YmYxNjFiZGM5MTRmZmY2NzA4YmRjNmI6Y2IyNmI1OWRhZTUyM2QwZDYyYWRmYzE0M2YyNDg2NmU=
+      Content-Type:
+      - multipart/form-data; boundary=7d5b529e1ad65a3e1227f63a4240fa44387ced667e42c7c9f95b957d5382
+    url: https://api.chartmogul.com/v1/data_sources/f47e4be2-f7a7-11ea-9f8b-cb4c4307dc54/uploads
+    method: POST
+  response:
+    body: '{"id":"b14b47e4-ea73-43cc-9a90-f86cfd51c788","original_name":"invoices.csv","data_type":"invoice","storage_path":"68/7234844b-9bbf-4ef3-810f-16b997543a92/b14b47e4-ea73-43cc-9a90-f86cfd51c788","percent_complete":0,"created_at":"2020-09-15T23:05:32Z","updated_at":"2020-09-15T23:05:32Z","batch_name":"Invoices
+      Upload"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 15 Sep 2020 23:05:33 GMT
+      Etag:
+      - W/"7cbc3bc7d2a7ecd8c3ce5056217e2dc1"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 201 Created
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 896660d4-82f8-4494-b755-dd820cc18d1f
+      X-Runtime:
+      - "1.137511"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic NWQ0OTBmM2Q4YmYxNjFiZGM5MTRmZmY2NzA4YmRjNmI6Y2IyNmI1OWRhZTUyM2QwZDYyYWRmYzE0M2YyNDg2NmU=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/data_sources/ds_f47e4be2-f7a7-11ea-9f8b-cb4c4307dc54
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Date:
+      - Tue, 15 Sep 2020 23:05:34 GMT
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Status:
+      - 204 No Content
+    status: 204 No Content
+    code: 204
+    duration: ""

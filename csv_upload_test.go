@@ -2,10 +2,8 @@ package chartmogul
 
 import (
 	"github.com/davecgh/go-spew/spew"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"path/filepath"
 	"testing"
 )
 
@@ -17,7 +15,7 @@ func TestUploadFile(t *testing.T) {
 				if r.Method != "POST" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/../data_platform/v1/data_sources/:data_source_uuid/uploads" {
+				if r.RequestURI != "/v/data_sources/ds_uuid/uploads" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
@@ -30,16 +28,15 @@ func TestUploadFile(t *testing.T) {
 	tested := &API{
 		AccountToken: "token",
 		AccessKey:    "key",
+		Client:       &http.Client{},
 	}
 
-	f, _ := filepath.Abs("./invoices.csv")
-	csvContent, _ := ioutil.ReadFile(f)
+	filePath := "./invoices.csv"
 
-	_, err := tested.UploadCSVFile(&CsvUploadRequest{
+	_, err := tested.UploadCSVFile(filePath, &CsvUploadRequest{
 		DataSourceUUID: "ds_uuid",
 		DataType:       "invoice",
 		BatchName:      "Invoices Upload",
-		File:           csvContent,
 	})
 
 	if err != nil {
