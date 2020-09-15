@@ -1,7 +1,15 @@
 package chartmogul
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"net/textproto"
+	"os"
 	"strings"
 
 	"github.com/cenkalti/backoff"
@@ -35,6 +43,71 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}
+		return nil
+	}, backoff.NewExponentialBackOff())
+
+	// wrapping []errors into compatible error & making HTTPError
+	return wrapErrors(res, body, errs)
+}
+
+func (api API) prepareMultiPartRequest(path string, filePath string, input interface{}) (*http.Request, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+	fileContents, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+	file.Close()
+
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+
+	h := make(textproto.MIMEHeader)
+	h.Set("Content-Disposition", fmt.Sprintf(`form-data; name="%s"; filename="%s"`, "file", fi.Name()))
+	h.Set("Content-Type", "text/csv")
+	h.Set("Encoding", "UTF-8")
+	part, err := writer.CreatePart(h)
+	if err != nil {
+		return nil, err
+	}
+	part.Write(fileContents)
+	writer.WriteField("type", "invoice")
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", prepareURL(path), body)
+	req.Header.Add("Content-Type", writer.FormDataContentType())
+	return req, err
+}
+
+// UPLOAD
+func (api API) upload(path string, filePath string, input interface{}, output interface{}) error {
+	var body []byte
+	var errs []error
+	var res *http.Response
+
+	backoff.Retry(func() error {
+		request, err := api.prepareMultiPartRequest(path, filePath, input)
+
+		if err == nil {
+			res, err = api.Client.Do(api.multipart_req(request))
+			if err == nil {
+				err = json.NewDecoder(res.Body).Decode(output)
+			}
+		}
+
+		/*if networkError(err) || isHTTPStatusRetryable(res) {
+			return errRetry
+		}*/
 		return nil
 	}, backoff.NewExponentialBackOff())
 
