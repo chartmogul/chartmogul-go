@@ -194,6 +194,15 @@ api.MetricsListSubscriptions(&Cursor{}, "customerUUID")
 api.MetricsListActivities(&Cursor{}, "customerUUID")
 ```
 
+### CSV Upload
+
+Available CSV Upload methods:
+
+
+```go
+api.UploadCSVFile(filePath string, uploadRequest *CsvUploadRequest)
+```
+
 
 ### Errors
 

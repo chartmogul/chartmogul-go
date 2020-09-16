@@ -78,8 +78,8 @@ func (api API) prepareMultiPartRequest(path string, filePath string, input inter
 	_ = writer.WriteField("type", "invoice")
 
 	var inputMap map[string]string
-	inputJson, _ := json.Marshal(input)
-	_ = json.Unmarshal(inputJson, &inputMap)
+	inputJSON, _ := json.Marshal(input)
+	_ = json.Unmarshal(inputJSON, &inputMap)
 
 	for key, val := range inputMap {
 		if key != "data_source_uuid" {
