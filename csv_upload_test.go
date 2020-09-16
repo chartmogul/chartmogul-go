@@ -31,7 +31,7 @@ func TestUploadFile(t *testing.T) {
 		Client:       &http.Client{},
 	}
 
-	filePath := "./fixtures/invoices.csv"
+	filePath := "./integration_tests/fixtures/invoices.csv"
 
 	_, err := tested.UploadCSVFile(filePath, &CsvUploadRequest{
 		DataSourceUUID: "ds_uuid",
