@@ -2,14 +2,14 @@ package chartmogul
 
 import "strings"
 
-// Input parameters for CSV Upload
+// CsvUploadRequest holds Input parameters for CSV Upload
 type CsvUploadRequest struct {
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
 	DataType       string `json:"data_type,omitempty"`
 	BatchName      string `json:"batch_name,omitempty"`
 }
 
-// CSV Upload API response
+// CsvUploadResponse contains CSV Upload API response
 type CsvUploadResponse struct {
 	ID              string  `json:"id,omitempty"`
 	OriginalName    string  `json:"original_name,omitempty"`
@@ -25,7 +25,7 @@ const (
 	uploadEndoint = "data_sources/:data_source_uuid/uploads"
 )
 
-// Upload a CSV file to data platform
+// UploadCSVFile Upload a CSV file to data platform
 func (api API) UploadCSVFile(filePath string, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error) {
 	result := &CsvUploadResponse{}
 
