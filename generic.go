@@ -70,12 +70,16 @@ func (api API) prepareMultiPartRequest(path string, filePath string, input inter
 	if err != nil {
 		return nil, err
 	}
-	part.Write(fileContents)
-	writer.WriteField("type", "invoice")
+	_, err = part.Write(fileContents)
+
+	if err != nil {
+		return nil, err
+	}
+	_ = writer.WriteField("type", "invoice")
 
 	var inputMap map[string]string
 	inputJson, _ := json.Marshal(input)
-	json.Unmarshal(inputJson, &inputMap)
+	_ = json.Unmarshal(inputJson, &inputMap)
 
 	for key, val := range inputMap {
 		if key != "data_source_uuid" {
@@ -99,6 +103,7 @@ func (api API) upload(path string, filePath string, input interface{}, output in
 	var errs []error
 	var res *http.Response
 
+	// nolint:errcheck
 	backoff.Retry(func() error {
 		request, err := api.prepareMultiPartRequest(path, filePath, input)
 
