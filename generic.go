@@ -47,34 +47,40 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 	return wrapErrors(res, body, errs)
 }
 
-func (api API) prepareMultiPartRequest(path string, filePath string, input interface{}) (*http.Request, error) {
+func (api API) readCSVFile(filePath string) ([]byte, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
+
+	defer file.Close()
+
 	fileContents, err := ioutil.ReadAll(file)
 	if err != nil {
 		return nil, err
 	}
-	fi, err := file.Stat()
-	if err != nil {
-		return nil, err
-	}
-	file.Close()
 
+	return fileContents, nil
+}
+
+func (api API) prepareMultiPartRequest(path string, filePath string, input interface{}) (*http.Request, error) {
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
-
-	part, err := writer.CreateFormFile("file", fi.Name())
-
+	fileContents, err := api.readCSVFile(filePath)
 	if err != nil {
 		return nil, err
 	}
+
+	part, err := writer.CreateFormFile("file", filePath)
+	if err != nil {
+		return nil, err
+	}
+
 	_, err = part.Write(fileContents)
-
 	if err != nil {
 		return nil, err
 	}
+
 	_ = writer.WriteField("type", "invoice")
 
 	var inputMap map[string]string
@@ -93,6 +99,10 @@ func (api API) prepareMultiPartRequest(path string, filePath string, input inter
 	}
 
 	req, err := http.NewRequest("POST", prepareURL(path), body)
+	if err != nil {
+		return nil, err
+	}
+
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 	return req, err
 }
