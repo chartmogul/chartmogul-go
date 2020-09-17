@@ -126,7 +126,7 @@ type IApi interface {
 	MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error)
 
 	// CSV Upload
-	UploadCSVFile(filePath string, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error)
+	UploadCSVFile(file interface{}, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error)
 }
 
 // API is the handle for communicating with Chartmogul.

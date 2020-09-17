@@ -26,10 +26,10 @@ const (
 )
 
 // UploadCSVFile Upload a CSV file to data platform
-func (api API) UploadCSVFile(filePath string, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error) {
+func (api API) UploadCSVFile(file interface{}, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error) {
 	result := &CsvUploadResponse{}
 
 	path := strings.Replace(uploadEndoint, ":data_source_uuid", uploadRequest.DataSourceUUID, 1)
 
-	return result, api.upload(path, filePath, uploadRequest, result)
+	return result, api.upload(path, file, uploadRequest, result)
 }

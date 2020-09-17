@@ -6,10 +6,12 @@ import (
 	"errors"
 	"github.com/cenkalti/backoff"
 	"github.com/parnurzeal/gorequest"
+	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"os"
+	"reflect"
 	"strings"
 )
 
@@ -63,12 +65,27 @@ func (api API) readCSVFile(filePath string) ([]byte, error) {
 	return fileContents, nil
 }
 
-func (api API) prepareMultiPartRequest(path string, filePath string, input interface{}) (*http.Request, error) {
+func (api API) prepareMultiPartRequest(path string, file interface{}, input interface{}) (*http.Request, error) {
+	var fileContents []byte
+	var err error
+	var filePath string
+
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
-	fileContents, err := api.readCSVFile(filePath)
-	if err != nil {
-		return nil, err
+
+	switch v := reflect.ValueOf(file); v.Kind() {
+	case reflect.String:
+		filePath = v.String()
+		fileContents, err = api.readCSVFile(filePath)
+		if err != nil {
+			return nil, err
+		}
+	default:
+		fileContents, err = ioutil.ReadAll(v.Interface().(io.Reader))
+		if err != nil {
+			return nil, err
+		}
+		filePath = "io.Reader"
 	}
 
 	part, err := writer.CreateFormFile("file", filePath)
@@ -108,14 +125,14 @@ func (api API) prepareMultiPartRequest(path string, filePath string, input inter
 }
 
 // UPLOAD
-func (api API) upload(path string, filePath string, input interface{}, output interface{}) error {
+func (api API) upload(path string, file interface{}, input interface{}, output interface{}) error {
 	var body []byte
 	var errs []error
 	var res *http.Response
 
 	// nolint:errcheck
 	backoff.Retry(func() error {
-		request, err := api.prepareMultiPartRequest(path, filePath, input)
+		request, err := api.prepareMultiPartRequest(path, file, input)
 
 		if err == nil {
 			request = api.multipartReq(request)
