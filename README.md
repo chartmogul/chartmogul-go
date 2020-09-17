@@ -200,7 +200,7 @@ Available CSV Upload methods:
 
 
 ```go
-api.UploadCSVFile(filePath string, uploadRequest *CsvUploadRequest)
+api.UploadCSVFile(file interface{}, uploadRequest *CsvUploadRequest)
 ```
 
 
