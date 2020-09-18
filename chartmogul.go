@@ -124,6 +124,9 @@ type IApi interface {
 	// Metrics - Subscriptions & Activities
 	MetricsListSubscriptions(cursor *Cursor, customerUUID string) (*MetricsSubscriptions, error)
 	MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error)
+
+	// CSV Upload
+	UploadCSVFile(file interface{}, uploadRequest *CsvUploadRequest) (*CsvUploadResponse, error)
 }
 
 // API is the handle for communicating with Chartmogul.
@@ -246,4 +249,19 @@ func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 	return req.Timeout(timeout).
 		SetBasicAuth(api.AccountToken, api.AccessKey).
 		Set("Content-Type", "application/json")
+}
+
+func (api API) multipartReq(req *http.Request) *http.Request {
+	req.SetBasicAuth(api.AccountToken, api.AccessKey)
+	return req
+}
+
+func (api API) defaultClient() *http.Client {
+	// defaults for client go here:
+	if api.Client != nil {
+		return api.Client
+	}
+	client := &http.Client{}
+	client.Timeout = timeout
+	return client
 }

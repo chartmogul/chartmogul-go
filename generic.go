@@ -1,11 +1,18 @@
 package chartmogul
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
-	"strings"
-
 	"github.com/cenkalti/backoff"
 	"github.com/parnurzeal/gorequest"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"os"
+	"reflect"
+	"strings"
 )
 
 // The methods here encompass common boilerplate for CRUD REST operations.
@@ -32,6 +39,111 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 			SendStruct(input).
 			EndStruct(output)
 
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
+			return errRetry
+		}
+		return nil
+	}, backoff.NewExponentialBackOff())
+
+	// wrapping []errors into compatible error & making HTTPError
+	return wrapErrors(res, body, errs)
+}
+
+func (api API) readCSVFile(filePath string) ([]byte, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	defer file.Close()
+
+	fileContents, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+
+	return fileContents, nil
+}
+
+func (api API) prepareMultiPartRequest(path string, file interface{}, input interface{}) (*http.Request, error) {
+	var fileContents []byte
+	var err error
+	var filePath string
+
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+
+	switch v := reflect.ValueOf(file); v.Kind() {
+	case reflect.String:
+		filePath = v.String()
+		fileContents, err = api.readCSVFile(filePath)
+		if err != nil {
+			return nil, err
+		}
+	default:
+		fileContents, err = ioutil.ReadAll(v.Interface().(io.Reader))
+		if err != nil {
+			return nil, err
+		}
+		filePath = "io.Reader"
+	}
+
+	part, err := writer.CreateFormFile("file", filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = part.Write(fileContents)
+	if err != nil {
+		return nil, err
+	}
+
+	_ = writer.WriteField("type", "invoice")
+
+	var inputMap map[string]string
+	inputJSON, _ := json.Marshal(input)
+	_ = json.Unmarshal(inputJSON, &inputMap)
+
+	for key, val := range inputMap {
+		if key != "data_source_uuid" {
+			_ = writer.WriteField(key, val)
+		}
+	}
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", prepareURL(path), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", writer.FormDataContentType())
+	return req, err
+}
+
+// UPLOAD
+func (api API) upload(path string, file interface{}, input interface{}, output interface{}) error {
+	var body []byte
+	var errs []error
+	var res *http.Response
+
+	// nolint:errcheck
+	backoff.Retry(func() error {
+		request, err := api.prepareMultiPartRequest(path, file, input)
+
+		if err == nil {
+			request = api.multipartReq(request)
+			res, err = api.defaultClient().Do(request)
+			if err == nil {
+				err = json.NewDecoder(res.Body).Decode(output)
+			}
+		}
+		if err != nil {
+			errs = append(errs, err)
+		}
 		if networkErrors(errs) || isHTTPStatusRetryable(res) {
 			return errRetry
 		}

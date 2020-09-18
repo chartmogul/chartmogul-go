@@ -877,3 +877,18 @@ func (mr *MockIApiMockRecorder) UpdatePlanGroup(arg0, arg1 interface{}) *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdatePlanGroup", reflect.TypeOf((*MockIApi)(nil).UpdatePlanGroup), arg0, arg1)
 }
+
+// uploadCSVFile mocks base method
+func (m *MockIApi) uploadCSVFile(arg0 *chartmogul.CsvUploadRequest) (*chartmogul.CsvUploadResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "uploadCSVFile", arg0)
+	ret0, _ := ret[0].(*chartmogul.CsvUploadResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// uploadCSVFile indicates an expected call of uploadCSVFile
+func (mr *MockIApiMockRecorder) uploadCSVFile(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "uploadCSVFile", reflect.TypeOf((*MockIApi)(nil).uploadCSVFile), arg0)
+}
