@@ -36,7 +36,7 @@ func TestUploadFile(t *testing.T) {
 
 	_, err := tested.UploadCSVFile(file, &CsvUploadRequest{
 		DataSourceUUID: "ds_uuid",
-		DataType:       "invoice",
+		Type:           "invoice",
 		BatchName:      "Invoices Upload",
 	})
 
@@ -49,7 +49,7 @@ func TestUploadFile(t *testing.T) {
 
 	_, err = tested.UploadCSVFile(reader, &CsvUploadRequest{
 		DataSourceUUID: "ds_uuid",
-		DataType:       "invoice",
+		Type:           "customer",
 		BatchName:      "Invoices Upload",
 	})
 

@@ -251,17 +251,11 @@ func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 		Set("Content-Type", "application/json")
 }
 
-func (api API) multipartReq(req *http.Request) *http.Request {
-	req.SetBasicAuth(api.AccountToken, api.AccessKey)
-	return req
-}
-
-func (api API) defaultClient() *http.Client {
+func (api API) multiPart(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 	// defaults for client go here:
 	if api.Client != nil {
-		return api.Client
+		req.Client = api.Client
 	}
-	client := &http.Client{}
-	client.Timeout = timeout
-	return client
+	return req.Timeout(timeout).
+		SetBasicAuth(api.AccountToken, api.AccessKey)
 }
