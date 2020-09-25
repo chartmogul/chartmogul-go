@@ -5,7 +5,7 @@ import "strings"
 // CsvUploadRequest holds Input parameters for CSV Upload
 type CsvUploadRequest struct {
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
-	DataType       string `json:"data_type,omitempty"`
+	Type           string `json:"type,omitempty"`
 	BatchName      string `json:"batch_name,omitempty"`
 }
 

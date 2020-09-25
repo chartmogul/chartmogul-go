@@ -33,7 +33,7 @@ func TestUploadCSVFile(t *testing.T) {
 
 	uploadJob, err := api.UploadCSVFile("./fixtures/invoices.csv", &cm.CsvUploadRequest{
 		DataSourceUUID: strings.Replace(ds.UUID, "ds_", "", 1),
-		DataType:       "invoice",
+		Type:           "invoice",
 		BatchName:      "Invoices Upload"})
 
 	if err != nil {
