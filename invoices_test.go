@@ -1,6 +1,7 @@
 package chartmogul
 
 import (
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -191,6 +192,102 @@ func TestRetrieveInvoice(t *testing.T) {
 		spew.Dump(invoice)
 		t.Error("Unexpected invoice")
 	}
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestCreateInvoiceFullRefund(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "POST"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/import/customers/uuid/invoices"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				defer r.Body.Close()
+				body, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					spew.Dump(err)
+					t.Fatal("error should be nil")
+				}
+				expected = `{"invoices":[{"currency":"","date":"","external_id":"","line_items":null,"transactions":[{"date":"","external_id":"tx-id","result":"successful","type":"payment"}]}]}`
+				if string(body) != expected {
+					t.Errorf("Requested body expected: %v, actual: %v", expected, string(body))
+				}
+				w.Write([]byte("{}")) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		AccountToken: "token",
+		AccessKey:    "key",
+	}
+	_, err := tested.CreateInvoices([]*Invoice{{
+		Transactions: []*Transaction{{
+			ExternalID: "tx-id",
+			Type:       "payment",
+			Result:     "successful",
+		}},
+	}}, "uuid")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestCreateInvoicePartialRefund(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "POST"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/import/customers/uuid/invoices"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				defer r.Body.Close()
+				body, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					spew.Dump(err)
+					t.Fatal("error should be nil")
+				}
+				expected = `{"invoices":[{"currency":"","date":"","external_id":"","line_items":null,"transactions":[{"amount_in_cents":200,"date":"","external_id":"tx-id","result":"successful","type":"payment"}]}]}`
+				if string(body) != expected {
+					t.Errorf("Requested body expected: %v, actual: %v", expected, string(body))
+				}
+				w.Write([]byte("{}")) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		AccountToken: "token",
+		AccessKey:    "key",
+	}
+	amount := 200
+	_, err := tested.CreateInvoices([]*Invoice{{
+		Transactions: []*Transaction{{
+			AmountInCents: &amount,
+			ExternalID:    "tx-id",
+			Type:          "payment",
+			Result:        "successful",
+		}},
+	}}, "uuid")
+
 	if err != nil {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")

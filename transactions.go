@@ -6,12 +6,13 @@ const transactionsEndpoint = "import/invoices/:invoiceUUID/transactions"
 
 // Transaction is either payment/refund on an invoice, for its full value.
 type Transaction struct {
-	UUID       string `json:"uuid,omitempty"`
-	Date       string `json:"date"`
-	ExternalID string `json:"external_id,omitempty"`
-	Result     string `json:"result"`
-	Type       string `json:"type"`
-	Errors     Errors `json:"errors,omitempty"`
+	UUID          string `json:"uuid,omitempty"`
+	Date          string `json:"date"`
+	ExternalID    string `json:"external_id,omitempty"`
+	Result        string `json:"result"`
+	Type          string `json:"type"`
+	AmountInCents *int   `json:"amount_in_cents,omitempty"`
+	Errors        Errors `json:"errors,omitempty"`
 }
 
 // CreateTransaction loads an transaction to a customer in Chartmogul.
