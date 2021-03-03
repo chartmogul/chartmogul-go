@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/cenkalti/backoff"
+	backoff "github.com/cenkalti/backoff/v3"
 	"github.com/parnurzeal/gorequest"
 )
 

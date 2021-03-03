@@ -1,7 +1,7 @@
 module github.com/chartmogul/chartmogul-go
 
 require (
-	github.com/cenkalti/backoff v2.2.1+incompatible
+	github.com/cenkalti/backoff/v3 v3.2.2
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dnaeon/go-vcr v1.0.1
 	github.com/elazarl/goproxy v0.0.0-20200426045556-49ad98f6dac1 // indirect
