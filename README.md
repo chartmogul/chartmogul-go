@@ -31,7 +31,7 @@
 
 ## Installation
 
-This library requires Go 1.7.3 or above.
+This library requires Go 1.11 or above.
 
 ```sh
 go get github.com/chartmogul/chartmogul-go
