@@ -65,11 +65,14 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 	return wrapErrors(res, body, errs)
 }
 
+// RETRIEVE
 func (api API) retrieve(path string, uuid string, output interface{}) error {
 	var res gorequest.Response
 	var body []byte
 	var errs []error
-	path = strings.Replace(path, ":uuid", uuid, 1)
+	if uuid != "" {
+		path = strings.Replace(path, ":uuid", uuid, 1)
+	}
 
 	// nolint:errcheck
 	backoff.Retry(func() error {

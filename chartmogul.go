@@ -124,6 +124,9 @@ type IApi interface {
 	// Metrics - Subscriptions & Activities
 	MetricsListSubscriptions(cursor *Cursor, customerUUID string) (*MetricsSubscriptions, error)
 	MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error)
+
+	// Account
+	RetrieveAccount() (*Account, error)
 }
 
 // API is the handle for communicating with Chartmogul.
