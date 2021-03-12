@@ -6,12 +6,10 @@ const (
 
 // Account details in ChartMogul
 type Account struct {
-	Name        string `json:"name,omitempty"`
-	Currency    string `json:"currency,omitempty"`
-	TimeZone    string `json:"time_zone,omitempty"`
-	WeekStartOn string `json:"week_start_on,omitempty"`
-
-	Errors Errors `json:"errors,omitempty"`
+	Name        string `json:"name"`
+	Currency    string `json:"currency"`
+	TimeZone    string `json:"time_zone"`
+	WeekStartOn string `json:"week_start_on"`
 }
 
 // RetrieveAccount returns details of current account.
