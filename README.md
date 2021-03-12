@@ -195,6 +195,15 @@ api.MetricsListActivities(&Cursor{}, "customerUUID")
 ```
 
 
+### Account
+
+Availiable methods:
+
+```go
+api.RetrieveAccount()
+```
+
+
 ### Errors
 
 The library returns parsed errors inside the structs as from the REST API,
