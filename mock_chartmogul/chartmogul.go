@@ -474,7 +474,23 @@ func (mr *MockIApiMockRecorder) MergeCustomers(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MergeCustomers", reflect.TypeOf((*MockIApi)(nil).MergeCustomers), arg0)
 }
 
-// MetricsListActivities mocks base method
+// MetricsListCustomerActivities mocks base method
+func (m *MockIApi) MetricsListCustomerActivities(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsCustomerActivities, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MetricsListCustomerActivities", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.MetricsCustomerActivities)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MetricsListCustomerActivities indicates an expected call of MetricsListActivities
+func (mr *MockIApiMockRecorder) MetricsListCustomerActivities(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListCustomerActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListCustomerActivities), arg0, arg1)
+}
+
+
+// MetricsListCustomerActivities mocks base method
 func (m *MockIApi) MetricsListActivities(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsActivities, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MetricsListActivities", arg0, arg1)
@@ -483,25 +499,26 @@ func (m *MockIApi) MetricsListActivities(arg0 *chartmogul.Cursor, arg1 string) (
 	return ret0, ret1
 }
 
-// MetricsListActivities indicates an expected call of MetricsListActivities
+// MetricsListCustomerActivities indicates an expected call of MetricsListActivities
 func (mr *MockIApiMockRecorder) MetricsListActivities(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListActivities), arg0, arg1)
 }
 
-// MetricsListSubscriptions mocks base method
-func (m *MockIApi) MetricsListSubscriptions(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsSubscriptions, error) {
+
+// MetricsListCustomerSubscriptions mocks base method
+func (m *MockIApi) MetricsListCustomerSubscriptions(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsCustomerSubscriptions, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "MetricsListSubscriptions", arg0, arg1)
-	ret0, _ := ret[0].(*chartmogul.MetricsSubscriptions)
+	ret := m.ctrl.Call(m, "MetricsListCustomerSubscriptions", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.MetricsCustomerSubscriptions)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // MetricsListSubscriptions indicates an expected call of MetricsListSubscriptions
-func (mr *MockIApiMockRecorder) MetricsListSubscriptions(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockIApiMockRecorder) MetricsListCustomerSubscriptions(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListSubscriptions", reflect.TypeOf((*MockIApi)(nil).MetricsListSubscriptions), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListCustomerSubscriptions", reflect.TypeOf((*MockIApi)(nil).MetricsListCustomerSubscriptions), arg0, arg1)
 }
 
 // MetricsRetrieveARPA mocks base method

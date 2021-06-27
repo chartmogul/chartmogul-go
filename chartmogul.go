@@ -122,8 +122,9 @@ type IApi interface {
 	MetricsRetrieveLTV(metricsFilter *MetricsFilter) (*LTVResult, error)
 
 	// Metrics - Subscriptions & Activities
-	MetricsListSubscriptions(cursor *Cursor, customerUUID string) (*MetricsSubscriptions, error)
-	MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error)
+	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
+	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
+	MetricsListActivities(cursor *Cursor) (*MetricsActivities, error)
 
 	// Account
 	RetrieveAccount() (*Account, error)
