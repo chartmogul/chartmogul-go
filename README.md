@@ -190,8 +190,8 @@ api.MetricsRetrieveCustomerChurnRate(&MetricsFilter{})
 api.MetricsRetrieveMRRChurnRate(&MetricsFilter{})
 api.MetricsRetrieveLTV(&MetricsFilter{})
 
-api.MetricsListCustomerSubscriptions(&Cursor{}, "customerUUID") // >= v2.0.0
-api.MetricsListCustomerActivities(&Cursor{}, "customerUUID") // >= v2.0.0
+api.MetricsListCustomerSubscriptions(&Cursor{}, "customerUUID")
+api.MetricsListCustomerActivities(&Cursor{}, "customerUUID")
 
 api.MetricsListActivities(&Cursor{PerPage: 100})
 ```
