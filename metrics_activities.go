@@ -2,20 +2,20 @@ package chartmogul
 
 // MetricsActivity represents Metrics API activity in ChartMogul.
 type MetricsActivity struct {
-	Date                    string  `json:"date"`
-	ActivityArr             float64 `json:"activity-arr"`
-	ActivityMrr             float64 `json:"activity-mrr"`
-	ActivityMrrMovement     float64 `json:"activity-mrr-movement"`
-	Currency                string  `json:"currency"`
-	Description             string  `json:"description"`
-	Type                    string  `json:"type"`
-	SubscriptionExternalID  string  `json:"subscription-external-id"`
-	PlanExternalID          string  `json:"plan-external-id"`
-	CustomerName            string  `json:"customer-name"`
-	CustomerUUID            string  `json:"customer-uuid"`
-	CustomerExternalID      string  `json:"customer-external-id"`
-	BillingConnectorUUID    string  `json:"billing-connector-uuid"`
-	UUID                    string  `json:"uuid"`
+	Date                   string  `json:"date"`
+	ActivityArr            float64 `json:"activity-arr"`
+	ActivityMrr            float64 `json:"activity-mrr"`
+	ActivityMrrMovement    float64 `json:"activity-mrr-movement"`
+	Currency               string  `json:"currency"`
+	Description            string  `json:"description"`
+	Type                   string  `json:"type"`
+	SubscriptionExternalID string  `json:"subscription-external-id"`
+	PlanExternalID         string  `json:"plan-external-id"`
+	CustomerName           string  `json:"customer-name"`
+	CustomerUUID           string  `json:"customer-uuid"`
+	CustomerExternalID     string  `json:"customer-external-id"`
+	BillingConnectorUUID   string  `json:"billing-connector-uuid"`
+	UUID                   string  `json:"uuid"`
 }
 
 // MetricsActivities is the result of listing activities in Metrics API.

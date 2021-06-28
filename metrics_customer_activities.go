@@ -18,9 +18,9 @@ type MetricsCustomerActivity struct {
 // MetricsCustomerActivities is the result of listing activities in Metrics API.
 type MetricsCustomerActivities struct {
 	Entries []*MetricsCustomerActivity `json:"entries"`
-	HasMore bool               `json:"has_more"`
-	PerPage uint32             `json:"per_page"`
-	Page    uint32             `json:"page"`
+	HasMore bool                       `json:"has_more"`
+	PerPage uint32                     `json:"per_page"`
+	Page    uint32                     `json:"page"`
 }
 
 const metricsCustomerActivitiesEndpoint = "customers/:uuid/activities"

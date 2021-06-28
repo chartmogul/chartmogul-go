@@ -22,9 +22,9 @@ type MetricsCustomerSubscription struct {
 // MetricsCustomerSubscriptions is the result of listing subscriptions in Metrics API.
 type MetricsCustomerSubscriptions struct {
 	Entries []*MetricsCustomerSubscription `json:"entries"`
-	HasMore bool                   `json:"has_more"`
-	PerPage uint32                 `json:"per_page"`
-	Page    uint32                 `json:"page"`
+	HasMore bool                           `json:"has_more"`
+	PerPage uint32                         `json:"per_page"`
+	Page    uint32                         `json:"page"`
 }
 
 const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
