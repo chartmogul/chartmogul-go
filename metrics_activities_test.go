@@ -16,7 +16,7 @@ func TestListActivities(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/activities?type=new_biz" {
+				if r.RequestURI != "/v/activities?per-page=5&start-after=b45b1d3f-3823-424f-ab47-5a1d0c00a7f6&type=new_biz" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
@@ -47,7 +47,7 @@ func TestListActivities(t *testing.T) {
 		AccountToken: "token",
 		AccessKey:    "key",
 	}
-	activities, err := tested.MetricsListActivities(&MetricsListActivitiesParams{Type: "new_biz"})
+	activities, err := tested.MetricsListActivities(&MetricsListActivitiesParams{Type: "new_biz", AnchorCursor: AnchorCursor{PerPage: 5, StartAfter: "b45b1d3f-3823-424f-ab47-5a1d0c00a7f6"}})
 
 	if err != nil {
 		spew.Dump(err)
