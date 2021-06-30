@@ -53,7 +53,8 @@ func TestListActivities(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if len(activities.Entries) == 0 {
+	if len(activities.Entries) == 0||
+        activities.Entries[0].UUID != "f1a49735-21c7-4e3f-9ddc-67927aaadcf4" {
 		spew.Dump(activities)
 		t.Fatal("Unexpected result")
 	}
