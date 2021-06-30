@@ -2,8 +2,8 @@ package chartmogul
 
 import "strings"
 
-// MetricsSubscription represents Metrics API subscription in ChartMogul.
-type MetricsSubscription struct {
+// MetricsCustomerSubscription represents Metrics API subscription in ChartMogul.
+type MetricsCustomerSubscription struct {
 	ID                uint64  `json:"id"`
 	ExternalID        string  `json:"external_id"`
 	Plan              string  `json:"plan"`
@@ -19,22 +19,22 @@ type MetricsSubscription struct {
 	CurrencySign      string  `json:"currency-sign"`
 }
 
-// MetricsSubscriptions is the result of listing subscriptions in Metrics API.
-type MetricsSubscriptions struct {
-	Entries []*MetricsSubscription `json:"entries"`
-	HasMore bool                   `json:"has_more"`
-	PerPage uint32                 `json:"per_page"`
-	Page    uint32                 `json:"page"`
+// MetricsCustomerSubscriptions is the result of listing subscriptions in Metrics API.
+type MetricsCustomerSubscriptions struct {
+	Entries []*MetricsCustomerSubscription `json:"entries"`
+	HasMore bool                           `json:"has_more"`
+	PerPage uint32                         `json:"per_page"`
+	Page    uint32                         `json:"page"`
 }
 
-const metricsSubscriptionsEndpoint = "customers/:uuid/subscriptions"
+const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
 // MetricsListSubscriptions lists all subscriptions for cutomer of a given UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#list-customer-subscriptions
-func (api API) MetricsListSubscriptions(cursor *Cursor, customerUUID string) (*MetricsSubscriptions, error) {
-	result := &MetricsSubscriptions{}
-	path := strings.Replace(metricsSubscriptionsEndpoint, ":uuid", customerUUID, 1)
+func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error) {
+	result := &MetricsCustomerSubscriptions{}
+	path := strings.Replace(metricsCustomerSubscriptionsEndpoint, ":uuid", customerUUID, 1)
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {
 		query = append(query, *cursor)
