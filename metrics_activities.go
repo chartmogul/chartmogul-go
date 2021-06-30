@@ -26,21 +26,21 @@ type MetricsActivities struct {
 }
 
 type MetricsListActivitiesParams struct {
-	Type       string `json:"type,omitempty"`
-	StartDate  string `json:"start-date,omitempty"`
-	EndDate    string `json:"end-date,omitempty"`
-	Order      string `json:"order,omitempty"`
-    AnchorCursor
+	Type      string `json:"type,omitempty"`
+	StartDate string `json:"start-date,omitempty"`
+	EndDate   string `json:"end-date,omitempty"`
+	Order     string `json:"order,omitempty"`
+	AnchorCursor
 }
 
 const metricsActivitiesEndpoint = "activities"
 
 // MetricsListActivities lists all activities for an account
 func (api API) MetricsListActivities(listActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error) {
-    result := &MetricsActivities{}
-    query := make([]interface{}, 0, 1)
-    if listActivitiesParams != nil {
-        query = append(query, *listActivitiesParams)
-    }
-    return result, api.list(metricsActivitiesEndpoint, result, query...)
+	result := &MetricsActivities{}
+	query := make([]interface{}, 0, 1)
+	if listActivitiesParams != nil {
+		query = append(query, *listActivitiesParams)
+	}
+	return result, api.list(metricsActivitiesEndpoint, result, query...)
 }

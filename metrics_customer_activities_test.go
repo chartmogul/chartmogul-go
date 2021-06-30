@@ -33,9 +33,9 @@ func TestListCustomerActivities(t *testing.T) {
                                                 "type": "new_biz",
                                                 "subscription-external-id": "1"
                                             }],
-											"has_more": false,
-										    "per_page": 200,
-                                            "page": 1}`))
+                                "has_more": false,
+                                "per_page": 200,
+                                "page": 1}`))
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
@@ -50,8 +50,8 @@ func TestListCustomerActivities(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if len(activities.Entries) == 0||
-        activities.Entries[0].Date != "2015-06-09T13:16:00+00:00" {
+	if len(activities.Entries) == 0 ||
+		activities.Entries[0].Date != "2015-06-09T13:16:00+00:00" {
 		spew.Dump(activities)
 		t.Fatal("Unexpected result")
 	}
