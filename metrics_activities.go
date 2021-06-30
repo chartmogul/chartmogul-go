@@ -25,16 +25,22 @@ type MetricsActivities struct {
 	PerPage uint32             `json:"per_page"`
 }
 
+type MetricsListActivitiesParams struct {
+	Type       string `json:"type,omitempty"`
+	StartDate  string `json:"start-date,omitempty"`
+	EndDate    string `json:"end-date,omitempty"`
+	Order      string `json:"order,omitempty"`
+    AnchorCursor
+}
+
 const metricsActivitiesEndpoint = "activities"
 
-// MetricsListActivities lists all activities for cutomer of a given UUID.
-//
-// See https://dev.chartmogul.com/v1.0/reference#list-customer-activities
-func (api API) MetricsListActivities(cursor *Cursor) (*MetricsActivities, error) {
-	result := &MetricsActivities{}
-	query := make([]interface{}, 0, 1)
-	if cursor != nil {
-		query = append(query, *cursor)
-	}
-	return result, api.list(metricsActivitiesEndpoint, result, query...)
+// MetricsListActivities lists all activities for an account
+func (api API) MetricsListActivities(listActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error) {
+    result := &MetricsActivities{}
+    query := make([]interface{}, 0, 1)
+    if listActivitiesParams != nil {
+        query = append(query, *listActivitiesParams)
+    }
+    return result, api.list(metricsActivitiesEndpoint, result, query...)
 }

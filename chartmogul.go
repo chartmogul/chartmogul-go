@@ -124,7 +124,7 @@ type IApi interface {
 	// Metrics - Subscriptions & Activities
 	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
 	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
-	MetricsListActivities(cursor *Cursor) (*MetricsActivities, error)
+    MetricsListActivities(MetricsListActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error)
 
 	// Account
 	RetrieveAccount() (*Account, error)
@@ -142,6 +142,11 @@ type API struct {
 type Cursor struct {
 	Page    uint32 `json:"page,omitempty"`
 	PerPage uint32 `json:"per_page,omitempty"`
+}
+
+type AnchorCursor struct {
+    PerPage uint32 `json:"per-page,omitempty"`
+    StartAfter string `json:"start-after,omitempty"`
 }
 
 // Errors contains error feedback from ChartMogul

@@ -483,7 +483,6 @@ func (m *MockIApi) MetricsListCustomerActivities(arg0 *chartmogul.Cursor, arg1 s
 	return ret0, ret1
 }
 
-// MetricsListCustomerActivities indicates an expected call of MetricsListActivities
 func (mr *MockIApiMockRecorder) MetricsListCustomerActivities(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListCustomerActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListCustomerActivities), arg0, arg1)
