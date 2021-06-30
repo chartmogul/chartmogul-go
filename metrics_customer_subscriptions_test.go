@@ -22,23 +22,23 @@ func TestListCustomerSubscriptions(t *testing.T) {
 				w.WriteHeader(http.StatusOK)
 				//nolint
 				w.Write([]byte(`{"entries": [{
-                                                "id": 9306830,
-                                                "external_id": "sub_0001",
-                                                "plan": "PRO Plan (10,000 active cust.) monthly",
-                                                "quantity": 1,
-                                                "mrr": 70800,
-                                                "arr": 849600,
-                                                "status": "active",
-                                                "billing-cycle": "month",
-                                                "billing-cycle-count": 1,
-                                                "start-date": "2015-12-20T08:26:49-05:00",
-                                                "end-date": "2016-03-20T09:26:49-05:00",
-                                                "currency": "USD",
-                                                "currency-sign": "$"
-                                            }],
-                                "has_more": false,
-                                "per_page": 200,
-                                "page": 1}`))
+									"id": 9306830,
+									"external_id": "sub_0001",
+									"plan": "PRO Plan (10,000 active cust.) monthly",
+									"quantity": 1,
+									"mrr": 70800,
+									"arr": 849600,
+									"status": "active",
+									"billing-cycle": "month",
+									"billing-cycle-count": 1,
+									"start-date": "2015-12-20T08:26:49-05:00",
+									"end-date": "2016-03-20T09:26:49-05:00",
+									"currency": "USD",
+									"currency-sign": "$"
+								}],
+								"has_more": false,
+								"per_page": 200,
+								"page": 1}`))
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")

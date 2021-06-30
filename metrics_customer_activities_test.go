@@ -22,20 +22,20 @@ func TestListCustomerActivities(t *testing.T) {
 				w.WriteHeader(http.StatusOK)
 				//nolint
 				w.Write([]byte(`{"entries": [{
-                                                "activity-arr": 24000,
-                                                "activity-mrr": 2000,
-                                                "activity-mrr-movement": 2000,
-                                                "currency": "USD",
-                                                "currency-sign": "$",
-                                                "date": "2015-06-09T13:16:00+00:00",
-                                                "description": "purchased the Silver Monthly plan (1)",
-                                                "id": 48730,
-                                                "type": "new_biz",
-                                                "subscription-external-id": "1"
-                                            }],
-                                "has_more": false,
-                                "per_page": 200,
-                                "page": 1}`))
+									"activity-arr": 24000,
+									"activity-mrr": 2000,
+									"activity-mrr-movement": 2000,
+									"currency": "USD",
+									"currency-sign": "$",
+									"date": "2015-06-09T13:16:00+00:00",
+									"description": "purchased the Silver Monthly plan (1)",
+									"id": 48730,
+									"type": "new_biz",
+									"subscription-external-id": "1"
+								}],
+								"has_more": false,
+								"per_page": 200,
+								"page": 1}`))
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
