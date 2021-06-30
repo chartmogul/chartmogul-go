@@ -144,8 +144,10 @@ type Cursor struct {
 	PerPage uint32 `json:"per_page,omitempty"`
 }
 
+// AnchorCursor contains query parameters for anchor based pagination used for some APIs in ChartMogul.
 type AnchorCursor struct {
 	PerPage    uint32 `json:"per-page,omitempty"`
+    //StartAfter is used to get the next set of Entries and its value should be the UUID of last Entry from previous response.
 	StartAfter string `json:"start-after,omitempty"`
 }
 
