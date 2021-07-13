@@ -2,24 +2,23 @@ package chartmogul
 
 // MetricsActivitiesExport represents Metrics API activity export in ChartMogul.
 type MetricsActivitiesExport struct {
-	ID                   	  string `json:"id"`
-	Status                  string `json:"status"`
-	FileURL            			string `json:"file_url"`
-	Params		            	Params `json:"params"`
-	ExpiresAt    						string `json:"expires_at"`
-	CreatedAt               string `json:"created_at"`
-
+	ID        string `json:"id"`
+	Status    string `json:"status"`
+	FileURL   string `json:"file_url"`
+	Params    Params `json:"params"`
+	ExpiresAt string `json:"expires_at"`
+	CreatedAt string `json:"created_at"`
 }
 
 type Params struct {
-	Kind string `json:"kind"`
+	Kind   string       `json:"kind"`
 	Params NestedParams `json:"params,omitempty"`
 }
 
 type NestedParams struct {
 	ActivityType string `json:"activity_type,omitempty"`
-	StartDate string `json:"start-date,omitempty"`
-	EndDate   string `json:"end-date,omitempty"`
+	StartDate    string `json:"start-date,omitempty"`
+	EndDate      string `json:"end-date,omitempty"`
 }
 
 // NewMetricsActivitiesExport is the POST-ed to create a MetricsActivitiesExport .
@@ -30,7 +29,7 @@ type NewMetricsActivitiesExport struct {
 }
 
 const (
-	metricsActivitiesExportEndpoint = "activities_export"
+	metricsActivitiesExportEndpoint       = "activities_export"
 	singleMetricsActivitiesExportEndpoint = "activities_export/:activities_export_uuid"
 )
 

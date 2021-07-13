@@ -46,8 +46,8 @@ func TestCreateActivitiesExport(t *testing.T) {
 	}
 	activities_export, err := tested.MetricsCreateActivitiesExport(&NewMetricsActivitiesExport{
 		StartDate: "2020-01-01",
-		EndDate: 	 "2020-12-31",
-		Type: 		 "contraction",
+		EndDate:   "2020-12-31",
+		Type:      "contraction",
 	})
 
 	if err != nil {
