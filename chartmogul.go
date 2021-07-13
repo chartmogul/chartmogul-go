@@ -125,6 +125,8 @@ type IApi interface {
 	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
 	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
 	MetricsListActivities(MetricsListActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error)
+	MetricsCreateActivitiesExport(NewMetricsActivitiesExport *NewMetricsActivitiesExport) (*MetricsActivitiesExport, error)
+	MetricsRetrieveActivitiesExport(activitiesExportUUID string) (*MetricsActivitiesExport, error)
 
 	// Account
 	RetrieveAccount() (*Account, error)

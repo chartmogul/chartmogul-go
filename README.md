@@ -194,8 +194,10 @@ api.MetricsListCustomerSubscriptions(&Cursor{}, "customerUUID")
 api.MetricsListCustomerActivities(&Cursor{}, "customerUUID")
 
 api.MetricsListActivities(&cm.MetricsListActivitiesParams{StartDate: "2016-09-16T09:28:10Z", AnchorCursor: cm.AnchorCursor{PerPage: 5, StartAfter: "b45b1d3f-3823-424f-ab47-5a1d0c00a7f6"}})
-```
 
+api.MetricsCreateActivitiesExport(&cm.ActivitiesExport{})
+api.MetricsRetrieveActivitesExport("activitiesExportUUID")
+```
 
 ### Account
 
