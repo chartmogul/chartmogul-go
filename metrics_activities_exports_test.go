@@ -68,7 +68,7 @@ func TestRetrieveActivitiesExport(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/activities_export/:activities_export_uuid" {
+				if r.RequestURI != "/v/activities_export/7f554dba-4a41-4cb2-9790-2045e4c3a5b1" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
