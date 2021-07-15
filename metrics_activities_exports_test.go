@@ -97,14 +97,14 @@ func TestRetrieveActivitiesExport(t *testing.T) {
 		AccessKey:    "key",
 	}
 
-	var activitiesExportId = "7f554dba-4a41-4cb2-9790-2045e4c3a5b1"
-	activitiesExport, err := tested.MetricsRetrieveActivitiesExport(activitiesExportId)
+	var activitiesExportID = "7f554dba-4a41-4cb2-9790-2045e4c3a5b1"
+	activitiesExport, err := tested.MetricsRetrieveActivitiesExport(activitiesExportID)
 
 	if err != nil {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if activitiesExport.ID != activitiesExportId || activitiesExport.Status != "succeeded" {
+	if activitiesExport.ID != activitiesExportID || activitiesExport.Status != "succeeded" {
 		spew.Dump(activitiesExport)
 		t.Fatal("Unexpected result")
 	}
