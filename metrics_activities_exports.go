@@ -9,20 +9,21 @@ type MetricsActivitiesExport struct {
 	ExpiresAt string `json:"expires_at"`
 	CreatedAt string `json:"created_at"`
 }
-
+// Params provides information on the equested export.
 type Params struct {
 	Kind   string       `json:"kind"`
 	Params NestedParams `json:"params,omitempty"`
 }
 
+// NestedParams represents the params of the requested type of export.
 type NestedParams struct {
 	ActivityType string `json:"activity_type,omitempty"`
 	StartDate    string `json:"start_date,omitempty"`
 	EndDate      string `json:"end_date,omitempty"`
 }
 
-// NewMetricsActivitiesExport is the POST-ed to create a MetricsActivitiesExport .
-type NewMetricsActivitiesExport struct {
+// CreateMetricsActivitiesExportParam is the POST-ed to create a MetricsActivitiesExport.
+type CreateMetricsActivitiesExportParam struct {
 	Type      string `json:"type,omitempty"`
 	StartDate string `json:"start-date,omitempty"`
 	EndDate   string `json:"end-date,omitempty"`
@@ -36,9 +37,9 @@ const (
 // MetricsCreateActivitiesExport requests creation of an activities export in Chartmogul.
 //
 // See https://dev.chartmogul.com/v1.0/reference#activities_export
-func (api API) MetricsCreateActivitiesExport(NewMetricsActivitiesExport *NewMetricsActivitiesExport) (*MetricsActivitiesExport, error) {
+func (api API) MetricsCreateActivitiesExport(CreateMetricsActivitiesExportParam *CreateMetricsActivitiesExportParam) (*MetricsActivitiesExport, error) {
 	result := &MetricsActivitiesExport{}
-	return result, api.create(metricsActivitiesExportEndpoint, NewMetricsActivitiesExport, result)
+	return result, api.create(metricsActivitiesExportEndpoint, CreateMetricsActivitiesExportParam, result)
 }
 
 // MetricsRetrieveActivitiesExport returns one activities export as in API.

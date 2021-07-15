@@ -44,7 +44,7 @@ func TestCreateActivitiesExport(t *testing.T) {
 		AccountToken: "token",
 		AccessKey:    "key",
 	}
-	activities_export, err := tested.MetricsCreateActivitiesExport(&NewMetricsActivitiesExport{
+	activitiesExport, err := tested.MetricsCreateActivitiesExport(&CreateMetricsActivitiesExportParam{
 		StartDate: "2020-01-01",
 		EndDate:   "2020-12-31",
 		Type:      "contraction",
@@ -54,8 +54,8 @@ func TestCreateActivitiesExport(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if activities_export.ID != "7f554dba-4a41-4cb2-9790-2045e4c3a5b1" || activities_export.Status != "pending" {
-		spew.Dump(activities_export)
+	if activitiesExport.ID != "7f554dba-4a41-4cb2-9790-2045e4c3a5b1" || activitiesExport.Status != "pending" {
+		spew.Dump(activitiesExport)
 		t.Fatal("Unexpected result")
 	}
 }
@@ -97,15 +97,15 @@ func TestRetrieveActivitiesExport(t *testing.T) {
 		AccessKey:    "key",
 	}
 
-	var activities_export_id = "7f554dba-4a41-4cb2-9790-2045e4c3a5b1"
-	activities_export, err := tested.MetricsRetrieveActivitiesExport(activities_export_id)
+	var activitiesExportId = "7f554dba-4a41-4cb2-9790-2045e4c3a5b1"
+	activitiesExport, err := tested.MetricsRetrieveActivitiesExport(activitiesExportId)
 
 	if err != nil {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if activities_export.ID != activities_export_id || activities_export.Status != "succeeded" {
-		spew.Dump(activities_export)
+	if activitiesExport.ID != activitiesExportId || activitiesExport.Status != "succeeded" {
+		spew.Dump(activitiesExport)
 		t.Fatal("Unexpected result")
 	}
 }
