@@ -9,7 +9,7 @@ type MetricsActivitiesExport struct {
 	ExpiresAt string `json:"expires_at"`
 	CreatedAt string `json:"created_at"`
 }
-// Params provides information on the equested export.
+// Params provides information on the requested export.
 type Params struct {
 	Kind   string       `json:"kind"`
 	Params NestedParams `json:"params,omitempty"`
@@ -22,7 +22,7 @@ type NestedParams struct {
 	EndDate      string `json:"end_date,omitempty"`
 }
 
-// CreateMetricsActivitiesExportParam is the POST-ed to create a MetricsActivitiesExport.
+// CreateMetricsActivitiesExportParam to create a MetricsActivitiesExport.
 type CreateMetricsActivitiesExportParam struct {
 	Type      string `json:"type,omitempty"`
 	StartDate string `json:"start-date,omitempty"`
