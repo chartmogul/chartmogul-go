@@ -9,6 +9,7 @@ type MetricsActivitiesExport struct {
 	ExpiresAt string `json:"expires_at"`
 	CreatedAt string `json:"created_at"`
 }
+
 // Params provides information on the requested export.
 type Params struct {
 	Kind   string       `json:"kind"`
