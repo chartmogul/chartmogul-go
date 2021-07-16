@@ -474,6 +474,21 @@ func (mr *MockIApiMockRecorder) MergeCustomers(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MergeCustomers", reflect.TypeOf((*MockIApi)(nil).MergeCustomers), arg0)
 }
 
+// MetricsListActivities mocks base method
+func (m *MockIApi) MetricsListActivities(arg0 *chartmogul.MetricsListActivitiesParams) (*chartmogul.MetricsActivities, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MetricsListActivities", arg0)
+	ret0, _ := ret[0].(*chartmogul.MetricsActivities)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MetricsListActivities indicates an expected call of MetricsListActivities
+func (mr *MockIApiMockRecorder) MetricsListActivities(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListActivities), arg0)
+}
+
 // MetricsListCustomerActivities mocks base method
 func (m *MockIApi) MetricsListCustomerActivities(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsCustomerActivities, error) {
 	m.ctrl.T.Helper()
@@ -483,27 +498,11 @@ func (m *MockIApi) MetricsListCustomerActivities(arg0 *chartmogul.Cursor, arg1 s
 	return ret0, ret1
 }
 
+// MetricsListCustomerActivities indicates an expected call of MetricsListCustomerActivities
 func (mr *MockIApiMockRecorder) MetricsListCustomerActivities(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListCustomerActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListCustomerActivities), arg0, arg1)
 }
-
-
-// MetricsListCustomerActivities mocks base method
-func (m *MockIApi) MetricsListActivities(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsActivities, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "MetricsListActivities", arg0, arg1)
-	ret0, _ := ret[0].(*chartmogul.MetricsActivities)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// MetricsListCustomerActivities indicates an expected call of MetricsListActivities
-func (mr *MockIApiMockRecorder) MetricsListActivities(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListActivities", reflect.TypeOf((*MockIApi)(nil).MetricsListActivities), arg0, arg1)
-}
-
 
 // MetricsListCustomerSubscriptions mocks base method
 func (m *MockIApi) MetricsListCustomerSubscriptions(arg0 *chartmogul.Cursor, arg1 string) (*chartmogul.MetricsCustomerSubscriptions, error) {
@@ -514,7 +513,7 @@ func (m *MockIApi) MetricsListCustomerSubscriptions(arg0 *chartmogul.Cursor, arg
 	return ret0, ret1
 }
 
-// MetricsListSubscriptions indicates an expected call of MetricsListSubscriptions
+// MetricsListCustomerSubscriptions indicates an expected call of MetricsListCustomerSubscriptions
 func (mr *MockIApiMockRecorder) MetricsListCustomerSubscriptions(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MetricsListCustomerSubscriptions", reflect.TypeOf((*MockIApi)(nil).MetricsListCustomerSubscriptions), arg0, arg1)
@@ -712,6 +711,21 @@ func (m *MockIApi) RemoveTagsFromCustomer(arg0 string, arg1 []string) (*chartmog
 func (mr *MockIApiMockRecorder) RemoveTagsFromCustomer(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveTagsFromCustomer", reflect.TypeOf((*MockIApi)(nil).RemoveTagsFromCustomer), arg0, arg1)
+}
+
+// RetrieveAccount mocks base method
+func (m *MockIApi) RetrieveAccount() (*chartmogul.Account, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveAccount")
+	ret0, _ := ret[0].(*chartmogul.Account)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveAccount indicates an expected call of RetrieveAccount
+func (mr *MockIApiMockRecorder) RetrieveAccount() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveAccount", reflect.TypeOf((*MockIApi)(nil).RetrieveAccount))
 }
 
 // RetrieveCustomer mocks base method
