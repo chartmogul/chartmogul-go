@@ -23,7 +23,7 @@ pre-commit: .git/hooks/pre-commit lint
 	go test -timeout=20s --short ./...
 
 bin/golangci-lint:
-	curl -s -L https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.27.0 # Go 1.11+
+	curl -s -L https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.28.3 # Go 1.11+
 
 
 .PHONY: lint

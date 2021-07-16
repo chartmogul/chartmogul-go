@@ -8,11 +8,11 @@ type MetricsCustomerSubscription struct {
 	ExternalID        string  `json:"external_id"`
 	Plan              string  `json:"plan"`
 	Quantity          uint32  `json:"quantity"`
+	BillingCycleCount uint32  `json:"billing-cycle-count"`
 	MRR               float64 `json:"mrr"`
 	ARR               float64 `json:"arr"`
 	Status            string  `json:"status"`
 	BillingCycle      string  `json:"billing-cycle"`
-	BillingCycleCount uint32  `json:"billing-cycle-count"`
 	StartDate         string  `json:"start-date"`
 	EndDate           string  `json:"end-date"`
 	Currency          string  `json:"currency"`

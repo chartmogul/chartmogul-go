@@ -18,8 +18,18 @@ jobs:
         with:
           go-version: ${{ matrix.go-versions }}
 
-      - name: Run linter
-        run: make lint
+      - name: Run tests
+        run: make test
+
+  code-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go ${{ matrix.go-versions }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.14'
 
       - name: Set ENV for codeclimate (pull_request)
         run: |
@@ -40,9 +50,6 @@ jobs:
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
 
-      - name: Run tests
-        run: make test
-
       - name: Run test coverage
         run: |
             for pkg in $(go list ./... | grep -v vendor); do
@@ -58,17 +65,13 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         if: ${{ success() }}
         run: ./cc-test-reporter after-build
-
   linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Go 
-        uses: actions/setup-go@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
         with:
-          go-version: '1.14'
-
-      - name: Run linter
-        run: make lint
+          version: 'v1.28.3'
 
