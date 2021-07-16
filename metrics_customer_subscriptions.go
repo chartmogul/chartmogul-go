@@ -29,7 +29,7 @@ type MetricsCustomerSubscriptions struct {
 
 const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
-// MetricsListSubscriptions lists all subscriptions for cutomer of a given UUID.
+// MetricsListCustomerSubscriptions lists all subscriptions for cutomer of a given UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#list-customer-subscriptions
 func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error) {
