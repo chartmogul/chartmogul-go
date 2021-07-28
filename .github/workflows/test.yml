@@ -1,0 +1,77 @@
+name: Run specs and generate Code Climate report
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-versions: ['1.11', '1.12', '1.13', '1.14']
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go ${{ matrix.go-versions }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-versions }}
+
+      - name: Run tests
+        run: make test
+
+  code-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go ${{ matrix.go-versions }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.14'
+
+      - name: Set ENV for codeclimate (pull_request)
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF
+          echo "GIT_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
+          echo "GIT_COMMIT_SHA=$(git rev-parse origin/$GITHUB_HEAD_REF)" >> $GITHUB_ENV
+        if: github.event_name == 'pull_request'
+
+      - name: Set ENV for codeclimate (push)
+        run: |
+          echo "GIT_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "GIT_COMMIT_SHA=$GITHUB_SHA" >> $GITHUB_ENV
+        if: github.event_name == 'push'
+
+      - name: Install Code Climate test report
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+
+      - name: Run test coverage
+        run: |
+            for pkg in $(go list ./... | grep -v vendor); do
+                go test -coverprofile=$(echo $pkg | tr / -).cover $pkg
+            done
+            echo "mode: set" > c.out
+            grep -h -v "^mode:" ./*.cover >> c.out
+            rm -f *.cover
+            sed -i 's#^github.com/chartmogul/chartmogul-go/##g' c.out
+
+      - name: Send Report to Code Climate
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        if: ${{ success() }}
+        run: ./cc-test-reporter after-build
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: 'v1.28.3'
+

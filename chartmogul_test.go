@@ -91,6 +91,9 @@ var matchersCases = map[string]struct {
 func TestErrorMatchers(t *testing.T) {
 	for testName, testCase := range matchersCases {
 		for fnName, expected := range testCase.expectations {
+			t := t
+			expected := expected
+
 			var fn func() bool
 			switch fnName {
 			case "IsAlreadyExists":

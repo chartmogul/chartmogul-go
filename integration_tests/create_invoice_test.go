@@ -86,9 +86,9 @@ func TestCreateInvoice(t *testing.T) {
 			},
 			{
 				Type:                      "subscription",
-				AmountInCents:         	   10000,
-				ExternalID:            	   "ext_line_item",
-				SubscriptionExternalID:	   "ext_subscription",
+				AmountInCents:             10000,
+				ExternalID:                "ext_line_item",
+				SubscriptionExternalID:    "ext_subscription",
 				SubscriptionSetExternalID: "ext_subscription_set",
 				PlanUUID:                  plan.UUID,
 				Quantity:                  10,
