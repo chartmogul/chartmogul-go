@@ -58,7 +58,7 @@ jobs:
             echo "mode: set" > c.out
             grep -h -v "^mode:" ./*.cover >> c.out
             rm -f *.cover
-            sed -i 's#^github.com/chartmogul/chartmogul-go/##g' c.out
+            sed -i 's#^github.com/chartmogul/chartmogul-go/v2/##g' c.out
 
       - name: Send Report to Code Climate
         env:
