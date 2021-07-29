@@ -6,7 +6,7 @@
 
 <p align="center"><code>chartmogul-go</code> provides convenient Golang bindings for <a href="https://dev.chartmogul.com">ChartMogul's API</a>.</p>
 <p align="center">
-  <a href="https://travis-ci.org/chartmogul/chartmogul-go"><img src="https://travis-ci.org/chartmogul/chartmogul-go.svg?branch=main" alt="Build Status"/></a>
+  <a href="https://github.com/chartmogul/chartmogul-go/tree/v2"><img src="https://github.com/chartmogul/chartmogul-go/actions/workflows/test.yml/badge.svg?branch=v2" alt="Build Status"/></a>
 </p>
 <hr>
 
@@ -26,7 +26,7 @@
 <hr>
 <br>
 
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](http://godoc.org/github.com/chartmogul/chartmogul-go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v2.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v2)
 [![Go Report Card](https://goreportcard.com/badge/github.com/chartmogul/chartmogul-go)](https://goreportcard.com/report/github.com/chartmogul/chartmogul-go)
 
 ## Installation
@@ -34,7 +34,7 @@
 This library requires Go 1.11 or above.
 
 ```sh
-go get github.com/chartmogul/chartmogul-go
+go get github.com/chartmogul/chartmogul-go/v2
 ```
 
 ## Configuration
@@ -42,7 +42,7 @@ go get github.com/chartmogul/chartmogul-go
 First create the `API` struct by passing your account token and secret key, available from the administration section of your ChartMogul account.
 
 ```go
-import cm "github.com/chartmogul/chartmogul-go"
+import cm "github.com/chartmogul/chartmogul-go/v2"
 
 api := cm.API{
     AccountToken: os.Getenv("CHARTMOGUL_ACCOUNT_TOKEN"),
