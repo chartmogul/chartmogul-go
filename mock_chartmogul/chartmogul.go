@@ -5,9 +5,10 @@
 package mock_chartmogul_go
 
 import (
-	chartmogul "github.com/chartmogul/chartmogul-go"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	chartmogul "github.com/chartmogul/chartmogul-go/v2"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockIApi is a mock of IApi interface
