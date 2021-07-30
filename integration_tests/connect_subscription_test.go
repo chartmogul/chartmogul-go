@@ -136,7 +136,7 @@ func TestConnectSubscriptions(t *testing.T) {
 		t.Fatal(err)
 	}
 	//time.Sleep(time.Minute)
-	msubs, err := api.MetricsListCustomerSubscriptions(&cm.Cursor{PerPage: 200}, cus.UUID)
+	msubs, err := api.MetricsListSubscriptions(&cm.Cursor{PerPage: 200}, cus.UUID)
 	if err != nil {
 		t.Fatal(err)
 	}

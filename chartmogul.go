@@ -122,9 +122,8 @@ type IApi interface {
 	MetricsRetrieveLTV(metricsFilter *MetricsFilter) (*LTVResult, error)
 
 	// Metrics - Subscriptions & Activities
-	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
-	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
-	MetricsListActivities(MetricsListActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error)
+	MetricsListSubscriptions(cursor *Cursor, customerUUID string) (*MetricsSubscriptions, error)
+	MetricsListActivities(cursor *Cursor, customerUUID string) (*MetricsActivities, error)
 	MetricsCreateActivitiesExport(CreateMetricsActivitiesExportParam *CreateMetricsActivitiesExportParam) (*MetricsActivitiesExport, error)
 	MetricsRetrieveActivitiesExport(activitiesExportUUID string) (*MetricsActivitiesExport, error)
 
@@ -144,13 +143,6 @@ type API struct {
 type Cursor struct {
 	Page    uint32 `json:"page,omitempty"`
 	PerPage uint32 `json:"per_page,omitempty"`
-}
-
-// AnchorCursor contains query parameters for anchor based pagination used for some APIs in ChartMogul.
-type AnchorCursor struct {
-	PerPage uint32 `json:"per-page,omitempty"`
-	//StartAfter is used to get the next set of Entries and its value should be the UUID of last Entry from previous response.
-	StartAfter string `json:"start-after,omitempty"`
 }
 
 // Errors contains error feedback from ChartMogul
