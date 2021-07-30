@@ -1,15 +1,15 @@
 name: Run specs and generate Code Climate report
 on:
   push:
-    branches: [ main ]
+    branches: [ main, v2 ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, v2 ]
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-versions: ['1.11', '1.12', '1.13', '1.14']
+        go-versions: ['1.11', '1.12', '1.13', '1.14', '1.16' ]
     steps:
       - uses: actions/checkout@v2
 
@@ -58,7 +58,7 @@ jobs:
             echo "mode: set" > c.out
             grep -h -v "^mode:" ./*.cover >> c.out
             rm -f *.cover
-            sed -i 's#^github.com/chartmogul/chartmogul-go/##g' c.out
+            sed -i 's#^github.com/chartmogul/chartmogul-go/v2/##g' c.out
 
       - name: Send Report to Code Climate
         env:
