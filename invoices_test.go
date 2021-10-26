@@ -33,7 +33,7 @@ const oneInvoiceExample = `{
 			"discount_amount_in_cents": 1000,
 			"tax_amount_in_cents": 900,
 			"transaction_fees_currency": "EUR",
-            "discount_description": "5 EUR",
+			"discount_description": "5 EUR",
 			"account_code": null
 		},
 		{
@@ -94,7 +94,7 @@ const retrieveInvoiceExample = `{
 			"discount_amount_in_cents": 1000,
 			"tax_amount_in_cents": 900,
 			"transaction_fees_currency": "EUR",
-            "discount_description": "5 EUR",
+			"discount_description": "5 EUR",
 			"account_code": null
 		}
 	],
