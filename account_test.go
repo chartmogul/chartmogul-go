@@ -35,8 +35,7 @@ func TestRetrieveAccount(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	account, err := tested.RetrieveAccount()
 

@@ -26,7 +26,7 @@
 <hr>
 <br>
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v2.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v2)
+[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v3.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v3)
 [![Go Report Card](https://goreportcard.com/badge/github.com/chartmogul/chartmogul-go)](https://goreportcard.com/report/github.com/chartmogul/chartmogul-go)
 
 ## Installation
@@ -34,19 +34,18 @@
 This library requires Go 1.11 or above.
 
 ```sh
-go get github.com/chartmogul/chartmogul-go/v2
+go get github.com/chartmogul/chartmogul-go/v3
 ```
 
 ## Configuration
 
-First create the `API` struct by passing your account token and secret key, available from the administration section of your ChartMogul account.
+First create the `API` struct by passing your API key, available from the administration section of your ChartMogul account.
 
 ```go
-import cm "github.com/chartmogul/chartmogul-go/v2"
+import cm "github.com/chartmogul/chartmogul-go/v3"
 
 api := cm.API{
-    AccountToken: os.Getenv("CHARTMOGUL_ACCOUNT_TOKEN"),
-    AccessKey:    os.Getenv("CHARTMOGUL_SECRET_KEY"),
+    ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
 }
 
 // Try authentication

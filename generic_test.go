@@ -28,8 +28,7 @@ func TestRetryStatusTooManyRequests(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	err := tested.delete("path1/:uuid", "uuid1")
 	if err != nil {
