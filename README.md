@@ -38,6 +38,8 @@ go get github.com/chartmogul/chartmogul-go/v2
 ```
 
 ## Configuration
+[Deprecation] - `account_token`/`secret_key` combo is deprecated. Please use API key for both fields.
+Version 3.x will introduce a breaking change in authentication configuration. For more details, please visit: https://dev.chartmogul.com
 
 First create the `API` struct by passing your account token and secret key, available from the administration section of your ChartMogul account.
 
