@@ -44,8 +44,7 @@ func TestListActivities(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	activities, err := tested.MetricsListActivities(&MetricsListActivitiesParams{Type: "new_biz", AnchorCursor: AnchorCursor{PerPage: 5, StartAfter: "b45b1d3f-3823-424f-ab47-5a1d0c00a7f6"}})
 

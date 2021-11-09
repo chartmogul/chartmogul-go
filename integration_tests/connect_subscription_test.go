@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	cm "github.com/chartmogul/chartmogul-go/v2"
+	cm "github.com/chartmogul/chartmogul-go/v3"
 	"github.com/parnurzeal/gorequest"
 
 	"github.com/dnaeon/go-vcr/recorder"

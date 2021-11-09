@@ -41,8 +41,7 @@ func TestCreateActivitiesExport(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	activitiesExport, err := tested.MetricsCreateActivitiesExport(&CreateMetricsActivitiesExportParam{
 		StartDate: "2020-01-01",
@@ -93,8 +92,7 @@ func TestRetrieveActivitiesExport(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 
 	var activitiesExportID = "7f554dba-4a41-4cb2-9790-2045e4c3a5b1"

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	cm "github.com/chartmogul/chartmogul-go/v2"
+	cm "github.com/chartmogul/chartmogul-go/v3"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
 
@@ -26,9 +26,8 @@ func TestEmptyDataSource(t *testing.T) {
 	defer r.Stop() //nolint
 
 	api := &cm.API{
-		AccountToken: os.Getenv("CHARTMOGUL_ACCOUNT_TOKEN"),
-		AccessKey:    os.Getenv("CHARTMOGUL_SECRET_KEY"),
-		Client:       &http.Client{Transport: r},
+		ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
+		Client: &http.Client{Transport: r},
 	}
 	gorequest.DisableTransportSwap = true
 

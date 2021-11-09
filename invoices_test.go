@@ -121,8 +121,7 @@ func TestNewInvoicesAllListing(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	result, err := tested.ListAllInvoices(&ListAllInvoicesParams{
 		CustomerUUID: "cus_f466e33d-ff2b-4a11-8f85-417eb02157a7",
@@ -158,8 +157,7 @@ func TestDeleteInvoice(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	err := tested.DeleteInvoice("inv_123")
 
@@ -189,8 +187,7 @@ func TestRetrieveInvoice(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	invoice, err := tested.RetrieveInvoice("inv_123")
 
@@ -234,8 +231,7 @@ func TestCreateInvoiceFullRefund(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	_, err := tested.CreateInvoices([]*Invoice{{
 		Transactions: []*Transaction{{
@@ -281,8 +277,7 @@ func TestCreateInvoicePartialRefund(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	amount := 200
 	_, err := tested.CreateInvoices([]*Invoice{{

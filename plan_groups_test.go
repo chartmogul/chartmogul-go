@@ -34,8 +34,7 @@ func TestNewPlanGroupAllListing(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	result, err := tested.ListPlanGroups(&Cursor{})
 
@@ -68,8 +67,7 @@ func TestDeletePlanGroup(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	err := tested.DeletePlanGroup("plg_b53fdbfc-c5eb-4a61-a589-85146cf8d0ab")
 
@@ -99,8 +97,7 @@ func TestRetrievePlanGroup(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	planGroup, err := tested.RetrievePlanGroup("plg_b53fdbfc-c5eb-4a61-a589-85146cf8d0ab")
 
