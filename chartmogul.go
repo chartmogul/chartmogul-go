@@ -257,6 +257,6 @@ func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 		req.Client = api.Client
 	}
 	return req.Timeout(timeout).
-		SetBasicAuth(api.AccountToken, api.AccessKey).
+		SetBasicAuth(api.AccountToken, "").
 		Set("Content-Type", "application/json")
 }
