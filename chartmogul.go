@@ -258,5 +258,5 @@ func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 	return req.Timeout(timeout).
 		SetBasicAuth(api.ApiKey, "").
 		Set("Content-Type", "application/json").
-		Set("User-Agent", "chartmogul-go/v3")
+		Set("User-Agent", "chartmogul-go/"+Version)
 }
