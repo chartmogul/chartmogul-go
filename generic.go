@@ -198,3 +198,24 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 
 	return wrapErrors(res, body, errs)
 }
+
+func (api API) deleteWithData(path string, input interface{}) error {
+	var res gorequest.Response
+	var body string
+	var errs []error
+
+	backoff.Retry(func() error {
+		res, body, errs = api.req(gorequest.New().
+			Delete(prepareURL(path))).
+			SendStruct(input).
+			End()
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
+			return errRetry
+		}
+		return nil
+	}, backoff.NewExponentialBackOff())
+
+	// wrapping []errors into compatible error & making HTTPError
+	return wrapErrors(res, []byte(body), errs)
+}
