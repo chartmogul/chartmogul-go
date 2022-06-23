@@ -44,10 +44,10 @@ type Summary struct {
 
 // Summary represents results of Metrics API.
 type AllSummary struct {
-	CurrentCustomerChurnRate            float64 `json:"current-customer-churn-rate"`
-	PreviousCustomerChurnRate           float64 `json:"previous-customer-churn-rate"`
-	CustomerChurnRatePercentageChange   float64 `json:"customer-churn-rate-percentage-change"`
-	CurrentMrrChurnRate                 float64 `json:"current-mrr-churn-rate"`
+    CurrentCustomerChurnRate            float64 `json:"current-customer-churn-rate"`
+    PreviousCustomerChurnRate           float64 `json:"previous-customer-churn-rate"`
+    CustomerChurnRatePercentageChange   float64 `json:"customer-churn-rate-percentage-change"`
+    CurrentMrrChurnRate                 float64 `json:"current-mrr-churn-rate"`
     PreviousMrrChurnRate                float64 `json:"previous-mrr-churn-rate"`
     MrrChurnRatePercentageChange        float64 `json:"mrr-churn-rate-percentage-change"`
     CurrentLtv                          float64 `json:"current-ltv"`
