@@ -32,7 +32,8 @@ type AllMetrics struct {
 
 // MetricsResult represents results of Metrics API.
 type MetricsResult struct {
-	Entries []*AllMetrics `json:"entries,omitempty"`
+	Entries []*AllMetrics   `json:"entries,omitempty"`
+	Summary *AllSummary     `json:"summary"`
 }
 
 // Summary represents results of Metrics API.
@@ -72,13 +73,14 @@ type AllSummary struct {
 
 // MRRMetrics represents results of Metrics API.
 type MRRMetrics struct {
-	Date            string  `json:"date"`
-	MRR             float64 `json:"mrr"`
-	MRRNewBusiness  float64 `json:"mrr-new-business"`
-	MRRExpansion    float64 `json:"mrr-expansion"`
-	MRRContraction  float64 `json:"mrr-contraction"`
-	MRRChurn        float64 `json:"mrr-churn"`
-	MRRReactivation float64 `json:"mrr-reactivation"`
+	Date                string  `json:"date"`
+	MRR                 float64 `json:"mrr"`
+	MRRNewBusiness      float64 `json:"mrr-new-business"`
+	MRRExpansion        float64 `json:"mrr-expansion"`
+	MRRContraction      float64 `json:"mrr-contraction"`
+	MRRChurn            float64 `json:"mrr-churn"`
+	MRRReactivation     float64 `json:"mrr-reactivation"`
+	PercentageChange    float64 `json:"percentage-change"`
 }
 
 // MRRResult represents results of Metrics API.
