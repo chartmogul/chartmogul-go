@@ -13,7 +13,7 @@ import (
 )
 
 func TestRetrieveMetrics(t *testing.T) {
-	if testing.Short() {
+    if testing.Short() {
         t.Skip("Integration test.")
     }
 
@@ -100,17 +100,17 @@ func TestRetrieveMetrics(t *testing.T) {
                                              EndDate:   "2022-05-31",
                                              Interval:  "month",
                                          })
-	if err != nil {
-		t.Fatal(err)
-	}
-	diff_all := deep.Equal(retrieved_all, all)
-	if diff_all != nil {
-		spew.Dump(all)
-		t.Errorf("compare failed: %#v", diff_all)
-	}
+    if err != nil {
+        t.Fatal(err)
+    }
+    diff_all := deep.Equal(retrieved_all, all)
+    if diff_all != nil {
+        spew.Dump(all)
+        t.Errorf("compare failed: %#v", diff_all)
+    }
 
-	mrr := &cm.MRRResult{
-		Entries: []*cm.MRRMetrics{
+    mrr := &cm.MRRResult{
+        Entries: []*cm.MRRMetrics{
             {
                 Date: "2022-04-30",
                 MRR: 68604881,
@@ -138,17 +138,17 @@ func TestRetrieveMetrics(t *testing.T) {
             PercentageChange: 0.73,
         },
     }
-	retrieved_mrr, err := api.MetricsRetrieveMRR(&cm.MetricsFilter{
-                                             StartDate: "2022-04-01",
-                                             EndDate:   "2022-05-31",
-                                             Interval:  "month",
-                                         })
-	if err != nil {
-		t.Fatal(err)
-	}
-	diff_mrr := deep.Equal(retrieved_mrr, mrr)
-	if diff_mrr != nil {
-		spew.Dump(all)
-		t.Errorf("compare failed: %#v", diff_mrr)
-	}
+    retrieved_mrr, err := api.MetricsRetrieveMRR(&cm.MetricsFilter{
+                                            StartDate: "2022-04-01",
+                                            EndDate:   "2022-05-31",
+                                            Interval:  "month",
+                                            })
+    if err != nil {
+        t.Fatal(err)
+    }
+    diff_mrr := deep.Equal(retrieved_mrr, mrr)
+    if diff_mrr != nil {
+        spew.Dump(all)
+        t.Errorf("compare failed: %#v", diff_mrr)
+    }
 }
