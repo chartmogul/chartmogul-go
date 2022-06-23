@@ -5,6 +5,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dnaeon/go-vcr v1.0.1
 	github.com/elazarl/goproxy v0.0.0-20200426045556-49ad98f6dac1 // indirect
+	github.com/go-test/deep v1.0.8
 	github.com/golang/mock v1.4.3
 	github.com/parnurzeal/gorequest v0.2.16
 	github.com/pkg/errors v0.9.1
