@@ -3,11 +3,11 @@ package integration
 import (
     "log"
     "net/http"
-	"testing"
+    "testing"
 
-	cm "github.com/chartmogul/chartmogul-go/v3"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/parnurzeal/gorequest"
+    cm "github.com/chartmogul/chartmogul-go/v3"
+    "github.com/davecgh/go-spew/spew"
+    "github.com/parnurzeal/gorequest"
     "github.com/dnaeon/go-vcr/recorder"
     "github.com/go-test/deep"
 )
@@ -27,9 +27,9 @@ func TestRetrieveMetrics(t *testing.T) {
     api.SetClient(&http.Client{Transport: r})
     gorequest.DisableTransportSwap = true
 
-	all := &cm.MetricsResult{
-		Entries: []*cm.AllMetrics{
-			{
+    all := &cm.MetricsResult{
+        Entries: []*cm.AllMetrics{
+            {
                 Date: "2022-04-30",
                 Mrr: 68604881,
                 MrrPercentageChange: 0.0,
@@ -93,8 +93,8 @@ func TestRetrieveMetrics(t *testing.T) {
             CurrentArpa: 63180,
             PreviousArpa: 62783,
             ArpaPercentageChange: 0.63,
-		},
-	}
+        },
+    }
 	retrieved_all, err := api.MetricsRetrieveAll(&cm.MetricsFilter{
                                              StartDate: "2022-04-01",
                                              EndDate:   "2022-05-31",
