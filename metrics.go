@@ -54,8 +54,8 @@ type AllSummary struct {
     CurrentLtv                          float64 `json:"current-ltv"`
     PreviousLtv                         float64 `json:"previous-ltv"`
     LtvPercentageChange                 float64 `json:"ltv-percentage-change"`
-    CurrentCustomers                    float64 `json:"current-customers"`
-    PreviousCustomers                   float64 `json:"previous-customers"`
+    CurrentCustomers                    uint32 `json:"current-customers"`
+    PreviousCustomers                   uint32 `json:"previous-customers"`
     CustomersPercentageChange           float64 `json:"customers-percentage-change"`
     CurrentAsp                          float64 `json:"current-asp"`
     PreviousAsp                         float64 `json:"previous-asp"`
