@@ -158,11 +158,11 @@ type AnchorCursor struct {
 }
 
 type MetaCursor struct {
-	NextKey    uint32 `json:"next_key,omitempty"`
-	PrevKey    uint32 `json:"prev_key,omitempty"`
+	NextKey    uint64 `json:"next_key,omitempty"`
+	PrevKey    uint64 `json:"prev_key,omitempty"`
 	BeforeKey  string `json:"before_key,omitempty"`
-	Page       uint32 `json:"page,omitempty"`
-	TotalPages uint32 `json:"total_pages,omitempty"`
+	Page       uint64 `json:"page,omitempty"`
+	TotalPages uint64 `json:"total_pages,omitempty"`
 }
 
 // Errors contains error feedback from ChartMogul

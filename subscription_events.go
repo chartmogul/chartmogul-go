@@ -3,7 +3,7 @@ package chartmogul
 const subscriptionEventsEndpoint = "subscription_events"
 
 type SubscriptionEvent struct {
-	ID                        uint32      `json:"id,omitempty"`
+	ID                        uint64      `json:"id,omitempty"`
 	DataSourceUUID            string      `json:"data_source_uuid,omitempty"`
 	CustomerExternalID        string      `json:"customer_external_id"`
 	SubscriptionSetExternalID string      `json:"subscription_set_external_id,omitempty"`
@@ -24,12 +24,12 @@ type SubscriptionEvent struct {
 }
 
 type SubscriptionEvents struct {
-	SubscriptionEvents []SubscriptionEvent `json:"subscription_events"`
-	Meta               MetaCursor          `json:"meta"`
+	SubscriptionEvents []*SubscriptionEvent `json:"subscription_events"`
+	Meta               MetaCursor           `json:"meta"`
 }
 
 type DeleteSubscriptionEvent struct {
-	ID             uint32 `json:"id,omitempty"`
+	ID             uint64 `json:"id,omitempty"`
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
 	ExternalID     string `json:"external_id,omitempty"`
 }
