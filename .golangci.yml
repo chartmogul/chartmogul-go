@@ -1,7 +1,7 @@
 linters:
   disable-all: true
   enable:
-    - gofmt
+#    - gofmt
     - bodyclose
     - depguard
     - dogsled
