@@ -93,5 +93,4 @@ func TestCreatePlanGroup(t *testing.T) {
 		spew.Dump(planGroups)
 		t.Fatal("The expect plan groups were not returned")
 	}
-
 }

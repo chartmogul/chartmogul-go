@@ -110,7 +110,6 @@ const retrieveInvoiceExample = `{
 }`
 
 func TestNewInvoicesAllListing(t *testing.T) {
-
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
@@ -141,7 +140,6 @@ func TestNewInvoicesAllListing(t *testing.T) {
 }
 
 func TestDeleteInvoice(t *testing.T) {
-
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {

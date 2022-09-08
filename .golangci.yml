@@ -1,10 +1,35 @@
 linters:
-  disable:
-    - gofumpt
-  presets:
-    - format
+  disable-all: true
+  enable:
+#    - gofmt
+    - bodyclose
+    - depguard
+    - dogsled
+#    - dupl
+#    - errcheck
+    - exportloopref
+#    - funlen
+    - gochecknoinits
+#    - goconst
+#    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - gomnd
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+#    - lll
+    - misspell
+    - nakedret
+    - noctx
+#    - nolintlint
+    - staticcheck
+#    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
     - unused
-    - performance
-    - complexity
-    - bugs
-
+    - whitespace

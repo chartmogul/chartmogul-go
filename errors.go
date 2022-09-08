@@ -85,7 +85,7 @@ var retryableHTTPStatusCodes = map[int]struct{}{
 	// Add more HTTP status codes here.
 }
 
-//isHTTPStatusRetryable return true if error message contains the HTTP statuses that needs to be retried
+// isHTTPStatusRetryable return true if error message contains the HTTP statuses that needs to be retried
 func isHTTPStatusRetryable(res gorequest.Response) (ok bool) {
 	if res == nil {
 		return false
