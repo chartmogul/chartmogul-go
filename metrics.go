@@ -11,29 +11,29 @@ type MetricsFilter struct {
 
 // AllMetrics represents results of Metrics API.
 type AllMetrics struct {
-	Date                                string  `json:"date"`
-	CustomerChurnRate                   float64 `json:"customer-churn-rate"`
-	MrrChurnRate                        float64 `json:"mrr-churn-rate"`
-	Ltv                                 float64 `json:"ltv"`
-	Customers                           uint32  `json:"customers"`
-	Asp                                 float64 `json:"asp"`
-	Arpa                                float64 `json:"arpa"`
-	Arr                                 float64 `json:"arr"`
-	Mrr                                 float64 `json:"mrr"`
-	CustomerChurnRatePercentageChange   float64 `json:"customer-churn-rate-percentage-change"`
-	MrrChurnRatePercentageChange        float64 `json:"mrr-churn-rate-percentage-change"`
-	LtvPercentageChange                 float64 `json:"ltv-percentage-change"`
-	CustomersPercentageChange           float64 `json:"customers-percentage-change"`
-	AspPercentageChange                 float64 `json:"asp-percentage-change"`
-	ArpaPercentageChange                float64 `json:"arpa-percentage-change"`
-	ArrPercentageChange                 float64 `json:"arr-percentage-change"`
-	MrrPercentageChange                 float64 `json:"mrr-percentage-change"`
+	Date                              string  `json:"date"`
+	CustomerChurnRate                 float64 `json:"customer-churn-rate"`
+	MrrChurnRate                      float64 `json:"mrr-churn-rate"`
+	Ltv                               float64 `json:"ltv"`
+	Customers                         uint32  `json:"customers"`
+	Asp                               float64 `json:"asp"`
+	Arpa                              float64 `json:"arpa"`
+	Arr                               float64 `json:"arr"`
+	Mrr                               float64 `json:"mrr"`
+	CustomerChurnRatePercentageChange float64 `json:"customer-churn-rate-percentage-change"`
+	MrrChurnRatePercentageChange      float64 `json:"mrr-churn-rate-percentage-change"`
+	LtvPercentageChange               float64 `json:"ltv-percentage-change"`
+	CustomersPercentageChange         float64 `json:"customers-percentage-change"`
+	AspPercentageChange               float64 `json:"asp-percentage-change"`
+	ArpaPercentageChange              float64 `json:"arpa-percentage-change"`
+	ArrPercentageChange               float64 `json:"arr-percentage-change"`
+	MrrPercentageChange               float64 `json:"mrr-percentage-change"`
 }
 
 // MetricsResult represents results of Metrics API.
 type MetricsResult struct {
-	Entries []*AllMetrics   `json:"entries,omitempty"`
-	Summary *AllSummary     `json:"summary"`
+	Entries []*AllMetrics `json:"entries,omitempty"`
+	Summary *AllSummary   `json:"summary"`
 }
 
 // Summary represents results of Metrics API.
@@ -45,42 +45,42 @@ type Summary struct {
 
 // Summary represents results of Metrics API.
 type AllSummary struct {
-    CurrentCustomerChurnRate            float64 `json:"current-customer-churn-rate"`
-    PreviousCustomerChurnRate           float64 `json:"previous-customer-churn-rate"`
-    CustomerChurnRatePercentageChange   float64 `json:"customer-churn-rate-percentage-change"`
-    CurrentMrrChurnRate                 float64 `json:"current-mrr-churn-rate"`
-    PreviousMrrChurnRate                float64 `json:"previous-mrr-churn-rate"`
-    MrrChurnRatePercentageChange        float64 `json:"mrr-churn-rate-percentage-change"`
-    CurrentLtv                          float64 `json:"current-ltv"`
-    PreviousLtv                         float64 `json:"previous-ltv"`
-    LtvPercentageChange                 float64 `json:"ltv-percentage-change"`
-    CurrentCustomers                    uint32 `json:"current-customers"`
-    PreviousCustomers                   uint32 `json:"previous-customers"`
-    CustomersPercentageChange           float64 `json:"customers-percentage-change"`
-    CurrentAsp                          float64 `json:"current-asp"`
-    PreviousAsp                         float64 `json:"previous-asp"`
-    AspPercentageChange                 float64 `json:"asp-percentage-change"`
-    CurrentArpa                         float64 `json:"current-arpa"`
-    PreviousArpa                        float64 `json:"previous-arpa"`
-    ArpaPercentageChange                float64 `json:"arpa-percentage-change"`
-    CurrentArr                          float64 `json:"current-arr"`
-    PreviousArr                         float64 `json:"previous-arr"`
-    ArrPercentageChange                 float64 `json:"arr-percentage-change"`
-    CurrentMrr                          float64 `json:"current-mrr"`
-    PreviousMrr                         float64 `json:"previous-mrr"`
-    MrrPercentageChange                 float64 `json:"mrr-percentage-change"`
+	CurrentCustomerChurnRate          float64 `json:"current-customer-churn-rate"`
+	PreviousCustomerChurnRate         float64 `json:"previous-customer-churn-rate"`
+	CustomerChurnRatePercentageChange float64 `json:"customer-churn-rate-percentage-change"`
+	CurrentMrrChurnRate               float64 `json:"current-mrr-churn-rate"`
+	PreviousMrrChurnRate              float64 `json:"previous-mrr-churn-rate"`
+	MrrChurnRatePercentageChange      float64 `json:"mrr-churn-rate-percentage-change"`
+	CurrentLtv                        float64 `json:"current-ltv"`
+	PreviousLtv                       float64 `json:"previous-ltv"`
+	LtvPercentageChange               float64 `json:"ltv-percentage-change"`
+	CurrentCustomers                  uint32  `json:"current-customers"`
+	PreviousCustomers                 uint32  `json:"previous-customers"`
+	CustomersPercentageChange         float64 `json:"customers-percentage-change"`
+	CurrentAsp                        float64 `json:"current-asp"`
+	PreviousAsp                       float64 `json:"previous-asp"`
+	AspPercentageChange               float64 `json:"asp-percentage-change"`
+	CurrentArpa                       float64 `json:"current-arpa"`
+	PreviousArpa                      float64 `json:"previous-arpa"`
+	ArpaPercentageChange              float64 `json:"arpa-percentage-change"`
+	CurrentArr                        float64 `json:"current-arr"`
+	PreviousArr                       float64 `json:"previous-arr"`
+	ArrPercentageChange               float64 `json:"arr-percentage-change"`
+	CurrentMrr                        float64 `json:"current-mrr"`
+	PreviousMrr                       float64 `json:"previous-mrr"`
+	MrrPercentageChange               float64 `json:"mrr-percentage-change"`
 }
 
 // MRRMetrics represents results of Metrics API.
 type MRRMetrics struct {
-	Date                string  `json:"date"`
-	MRR                 float64 `json:"mrr"`
-	MRRNewBusiness      float64 `json:"mrr-new-business"`
-	MRRExpansion        float64 `json:"mrr-expansion"`
-	MRRContraction      float64 `json:"mrr-contraction"`
-	MRRChurn            float64 `json:"mrr-churn"`
-	MRRReactivation     float64 `json:"mrr-reactivation"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	MRR              float64 `json:"mrr"`
+	MRRNewBusiness   float64 `json:"mrr-new-business"`
+	MRRExpansion     float64 `json:"mrr-expansion"`
+	MRRContraction   float64 `json:"mrr-contraction"`
+	MRRChurn         float64 `json:"mrr-churn"`
+	MRRReactivation  float64 `json:"mrr-reactivation"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // MRRResult represents results of Metrics API.
@@ -91,9 +91,9 @@ type MRRResult struct {
 
 // ARRMetrics represents results of Metrics API.
 type ARRMetrics struct {
-	Date                string `json:"date"`
-	ARR                 float64 `json:"arr"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	ARR              float64 `json:"arr"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // ARRResult represents results of Metrics API.
@@ -104,9 +104,9 @@ type ARRResult struct {
 
 // ARPAMetrics represents results of Metrics API.
 type ARPAMetrics struct {
-	Date                string `json:"date"`
-	ARPA                float64 `json:"arpa"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	ARPA             float64 `json:"arpa"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // ARPAResult represents results of Metrics API.
@@ -117,9 +117,9 @@ type ARPAResult struct {
 
 // ASPMetrics represents results of Metrics API.
 type ASPMetrics struct {
-	Date                string `json:"date"`
-	ASP                 float64 `json:"asp"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	ASP              float64 `json:"asp"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // ASPResult represents results of Metrics API.
@@ -130,9 +130,9 @@ type ASPResult struct {
 
 // CustomerCountMetrics represents results of Metrics API.
 type CustomerCountMetrics struct {
-	Date                string `json:"date"`
-	Customers           uint32 `json:"customers"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	Customers        uint32  `json:"customers"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // CustomerCountResult represents results of Metrics API.
@@ -143,9 +143,9 @@ type CustomerCountResult struct {
 
 // CustomerChurnRateMetrics represents results of Metrics API.
 type CustomerChurnRateMetrics struct {
-	Date                string  `json:"date"`
-	CustomerChurnRate   float64 `json:"customer-churn-rate"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date              string  `json:"date"`
+	CustomerChurnRate float64 `json:"customer-churn-rate"`
+	PercentageChange  float64 `json:"percentage-change"`
 }
 
 // CustomerChurnRateResult represents results of Metrics API.
@@ -156,9 +156,9 @@ type CustomerChurnRateResult struct {
 
 // MRRChurnRateMetrics represents results of Metrics API.
 type MRRChurnRateMetrics struct {
-	Date                string  `json:"date"`
-	MRRChurnRate        float64 `json:"mrr-churn-rate"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	MRRChurnRate     float64 `json:"mrr-churn-rate"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // MRRChurnRateResult represents results of Metrics API.
@@ -169,9 +169,9 @@ type MRRChurnRateResult struct {
 
 // LTVMetrics represents results of Metrics API.
 type LTVMetrics struct {
-	Date                string  `json:"date"`
-	LTV                 float64 `json:"ltv"`
-	PercentageChange    float64 `json:"percentage-change"`
+	Date             string  `json:"date"`
+	LTV              float64 `json:"ltv"`
+	PercentageChange float64 `json:"percentage-change"`
 }
 
 // LTVResult represents results of Metrics API.
