@@ -23,5 +23,4 @@ func (api API) CreateTransaction(transaction *Transaction, invoiceUUID string) (
 	result := &Transaction{}
 	path := strings.Replace(transactionsEndpoint, ":invoiceUUID", invoiceUUID, 1)
 	return result, api.create(path, transaction, result)
-
 }

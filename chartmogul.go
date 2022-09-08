@@ -1,10 +1,9 @@
 // Package chartmogul is a simple Go API library for Chartmogul public API.
 //
 // HTTP 2
-//
 // ChartMogul's current stable version of nginx is incompatible with HTTP 2 implementation of Go.
 // For this reason the application must run with the following (or otherwise prohibit HTTP 2):
-//  export GODEBUG=http2client=0
+// export GODEBUG=http2client=0
 //
 // Uses the library gorequest, which allows simple struct->query, body->struct,
 // struct->body.
@@ -223,12 +222,9 @@ func (e Errors) IsInvoiceAndTransactionAlreadyExist() (is bool) {
 	if e == nil {
 		return
 	}
-	if len(e) != 2 {
-		return
-	}
 	msg1, ok1 := e[ErrKeyExternalID]
 	msg2, ok2 := e[ErrKeyTransactionExternalID]
-	return ok1 && ok2 &&
+	return ok1 && ok2 && len(e) == 2 &&
 		msg1 == ErrValInvoiceExternalIDExists && msg2 == ErrValExternalIDExists
 }
 

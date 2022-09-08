@@ -76,7 +76,6 @@ func TestImportCustomers(t *testing.T) {
 }
 
 func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
-
 	expected := map[string]interface{}{
 		"attributes": map[string]interface{}{
 			"custom": map[string]interface{}{

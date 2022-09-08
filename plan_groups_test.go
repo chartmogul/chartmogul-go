@@ -23,7 +23,6 @@ const listAllPlanGroupsExample = `{
 }`
 
 func TestNewPlanGroupAllListing(t *testing.T) {
-
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +51,6 @@ func TestNewPlanGroupAllListing(t *testing.T) {
 }
 
 func TestDeletePlanGroup(t *testing.T) {
-
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
