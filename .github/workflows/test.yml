@@ -4,6 +4,9 @@ on:
     branches: [ main, v2 ]
   pull_request:
     branches: [ main, v2 ]
+permissions:
+  contents: read
+  pull-requests: read
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -78,4 +81,5 @@ jobs:
         with:
           version: 'v1.47.2'
           skip-cache: true
+          only-new-issues: true
 
