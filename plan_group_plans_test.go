@@ -42,8 +42,7 @@ func TestNewPlanGroupPlansAllListing(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	result, err := tested.ListPlanGroupPlans(&Cursor{}, "plg_b53fdbfc-c5eb-4a61-a589-85146cf8d0ab")
 

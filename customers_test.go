@@ -120,8 +120,7 @@ func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	_, err := tested.UpdateCustomer(&Customer{
 		Attributes: &Attributes{
@@ -160,8 +159,7 @@ func TestPurgeCustomer(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	err := tested.DeleteCustomerInvoices("dataSourceUUID", "customerUUID")
 
@@ -187,8 +185,7 @@ func TestPurgeCustomerV2WithCustomerExternalID(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 
 	err := tested.DeleteCustomerInvoicesV2("dataSourceUUID", "customerUUID", &DeleteCustomerInvoicesParams{
@@ -217,8 +214,7 @@ func TestPurgeCustomerV2WithoutCustomerExternalID(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 
 	err := tested.DeleteCustomerInvoicesV2("dataSourceUUID", "customerUUID", nil)
@@ -264,8 +260,7 @@ func TestNilListCustomers(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	customers, err := tested.ListCustomers(nil)
 
@@ -302,8 +297,7 @@ func TestSystemListCustomers(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	customers, err := tested.ListCustomers(&ListCustomersParams{System: "whatnot"})
 

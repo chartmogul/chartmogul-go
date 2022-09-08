@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	cm "github.com/chartmogul/chartmogul-go/v2"
+	cm "github.com/chartmogul/chartmogul-go/v3"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
 

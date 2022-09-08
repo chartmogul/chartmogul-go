@@ -44,8 +44,7 @@ func TestListCustomerSubscriptions(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	var tested IApi = &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	activities, err := tested.MetricsListCustomerSubscriptions(&Cursor{}, "cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7")
 

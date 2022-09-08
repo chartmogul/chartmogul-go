@@ -52,8 +52,7 @@ func TestConnectSubscriptions(t *testing.T) {
 	SetURL(server.URL + "/v/%v")
 
 	tested := &API{
-		AccountToken: "token",
-		AccessKey:    "key",
+		ApiKey: "token",
 	}
 	err := tested.ConnectSubscriptions("cus_uuid", []Subscription{
 		{

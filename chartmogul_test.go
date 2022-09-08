@@ -7,22 +7,20 @@ import (
 )
 
 var (
-	cm    = flag.Bool("cm", false, "run integration library tests against ChartMogul")
-	token = flag.String("token", "", "account token for CM test")
-	key   = flag.String("key", "", "access key for CM test")
-	api   = API{}
+	cm      = flag.Bool("cm", false, "run integration library tests against ChartMogul")
+	api_key = flag.String("api_key", "", "API key for CM test")
+	api     = API{}
 )
 
 func TestMain(m *testing.M) {
 	flag.Parse()
-	if *key == "" || *token == "" {
+	if *api_key == "" {
 		if *cm {
-			panic("Please supply testing account key and token on cmd line to run live tests.")
+			panic("Please supply testing API key on cmd line to run live tests.")
 		}
 		*cm = false
 	} else {
-		api.AccountToken = *token
-		api.AccessKey = *key
+		api.ApiKey = *api_key
 	}
 
 	result := m.Run()

@@ -133,9 +133,8 @@ type IApi interface {
 
 // API is the handle for communicating with Chartmogul.
 type API struct {
-	AccountToken string
-	AccessKey    string
-	Client       *http.Client
+	ApiKey string
+	Client *http.Client
 }
 
 // Cursor contains query parameters for paging in CM.
@@ -253,6 +252,7 @@ func (api API) req(req *gorequest.SuperAgent) *gorequest.SuperAgent {
 		req.Client = api.Client
 	}
 	return req.Timeout(timeout).
-		SetBasicAuth(api.AccountToken, "").
-		Set("Content-Type", "application/json")
+		SetBasicAuth(api.ApiKey, "").
+		Set("Content-Type", "application/json").
+		Set("User-Agent", "chartmogul-go/"+Version)
 }

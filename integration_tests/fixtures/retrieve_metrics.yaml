@@ -1,0 +1,88 @@
+---
+version: 1
+rwmutex: {}
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic hidden=
+      Content-Type:
+      - application/json
+    url: https://api.chartmogul.com/v1/metrics/all?end-date=2022-05-31&interval=month&start-date=2022-04-01
+    method: GET
+  response:
+    body: '{"entries":[{"date":"2022-04-30","mrr":68604881,"mrr-percentage-change":0.0,"arr":823258572,"arr-percentage-change":0.0,"customer-churn-rate":2.85,"customer-churn-rate-percentage-change":0.0,"mrr-churn-rate":-0.67,"mrr-churn-rate-percentage-change":0.0,"ltv":2194315,"ltv-percentage-change":0.0,"customers":1097,"customers-percentage-change":0.0,"asp":22776,"asp-percentage-change":0.0,"arpa":62538,"arpa-percentage-change":0.0},{"date":"2022-05-31","mrr":68954549,"mrr-percentage-change":0.51,"arr":827454588,"arr-percentage-change":0.51,"customer-churn-rate":2.92,"customer-churn-rate-percentage-change":2.46,"mrr-churn-rate":0.91,"mrr-churn-rate-percentage-change":235.82,"ltv":2142876,"ltv-percentage-change":-2.34,"customers":1102,"customers-percentage-change":0.46,"asp":30531,"asp-percentage-change":34.05,"arpa":62572,"arpa-percentage-change":0.05}],"summary":{"current-mrr":69499091,"previous-mrr":68998840,"mrr-percentage-change":0.73,"current-arr":833989092,"previous-arr":827986080,"arr-percentage-change":0.73,"current-customer-churn-rate":2.92,"previous-customer-churn-rate":2.85,"customer-churn-rate-percentage-change":2.46,"current-mrr-churn-rate":0.91,"previous-mrr-churn-rate":-0.67,"mrr-churn-rate-percentage-change":235.82,"current-ltv":2142876,"previous-ltv":2194315,"ltv-percentage-change":-2.34,"current-customers":1100,"previous-customers":1099,"customers-percentage-change":0.09,"current-asp":31486,"previous-asp":19737,"asp-percentage-change":59.53,"current-arpa":63180,"previous-arpa":62783,"arpa-percentage-change":0.63}}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 25 May 2017 14:09:33 GMT
+      Etag:
+      - W/"0bf38bb6702ace493a367210453c5414"
+      Retry-Count:
+      - "0"
+      Server:
+      - nginx/1.10.1
+      Strict-Transport-Security:
+      - max-age=15768000
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - b41cadef-c71a-42ba-904f-ec5383139775
+      X-Runtime:
+      - "0.453883"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 200 OK
+    code: 200
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+        - Basic hidden=
+      Content-Type:
+        - application/json
+    url: https://api.chartmogul.com/v1/metrics/mrr?end-date=2022-05-31&interval=month&start-date=2022-04-01
+    method: GET
+  response:
+    body: '{"entries":[{"date":"2022-04-30","mrr":68604881,"percentage-change":0.0,"mrr-new-business":865500,"mrr-expansion":2386603,"mrr-contraction":-508125,"mrr-churn":-1660000,"mrr-reactivation":230000},{"date":"2022-05-31","mrr":68954549,"percentage-change":0.51,"mrr-new-business":977000,"mrr-expansion":1559209,"mrr-contraction":-770875,"mrr-churn":-1730666,"mrr-reactivation":315000}],"summary":{"current":69499091,"previous":68998840,"percentage-change":0.73}}'
+    headers:
+      Cache-Control:
+        - max-age=0, private, must-revalidate
+      Content-Type:
+        - application/json; charset=utf-8
+      Date:
+        - Thu, 25 May 2017 14:09:33 GMT
+      Etag:
+        - W/"0bf38bb6702ace493a367210453c5414"
+      Retry-Count:
+        - "0"
+      Server:
+        - nginx/1.10.1
+      Strict-Transport-Security:
+        - max-age=15768000
+      Vary:
+        - Accept-Encoding
+        - Accept-Encoding
+      X-Content-Type-Options:
+        - nosniff
+      X-Frame-Options:
+        - SAMEORIGIN
+      X-Request-Id:
+        - b41cadef-c71a-42ba-904f-ec5383139775
+      X-Runtime:
+        - "0.453883"
+      X-Xss-Protection:
+        - 1; mode=block
+    status: 200 OK
+    code: 200
