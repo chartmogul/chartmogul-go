@@ -29,7 +29,7 @@ jobs:
       - name: Set up Go ${{ matrix.go-versions }}
         uses: actions/setup-go@v2
         with:
-          go-version: '1.19'
+          go-version: '1.18'
 
       - name: Set ENV for codeclimate (pull_request)
         run: |
@@ -70,7 +70,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v3
         with:
-          go-version: 1.19
+          go-version: 1.18
       - uses: actions/checkout@v3
 
       - name: golangci-lint
