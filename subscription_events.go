@@ -5,13 +5,13 @@ const subscriptionEventsEndpoint = "subscription_events"
 type SubscriptionEvent struct {
 	ID                        uint64      `json:"id,omitempty"`
 	DataSourceUUID            string      `json:"data_source_uuid,omitempty"`
-	CustomerExternalID        string      `json:"customer_external_id"`
+	CustomerExternalID        string      `json:"customer_external_id,omitempty"`
 	SubscriptionSetExternalID string      `json:"subscription_set_external_id,omitempty"`
 	SubscriptionExternalID    string      `json:"subscription_external_id,omitempty"`
 	PlanExternalID            string      `json:"plan_external_id,omitempty"`
-	EventDate                 string      `json:"event_date"`
-	EffectiveDate             string      `json:"effective_date"`
-	EventType                 string      `json:"event_type"`
+	EventDate                 string      `json:"event_date,omitempty"`
+	EffectiveDate             string      `json:"effective_date,omitempty"`
+	EventType                 string      `json:"event_type,omitempty"`
 	ExternalID                string      `json:"external_id,omitempty"`
 	Errors                    interface{} `json:"errors,omitempty"`
 	CreatedAt                 string      `json:"created_at,omitempty"`

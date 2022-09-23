@@ -1,203 +1,278 @@
 package chartmogul
 
 import (
-	"net/http"
-	"net/http/httptest"
+	"log"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
-const firstSubscriptionEventExample = `{
-	"id": 73966836,
-	"data_source_uuid": "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
-	"customer_external_id": "scus_023",
-	"subscription_set_external_id": "sub_set_ex_id_1",
-	"subscription_external_id": "sub_0023",
-	"plan_external_id": "p_ex_id_1",
-	"event_date": "2022-04-09T11:17:14Z",
-	"effective_date": "2022-04-09T10:04:13Z",
-	"event_type": "subscription_cancelled",
-	"external_id": "ex_id_1",
-	"errors": {},
-	"created_at": "2022-04-09T11:17:14Z",
-	"updated_at": "2022-04-09T11:17:14Z",
-	"quantity": 1,
-	"currency": "USD",
-	"amount_in_cents": 1000,
-	"tax_amount_in_cents": 19,
-	"retracted_event_id": null
-}`
+type TestSetup struct {
+	CustomerExternalID          string
+	CustomerUUID                string
+	DataSourceUUID              string
+	InvoiceUUID                 string
+	PlanUUID                    string
+	SubscriptionEventExternalID string
+	SubscriptionEventID         uint64
+}
 
-const secondSubscriptionEventExample = `{
-	"id": 73966837,
-	"data_source_uuid": "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba",
-	"customer_external_id": "scus_024",
-	"subscription_set_external_id": "sub_set_ex_id_2",
-	"subscription_external_id": "sub_0024",
-	"plan_external_id": "p_ex_id_2",
-	"event_date": "2022-04-09T11:17:14Z",
-	"effective_date": "2022-04-09T10:04:13Z",
-	"event_type": "subscription_cancelled",
-	"external_id": "ex_id_2",
-	"errors": {},
-	"created_at": "2022-04-09T11:17:14Z",
-	"updated_at": "2022-04-09T11:17:14Z",
-	"quantity": 1,
-	"currency": "USD",
-	"amount_in_cents": 1000,
-	"tax_amount_in_cents": 19,
-	"retracted_event_id": null
-}`
+func setup() (*TestSetup, error) {
+	dataSource, err := api.CreateDataSource("TestSubEventsDS01")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	planDefinition := &Plan{
+		DataSourceUUID: dataSource.UUID,
+		ExternalID:     "TestSubEventsPlan01",
+		Name:           "Super plan",
+		IntervalCount:  1,
+		IntervalUnit:   "month",
+	}
+	plan, err := api.CreatePlan(planDefinition)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	customer, err := api.CreateCustomer(&NewCustomer{
+		DataSourceUUID: dataSource.UUID,
+		ExternalID:     "TestSubEventsCustomer01",
+		Name:           "Test customer",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	invoicesDefinition := []*Invoice{
+		{
+			CustomerUUID:       customer.UUID,
+			CustomerExternalID: customer.ExternalID,
+			DataSourceUUID:     dataSource.UUID,
+			Currency:           "USD",
+			Date:               "2022-02-01",
+			DueDate:            "2022-02-28",
+			ExternalID:         "TestSubEventsInvoice01",
+			LineItems: []*LineItem{{
+				AmountInCents:          1000,
+				ExternalID:             "TestSubEventsLineItem01",
+				Quantity:               1,
+				SubscriptionExternalID: "TestSubEventsSubscription01",
+				Type:                   "subscription",
+				ServicePeriodEnd:       "2022-02-28",
+				ServicePeriodStart:     "2022-02-01",
+				PlanUUID:               plan.UUID,
+			}},
+			Transactions: []*Transaction{{
+				ExternalID: "TestSubEventsTransaction01",
+				Type:       "payment",
+				Result:     "successful",
+				Date:       "2022-02-01",
+			}},
+		},
+	}
+	invoices, err := api.CreateInvoices(invoicesDefinition, customer.UUID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	subEventDefinition := &SubscriptionEvent{
+		DataSourceUUID:         dataSource.UUID,
+		CustomerExternalID:     customer.ExternalID,
+		SubscriptionExternalID: "TestSubEventsSubscription01",
+		EventDate:              "2022-02-15",
+		EffectiveDate:          "2022-02-27",
+		EventType:              "subscription_cancelled",
+		ExternalID:             "TestSubEventsSubEvent01",
+		Currency:               "PLN",
+	}
+
+	subscriptionEvent, err := api.CreateSubscriptionEvent(subEventDefinition)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return &TestSetup{
+		CustomerExternalID:          customer.ExternalID,
+		CustomerUUID:                customer.UUID,
+		DataSourceUUID:              dataSource.UUID,
+		InvoiceUUID:                 invoices.Invoices[0].UUID,
+		PlanUUID:                    plan.UUID,
+		SubscriptionEventExternalID: subscriptionEvent.ExternalID,
+		SubscriptionEventID:         subscriptionEvent.ID,
+	}, nil
+}
+
+func tearDown(testSetup *TestSetup) {
+	api.DeleteSubscriptionEvent(&DeleteSubscriptionEvent{ID: testSetup.SubscriptionEventID})
+	api.DeleteInvoice(testSetup.InvoiceUUID)
+	api.DeleteCustomer(testSetup.CustomerUUID)
+	api.DeletePlan(testSetup.PlanUUID)
+	api.DeleteDataSource(testSetup.DataSourceUUID)
+}
 
 func TestListSubscriptionEvent(t *testing.T) {
-	server := httptest.NewServer(
-		http.HandlerFunc(
-			func(w http.ResponseWriter, r *http.Request) {
-				if r.Method != "GET" {
-					t.Errorf("Unexpected method %v", r.Method)
-				}
-				if r.RequestURI != "/v/subscription_events" {
-					t.Errorf("Unexpected URI %v", r.RequestURI)
-				}
-				w.WriteHeader(http.StatusOK)
-				//nolint
-				w.Write([]byte(
-					`{
-						"subscription_events": [
-							` + firstSubscriptionEventExample + `
-						],
-						"meta": {
-							"next_key": 67048503,
-							"prev_key": null,
-							"before_key": "2022-04-10T22:27:35.834Z",
-							"page": 1,
-							"total_pages": 166
-						}
-					}`,
-				))
-			}))
-	defer server.Close()
-	SetURL(server.URL + "/v/%v")
-
-	var tested IApi = &API{
-		ApiKey: "token",
+	if !*cm {
+		t.SkipNow()
+		return
 	}
-	actual, err := tested.ListSubscriptionEvents(&FilterSubscriptionEvents{}, &MetaCursor{})
 
+	testSetup, err := setup()
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Error(err)
+		return
 	}
-	if len(actual.SubscriptionEvents) != 1 ||
-		actual.SubscriptionEvents[0].ID != 73966836 ||
-		actual.SubscriptionEvents[0].DataSourceUUID != "ds_1fm3eaac-62d0-31ec-clf4-4bf0mbe81aba" ||
-		actual.SubscriptionEvents[0].CustomerExternalID != "scus_023" ||
-		actual.SubscriptionEvents[0].EventDate != "2022-04-09T11:17:14Z" ||
-		actual.SubscriptionEvents[0].EventType != "subscription_cancelled" ||
-		actual.SubscriptionEvents[0].CreatedAt != "2022-04-09T11:17:14Z" ||
-		actual.SubscriptionEvents[0].UpdatedAt != "2022-04-09T11:17:14Z" ||
-		actual.SubscriptionEvents[0].EffectiveDate != "2022-04-09T10:04:13Z" {
-		spew.Dump(actual)
+	defer tearDown(testSetup)
+
+	result, err := api.ListSubscriptionEvents(&FilterSubscriptionEvents{DataSourceUUID: testSetup.DataSourceUUID}, &MetaCursor{})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(result.SubscriptionEvents) != 1 ||
+		result.SubscriptionEvents[0].ID != testSetup.SubscriptionEventID ||
+		result.SubscriptionEvents[0].ExternalID != testSetup.SubscriptionEventExternalID ||
+		result.SubscriptionEvents[0].DataSourceUUID != testSetup.DataSourceUUID {
 		t.Fatal("Unexpected result")
 	}
 }
 
 func TestFilteredListSubscriptionEvent(t *testing.T) {
-	server := httptest.NewServer(
-		http.HandlerFunc(
-			func(w http.ResponseWriter, r *http.Request) {
-				if r.Method != "GET" {
-					t.Errorf("Unexpected method %v", r.Method)
-				}
-				if r.RequestURI != "/v/subscription_events?external_id=ex_id_2" {
-					t.Errorf("Unexpected URI %v", r.RequestURI)
-				}
-				w.WriteHeader(http.StatusOK)
-				//nolint
-				w.Write([]byte(
-					`{
-						"subscription_events": [
-							` + secondSubscriptionEventExample + `
-						],
-						"meta": {
-							"next_key": 67048503,
-							"prev_key": null,
-							"before_key": "2022-04-10T22:27:35.834Z",
-							"page": 1,
-							"total_pages": 166
-						}
-					}`,
-				))
-			}))
-	defer server.Close()
-	SetURL(server.URL + "/v/%v")
-
-	var tested IApi = &API{
-		ApiKey: "token",
+	if !*cm {
+		t.SkipNow()
+		return
 	}
-	actual, err := tested.ListSubscriptionEvents(&FilterSubscriptionEvents{ExternalID: "ex_id_2"}, &MetaCursor{})
 
+	testSetup, err := setup()
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Error(err)
+		return
 	}
-	if len(actual.SubscriptionEvents) != 1 ||
-		actual.SubscriptionEvents[0].ID != 73966837 {
-		spew.Dump(actual)
+	defer tearDown(testSetup)
+
+	newSubEvent, err := api.CreateSubscriptionEvent(&SubscriptionEvent{
+		DataSourceUUID:         testSetup.DataSourceUUID,
+		CustomerExternalID:     testSetup.CustomerExternalID,
+		SubscriptionExternalID: "TestSubEventsSubscription01",
+		EventDate:              "2022-02-16",
+		EffectiveDate:          "2022-02-28",
+		EventType:              "subscription_cancelled",
+		ExternalID:             "TestSubEventsSubEvent02",
+		Currency:               "PLN",
+	})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer api.DeleteSubscriptionEvent(&DeleteSubscriptionEvent{ID: newSubEvent.ID})
+
+	result, err := api.ListSubscriptionEvents(&FilterSubscriptionEvents{ExternalID: newSubEvent.ExternalID}, &MetaCursor{})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(result.SubscriptionEvents) != 1 ||
+		result.SubscriptionEvents[0].ID != newSubEvent.ID ||
+		result.SubscriptionEvents[0].ExternalID != newSubEvent.ExternalID ||
+		result.SubscriptionEvents[0].DataSourceUUID != testSetup.DataSourceUUID {
 		t.Fatal("Unexpected result")
 	}
 }
 
 func TestDeleteSubscriptionEventById(t *testing.T) {
-	server := httptest.NewServer(
-		http.HandlerFunc(
-			func(w http.ResponseWriter, r *http.Request) {
-				if r.Method != "DELETE" {
-					t.Errorf("Unexpected method %v", r.Method)
-				}
-				if r.RequestURI != "/v/subscription_events" {
-					t.Errorf("Unexpected URI %v", r.RequestURI)
-				}
-
-				w.WriteHeader(http.StatusNoContent)
-			}))
-	defer server.Close()
-	SetURL(server.URL + "/v/%v")
-
-	var tested IApi = &API{
-		ApiKey: "token",
+	if !*cm {
+		t.SkipNow()
+		return
 	}
-	err := tested.DeleteSubscriptionEvent(&DeleteSubscriptionEvent{ID: 123})
 
+	testSetup, err := setup()
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Error(err)
+		return
+	}
+	defer tearDown(testSetup)
+
+	err = api.DeleteSubscriptionEvent((&DeleteSubscriptionEvent{ID: testSetup.SubscriptionEventID}))
+	if err != nil {
+		t.Fatal(err)
+		return
 	}
 }
 
 func TestDeleteSubscriptionEventByExternalIdAndDataSourceUuid(t *testing.T) {
-	server := httptest.NewServer(
-		http.HandlerFunc(
-			func(w http.ResponseWriter, r *http.Request) {
-				if r.Method != "DELETE" {
-					t.Errorf("Unexpected method %v", r.Method)
-				}
-				if r.RequestURI != "/v/subscription_events" {
-					t.Errorf("Unexpected URI %v", r.RequestURI)
-				}
-				w.WriteHeader(http.StatusNoContent)
-			}))
-	defer server.Close()
-	SetURL(server.URL + "/v/%v")
-
-	var tested IApi = &API{
-		ApiKey: "token",
+	if !*cm {
+		t.SkipNow()
+		return
 	}
-	err := tested.DeleteSubscriptionEvent(&DeleteSubscriptionEvent{DataSourceUUID: "ds_123", ExternalID: "ex_id_1"})
 
+	testSetup, err := setup()
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Error(err)
+		return
+	}
+	defer tearDown(testSetup)
+
+	err = api.DeleteSubscriptionEvent((&DeleteSubscriptionEvent{DataSourceUUID: testSetup.DataSourceUUID, ExternalID: testSetup.SubscriptionEventExternalID}))
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+}
+
+func TestUpdateSubscriptionEventUsingId(t *testing.T) {
+	if !*cm {
+		t.SkipNow()
+		return
+	}
+
+	testSetup, err := setup()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer tearDown(testSetup)
+
+	updateDefinition := &SubscriptionEvent{
+		ID:       testSetup.SubscriptionEventID,
+		Currency: "USD",
+	}
+
+	updatedSubEvent, err := api.UpdateSubscriptionEvent(updateDefinition)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if updatedSubEvent.Currency != "USD" {
+		t.Errorf("Subscription Event's currency was not updated - expected: %v, actual: %v", "USD", updatedSubEvent.Currency)
+	}
+}
+
+func TestUpdateSubscriptionEventUsingExternalIdAndDataSourceUuid(t *testing.T) {
+	if !*cm {
+		t.SkipNow()
+		return
+	}
+
+	testSetup, err := setup()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	defer tearDown(testSetup)
+	updateDefinition := &SubscriptionEvent{
+		ExternalID:     testSetup.SubscriptionEventExternalID,
+		DataSourceUUID: testSetup.DataSourceUUID,
+		Currency:       "CNY",
+	}
+
+	updatedSubEvent, err := api.UpdateSubscriptionEvent(updateDefinition)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if updatedSubEvent.Currency != "CNY" {
+		t.Errorf("Subscription Event's currency was not updated - expected: %v, actual: %v", "CNY", updatedSubEvent.Currency)
 	}
 }
