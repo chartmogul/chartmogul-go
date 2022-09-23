@@ -19,6 +19,7 @@ func setup() (*TestSetup, error) {
 	dataSource, err := api.CreateDataSource("TestSubEventsDS01")
 	if err != nil {
 		log.Fatal(err)
+		return &TestSetup{}, err
 	}
 
 	planDefinition := &Plan{
@@ -31,6 +32,7 @@ func setup() (*TestSetup, error) {
 	plan, err := api.CreatePlan(planDefinition)
 	if err != nil {
 		log.Fatal(err)
+		return &TestSetup{}, err
 	}
 
 	customer, err := api.CreateCustomer(&NewCustomer{
@@ -40,6 +42,7 @@ func setup() (*TestSetup, error) {
 	})
 	if err != nil {
 		log.Fatal(err)
+		return &TestSetup{}, err
 	}
 
 	invoicesDefinition := []*Invoice{
@@ -72,6 +75,7 @@ func setup() (*TestSetup, error) {
 	invoices, err := api.CreateInvoices(invoicesDefinition, customer.UUID)
 	if err != nil {
 		log.Fatal(err)
+		return &TestSetup{}, err
 	}
 	subEventDefinition := &SubscriptionEvent{
 		DataSourceUUID:         dataSource.UUID,
@@ -87,6 +91,7 @@ func setup() (*TestSetup, error) {
 	subscriptionEvent, err := api.CreateSubscriptionEvent(subEventDefinition)
 	if err != nil {
 		log.Fatal(err)
+		return &TestSetup{}, err
 	}
 
 	return &TestSetup{
