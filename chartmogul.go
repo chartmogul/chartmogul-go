@@ -129,6 +129,12 @@ type IApi interface {
 
 	// Account
 	RetrieveAccount() (*Account, error)
+
+	// Subscription Events
+	ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *MetaCursor) (*SubscriptionEvents, error)
+	CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
+	UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
+	DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) error
 }
 
 // API is the handle for communicating with Chartmogul.
@@ -149,6 +155,14 @@ type AnchorCursor struct {
 	PerPage uint32 `json:"per-page,omitempty"`
 	//StartAfter is used to get the next set of Entries and its value should be the UUID of last Entry from previous response.
 	StartAfter string `json:"start-after,omitempty"`
+}
+
+type MetaCursor struct {
+	NextKey    uint64 `json:"next_key,omitempty"`
+	PrevKey    uint64 `json:"prev_key,omitempty"`
+	BeforeKey  string `json:"before_key,omitempty"`
+	Page       uint64 `json:"page,omitempty"`
+	TotalPages uint64 `json:"total_pages,omitempty"`
 }
 
 // Errors contains error feedback from ChartMogul

@@ -174,6 +174,14 @@ api.AddTagsToCustomersWithEmail("email@customer.com", []string{})
 api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
 ```
 
+#### [Subscription Events](https://dev.chartmogul.com/reference/subscription-events)
+```go
+api.ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *MetaCursor)
+api.CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent)
+api.UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent)
+api.DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent)
+```
+
 
 ### [Metrics API](https://dev.chartmogul.com/docs/introduction-metrics-api)
 
