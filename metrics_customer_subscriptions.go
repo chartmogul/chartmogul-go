@@ -6,6 +6,7 @@ import "strings"
 type MetricsCustomerSubscription struct {
 	ID                uint64  `json:"id"`
 	ExternalID        string  `json:"external_id"`
+	UUID              string  `json:"uuid"`
 	Plan              string  `json:"plan"`
 	Quantity          uint32  `json:"quantity"`
 	BillingCycleCount uint32  `json:"billing-cycle-count"`
