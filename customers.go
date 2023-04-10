@@ -146,6 +146,7 @@ const (
 	customersEndpoint              = "customers"
 	searchCustomersEndpoint        = "customers/search"
 	mergeCustomersEndpoint         = "customers/merges"
+	customerContactsEndpoint       = "customers/:uuid/contacts"
 )
 
 // CreateCustomer loads the customer to Chartmogul. New endpoint - with attributes.
@@ -236,4 +237,26 @@ func (api API) DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, del
 	}
 
 	return api.delete(path, customerUUID)
+}
+
+// ListCustomersContacts
+//
+// See https://dev.chartmogul.com/reference/list-customers-contacts
+func (api API) ListCustomersContacts(listContactsParams *ListContactsParams, customerUUID string) (*Contacts, error) {
+	result := &Contacts{}
+	query := make([]interface{}, 0, 1)
+	if listContactsParams != nil {
+		query = append(query, *listContactsParams)
+	}
+	path := strings.Replace(customerContactsEndpoint, ":uuid", customerUUID, 1)
+	return result, api.list(path, result, query...)
+}
+
+// CreateCustomersContacts
+//
+// See https://dev.chartmogul.com/reference/create-a-contact
+func (api API) CreateCustomersContact(newContact *NewContact, customerUUID string) (*Contact, error) {
+	result := &Contact{}
+	path := strings.Replace(customerContactsEndpoint, ":uuid", customerUUID, 1)
+	return result, api.create(path, newContact, result)
 }
