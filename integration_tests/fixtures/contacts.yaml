@@ -1,0 +1,277 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"Test Contact"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","name":"Test Contact","system":"Import
+      API","created_at":"2023-04-11T07:39:39.259Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "150"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:39 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","email":"briwa@chartmogul.com","external_id":"ext_customer_1","name":"Test
+      Contact"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":105605594,"uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","external_id":"ext_customer_1","name":"Test
+      Contact","email":"briwa@chartmogul.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","data_source_uuids":["ds_03de8f44-d83c-11ed-bb72-27a9f086f44b"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/105605594-Test_Contact","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "805"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:39 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"custom":[{"key":"Facebook","value":"https://www.facebook.com/adam.smith"},{"key":"date_of_birth","value":"1985-01-22"}],"customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","first_name":"Adam","last_name":"Smith","linked_in":"https://linkedin.com/linkedin","notes":"Heading\nBody\nFooter","phone":"+1234567890","position":1,"title":"CEO","twitter":"https://twitter.com/twitter"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/contacts
+    method: POST
+  response:
+    body: '{"uuid":"con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9","customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","customer_external_id":"ext_customer_1","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "441"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:40 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/contacts/con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9
+    method: GET
+  response:
+    body: '{"uuid":"con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9","customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","customer_external_id":"ext_customer_1","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "441"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:40 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"custom":[{"key":"Facebook","value":"https://www.facebook.com/bill.thompson"},{"key":"date_of_birth","value":"1990-01-01"}],"first_name":"Bill","last_name":"Thompson","linked_in":"https://linkedin.com/bill-linkedin","notes":"New
+      Heading\nNew Body\nNew Footer","phone":"+987654321","position":10,"title":"CTO","twitter":"https://twitter.com/bill-twitter"}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/contacts/con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9
+    method: PATCH
+  response:
+    body: '{"uuid":"con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9","customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","customer_external_id":"ext_customer_1","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":10,"first_name":"Bill","last_name":"Thompson","title":"CTO","email":null,"phone":"+987654321","linked_in":"https://linkedin.com/bill-linkedin","twitter":"https://twitter.com/bill-twitter","notes":"New
+      Heading\nNew Body\nNew Footer","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "466"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:40 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/contacts/con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9
+    method: GET
+  response:
+    body: '{"uuid":"con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9","customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","customer_external_id":"ext_customer_1","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":10,"first_name":"Bill","last_name":"Thompson","title":"CTO","email":null,"phone":"+987654321","linked_in":"https://linkedin.com/bill-linkedin","twitter":"https://twitter.com/bill-twitter","notes":"New
+      Heading\nNew Body\nNew Footer","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "466"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:41 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":1}'
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/contacts
+    method: POST
+  response:
+    body: '{"uuid":"con_0520110c-d83c-11ed-89ab-9b2ec1c32ccd","customer_uuid":"cus_041a7b4e-d83c-11ed-9faf-9b9b3ca442a0","customer_external_id":"ext_customer_1","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":1,"first_name":null,"last_name":null,"title":null,"email":null,"phone":null,"linked_in":null,"twitter":null,"notes":null,"custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "355"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:41 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/contacts/con_0520110c-d83c-11ed-89ab-9b2ec1c32ccd/merge/con_0455b7cc-d83c-11ed-9fb0-47927ce3cfb9
+    method: POST
+  response:
+    body: '{"uuid":"con_0520110c-d83c-11ed-89ab-9b2ec1c32ccd","customer_uuid":null,"customer_external_id":"ext_customer_1","data_source_uuid":"ds_03de8f44-d83c-11ed-bb72-27a9f086f44b","position":1,"first_name":"Bill","last_name":"Thompson","title":"CTO","email":null,"phone":"+987654321","linked_in":"https://linkedin.com/bill-linkedin","twitter":"https://twitter.com/bill-twitter","notes":"New
+      Heading\nNew Body\nNew Footer","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "427"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 11 Apr 2023 07:39:41 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Basic secret
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/data_sources/ds_03de8f44-d83c-11ed-bb72-27a9f086f44b
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Tue, 11 Apr 2023 07:39:42 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""

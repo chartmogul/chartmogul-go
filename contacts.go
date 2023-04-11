@@ -12,7 +12,7 @@ type Contact struct {
 	FirstName          string                 `json:"first_name,omitempty"`
 	LastName           string                 `json:"last_name,omitempty"`
 	LinkedIn           string                 `json:"linked_in,omitempty"`
-	Note               string                 `json:"note,omitempty"`
+	Notes              string                 `json:"notes,omitempty"`
 	Phone              string                 `json:"phone,omitempty"`
 	Position           uint32                 `json:"position,omitempty"`
 	Title              string                 `json:"title,omitempty"`
@@ -27,7 +27,7 @@ type UpdateContact struct {
 	FirstName          string   `json:"first_name,omitempty"`
 	LastName           string   `json:"last_name,omitempty"`
 	LinkedIn           string   `json:"linked_in,omitempty"`
-	Note               string   `json:"note,omitempty"`
+	Notes              string   `json:"notes,omitempty"`
 	Phone              string   `json:"phone,omitempty"`
 	Position           uint32   `json:"position,omitempty"`
 	Title              string   `json:"title,omitempty"`
@@ -45,7 +45,7 @@ type NewContact struct {
 	FirstName string   `json:"first_name,omitempty"`
 	LastName  string   `json:"last_name,omitempty"`
 	LinkedIn  string   `json:"linked_in,omitempty"`
-	Note      string   `json:"note,omitempty"`
+	Notes     string   `json:"notes,omitempty"`
 	Phone     string   `json:"phone,omitempty"`
 	Position  uint32   `json:"position,omitempty"`
 	Title     string   `json:"title,omitempty"`
@@ -55,7 +55,7 @@ type NewContact struct {
 
 type Custom struct {
 	Key   string `json:"key,omitempty"`
-	Value string `json:"string,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 // ListContactsParams = parameters for listing contacts in API.

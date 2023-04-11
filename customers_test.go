@@ -411,7 +411,7 @@ func TestCreateCustomersContact(t *testing.T) {
 		FirstName:      "Adam",
 		LastName:       "Smith",
 		LinkedIn:       "https://linkedin.com/linkedin",
-		Note:           "Heading\nBody\nFooter",
+		Notes:          "Heading\nBody\nFooter",
 		Phone:          "+1234567890",
 		Position:       1,
 		Title:          "CEO",
