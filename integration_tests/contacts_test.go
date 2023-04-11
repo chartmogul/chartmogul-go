@@ -137,4 +137,9 @@ func TestContactsIntegration(t *testing.T) {
 		spew.Dump(mergedContact.Notes, updatedContact.Notes)
 		t.Fatal("Contact is not equal!")
 	}
+
+	deleteErr := api.DeleteContact(mergedContact.UUID)
+	if deleteErr != nil {
+		t.Fatal(err)
+	}
 }
