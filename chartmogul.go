@@ -169,7 +169,7 @@ type AnchorCursor struct {
 
 // PaginationWithCursor is the new standard for cursor with pagination.
 type PaginationWithCursor struct {
-	PerPage uint32 `json:"per-page,omitempty"`
+	PerPage uint32 `json:"per_page,omitempty"`
 	// Cursor is used to get the next set of Entries and its value should be the UUID of last Entry from previous response.
 	Cursor string `json:"cursor,omitempty"`
 }

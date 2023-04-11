@@ -15,7 +15,7 @@ func TestListContacts(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/contacts" {
+				if r.RequestURI != "/v/contacts?per_page=3" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
@@ -41,7 +41,6 @@ func TestListContacts(t *testing.T) {
 						}
 					}],
 					"has_more": false,
-					"per_page": 200,
 					"cursor": "88abf99"
 				}`))
 			}))
@@ -51,7 +50,8 @@ func TestListContacts(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	contacts, err := tested.ListContacts(&ListContactsParams{})
+	params := &ListContactsParams{PaginationWithCursor: PaginationWithCursor{PerPage: 3}}
+	contacts, err := tested.ListContacts(params)
 
 	if err != nil {
 		spew.Dump(err)

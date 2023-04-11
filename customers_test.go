@@ -318,7 +318,7 @@ func TestListCustomersContacts(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/customers/cus_00000000-0000-0000-0000-000000000000/contacts" {
+				if r.RequestURI != "/v/customers/cus_00000000-0000-0000-0000-000000000000/contacts?per_page=3" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
@@ -344,7 +344,6 @@ func TestListCustomersContacts(t *testing.T) {
 						}
 					}],
 					"has_more": false,
-					"per_page": 200,
 					"cursor": "88abf99"
 				}`))
 			}))
@@ -354,7 +353,9 @@ func TestListCustomersContacts(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	contacts, err := tested.ListCustomersContacts(&ListContactsParams{}, "cus_00000000-0000-0000-0000-000000000000")
+	uuid := "cus_00000000-0000-0000-0000-000000000000"
+	params := &ListContactsParams{PaginationWithCursor: PaginationWithCursor{PerPage: 3}}
+	contacts, err := tested.ListCustomersContacts(params, uuid)
 
 	if err != nil {
 		spew.Dump(err)
