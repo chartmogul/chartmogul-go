@@ -310,3 +310,130 @@ func TestSystemListCustomers(t *testing.T) {
 		t.Fatal("Unexpected result")
 	}
 }
+
+func TestListCustomersContacts(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers/cus_00000000-0000-0000-0000-000000000000/contacts?per_page=3" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [{
+						"uuid": "con_00000000-0000-0000-0000-000000000000",
+						"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+						"customer_external_id": "123",
+						"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+						"position": 1,
+						"first_name": "Adam",
+						"last_name": "Smith",
+						"title": "CEO",
+						"email": "adam@smith.com",
+						"phone": "Lead",
+						"linked_in": null,
+						"twitter": null,
+						"notes": null,
+						"custom": {
+							"Facebook": "https://www.facebook.com/adam.smith/",
+							"date_of_birth": "1985-01-22"
+						}
+					}],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	uuid := "cus_00000000-0000-0000-0000-000000000000"
+	params := &ListContactsParams{PaginationWithCursor: PaginationWithCursor{PerPage: 3}}
+	contacts, err := tested.ListCustomersContacts(params, uuid)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(contacts.Entries) == 0 {
+		spew.Dump(contacts)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestCreateCustomersContact(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers/cus_00000000-0000-0000-0000-000000000000/contacts" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"customer_external_id": "customer_001",
+					"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+					"position": 9,
+					"first_name": "Adam",
+					"last_name": "Smith",
+					"title": "CEO",
+					"email": "adam@example.com",
+					"phone": "+1234567890",
+					"linked_in": "https://linkedin.com/linkedin",
+					"twitter": "https://twitter.com/twitter",
+					"notes": "Heading\nBody\nFooter",
+					"custom": {
+						"Facebook": "https://www.facebook.com/adam.smith",
+						"date_of_birth": "1985-01-22"
+					}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	contact, err := tested.CreateCustomersContact(&NewContact{
+		DataSourceUUID: "ds_00000000-0000-0000-0000-000000000000",
+		FirstName:      "Adam",
+		LastName:       "Smith",
+		LinkedIn:       "https://linkedin.com/linkedin",
+		Notes:          "Heading\nBody\nFooter",
+		Phone:          "+1234567890",
+		Position:       1,
+		Title:          "CEO",
+		Twitter:        "https://twitter.com/twitter",
+		Custom: []Custom{
+			{
+				Key:   "Facebook",
+				Value: "https://www.facebook.com/adam.smith",
+			},
+			{
+				Key:   "date_of_birth",
+				Value: "1985-01-22",
+			},
+		},
+	}, "cus_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.UUID != "con_00000000-0000-0000-0000-000000000000" {
+		spew.Dump(contact)
+		t.Fatal("Unexpected result")
+	}
+}

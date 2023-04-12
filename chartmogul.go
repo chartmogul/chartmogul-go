@@ -94,6 +94,16 @@ type IApi interface {
 	DeleteCustomer(customerUUID string) error
 	DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error
 	DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, DeleteCustomerInvoicesParams *DeleteCustomerInvoicesParams) error
+	ListCustomersContacts(ListContactsParams *ListContactsParams, customerUUID string) (*Contacts, error)
+	CreateCustomersContact(newContact *NewContact, customerUUID string) (*Contact, error)
+
+	// Contacts
+	CreateContact(newContact *NewContact) (*Contact, error)
+	RetrieveContact(contactUUID string) (*Contact, error)
+	UpdateContact(Contact *UpdateContact, contactUUID string) (*Contact, error)
+	ListContacts(ListContactsParams *ListContactsParams) (*Contacts, error)
+	DeleteContact(contactUUID string) error
+	MergeContacts(intoContactUUID string, fromContactUUID string) (*Contact, error)
 
 	//  - Cusomer Attributes
 	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)
@@ -155,6 +165,13 @@ type AnchorCursor struct {
 	PerPage uint32 `json:"per-page,omitempty"`
 	//StartAfter is used to get the next set of Entries and its value should be the UUID of last Entry from previous response.
 	StartAfter string `json:"start-after,omitempty"`
+}
+
+// PaginationWithCursor is the new standard for cursor with pagination.
+type PaginationWithCursor struct {
+	PerPage uint32 `json:"per_page,omitempty"`
+	// Cursor is a reference to get the next set of entries.
+	Cursor string `json:"cursor,omitempty"`
 }
 
 type MetaCursor struct {

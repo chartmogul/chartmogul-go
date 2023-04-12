@@ -107,6 +107,19 @@ api.ListCustomers(&cm.ListCustomersParams{})
 api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
 api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
+api.ListCustomersContact(&cm.ListContactsParams{}, "customerUUID")
+api.CreateCustomersContact(&cm.NewContact{}, "customerUUID")
+```
+
+#### [Contacts](https://dev.chartmogul.com/reference/contacts)
+
+```go
+api.CreateContact(&cm.NewContact{})
+api.RetrieveContact("customerUUID")
+api.ListContacts(&cm.ListContactsParams{})
+api.UpdateContact(&cm.UpdateContact{}, "contact")
+api.DeleteContact("customerUUID")
+api.MergeContacts("intoContactUUID", "fromContactUUID")
 ```
 
 #### [Plans](https://dev.chartmogul.com/reference#plans)
