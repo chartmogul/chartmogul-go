@@ -70,6 +70,26 @@ func TestContactsIntegration(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	allContacts, err := api.ListContacts(&cm.ListContactsParams{
+		DataSourceUUID:       ds.UUID,
+		PaginationWithCursor: cm.PaginationWithCursor{PerPage: 10},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var expectedAllContacts *cm.Contacts = &cm.Contacts{
+		Entries: []*cm.Contact{newContact},
+		Cursor:  "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA=",
+		HasMore: false,
+	}
+
+	if !reflect.DeepEqual(expectedAllContacts, allContacts) {
+		spew.Dump(allContacts)
+		spew.Dump(expectedAllContacts)
+		t.Fatal("All contacts is not equal!")
+	}
+
 	retrievedContact, err := api.RetrieveContact(newContact.UUID)
 	if err != nil {
 		t.Fatal(err)

@@ -69,7 +69,6 @@ type ListContactsParams struct {
 type Contacts struct {
 	Entries []*Contact `json:"entries,omitempty"`
 	Cursor  string     `json:"cursor,omitempty"`
-	PerPage uint32     `json:"per_page"`
 	HasMore bool       `json:"has_more,omitempty"`
 }
 
