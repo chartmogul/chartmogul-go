@@ -3,13 +3,12 @@ package integration
 import (
 	"log"
 	"net/http"
+	"os"
 	"testing"
 
 	cm "github.com/chartmogul/chartmogul-go/v3"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
-
-	"github.com/dnaeon/go-vcr/recorder"
 )
 
 func TestCreatePlanGroup(t *testing.T) {
@@ -17,14 +16,16 @@ func TestCreatePlanGroup(t *testing.T) {
 		t.Skip("Integration test.")
 	}
 
-	r, err := recorder.New("./fixtures/create_plan_group")
+	r, err := NewRecorderWithAuthFilter("./fixtures/create_plan_group")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer r.Stop() //nolint
 
-	api := &cm.API{}
-	api.SetClient(&http.Client{Transport: r})
+	api := &cm.API{
+		ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
+		Client: &http.Client{Transport: r},
+	}
 	gorequest.DisableTransportSwap = true
 
 	ds, err := api.CreateDataSource("Test Create Invoice")

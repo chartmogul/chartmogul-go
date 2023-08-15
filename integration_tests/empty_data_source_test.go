@@ -10,8 +10,6 @@ import (
 	cm "github.com/chartmogul/chartmogul-go/v3"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
-
-	"github.com/dnaeon/go-vcr/recorder"
 )
 
 func TestEmptyDataSource(t *testing.T) {
@@ -19,7 +17,7 @@ func TestEmptyDataSource(t *testing.T) {
 		t.Skip("Integration test.")
 	}
 
-	r, err := recorder.New("./fixtures/empty_data_source")
+	r, err := NewRecorderWithAuthFilter("./fixtures/empty_data_source")
 	if err != nil {
 		log.Fatal(err)
 	}
