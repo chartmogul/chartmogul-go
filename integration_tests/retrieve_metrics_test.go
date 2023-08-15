@@ -3,11 +3,11 @@ package integration
 import (
 	"log"
 	"net/http"
+	"os"
 	"testing"
 
 	cm "github.com/chartmogul/chartmogul-go/v3"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/go-test/deep"
 	"github.com/parnurzeal/gorequest"
 )
@@ -17,14 +17,16 @@ func TestRetrieveMetrics(t *testing.T) {
 		t.Skip("Integration test.")
 	}
 
-	r, err := recorder.New("./fixtures/retrieve_metrics")
+	r, err := NewRecorderWithAuthFilter("./fixtures/retrieve_metrics")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer r.Stop() //nolint
 
-	api := &cm.API{}
-	api.SetClient(&http.Client{Transport: r})
+	api := &cm.API{
+		ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
+		Client: &http.Client{Transport: r},
+	}
 	gorequest.DisableTransportSwap = true
 
 	all := &cm.MetricsResult{
