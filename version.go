@@ -1,4 +1,4 @@
 package chartmogul
 
 // Version of the package
-var Version = "v3"
+var Version = "v4"

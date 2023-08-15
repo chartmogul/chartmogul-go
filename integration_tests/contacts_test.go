@@ -80,9 +80,9 @@ func TestContactsIntegration(t *testing.T) {
 
 	var expectedAllContacts *cm.Contacts = &cm.Contacts{
 		Entries: []*cm.Contact{newContact},
-		Cursor:  "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA=",
-		HasMore: false,
 	}
+	expectedAllContacts.Cursor = "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA="
+	expectedAllContacts.HasMore = false
 
 	if !reflect.DeepEqual(expectedAllContacts, allContacts) {
 		spew.Dump(allContacts)

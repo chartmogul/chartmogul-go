@@ -21,6 +21,7 @@ type Plans struct {
 	Plans       []*Plan `json:"plans"`
 	TotalPages  uint32  `json:"total_pages"`
 	CurrentPage uint32  `json:"current_page"`
+	Pagination
 }
 
 // ListPlansParams = optional parameters for listing plans.
@@ -29,6 +30,7 @@ type ListPlansParams struct {
 	ExternalID     string `json:"external_id,omitempty"`
 	System         string `json:"system,omitempty"`
 	Cursor
+	PaginationWithCursor
 }
 
 // CreatePlan creates plan under given Data Source.

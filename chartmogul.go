@@ -167,6 +167,13 @@ type AnchorCursor struct {
 	StartAfter string `json:"start-after,omitempty"`
 }
 
+// Pagination is a struct to handle the new cursor based pagination pagination response.
+type Pagination struct {
+	// Cursor is a reference to get the next set of entries.
+	Cursor  string `json:"cursor,omitempty"`
+	HasMore bool   `json:"has_more,omitempty"`
+}
+
 // PaginationWithCursor is the new standard for cursor with pagination.
 type PaginationWithCursor struct {
 	PerPage uint32 `json:"per_page,omitempty"`

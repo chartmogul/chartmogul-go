@@ -1,0 +1,161 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"1"}'
+    form: {}
+    headers:
+      Authorization:
+      Basic hidden= 
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb","name":"1","system":"Import
+      API","created_at":"2023-08-14T23:30:57.309Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "139"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 14 Aug 2023 23:30:57 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb","external_id":"plan_0001","interval_count":1,"interval_unit":"month","name":"Bronze
+      Plan"}'
+    form: {}
+    headers:
+      Authorization:
+      Basic hidden= 
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans
+    method: POST
+  response:
+    body: '{"external_id":"plan_0001","name":"Bronze Plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb","uuid":"pl_9eccd224-3afa-11ee-b63e-1fec6a2e60bf"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "201"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 14 Aug 2023 23:30:57 GMT
+      Etag:
+      - W/"ccd5c65214225cc211327526860371ab"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - f99e3ee09e8694927c32fe301f7dbf99
+      X-Runtime:
+      - "0.066078"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      Basic hidden= 
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans?data_source_uuid=ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb
+    method: GET
+  response:
+    body: '{"plans":[{"external_id":"plan_0001","name":"Bronze Plan","interval_count":1,"uuid":"pl_9eccd224-3afa-11ee-b63e-1fec6a2e60bf","interval_unit":"month","data_source_uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb"}],"current_page":1,"total_pages":1,"cursor":"MjAyMy0wOC0xNFQyMzozMDo1Ny41NDkyMjQwMDBaJjk1NDU0Mg==","has_more":false}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "327"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 14 Aug 2023 23:30:57 GMT
+      Etag:
+      - W/"1bcdc34745d007e23cb82a44248f029e"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - c688ebebfa4b9cea88b33564e37cffaf
+      X-Runtime:
+      - "0.045742"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      Basic hidden= 
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Mon, 14 Aug 2023 23:30:57 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""

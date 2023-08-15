@@ -68,8 +68,7 @@ type ListContactsParams struct {
 // Contacts is result of listing contacts in API.
 type Contacts struct {
 	Entries []*Contact `json:"entries,omitempty"`
-	Cursor  string     `json:"cursor,omitempty"`
-	HasMore bool       `json:"has_more,omitempty"`
+	Pagination
 }
 
 const (
