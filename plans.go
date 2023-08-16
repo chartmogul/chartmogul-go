@@ -18,9 +18,7 @@ type Plan struct {
 
 // Plans is result of listing: plans + paging.
 type Plans struct {
-	Plans       []*Plan `json:"plans"`
-	TotalPages  uint32  `json:"total_pages"`
-	CurrentPage uint32  `json:"current_page"`
+	Plans []*Plan `json:"plans"`
 	Pagination
 }
 
@@ -29,7 +27,6 @@ type ListPlansParams struct {
 	DataSourceUUID string `json:"data_source_uuid"`
 	ExternalID     string `json:"external_id,omitempty"`
 	System         string `json:"system,omitempty"`
-	Cursor
 	PaginationWithCursor
 }
 

@@ -73,7 +73,7 @@ func TestCreatePlanGroup(t *testing.T) {
 		t.Fatal("The uuids of the created Plan Group and the retreived Plan Group don't match")
 	}
 
-	plgPlans, err := api.ListPlanGroupPlans(&cm.Cursor{PerPage: 200, Page: 1}, plgUUUID)
+	plgPlans, err := api.ListPlanGroupPlans(&cm.PaginationWithCursor{PerPage: 200}, plgUUUID)
 
 	if err != nil {
 		t.Fatal(err)
@@ -84,7 +84,7 @@ func TestCreatePlanGroup(t *testing.T) {
 		t.Fatal("The expected plan was not returned")
 	}
 
-	planGroups, err := api.ListPlanGroups(&cm.Cursor{PerPage: 200, Page: 1})
+	planGroups, err := api.ListPlanGroups(&cm.PaginationWithCursor{PerPage: 200})
 
 	if err != nil {
 		t.Fatal(err)

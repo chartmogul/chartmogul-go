@@ -5,116 +5,123 @@ interactions:
     body: '{"name":"Test Create Invoice"}'
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
+      User-Agent:
+      - chartmogul-go/v4
     url: https://api.chartmogul.com/v1/data_sources
     method: POST
   response:
-    body: '{"uuid":"ds_642196a4-54ef-11ea-ab24-271e32b15e36","name":"Test Create Invoice","system":"Import
-      API","created_at":"2020-02-21T21:16:14.150Z","status":"idle"}'
+    body: '{"uuid":"ds_0a5d21f8-3c52-11ee-8430-b32b473f9400","name":"Test Create Invoice","system":"Import
+      API","created_at":"2023-08-16T16:29:15.362Z","status":"idle"}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
+      Connection:
+      - keep-alive
       Content-Length:
       - "157"
       Content-Type:
       - application/json
       Date:
-      - Fri, 21 Feb 2020 21:16:14 GMT
+      - Wed, 16 Aug 2023 16:29:15 GMT
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 201 Created
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"data_source_uuid":"ds_642196a4-54ef-11ea-ab24-271e32b15e36","external_id":"ext_plan","interval_count":1,"interval_unit":"month","name":"test
+    body: '{"data_source_uuid":"ds_0a5d21f8-3c52-11ee-8430-b32b473f9400","external_id":"ext_plan","interval_count":1,"interval_unit":"month","name":"test
       plan"}'
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
+      User-Agent:
+      - chartmogul-go/v4
     url: https://api.chartmogul.com/v1/plans
     method: POST
   response:
-    body: '{"external_id":"ext_plan","name":"test plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_642196a4-54ef-11ea-ab24-271e32b15e36","uuid":"pl_642196a5-54ef-11ea-ab24-970a426077ab"}'
+    body: '{"external_id":"ext_plan","name":"test plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_0a5d21f8-3c52-11ee-8430-b32b473f9400","uuid":"pl_0a84d194-3c52-11ee-a9c4-73edac922fb7"}'
     headers:
+      Access-Control-Allow-Credentials:
+      - "true"
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "198"
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 21 Feb 2020 21:16:14 GMT
+      - Wed, 16 Aug 2023 16:29:15 GMT
       Etag:
-      - W/"5cdac6e62c5ad4f41148988549796628"
+      - W/"32ba792115b2da9987403066de3b52a7"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 201 Created
-      Strict-Transport-Security:
-      - max-age=15768000
       X-Content-Type-Options:
       - nosniff
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 5b9d15eb-4111-43a8-b2f8-299d94af5bd9
+      - 8b9a4e84a2f86dc3ba0cebec23f5dce2
       X-Runtime:
-      - "0.096626"
+      - "0.058105"
       X-Xss-Protection:
       - 1; mode=block
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"name":"My plan group","plans":["pl_642196a5-54ef-11ea-ab24-970a426077ab"]}'
+    body: '{"name":"My plan group","plans":["pl_0a84d194-3c52-11ee-a9c4-73edac922fb7"]}'
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
+      User-Agent:
+      - chartmogul-go/v4
     url: https://api.chartmogul.com/v1/plan_groups
     method: POST
   response:
-    body: '{"name":"My plan group","uuid":"plg_7b89483e-ec02-4b87-bb57-c54725f58a38","plans_count":1}'
+    body: '{"name":"My plan group","uuid":"plg_2b0acfd9-ef53-45a9-8dab-49b5d713e6e5","plans_count":1}'
     headers:
+      Access-Control-Allow-Credentials:
+      - "true"
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "90"
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 21 Feb 2020 21:16:15 GMT
+      - Wed, 16 Aug 2023 16:29:15 GMT
       Etag:
-      - W/"f22fbf058bac99ee69a15ad16574913c"
+      - W/"ac6da7a3cf766801fa981a6e2154dda5"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 200 OK
-      Strict-Transport-Security:
-      - max-age=15768000
-      Vary:
-      - Accept-Encoding
-      - Accept-Encoding
       X-Content-Type-Options:
       - nosniff
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 74ee7f46-29b7-459a-a9b2-20e6f8c21696
+      - 27c1fddf2297cbef909bed5e9e8dcd0f
       X-Runtime:
-      - "0.063076"
+      - "0.041323"
       X-Xss-Protection:
       - 1; mode=block
     status: 200 OK
@@ -124,42 +131,45 @@ interactions:
     body: ""
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
-    url: https://api.chartmogul.com/v1/plan_groups/plg_7b89483e-ec02-4b87-bb57-c54725f58a38
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plan_groups/plg_2b0acfd9-ef53-45a9-8dab-49b5d713e6e5
     method: GET
   response:
-    body: '{"name":"My plan group","uuid":"plg_7b89483e-ec02-4b87-bb57-c54725f58a38","plans_count":1}'
+    body: '{"name":"My plan group","uuid":"plg_2b0acfd9-ef53-45a9-8dab-49b5d713e6e5","plans_count":1}'
     headers:
+      Access-Control-Allow-Credentials:
+      - "true"
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "90"
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 21 Feb 2020 21:16:15 GMT
+      - Wed, 16 Aug 2023 16:29:15 GMT
       Etag:
-      - W/"f22fbf058bac99ee69a15ad16574913c"
+      - W/"ac6da7a3cf766801fa981a6e2154dda5"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 200 OK
-      Strict-Transport-Security:
-      - max-age=15768000
-      Vary:
-      - Accept-Encoding
-      - Accept-Encoding
       X-Content-Type-Options:
       - nosniff
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 9fd8717c-668a-4131-a6a8-6e81c33d2893
+      - d385438a48fa6a6670dcf30ec9ffb5e4
       X-Runtime:
-      - "0.058499"
+      - "0.024926"
       X-Xss-Protection:
       - 1; mode=block
     status: 200 OK
@@ -169,42 +179,45 @@ interactions:
     body: ""
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
-    url: https://api.chartmogul.com/v1/plan_groups/plg_7b89483e-ec02-4b87-bb57-c54725f58a38/plans?page=1&per_page=200
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plan_groups/plg_2b0acfd9-ef53-45a9-8dab-49b5d713e6e5/plans?per_page=200
     method: GET
   response:
-    body: '{"plans":[{"name":"test plan","uuid":"pl_642196a5-54ef-11ea-ab24-970a426077ab","data_source_uuid":"ds_642196a4-54ef-11ea-ab24-271e32b15e36","interval_count":1,"interval_unit":"month","external_id":"ext_plan"}],"current_page":1,"total_pages":1}'
+    body: '{"plans":[{"name":"test plan","uuid":"pl_0a84d194-3c52-11ee-a9c4-73edac922fb7","data_source_uuid":"ds_0a5d21f8-3c52-11ee-8430-b32b473f9400","interval_count":1,"interval_unit":"month","external_id":"ext_plan"}],"current_page":1,"total_pages":1,"cursor":"MjAyMy0wOC0xNlQxNjoyOToxNS42NDk4NTEwMDBaJjk1NDk1Nw==","has_more":false}'
     headers:
+      Access-Control-Allow-Credentials:
+      - "true"
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "324"
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 21 Feb 2020 21:16:15 GMT
+      - Wed, 16 Aug 2023 16:29:15 GMT
       Etag:
-      - W/"aa52a4a5282a8126c1f15b6184865590"
+      - W/"a39eb4c0e8111eb150eb1d38c1cea6c3"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 200 OK
-      Strict-Transport-Security:
-      - max-age=15768000
-      Vary:
-      - Accept-Encoding
-      - Accept-Encoding
       X-Content-Type-Options:
       - nosniff
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - cfaf130f-94ea-48a6-a51f-609be2d4fd4c
+      - 1aef4ab63af5418ccc4d13ae5b61e2aa
       X-Runtime:
-      - "0.051919"
+      - "0.029122"
       X-Xss-Protection:
       - 1; mode=block
     status: 200 OK
@@ -214,42 +227,45 @@ interactions:
     body: ""
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
-    url: https://api.chartmogul.com/v1/plan_groups?page=1&per_page=200
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plan_groups?per_page=200
     method: GET
   response:
-    body: '{"plan_groups":[{"name":"My plan group","uuid":"plg_7b89483e-ec02-4b87-bb57-c54725f58a38","plans_count":1}],"current_page":1,"total_pages":1}'
+    body: '{"plan_groups":[{"name":"My plan group","uuid":"plg_2b0acfd9-ef53-45a9-8dab-49b5d713e6e5","plans_count":1}],"current_page":1,"total_pages":1,"cursor":"MjAyMy0wOC0xNlQxNjoyOToxNS43NTg5MjUwMDBaJjIwNTkx","has_more":false}'
     headers:
+      Access-Control-Allow-Credentials:
+      - "true"
       Cache-Control:
       - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "218"
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 21 Feb 2020 21:16:15 GMT
+      - Wed, 16 Aug 2023 16:29:16 GMT
       Etag:
-      - W/"fcaaed4c7b2b1ea344e4bd289b0733a2"
+      - W/"b89558fceff67eaf3d66c5e588483dfe"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 200 OK
-      Strict-Transport-Security:
-      - max-age=15768000
-      Vary:
-      - Accept-Encoding
-      - Accept-Encoding
       X-Content-Type-Options:
       - nosniff
+      X-Download-Options:
+      - noopen
       X-Frame-Options:
-      - SAMEORIGIN
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
       X-Request-Id:
-      - 676e1efd-704b-4939-8296-ebc360f12131
+      - 04771abcc8449cbb5edf80c1663e1970
       X-Runtime:
-      - "0.091414"
+      - "0.027866"
       X-Xss-Protection:
       - 1; mode=block
     status: 200 OK
@@ -259,25 +275,23 @@ interactions:
     body: ""
     form: {}
     headers:
-      Authorization:
-      - Basic secret
       Content-Type:
       - application/json
-    url: https://api.chartmogul.com/v1/data_sources/ds_642196a4-54ef-11ea-ab24-271e32b15e36
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_0a5d21f8-3c52-11ee-8430-b32b473f9400
     method: DELETE
   response:
     body: ""
     headers:
       Access-Control-Allow-Credentials:
       - "true"
+      Connection:
+      - keep-alive
       Date:
-      - Fri, 21 Feb 2020 21:16:15 GMT
+      - Wed, 16 Aug 2023 16:29:16 GMT
       Retry-Count:
       - "0"
-      Server:
-      - nginx/1.10.1
-      Status:
-      - 204 No Content
     status: 204 No Content
     code: 204
     duration: ""

@@ -12,10 +12,9 @@ const (
 // In case of /v1/invoices endpoint, the customer_uuid is on individual invoices and here it's empty.
 type Invoices struct {
 	CustomerUUID string     `json:"customer_uuid,omitempty"`
-	CurrentPage  uint32     `json:"current_page,omitempty"`
-	TotalPages   uint32     `json:"total_pages,omitempty"`
 	Error        string     `json:"error,omitempty"`
 	Invoices     []*Invoice `json:"invoices"`
+	Pagination
 }
 
 // Invoice is the data for ChartMogul to auto-generate subscriptions.
@@ -64,7 +63,7 @@ type ListAllInvoicesParams struct {
 	CustomerUUID   string `json:"customer_uuid,omitempty"`
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
 	ExternalID     string `json:"external_id,omitempty"`
-	Cursor
+	PaginationWithCursor
 }
 
 // CreateInvoices loads an invoice to a customer in Chartmogul.
@@ -85,7 +84,7 @@ func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoic
 // ListInvoices lists all imported invoices for a customer.
 //
 // See https://dev.chartmogul.com/v1.0/reference#invoices
-func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
+func (api API) ListInvoices(cursor *PaginationWithCursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
 	path := strings.Replace(customersInvoicesEndpoint, ":customerUUID", customerUUID, 1)
 	query := make([]interface{}, 0, 1)

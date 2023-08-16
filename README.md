@@ -26,7 +26,7 @@
 <hr>
 <br>
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v3.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v3)
+[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v4.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v4)
 [![Go Report Card](https://goreportcard.com/badge/github.com/chartmogul/chartmogul-go)](https://goreportcard.com/report/github.com/chartmogul/chartmogul-go)
 
 ## Installation
@@ -34,7 +34,7 @@
 This library requires Go 1.11 or above.
 
 ```sh
-go get github.com/chartmogul/chartmogul-go/v3
+go get github.com/chartmogul/chartmogul-go/v4
 ```
 
 ## Configuration
@@ -44,7 +44,7 @@ Version 3.x will introduce a breaking change in authentication configuration. Fo
 First create the `API` struct by passing your API key, available from the administration section of your ChartMogul account.
 
 ```go
-import cm "github.com/chartmogul/chartmogul-go/v3"
+import cm "github.com/chartmogul/chartmogul-go/v4"
 
 api := cm.API{
     ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
@@ -127,7 +127,7 @@ api.MergeContacts("intoContactUUID", "fromContactUUID")
 ```go
 api.CreatePlan(&cm.Plan{Name: "name", ExternalID: "external_id"}, "dataSourceUUID")
 api.RetrievePlan("planUUID")
-api.ListPlans(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
+api.ListPlans(&cm.ListPlansParams{PaginationWithCursor: cm.PaginationWithCursor{PerPage: "10"}})
 api.UpdatePlan(&cm.Plan{}, "planUUID")
 api.DeletePlan("planUUID")
 ```
@@ -137,10 +137,10 @@ api.DeletePlan("planUUID")
 ```go
 api.CreatePlanGroup(&cm.PlanGroup{Name: "name", Plans: []*string{&planOne.UUID, &planTwo.UUID}})
 api.RetrievePlanGroup("planGroupUUID")
-api.ListPlanGroups(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}})
+api.ListPlanGroups(&cm.ListPlansParams{PaginationWithCursor: cm.PaginationWithCursor{PerPage: "10"}})
 api.UpdatePlanGroup(&cm.PlanGroup{}, "planGroupUUID")
 api.DeletePlanGroup("planGroupUUID")
-api.ListPlanGroupPlans(&cm.ListPlansParams{Cursor: cm.Cursor{Page: "1", PerPage: "10"}},  "planGroupUUID")
+api.ListPlanGroupPlans(&cm.ListPlansParams{PaginationWithCursor: cm.PaginationWithCursor{PerPage: "10"}},  "planGroupUUID")
 ```
 
 #### [Invoices](https://dev.chartmogul.com/docs/invoices)
@@ -213,7 +213,7 @@ api.MetricsRetrieveMRRChurnRate(&MetricsFilter{})
 api.MetricsRetrieveLTV(&MetricsFilter{})
 
 api.MetricsListCustomerSubscriptions(&Cursor{}, "customerUUID")
-api.MetricsListCustomerActivities(&Cursor{}, "customerUUID")
+api.MetricsListCustomerActivities(&PaginationWithCursor{}, "customerUUID")
 
 api.MetricsListActivities(&cm.MetricsListActivitiesParams{StartDate: "2016-09-16", AnchorCursor: cm.AnchorCursor{PerPage: 5, StartAfter: "b45b1d3f-3823-424f-ab47-5a1d0c00a7f6"}})
 

@@ -12,15 +12,14 @@ const (
 
 // PlanGroupPlans is result of listing: plans + paging for a plan group.
 type PlanGroupPlans struct {
-	Plans       []*Plan `json:"plans"`
-	TotalPages  uint32  `json:"total_pages"`
-	CurrentPage uint32  `json:"current_page"`
+	Plans []*Plan `json:"plans"`
+	Pagination
 }
 
 // ListPlanGroupPlans returns list of plans in with a plan group given the plan group uuid.
 //
 // See https://dev.chartmogul.com/v1.0/reference#plan_groups
-func (api API) ListPlanGroupPlans(cursor *Cursor, planGroupUUID string) (*PlanGroupPlans, error) {
+func (api API) ListPlanGroupPlans(cursor *PaginationWithCursor, planGroupUUID string) (*PlanGroupPlans, error) {
 	result := &PlanGroupPlans{}
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {

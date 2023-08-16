@@ -43,7 +43,7 @@ func TestListCustomerActivities(t *testing.T) {
 	var tested IApi = &API{
 		ApiKey: "token",
 	}
-	activities, err := tested.MetricsListCustomerActivities(&Cursor{}, "cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7")
+	activities, err := tested.MetricsListCustomerActivities(&PaginationWithCursor{}, "cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7")
 
 	if err != nil {
 		spew.Dump(err)

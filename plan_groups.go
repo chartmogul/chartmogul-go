@@ -16,9 +16,8 @@ type PlanGroup struct {
 
 // PlanGroups is result of listing: plan_groups + page.
 type PlanGroups struct {
-	PlanGroups  []*PlanGroup `json:"plan_groups"`
-	TotalPages  uint32       `json:"total_pages"`
-	CurrentPage uint32       `json:"current_page"`
+	PlanGroups []*PlanGroup `json:"plan_groups"`
+	Pagination
 }
 
 // CreatePlanGroup creates plan group with given name and plans.
@@ -40,7 +39,7 @@ func (api API) RetrievePlanGroup(planGroupUUID string) (*PlanGroup, error) {
 // ListPlanGroups returns list of plan groups.
 //
 // See https://dev.chartmogul.com/v1.0/reference#plan_groups
-func (api API) ListPlanGroups(cursor *Cursor) (*PlanGroups, error) {
+func (api API) ListPlanGroups(cursor *PaginationWithCursor) (*PlanGroups, error) {
 	result := &PlanGroups{}
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {

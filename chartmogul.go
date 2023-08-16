@@ -60,7 +60,7 @@ type IApi interface {
 	DeleteDataSource(dataSourceUUID string) error
 	// Invoices
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
-	ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
+	ListInvoices(cursor *PaginationWithCursor, customerUUID string) (*Invoices, error)
 	ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error)
 	RetrieveInvoice(invoiceUUID string) (*Invoice, error)
 	DeleteInvoice(invoiceUUID string) error
@@ -73,10 +73,10 @@ type IApi interface {
 	// Plan Groups
 	CreatePlanGroup(planGroup *PlanGroup) (result *PlanGroup, err error)
 	RetrievePlanGroup(planGroupUUID string) (*PlanGroup, error)
-	ListPlanGroups(cursor *Cursor) (*PlanGroups, error)
+	ListPlanGroups(cursor *PaginationWithCursor) (*PlanGroups, error)
 	UpdatePlanGroup(plan *PlanGroup, planGroupUUID string) (*PlanGroup, error)
 	DeletePlanGroup(planGroupUUID string) error
-	ListPlanGroupPlans(cursor *Cursor, planGroupUUID string) (*PlanGroupPlans, error)
+	ListPlanGroupPlans(cursor *PaginationWithCursor, planGroupUUID string) (*PlanGroupPlans, error)
 	// Subscriptions
 	CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error)
 	ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
@@ -132,7 +132,7 @@ type IApi interface {
 
 	// Metrics - Subscriptions & Activities
 	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
-	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
+	MetricsListCustomerActivities(cursor *PaginationWithCursor, customerUUID string) (*MetricsCustomerActivities, error)
 	MetricsListActivities(MetricsListActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error)
 	MetricsCreateActivitiesExport(CreateMetricsActivitiesExportParam *CreateMetricsActivitiesExportParam) (*MetricsActivitiesExport, error)
 	MetricsRetrieveActivitiesExport(activitiesExportUUID string) (*MetricsActivitiesExport, error)

@@ -2,11 +2,9 @@
 version: 1
 interactions:
 - request:
-    body: '{"name":"1"}'
+    body: '{"name":"testing"}'
     form: {}
     headers:
-      Authorization:
-      Basic hidden= 
       Content-Type:
       - application/json
       User-Agent:
@@ -14,31 +12,29 @@ interactions:
     url: https://api.chartmogul.com/v1/data_sources
     method: POST
   response:
-    body: '{"uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb","name":"1","system":"Import
-      API","created_at":"2023-08-14T23:30:57.309Z","status":"idle"}'
+    body: '{"uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","name":"testing","system":"Import
+      API","created_at":"2023-08-16T16:06:06.171Z","status":"idle"}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
       Connection:
       - keep-alive
       Content-Length:
-      - "139"
+      - "145"
       Content-Type:
       - application/json
       Date:
-      - Mon, 14 Aug 2023 23:30:57 GMT
+      - Wed, 16 Aug 2023 16:06:06 GMT
       Retry-Count:
       - "0"
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"data_source_uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb","external_id":"plan_0001","interval_count":1,"interval_unit":"month","name":"Bronze
+    body: '{"data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","external_id":"plan_0001","interval_count":1,"interval_unit":"month","name":"Bronze
       Plan"}'
     form: {}
     headers:
-      Authorization:
-      Basic hidden= 
       Content-Type:
       - application/json
       User-Agent:
@@ -46,7 +42,7 @@ interactions:
     url: https://api.chartmogul.com/v1/plans
     method: POST
   response:
-    body: '{"external_id":"plan_0001","name":"Bronze Plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb","uuid":"pl_9eccd224-3afa-11ee-b63e-1fec6a2e60bf"}'
+    body: '{"external_id":"plan_0001","name":"Bronze Plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","uuid":"pl_ce77713c-3c4e-11ee-b767-0f0a575ca7d1"}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -59,9 +55,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 14 Aug 2023 23:30:57 GMT
+      - Wed, 16 Aug 2023 16:06:06 GMT
       Etag:
-      - W/"ccd5c65214225cc211327526860371ab"
+      - W/"0b466677c2580c99c2c750384dddf2ce"
       Referrer-Policy:
       - strict-origin-when-cross-origin
       Retry-Count:
@@ -75,9 +71,107 @@ interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - f99e3ee09e8694927c32fe301f7dbf99
+      - ab0cfad9c96ef6037115ca3206234a24
       X-Runtime:
-      - "0.066078"
+      - "0.102379"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","external_id":"plan_0002","interval_count":1,"interval_unit":"day","name":"Chocolate
+      Plan"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans
+    method: POST
+  response:
+    body: '{"external_id":"plan_0002","name":"Chocolate Plan","interval_count":1,"interval_unit":"day","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","uuid":"pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "202"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 16 Aug 2023 16:06:06 GMT
+      Etag:
+      - W/"52db91c9ad9e5e0fe4bd780cc48583af"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - adf9062ca1cc5a0c88759526bf816c09
+      X-Runtime:
+      - "0.057937"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","external_id":"plan_0003","interval_count":1,"interval_unit":"year","name":"Flash
+      Plan"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans
+    method: POST
+  response:
+    body: '{"external_id":"plan_0003","name":"Flash Plan","interval_count":1,"interval_unit":"year","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","uuid":"pl_ce9f2826-3c4e-11ee-b768-27a8d76949f6"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "199"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 16 Aug 2023 16:06:06 GMT
+      Etag:
+      - W/"f321303af22df88269cffaca38d4453f"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 45675564a8e867d04c1d591842ea3879
+      X-Runtime:
+      - "0.058857"
       X-Xss-Protection:
       - 1; mode=block
     status: 201 Created
@@ -87,16 +181,15 @@ interactions:
     body: ""
     form: {}
     headers:
-      Authorization:
-      Basic hidden= 
       Content-Type:
       - application/json
       User-Agent:
       - chartmogul-go/v4
-    url: https://api.chartmogul.com/v1/plans?data_source_uuid=ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb
+    url: https://api.chartmogul.com/v1/plans?data_source_uuid=ds_ce594e00-3c4e-11ee-b766-73e0b574063a&per_page=2
     method: GET
   response:
-    body: '{"plans":[{"external_id":"plan_0001","name":"Bronze Plan","interval_count":1,"uuid":"pl_9eccd224-3afa-11ee-b63e-1fec6a2e60bf","interval_unit":"month","data_source_uuid":"ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb"}],"current_page":1,"total_pages":1,"cursor":"MjAyMy0wOC0xNFQyMzozMDo1Ny41NDkyMjQwMDBaJjk1NDU0Mg==","has_more":false}'
+    body: '{"plans":[{"external_id":"plan_0002","name":"Chocolate Plan","interval_count":1,"uuid":"pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629","interval_unit":"day","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a"},{"external_id":"plan_0001","name":"Bronze
+      Plan","interval_count":1,"uuid":"pl_ce77713c-3c4e-11ee-b767-0f0a575ca7d1","interval_unit":"month","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a"}],"current_page":1,"total_pages":2,"cursor":"MjAyMy0wOC0xNlQxNjowNjowNi41NDE1MTEwMDBaJjk1NDk1MQ==","has_more":true}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -105,13 +198,13 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - "327"
+      - "529"
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 14 Aug 2023 23:30:57 GMT
+      - Wed, 16 Aug 2023 16:06:06 GMT
       Etag:
-      - W/"1bcdc34745d007e23cb82a44248f029e"
+      - W/"77f5da5008013795b5c1fc701011829f"
       Referrer-Policy:
       - strict-origin-when-cross-origin
       Retry-Count:
@@ -125,9 +218,9 @@ interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Request-Id:
-      - c688ebebfa4b9cea88b33564e37cffaf
+      - 167a58346218ce6ad425b69a8df14f55
       X-Runtime:
-      - "0.045742"
+      - "0.037838"
       X-Xss-Protection:
       - 1; mode=block
     status: 200 OK
@@ -137,13 +230,151 @@ interactions:
     body: ""
     form: {}
     headers:
-      Authorization:
-      Basic hidden= 
       Content-Type:
       - application/json
       User-Agent:
       - chartmogul-go/v4
-    url: https://api.chartmogul.com/v1/data_sources/ds_9eace20c-3afa-11ee-8dda-1bb1c384dcfb
+    url: https://api.chartmogul.com/v1/plans/pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629
+    method: GET
+  response:
+    body: '{"external_id":"plan_0002","name":"Chocolate Plan","interval_count":1,"interval_unit":"day","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","uuid":"pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "202"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 16 Aug 2023 16:06:06 GMT
+      Etag:
+      - W/"52db91c9ad9e5e0fe4bd780cc48583af"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - e81d52fa24e76acc8eb09bfcd3b1f366
+      X-Runtime:
+      - "0.033832"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"Chocolate Plan 2"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans/pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629
+    method: PATCH
+  response:
+    body: '{"external_id":"plan_0002","name":"Chocolate Plan 2","interval_count":1,"interval_unit":"day","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","uuid":"pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "204"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 16 Aug 2023 16:06:07 GMT
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 5a7f5679732408c2cfd8314acc67eb91
+      X-Runtime:
+      - "0.066394"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 202 Accepted
+    code: 202
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans/pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629
+    method: GET
+  response:
+    body: '{"external_id":"plan_0002","name":"Chocolate Plan 2","interval_count":1,"interval_unit":"day","data_source_uuid":"ds_ce594e00-3c4e-11ee-b766-73e0b574063a","uuid":"pl_ce8bcd26-3c4e-11ee-ab2a-d35507076629"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "204"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 16 Aug 2023 16:06:07 GMT
+      Etag:
+      - W/"4b4bad072288296da8cc4afeea25812c"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 1ff65d46e76d6356be8757db548ce23f
+      X-Runtime:
+      - "0.043986"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_ce594e00-3c4e-11ee-b766-73e0b574063a
     method: DELETE
   response:
     body: ""
@@ -153,7 +384,7 @@ interactions:
       Connection:
       - keep-alive
       Date:
-      - Mon, 14 Aug 2023 23:30:57 GMT
+      - Wed, 16 Aug 2023 16:06:07 GMT
       Retry-Count:
       - "0"
     status: 204 No Content
