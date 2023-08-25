@@ -57,13 +57,13 @@ func TestListInvoicesIntegration(t *testing.T) {
 	}
 
 	// Create and verify test invoices.
-	invoices := createTestInvoicesForcustomer(api, ds.UUID, *cus, plan.UUID, t)
+	invoices := createTestInvoicesForCustomer(api, *cus, plan.UUID, t)
 
-	validateListInvoices(api, ds.UUID, cus.UUID, invoices, t)
+	validateListInvoices(api, cus.UUID, invoices, t)
 }
 
 // validateListinvoices validates that the created invoices can be correctly listed using the API.
-func validateListInvoices(api *cm.API, dsUUID, cusUUID string, invoices *cm.Invoices, t *testing.T) {
+func validateListInvoices(api *cm.API, cusUUID string, invoices *cm.Invoices, t *testing.T) {
 	invoicesList, err := api.ListInvoices(&cm.Cursor{PerPage: 1}, cusUUID)
 	if err != nil {
 		t.Fatalf("Failed to list invoices: %v", err)

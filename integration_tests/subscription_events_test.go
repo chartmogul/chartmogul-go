@@ -57,7 +57,7 @@ func TestListSubscriptionEvents(t *testing.T) {
 	}
 
 	// Create and verify test invoices.
-	_ = createTestInvoicesForcustomer(api, ds.UUID, *cus, plan.UUID, t)
+	_ = createTestInvoicesForCustomer(api, *cus, plan.UUID, t)
 
 	createSubscriptionEvents(api, ds.UUID, cus.ExternalID, t)
 	validateListSubscriptionEvents(api, cus.ExternalID, t)

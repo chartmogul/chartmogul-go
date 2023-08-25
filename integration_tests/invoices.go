@@ -9,7 +9,9 @@ import (
 
 // createTestInvoicesForCustomer creates a set of test invoices for a specified plan and customer.
 // It returns the created invoices.
-func createTestInvoicesForcustomer(api *cm.API, dsUUID string, cus cm.Customer, planUUID string, t *testing.T) *cm.Invoices {
+//
+//nolint:gomnd
+func createTestInvoicesForCustomer(api *cm.API, cus cm.Customer, planUUID string, t *testing.T) *cm.Invoices {
 	testInvoices := []*cm.Invoice{
 		{
 			Date:               time.Now().Format(time.RFC3339),

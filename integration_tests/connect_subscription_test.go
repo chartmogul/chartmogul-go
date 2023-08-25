@@ -11,6 +11,7 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
+//nolint:gomnd
 func TestConnectSubscriptions(t *testing.T) {
 	if testing.Short() {
 		t.Skip("Integration test.")

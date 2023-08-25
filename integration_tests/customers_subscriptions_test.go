@@ -57,7 +57,7 @@ func TestListCustomerSubscriptions(t *testing.T) {
 	}
 
 	// Create and verify test invoices.
-	_ = createTestInvoicesForcustomer(api, ds.UUID, *cus, plan.UUID, t)
+	_ = createTestInvoicesForCustomer(api, *cus, plan.UUID, t)
 
 	// Subscriptions are created through background jobs and we need to wait for them to be processed.
 	// Only enable when hitting the real API

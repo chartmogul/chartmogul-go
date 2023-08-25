@@ -39,8 +39,8 @@ func TestListCustomersIntegration(t *testing.T) {
 	// Create and verify test customers.
 	customers := createTestCustomers(api, ds.UUID, t)
 
-	validateListCustomers(api, ds.UUID, customers, t)
-	validateSearchCustomers(api, ds.UUID, "abc@123.com", t)
+	validateListCustomers(api, ds.UUID, t)
+	validateSearchCustomers(api, "abc@123.com", t)
 	validateCustomerRetrievalAndUpdate(api, customers[1], t)
 }
 
@@ -81,7 +81,7 @@ func createTestCustomers(api *cm.API, dsUUID string, t *testing.T) []*cm.Custome
 }
 
 // validateListcustomers validates that the created customers can be correctly listed using the API.
-func validateListCustomers(api *cm.API, dsUUID string, customers []*cm.Customer, t *testing.T) {
+func validateListCustomers(api *cm.API, dsUUID string, t *testing.T) {
 	listCustomers, err := api.ListCustomers(&cm.ListCustomersParams{
 		DataSourceUUID: dsUUID,
 		Cursor:         cm.Cursor{PerPage: 2},
@@ -100,7 +100,7 @@ func validateListCustomers(api *cm.API, dsUUID string, customers []*cm.Customer,
 }
 
 // validateSearchCustomers validates that the specified customers can be correctly searched using the API.
-func validateSearchCustomers(api *cm.API, dsUUID string, email string, t *testing.T) {
+func validateSearchCustomers(api *cm.API, email string, t *testing.T) {
 	searchCustomers, err := api.SearchCustomers(&cm.SearchCustomersParams{
 		Email:  email,
 		Cursor: cm.Cursor{PerPage: 1},

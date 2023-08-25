@@ -167,7 +167,7 @@ type Pagination struct {
 	HasMore bool   `json:"has_more,omitempty"`
 }
 
-// MetaCursor must be retained to support backwards compatability until standardising all endpoints.
+// MetaCursor must be retained to support backwards compatibility until standardising all endpoints.
 type MetaCursor struct {
 	Pagination
 }

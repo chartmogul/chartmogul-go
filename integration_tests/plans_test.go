@@ -39,7 +39,7 @@ func TestListPlansIntegration(t *testing.T) {
 	// Create and verify test plans.
 	plans := createTestPlans(api, ds.UUID, t)
 
-	validateListPlans(api, ds.UUID, plans, t)
+	validateListPlans(api, ds.UUID, t)
 	validatePlanRetrievalAndUpdate(api, plans[1], t)
 }
 
@@ -82,7 +82,7 @@ func createTestPlans(api *cm.API, dsUUID string, t *testing.T) []*cm.Plan {
 }
 
 // validateListPlans validates that the created plans can be correctly listed using the API.
-func validateListPlans(api *cm.API, dsUUID string, plans []*cm.Plan, t *testing.T) {
+func validateListPlans(api *cm.API, dsUUID string, t *testing.T) {
 	listPlans, err := api.ListPlans(&cm.ListPlansParams{
 		DataSourceUUID: dsUUID,
 		Cursor:         cm.Cursor{PerPage: 2},
