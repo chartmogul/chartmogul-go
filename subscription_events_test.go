@@ -126,7 +126,7 @@ func TestListSubscriptionEvent(t *testing.T) {
 	}
 	defer tearDown(testSetup)
 
-	result, err := api.ListSubscriptionEvents(&FilterSubscriptionEvents{DataSourceUUID: testSetup.DataSourceUUID}, &MetaCursor{})
+	result, err := api.ListSubscriptionEvents(&FilterSubscriptionEvents{DataSourceUUID: testSetup.DataSourceUUID}, &Cursor{})
 	if err != nil {
 		t.Error(err)
 		return
@@ -169,7 +169,7 @@ func TestFilteredListSubscriptionEvent(t *testing.T) {
 	}
 	defer api.DeleteSubscriptionEvent(&DeleteSubscriptionEvent{ID: newSubEvent.ID})
 
-	result, err := api.ListSubscriptionEvents(&FilterSubscriptionEvents{ExternalID: newSubEvent.ExternalID}, &MetaCursor{})
+	result, err := api.ListSubscriptionEvents(&FilterSubscriptionEvents{ExternalID: newSubEvent.ExternalID}, &Cursor{})
 	if err != nil {
 		t.Error(err)
 		return

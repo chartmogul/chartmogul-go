@@ -37,10 +37,6 @@ func (api API) AddTagsToCustomersWithEmail(email string, tags []string) (*Custom
 	err := api.create(tagsEndpoint,
 		&TagsByEmail{Email: email, Tags: tags},
 		output)
-	// API doesn't have paging, but the struct does
-	output.Page = 1
-	output.TotalPages = 1
-	output.CurrentPage = 1
 	return output, err
 }
 

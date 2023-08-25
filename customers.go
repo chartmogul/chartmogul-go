@@ -114,12 +114,8 @@ type SearchCustomersParams struct {
 
 // Customers is result of listing customers in API.
 type Customers struct {
-	Entries     []*Customer `json:"entries,omitempty"`
-	Page        uint32      `json:"page"`
-	PerPage     uint32      `json:"per_page"`
-	HasMore     bool        `json:"has_more,omitempty"`
-	CurrentPage int32       `json:"current_page,omitempty"`
-	TotalPages  int32       `json:"total_pages,omitempty"`
+	Entries []*Customer `json:"entries,omitempty"`
+	Pagination
 }
 
 // MergeCustomersParams - identify source and target for merging.

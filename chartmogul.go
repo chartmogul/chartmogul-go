@@ -60,7 +60,7 @@ type IApi interface {
 	DeleteDataSource(dataSourceUUID string) error
 	// Invoices
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
-	ListInvoices(cursor *PaginationWithCursor, customerUUID string) (*Invoices, error)
+	ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error)
 	RetrieveInvoice(invoiceUUID string) (*Invoice, error)
 	DeleteInvoice(invoiceUUID string) error
@@ -73,10 +73,10 @@ type IApi interface {
 	// Plan Groups
 	CreatePlanGroup(planGroup *PlanGroup) (result *PlanGroup, err error)
 	RetrievePlanGroup(planGroupUUID string) (*PlanGroup, error)
-	ListPlanGroups(cursor *PaginationWithCursor) (*PlanGroups, error)
+	ListPlanGroups(cursor *Cursor) (*PlanGroups, error)
 	UpdatePlanGroup(plan *PlanGroup, planGroupUUID string) (*PlanGroup, error)
 	DeletePlanGroup(planGroupUUID string) error
-	ListPlanGroupPlans(cursor *PaginationWithCursor, planGroupUUID string) (*PlanGroupPlans, error)
+	ListPlanGroupPlans(cursor *Cursor, planGroupUUID string) (*PlanGroupPlans, error)
 	// Subscriptions
 	CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error)
 	ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
@@ -132,7 +132,7 @@ type IApi interface {
 
 	// Metrics - Subscriptions & Activities
 	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
-	MetricsListCustomerActivities(cursor *PaginationWithCursor, customerUUID string) (*MetricsCustomerActivities, error)
+	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
 	MetricsListActivities(MetricsListActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error)
 	MetricsCreateActivitiesExport(CreateMetricsActivitiesExportParam *CreateMetricsActivitiesExportParam) (*MetricsActivitiesExport, error)
 	MetricsRetrieveActivitiesExport(activitiesExportUUID string) (*MetricsActivitiesExport, error)
@@ -141,7 +141,7 @@ type IApi interface {
 	RetrieveAccount() (*Account, error)
 
 	// Subscription Events
-	ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *MetaCursor) (*SubscriptionEvents, error)
+	ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *Cursor) (*SubscriptionEvents, error)
 	CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
 	UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
 	DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) error
@@ -151,13 +151,6 @@ type IApi interface {
 type API struct {
 	ApiKey string
 	Client *http.Client
-}
-
-// Cursor contains query parameters for paging in CM.
-// Attributes for query must be string, because gorequest library cannot convert anything else.
-type Cursor struct {
-	Page    uint32 `json:"page,omitempty"`
-	PerPage uint32 `json:"per_page,omitempty"`
 }
 
 // AnchorCursor contains query parameters for anchor based pagination used for some APIs in ChartMogul.
@@ -174,19 +167,16 @@ type Pagination struct {
 	HasMore bool   `json:"has_more,omitempty"`
 }
 
-// PaginationWithCursor is the new standard for cursor with pagination.
-type PaginationWithCursor struct {
+// MetaCursor must be retained to support backwards compatability until standardising all endpoints.
+type MetaCursor struct {
+	Pagination
+}
+
+// Cursor is the new standard for cursor with pagination.
+type Cursor struct {
 	PerPage uint32 `json:"per_page,omitempty"`
 	// Cursor is a reference to get the next set of entries.
 	Cursor string `json:"cursor,omitempty"`
-}
-
-type MetaCursor struct {
-	NextKey    uint64 `json:"next_key,omitempty"`
-	PrevKey    uint64 `json:"prev_key,omitempty"`
-	BeforeKey  string `json:"before_key,omitempty"`
-	Page       uint64 `json:"page,omitempty"`
-	TotalPages uint64 `json:"total_pages,omitempty"`
 }
 
 // Errors contains error feedback from ChartMogul

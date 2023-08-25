@@ -53,7 +53,7 @@ type SubscriptionEventParams struct {
 	Params *SubscriptionEvent `json:"subscription_event"`
 }
 
-func (api API) ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *MetaCursor) (*SubscriptionEvents, error) {
+func (api API) ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *Cursor) (*SubscriptionEvents, error) {
 	result := &SubscriptionEvents{}
 	query := make([]interface{}, 0, 1)
 	if cursor != nil {

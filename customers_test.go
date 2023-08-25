@@ -268,7 +268,7 @@ func TestNilListCustomers(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if len(customers.Entries) != 0 || customers.PerPage != 200 {
+	if len(customers.Entries) != 0 {
 		spew.Dump(customers)
 		t.Fatal("Unexpected result")
 	}
@@ -305,7 +305,7 @@ func TestSystemListCustomers(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if len(customers.Entries) != 0 || customers.PerPage != 200 {
+	if len(customers.Entries) != 0 {
 		spew.Dump(customers)
 		t.Fatal("Unexpected result")
 	}
@@ -354,7 +354,7 @@ func TestListCustomersContacts(t *testing.T) {
 		ApiKey: "token",
 	}
 	uuid := "cus_00000000-0000-0000-0000-000000000000"
-	params := &ListContactsParams{PaginationWithCursor: PaginationWithCursor{PerPage: 3}}
+	params := &ListContactsParams{Cursor: Cursor{PerPage: 3}}
 	contacts, err := tested.ListCustomersContacts(params, uuid)
 
 	if err != nil {

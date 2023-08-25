@@ -62,7 +62,7 @@ type Custom struct {
 type ListContactsParams struct {
 	CustomerUUID   string `json:"customer_uuid,omitempty"`
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
-	PaginationWithCursor
+	Cursor
 }
 
 // Contacts is result of listing contacts in API.

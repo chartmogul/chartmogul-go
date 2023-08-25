@@ -63,7 +63,7 @@ type ListAllInvoicesParams struct {
 	CustomerUUID   string `json:"customer_uuid,omitempty"`
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
 	ExternalID     string `json:"external_id,omitempty"`
-	PaginationWithCursor
+	Cursor
 }
 
 // CreateInvoices loads an invoice to a customer in Chartmogul.
@@ -84,7 +84,7 @@ func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoic
 // ListInvoices lists all imported invoices for a customer.
 //
 // See https://dev.chartmogul.com/v1.0/reference#invoices
-func (api API) ListInvoices(cursor *PaginationWithCursor, customerUUID string) (*Invoices, error) {
+func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
 	path := strings.Replace(customersInvoicesEndpoint, ":customerUUID", customerUUID, 1)
 	query := make([]interface{}, 0, 1)

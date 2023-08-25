@@ -1,0 +1,242 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"testing"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_aa92b93c-4335-11ee-bd98-2b4e592d9262","name":"testing","system":"Import
+      API","created_at":"2023-08-25T10:53:46.879Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "145"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 10:53:46 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_aa92b93c-4335-11ee-bd98-2b4e592d9262","external_id":"ext_plan","interval_count":1,"interval_unit":"month","name":"test
+      plan"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/plans
+    method: POST
+  response:
+    body: '{"external_id":"ext_plan","name":"test plan","interval_count":1,"interval_unit":"month","data_source_uuid":"ds_aa92b93c-4335-11ee-bd98-2b4e592d9262","uuid":"pl_aaacd416-4335-11ee-88c1-8b044c007aa0"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "198"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 25 Aug 2023 10:53:47 GMT
+      Etag:
+      - W/"64c8be2e620587570f6183786b0a2875"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - f05518956045c41e8d71a4fcb3876110
+      X-Runtime:
+      - "0.059917"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_aa92b93c-4335-11ee-bd98-2b4e592d9262","email":"petr@chartmogul.com","external_id":"ext_customer","name":"Test
+      Delete Invoice"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":116788182,"uuid":"cus_aac6031e-4335-11ee-a43d-8b36dcb862c5","external_id":"ext_customer","name":"Test
+      Delete Invoice","email":"petr@chartmogul.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_aa92b93c-4335-11ee-bd98-2b4e592d9262","data_source_uuids":["ds_aa92b93c-4335-11ee-bd98-2b4e592d9262"],"external_ids":["ext_customer"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116788182-Test_Delete_Invoice","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "814"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 10:53:47 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"invoices":[{"currency":"EUR","customer_external_id":"ext_customer","customer_uuid":"cus_aac6031e-4335-11ee-a43d-8b36dcb862c5","date":"2023-08-25T11:53:47+01:00","external_id":"INV_to_be_retrieved","line_items":[{"amount_in_cents":4500,"description":"fake_item","quantity":2,"type":"one_time"},{"amount_in_cents":10000,"external_id":"ext_line_item","plan_uuid":"pl_aaacd416-4335-11ee-88c1-8b044c007aa0","quantity":10,"service_period_end":"2017-05-31T00:00:00.000Z","service_period_start":"2017-05-01T00:00:00.000Z","subscription_external_id":"ext_subscription","subscription_set_external_id":"ext_subscription_set","type":"subscription"}],"transactions":[{"date":"2023-08-25T14:53:47+01:00","result":"successful","type":"payment"}]},{"currency":"EUR","customer_external_id":"ext_customer","customer_uuid":"cus_aac6031e-4335-11ee-a43d-8b36dcb862c5","date":"2023-08-25T11:53:47+01:00","external_id":"INV_to_be_retrieved1","line_items":[{"amount_in_cents":4200,"description":"fake_item1","quantity":2,"type":"one_time"},{"amount_in_cents":11000,"external_id":"ext_line_item1","plan_uuid":"pl_aaacd416-4335-11ee-88c1-8b044c007aa0","quantity":11,"service_period_end":"2017-05-31T00:00:00.000Z","service_period_start":"2017-05-01T00:00:00.000Z","subscription_external_id":"ext_subscription1","subscription_set_external_id":"ext_subscription_set1","type":"subscription"}],"transactions":[{"date":"2023-08-25T14:53:47+01:00","result":"successful","type":"payment"}]}]}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/import/customers/cus_aac6031e-4335-11ee-a43d-8b36dcb862c5/invoices
+    method: POST
+  response:
+    body: '{"invoices":[{"uuid":"inv_173fb812-a24a-4219-b1fb-c37687c83391","date":"2023-08-25T10:53:47.000Z","due_date":null,"errors":{},"external_id":"INV_to_be_retrieved","currency":"EUR","line_items":[{"uuid":"li_30b54a23-43cb-4819-ac11-cce76e0ab0ec","external_id":null,"type":"one_time","description":"fake_item","amount_in_cents":4500,"quantity":2,"discount_code":"","discount_amount_in_cents":0,"tax_amount_in_cents":0,"transaction_fees_in_cents":0,"account_code":"","transaction_fees_currency":null,"discount_description":null,"event_order":null},{"uuid":"li_4df4aaee-8b56-4afc-bc56-22f9aec37f40","external_id":"ext_line_item","type":"subscription","subscription_uuid":"sub_df3cf057-231a-4197-884b-8cb0a05a2cb3","subscription_external_id":"ext_subscription","prorated":false,"proration_type":null,"service_period_start":"2017-05-01T00:00:00.000Z","service_period_end":"2017-05-31T00:00:00.000Z","subscription_set_external_id":"ext_subscription_set","plan_uuid":"pl_aaacd416-4335-11ee-88c1-8b044c007aa0","amount_in_cents":10000,"quantity":10,"discount_code":"","discount_amount_in_cents":0,"tax_amount_in_cents":0,"transaction_fees_in_cents":0,"account_code":"","transaction_fees_currency":null,"discount_description":null,"event_order":null}],"transactions":[{"uuid":"tr_6f20403d-76a7-4086-96b9-9a36a4b5e957","external_id":null,"amount_in_cents":null,"type":"payment","date":"2023-08-25T13:53:47.000Z","result":"successful","transaction_fees_in_cents":null,"transaction_fees_currency":null}]},{"uuid":"inv_630a57ea-6c56-49cc-a4d6-9a4279df7ca3","date":"2023-08-25T10:53:47.000Z","due_date":null,"errors":{},"external_id":"INV_to_be_retrieved1","currency":"EUR","line_items":[{"uuid":"li_29fd44a0-f364-4dad-a543-9ddd56796b03","external_id":null,"type":"one_time","description":"fake_item1","amount_in_cents":4200,"quantity":2,"discount_code":"","discount_amount_in_cents":0,"tax_amount_in_cents":0,"transaction_fees_in_cents":0,"account_code":"","transaction_fees_currency":null,"discount_description":null,"event_order":null},{"uuid":"li_50326378-e04d-41ea-bae5-8b10777a08ae","external_id":"ext_line_item1","type":"subscription","subscription_uuid":"sub_87a3dce8-dd7d-4615-bc09-f3806ba03f4f","subscription_external_id":"ext_subscription1","prorated":false,"proration_type":null,"service_period_start":"2017-05-01T00:00:00.000Z","service_period_end":"2017-05-31T00:00:00.000Z","subscription_set_external_id":"ext_subscription_set1","plan_uuid":"pl_aaacd416-4335-11ee-88c1-8b044c007aa0","amount_in_cents":11000,"quantity":11,"discount_code":"","discount_amount_in_cents":0,"tax_amount_in_cents":0,"transaction_fees_in_cents":0,"account_code":"","transaction_fees_currency":null,"discount_description":null,"event_order":null}],"transactions":[{"uuid":"tr_9048430b-5ca8-4ce2-be63-ac0edd6bf769","external_id":null,"amount_in_cents":null,"type":"payment","date":"2023-08-25T13:53:47.000Z","result":"successful","transaction_fees_in_cents":null,"transaction_fees_currency":null}]}]}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "2971"
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 25 Aug 2023 10:53:47 GMT
+      Etag:
+      - W/"b0e63a1cce154b3e4001a400f7553580"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Retry-Count:
+      - "0"
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 9248dd8c68886fe34fea74011ce0e9b1
+      X-Runtime:
+      - "0.192450"
+      X-Xss-Protection:
+      - 1; mode=block
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/cus_aac6031e-4335-11ee-a43d-8b36dcb862c5/subscriptions?per_page=1
+    method: GET
+  response:
+    body: '{"entries":[{"id":2184516094,"external_id":"ext_subscription","subscription_set_external_id":"ext_subscription_set","quantity":10,"uuid":"94344499-979e-4f4f-872d-b65567bbcdc1","mrr":10908,"arr":130896,"status":"active","plan":"test
+      plan","billing-cycle":"month","billing-cycle-count":1,"start-date":"2017-05-01T00:00:00+00:00","end-date":"2017-05-31T00:00:00+00:00","currency":"USD","currency-sign":"$"}],"has_more":true,"per_page":1,"page":1,"cursor":"c3Vic2NyaXB0aW9uc19uZXh0X3BhZ2U9Mg=="}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "491"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 10:55:48 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/cus_aac6031e-4335-11ee-a43d-8b36dcb862c5/subscriptions?cursor=c3Vic2NyaXB0aW9uc19uZXh0X3BhZ2U9Mg%3D%3D&per_page=1
+    method: GET
+  response:
+    body: '{"entries":[{"id":2184516095,"external_id":"ext_subscription1","subscription_set_external_id":"ext_subscription_set1","quantity":11,"uuid":"a5301132-d24f-42e7-90bd-319b13ce8341","mrr":11999,"arr":143988,"status":"active","plan":"test
+      plan","billing-cycle":"month","billing-cycle-count":1,"start-date":"2017-05-01T00:00:00+00:00","end-date":"2017-05-31T00:00:00+00:00","currency":"USD","currency-sign":"$"}],"has_more":false,"per_page":1,"page":1,"cursor":"c3Vic2NyaXB0aW9uc19uZXh0X3BhZ2U9Mw=="}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "494"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 10:55:48 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_aa92b93c-4335-11ee-bd98-2b4e592d9262
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Fri, 25 Aug 2023 10:55:48 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""

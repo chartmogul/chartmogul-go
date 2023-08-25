@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	cm "github.com/chartmogul/chartmogul-go/v3"
+	cm "github.com/chartmogul/chartmogul-go/v4"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
 )
@@ -72,8 +72,8 @@ func TestContactsIntegration(t *testing.T) {
 		t.Fatal(err)
 	}
 	allContacts, err := api.ListContacts(&cm.ListContactsParams{
-		DataSourceUUID:       ds.UUID,
-		PaginationWithCursor: cm.PaginationWithCursor{PerPage: 10},
+		DataSourceUUID: ds.UUID,
+		Cursor:         cm.Cursor{PerPage: 10},
 	})
 	if err != nil {
 		t.Fatal(err)

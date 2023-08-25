@@ -1,0 +1,301 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"testing"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","name":"testing","system":"Import
+      API","created_at":"2023-08-25T09:48:30.268Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "145"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:30 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","email":"abc@123.com","external_id":"TestImportCustomers_01","name":"Test
+      customer"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":116786130,"uuid":"cus_8c3841ae-432c-11ee-8ee2-7f76dda0574e","external_id":"TestImportCustomers_01","name":"Test
+      customer","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_01"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786130-Test_customer","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "814"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:30 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","email":"abc@123.com","external_id":"TestImportCustomers_02","name":"Test
+      customer 2"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":116786131,"uuid":"cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e","external_id":"TestImportCustomers_02","name":"Test
+      customer 2","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_02"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786131-Test_customer_2","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "818"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:30 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","email":"ghi@example.com","external_id":"TestImportCustomers_03","name":"Test
+      customer 3"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":116786132,"uuid":"cus_8c766452-432c-11ee-aa86-0b275e240358","external_id":"TestImportCustomers_03","name":"Test
+      customer 3","email":"ghi@example.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_03"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786132-Test_customer_3","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "822"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers?data_source_uuid=ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3&per_page=2
+    method: GET
+  response:
+    body: '{"entries":[{"id":116786130,"uuid":"cus_8c3841ae-432c-11ee-8ee2-7f76dda0574e","external_id":"TestImportCustomers_01","name":"Test
+      customer","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_01"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786130-Test_customer","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null},{"id":116786131,"uuid":"cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e","external_id":"TestImportCustomers_02","name":"Test
+      customer 2","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_02"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786131-Test_customer_2","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}],"current_page":1,"total_pages":2,"has_more":true,"per_page":2,"page":1,"cursor":"JjExNjc4NjEzMQ=="}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+      Vary:
+      - Accept-Encoding
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/search?email=abc%40123.com&per_page=1
+    method: GET
+  response:
+    body: '{"entries":[{"id":116786130,"uuid":"cus_8c3841ae-432c-11ee-8ee2-7f76dda0574e","external_id":"TestImportCustomers_01","name":"Test
+      customer","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_01"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786130-Test_customer","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}],"current_page":1,"total_pages":null,"has_more":true,"per_page":1,"page":1,"cursor":"JjExNjc4NjEzMA=="}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "930"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e
+    method: GET
+  response:
+    body: '{"id":116786131,"uuid":"cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e","external_id":"TestImportCustomers_02","name":"Test
+      customer 2","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_02"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786131-Test_customer_2","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "818"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"name":"Chocolate customer 2"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e
+    method: PATCH
+  response:
+    body: '{"id":116786131,"uuid":"cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e","external_id":"TestImportCustomers_02","name":"Chocolate
+      customer 2","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_02"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786131-Chocolate_customer_2","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "828"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e
+    method: GET
+  response:
+    body: '{"id":116786131,"uuid":"cus_8c593a12-432c-11ee-aa85-9f6a40dafa7e","external_id":"TestImportCustomers_02","name":"Chocolate
+      customer 2","email":"abc@123.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3","data_source_uuids":["ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3"],"external_ids":["TestImportCustomers_02"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116786131-Chocolate_customer_2","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "828"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_8c1713a8-432c-11ee-8ee1-3b3ea70e77a3
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""

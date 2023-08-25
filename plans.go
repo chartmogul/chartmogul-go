@@ -27,7 +27,7 @@ type ListPlansParams struct {
 	DataSourceUUID string `json:"data_source_uuid"`
 	ExternalID     string `json:"external_id,omitempty"`
 	System         string `json:"system,omitempty"`
-	PaginationWithCursor
+	Cursor
 }
 
 // CreatePlan creates plan under given Data Source.

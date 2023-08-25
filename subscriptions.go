@@ -23,8 +23,7 @@ type Subscription struct {
 type Subscriptions struct {
 	Subscriptions []Subscription `json:"subscriptions"`
 	CustomerUUID  string         `json:"customer_uuid,omitempty"`
-	TotalPages    uint32         `json:"total_pages,omitempty"`
-	CurrentPage   uint32         `json:"current_page,omitempty"`
+	Pagination
 }
 
 // CancelSubscriptionParams represents arguments to be marshalled into JSON.

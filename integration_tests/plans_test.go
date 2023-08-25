@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	cm "github.com/chartmogul/chartmogul-go/v3"
+	cm "github.com/chartmogul/chartmogul-go/v4"
 	"github.com/parnurzeal/gorequest"
 )
 
@@ -84,8 +84,8 @@ func createTestPlans(api *cm.API, dsUUID string, t *testing.T) []*cm.Plan {
 // validateListPlans validates that the created plans can be correctly listed using the API.
 func validateListPlans(api *cm.API, dsUUID string, plans []*cm.Plan, t *testing.T) {
 	listPlans, err := api.ListPlans(&cm.ListPlansParams{
-		DataSourceUUID:       dsUUID,
-		PaginationWithCursor: cm.PaginationWithCursor{PerPage: 2},
+		DataSourceUUID: dsUUID,
+		Cursor:         cm.Cursor{PerPage: 2},
 	})
 	if err != nil {
 		t.Fatalf("Failed to list plans: %v", err)

@@ -41,6 +41,8 @@ go get github.com/chartmogul/chartmogul-go/v4
 [Deprecation] - `account_token`/`secret_key` combo is deprecated. Please use API key for both fields.
 Version 3.x will introduce a breaking change in authentication configuration. For more details, please visit: https://dev.chartmogul.com
 
+Version 4.x will introduce a breaking change for pagination on List endpoints. The `cursor` object now expects a `per_page` and `cursor` parameter. `page` will no longer be accepted. 
+
 First create the `API` struct by passing your API key, available from the administration section of your ChartMogul account.
 
 ```go
@@ -127,7 +129,7 @@ api.MergeContacts("intoContactUUID", "fromContactUUID")
 ```go
 api.CreatePlan(&cm.Plan{Name: "name", ExternalID: "external_id"}, "dataSourceUUID")
 api.RetrievePlan("planUUID")
-api.ListPlans(&cm.ListPlansParams{PaginationWithCursor: cm.PaginationWithCursor{PerPage: "10"}})
+api.ListPlans(&cm.ListPlansParams{Cursor: cm.Cursor{PerPage: "10"}})
 api.UpdatePlan(&cm.Plan{}, "planUUID")
 api.DeletePlan("planUUID")
 ```
@@ -137,10 +139,10 @@ api.DeletePlan("planUUID")
 ```go
 api.CreatePlanGroup(&cm.PlanGroup{Name: "name", Plans: []*string{&planOne.UUID, &planTwo.UUID}})
 api.RetrievePlanGroup("planGroupUUID")
-api.ListPlanGroups(&cm.ListPlansParams{PaginationWithCursor: cm.PaginationWithCursor{PerPage: "10"}})
+api.ListPlanGroups(&cm.ListPlansParams{Cursor: cm.Cursor{PerPage: "10"}})
 api.UpdatePlanGroup(&cm.PlanGroup{}, "planGroupUUID")
 api.DeletePlanGroup("planGroupUUID")
-api.ListPlanGroupPlans(&cm.ListPlansParams{PaginationWithCursor: cm.PaginationWithCursor{PerPage: "10"}},  "planGroupUUID")
+api.ListPlanGroupPlans(&cm.ListPlansParams{Cursor: cm.Cursor{PerPage: "10"}},  "planGroupUUID")
 ```
 
 #### [Invoices](https://dev.chartmogul.com/docs/invoices)
@@ -189,12 +191,11 @@ api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
 
 #### [Subscription Events](https://dev.chartmogul.com/reference/subscription-events)
 ```go
-api.ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *MetaCursor)
+api.ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *Cursor)
 api.CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent)
 api.UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent)
 api.DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent)
 ```
-
 
 ### [Metrics API](https://dev.chartmogul.com/docs/introduction-metrics-api)
 
@@ -213,7 +214,7 @@ api.MetricsRetrieveMRRChurnRate(&MetricsFilter{})
 api.MetricsRetrieveLTV(&MetricsFilter{})
 
 api.MetricsListCustomerSubscriptions(&Cursor{}, "customerUUID")
-api.MetricsListCustomerActivities(&PaginationWithCursor{}, "customerUUID")
+api.MetricsListCustomerActivities(&Cursor{}, "customerUUID")
 
 api.MetricsListActivities(&cm.MetricsListActivitiesParams{StartDate: "2016-09-16", AnchorCursor: cm.AnchorCursor{PerPage: 5, StartAfter: "b45b1d3f-3823-424f-ab47-5a1d0c00a7f6"}})
 

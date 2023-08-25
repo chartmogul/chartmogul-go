@@ -1,4 +1,4 @@
-module github.com/chartmogul/chartmogul-go/v3
+module github.com/chartmogul/chartmogul-go/v4
 
 require (
 	github.com/cenkalti/backoff/v3 v3.2.2

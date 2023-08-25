@@ -35,7 +35,7 @@ func TestNewPlanGroupAllListing(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	result, err := tested.ListPlanGroups(&PaginationWithCursor{})
+	result, err := tested.ListPlanGroups(&Cursor{})
 
 	if err != nil {
 		spew.Dump(err)

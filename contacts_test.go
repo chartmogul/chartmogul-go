@@ -50,7 +50,7 @@ func TestListContacts(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	params := &ListContactsParams{PaginationWithCursor: PaginationWithCursor{PerPage: 3}}
+	params := &ListContactsParams{Cursor: Cursor{PerPage: 3}}
 	contacts, err := tested.ListContacts(params)
 
 	if err != nil {

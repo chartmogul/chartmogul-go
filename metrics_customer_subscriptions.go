@@ -22,14 +22,12 @@ type MetricsCustomerSubscription struct {
 // MetricsCustomerSubscriptions is the result of listing subscriptions in Metrics API.
 type MetricsCustomerSubscriptions struct {
 	Entries []*MetricsCustomerSubscription `json:"entries"`
-	HasMore bool                           `json:"has_more"`
-	PerPage uint32                         `json:"per_page"`
-	Page    uint32                         `json:"page"`
+	Pagination
 }
 
 const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
-// MetricsListCustomerSubscriptions lists all subscriptions for cutomer of a given UUID.
+// MetricsListCustomerSubscriptions lists all subscriptions for customer of a given UUID.
 //
 // See https://dev.chartmogul.com/v1.0/reference#list-customer-subscriptions
 func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error) {
