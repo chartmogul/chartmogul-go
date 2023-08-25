@@ -20,7 +20,6 @@ func TestListCustomerSubscriptions(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to initialize recorder: %v", err)
 	}
-	t.Cleanup(func() { r.Stop() })
 
 	api := &cm.API{
 		ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
