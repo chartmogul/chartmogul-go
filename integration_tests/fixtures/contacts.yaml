@@ -8,12 +8,12 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - chartmogul-go/v3
+      - chartmogul-go/v4
     url: https://api.chartmogul.com/v1/data_sources
     method: POST
   response:
-    body: '{"uuid":"ds_07deced6-3b6c-11ee-9414-d33207fe1180","name":"Test Contact","system":"Import
-      API","created_at":"2023-08-15T13:02:46.928Z","status":"idle"}'
+    body: '{"uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","name":"Test Contact","system":"Import
+      API","created_at":"2023-08-25T16:38:11.219Z","status":"idle"}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -24,26 +24,26 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 15 Aug 2023 13:02:47 GMT
+      - Fri, 25 Aug 2023 16:38:11 GMT
       Retry-Count:
       - "0"
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"data_source_uuid":"ds_07deced6-3b6c-11ee-9414-d33207fe1180","email":"briwa@chartmogul.com","external_id":"ext_customer_1","name":"Test
+    body: '{"data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","email":"briwa@chartmogul.com","external_id":"ext_customer_1","name":"Test
       Contact"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - chartmogul-go/v3
+      - chartmogul-go/v4
     url: https://api.chartmogul.com/v1/customers
     method: POST
   response:
-    body: '{"id":116221577,"uuid":"cus_07fbf4a2-3b6c-11ee-b205-43eac2890149","external_id":"ext_customer_1","name":"Test
-      Contact","email":"briwa@chartmogul.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_07deced6-3b6c-11ee-9414-d33207fe1180","data_source_uuids":["ds_07deced6-3b6c-11ee-9414-d33207fe1180"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116221577-Test_Contact","billing-system-type":"Import
+    body: '{"id":116798737,"uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","external_id":"ext_customer_1","name":"Test
+      Contact","email":"briwa@chartmogul.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","data_source_uuids":["ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/116798737-Test_Contact","billing-system-type":"Import
       API","currency":"USD","currency-sign":"$","owner":null}'
     headers:
       Access-Control-Allow-Credentials:
@@ -55,24 +55,24 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 15 Aug 2023 13:02:47 GMT
+      - Fri, 25 Aug 2023 16:38:11 GMT
       Retry-Count:
       - "0"
     status: 201 Created
     code: 201
     duration: ""
 - request:
-    body: '{"custom":[{"key":"Facebook","value":"https://www.facebook.com/adam.smith"},{"key":"date_of_birth","value":"1985-01-22"}],"customer_uuid":"cus_07fbf4a2-3b6c-11ee-b205-43eac2890149","data_source_uuid":"ds_07deced6-3b6c-11ee-9414-d33207fe1180","first_name":"Adam","last_name":"Smith","linked_in":"https://linkedin.com/linkedin","notes":"Heading\nBody\nFooter","phone":"+1234567890","position":1,"title":"CEO","twitter":"https://twitter.com/twitter"}'
+    body: '{"custom":[{"key":"Facebook","value":"https://www.facebook.com/adam.smith"},{"key":"date_of_birth","value":"1985-01-22"}],"customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","first_name":"Adam","last_name":"Smith","linked_in":"https://linkedin.com/linkedin","notes":"Heading\nBody\nFooter","phone":"+1234567890","position":1,"title":"CEO","twitter":"https://twitter.com/twitter"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - chartmogul-go/v3
+      - chartmogul-go/v4
     url: https://api.chartmogul.com/v1/contacts
     method: POST
   response:
-    body: '{"uuid":"con_082b6430-3b6c-11ee-b206-cb3f20d4e921","customer_uuid":"cus_07fbf4a2-3b6c-11ee-b205-43eac2890149","customer_external_id":"ext_customer_1","data_source_uuid":"ds_07deced6-3b6c-11ee-9414-d33207fe1180","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}'
+    body: '{"uuid":"con_c7b0a6c0-4365-11ee-b5b3-930750483478","customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -83,7 +83,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 15 Aug 2023 13:02:47 GMT
+      - Fri, 25 Aug 2023 16:38:11 GMT
       Retry-Count:
       - "0"
     status: 201 Created
@@ -96,11 +96,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - chartmogul-go/v3
-    url: https://api.chartmogul.com/v1/contacts?data_source_uuid=ds_07deced6-3b6c-11ee-9414-d33207fe1180&per_page=10
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts?data_source_uuid=ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc&per_page=10
     method: GET
   response:
-    body: '{"entries":[{"uuid":"con_082b6430-3b6c-11ee-b206-cb3f20d4e921","customer_uuid":"cus_07fbf4a2-3b6c-11ee-b205-43eac2890149","customer_external_id":"ext_customer_1","data_source_uuid":"ds_07deced6-3b6c-11ee-9414-d33207fe1180","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}],"cursor":"MjAyMy0wOC0xNVQxMzowMjo0Ny40NDgzNjkwMDBaJmNvbl8wODJiNjQzMC0zYjZjLTExZWUtYjIwNi1jYjNmMjBkNGU5MjE=","has_more":false}'
+    body: '{"entries":[{"uuid":"con_c7b0a6c0-4365-11ee-b5b3-930750483478","customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}],"cursor":"MjAyMy0wOC0yNVQxNjozODoxMS41OTA0MDAwMDBaJmNvbl9jN2IwYTZjMC00MzY1LTExZWUtYjViMy05MzA3NTA0ODM0Nzg=","has_more":false}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -111,7 +111,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 15 Aug 2023 13:02:47 GMT
+      - Fri, 25 Aug 2023 16:38:11 GMT
       Retry-Count:
       - "0"
     status: 200 OK
@@ -124,8 +124,180 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - chartmogul-go/v3
-    url: https://api.chartmogul.com/v1/data_sources/ds_07deced6-3b6c-11ee-9414-d33207fe1180
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts/con_c7b0a6c0-4365-11ee-b5b3-930750483478
+    method: GET
+  response:
+    body: '{"uuid":"con_c7b0a6c0-4365-11ee-b5b3-930750483478","customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":1,"first_name":"Adam","last_name":"Smith","title":"CEO","email":null,"phone":"+1234567890","linked_in":"https://linkedin.com/linkedin","twitter":"https://twitter.com/twitter","notes":"Heading\nBody\nFooter","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "441"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 16:38:11 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"custom":[{"key":"Facebook","value":"https://www.facebook.com/bill.thompson"},{"key":"date_of_birth","value":"1990-01-01"}],"first_name":"Bill","last_name":"Thompson","linked_in":"https://linkedin.com/bill-linkedin","notes":"New
+      Heading\nNew Body\nNew Footer","phone":"+987654321","position":10,"title":"CTO","twitter":"https://twitter.com/bill-twitter"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts/con_c7b0a6c0-4365-11ee-b5b3-930750483478
+    method: PATCH
+  response:
+    body: '{"uuid":"con_c7b0a6c0-4365-11ee-b5b3-930750483478","customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":10,"first_name":"Bill","last_name":"Thompson","title":"CTO","email":null,"phone":"+987654321","linked_in":"https://linkedin.com/bill-linkedin","twitter":"https://twitter.com/bill-twitter","notes":"New
+      Heading\nNew Body\nNew Footer","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "466"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 16:38:11 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts/con_c7b0a6c0-4365-11ee-b5b3-930750483478
+    method: GET
+  response:
+    body: '{"uuid":"con_c7b0a6c0-4365-11ee-b5b3-930750483478","customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":10,"first_name":"Bill","last_name":"Thompson","title":"CTO","email":null,"phone":"+987654321","linked_in":"https://linkedin.com/bill-linkedin","twitter":"https://twitter.com/bill-twitter","notes":"New
+      Heading\nNew Body\nNew Footer","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "466"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 16:38:12 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":1}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts
+    method: POST
+  response:
+    body: '{"uuid":"con_c81ad4a0-4365-11ee-982e-b3efd7febecd","customer_uuid":"cus_c794d706-4365-11ee-982d-3fe33364220f","customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":1,"first_name":null,"last_name":null,"title":null,"email":null,"phone":null,"linked_in":null,"twitter":null,"notes":null,"custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "355"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 16:38:12 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts/con_c81ad4a0-4365-11ee-982e-b3efd7febecd/merge/con_c7b0a6c0-4365-11ee-b5b3-930750483478
+    method: POST
+  response:
+    body: '{"uuid":"con_c81ad4a0-4365-11ee-982e-b3efd7febecd","customer_uuid":null,"customer_external_id":"ext_customer_1","data_source_uuid":"ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc","position":1,"first_name":"Bill","last_name":"Thompson","title":"CTO","email":null,"phone":"+987654321","linked_in":"https://linkedin.com/bill-linkedin","twitter":"https://twitter.com/bill-twitter","notes":"New
+      Heading\nNew Body\nNew Footer","custom":{}}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "427"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 16:38:12 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/contacts/con_c81ad4a0-4365-11ee-982e-b3efd7febecd
+    method: DELETE
+  response:
+    body: '{}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "2"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 25 Aug 2023 16:38:12 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_c77a917a-4365-11ee-b5b2-d70fdeb0aabc
     method: DELETE
   response:
     body: ""
@@ -135,7 +307,7 @@ interactions:
       Connection:
       - keep-alive
       Date:
-      - Tue, 15 Aug 2023 13:02:47 GMT
+      - Fri, 25 Aug 2023 16:38:12 GMT
       Retry-Count:
       - "0"
     status: 204 No Content
