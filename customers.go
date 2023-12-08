@@ -143,6 +143,7 @@ const (
 	searchCustomersEndpoint        = "customers/search"
 	mergeCustomersEndpoint         = "customers/merges"
 	customerContactsEndpoint       = "customers/:uuid/contacts"
+	customerNotesEndpoin           = "customer_notes"
 )
 
 // CreateCustomer loads the customer to Chartmogul. New endpoint - with attributes.
@@ -255,4 +256,26 @@ func (api API) CreateCustomersContact(newContact *NewContact, customerUUID strin
 	result := &Contact{}
 	path := strings.Replace(customerContactsEndpoint, ":uuid", customerUUID, 1)
 	return result, api.create(path, newContact, result)
+}
+
+// ListCustomerNotes
+//
+// See https://dev.chartmogul.com/reference/list-customer-notes
+func (api API) ListCustomerNotes(listCustomerNotesParams *ListNotesParams, customerUUID string) (*Notes, error) {
+	result := &Notes{}
+	query := make([]interface{}, 0, 1)
+	if listCustomerNotesParams != nil {
+		query = append(query, *listCustomerNotesParams)
+	}
+	path := customerNotesEndpoint + "?customer_uuid=" + customerUUID
+	return result, api.list(path, result, query...)
+}
+
+// CreateCustomerNote
+//
+// See https://dev.chartmogul.com/reference/create-a-customer-note
+func (api API) CreateCustomerNote(input *NewNote, customerUUID string) (*Note, error) {
+	result := &Note{}
+	input.CustomerUUID = customerUUID
+	return result, api.create(customerNotesEndpoint, input, result)
 }

@@ -1,0 +1,291 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"Test Customer Notes"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_9dad66ec-99cd-11ee-a3b1-272c7e7811c1","name":"Test Customer
+      Notes","system":"Import API","created_at":"2023-12-13T15:38:08.767Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "157"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:08 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_9dad66ec-99cd-11ee-a3b1-272c7e7811c1","email":"soeun+staff@chartmogul.com","external_id":"ext_customer_1","name":"Test
+      Customer Notes"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":183831708,"uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","external_id":"ext_customer_1","name":"Test
+      Customer Notes","email":"soeun+staff@chartmogul.com","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_9dad66ec-99cd-11ee-a3b1-272c7e7811c1","data_source_uuids":["ds_9dad66ec-99cd-11ee-a3b1-272c7e7811c1"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":"","zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":"","address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/183831708-Test_Customer_Notes","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "825"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","text":"This
+      is a note","type":"note"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes
+    method: POST
+  response:
+    body: '{"uuid":"note_9ddd9a60-99cd-11ee-a3b3-d728e2843427","customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","type":"note","text":"This
+      is a note","call_duration":0,"author":"Soeun Lee[staff-user-2] (soeun+staff@chartmogul.com)","created_at":"2023-12-13T15:38:09.094Z","updated_at":"2023-12-13T15:38:09.094Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "311"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes?customer_uuid=cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9&per_page=10
+    method: GET
+  response:
+    body: '{"entries":[{"uuid":"note_9ddd9a60-99cd-11ee-a3b3-d728e2843427","customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","type":"note","text":"This
+      is a note","call_duration":0,"author":"Soeun Lee[staff-user-2] (soeun+staff@chartmogul.com)","created_at":"2023-12-13T15:38:09.094Z","updated_at":"2023-12-13T15:38:09.094Z"}],"cursor":"MjAyMy0xMi0xM1QxNTozODowOS4wOTQzODYwMDBaJm5vdGVfOWRkZDlhNjAtOTljZC0xMWVlLWEzYjMtZDcyOGUyODQzNDI3","has_more":false}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "450"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes/note_9ddd9a60-99cd-11ee-a3b3-d728e2843427
+    method: GET
+  response:
+    body: '{"uuid":"note_9ddd9a60-99cd-11ee-a3b3-d728e2843427","customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","type":"note","text":"This
+      is a note","call_duration":0,"author":"Soeun Lee[staff-user-2] (soeun+staff@chartmogul.com)","created_at":"2023-12-13T15:38:09.094Z","updated_at":"2023-12-13T15:38:09.094Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "311"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"text":"This is an updated note"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes/note_9ddd9a60-99cd-11ee-a3b3-d728e2843427
+    method: PATCH
+  response:
+    body: '{"uuid":"note_9ddd9a60-99cd-11ee-a3b3-d728e2843427","customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","type":"note","text":"This
+      is an updated note","call_duration":0,"author":"Soeun Lee[staff-user-2] (soeun+staff@chartmogul.com)","created_at":"2023-12-13T15:38:09.094Z","updated_at":"2023-12-13T15:38:09.402Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "320"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes/note_9ddd9a60-99cd-11ee-a3b3-d728e2843427
+    method: GET
+  response:
+    body: '{"uuid":"note_9ddd9a60-99cd-11ee-a3b3-d728e2843427","customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","type":"note","text":"This
+      is an updated note","call_duration":0,"author":"Soeun Lee[staff-user-2] (soeun+staff@chartmogul.com)","created_at":"2023-12-13T15:38:09.094Z","updated_at":"2023-12-13T15:38:09.402Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "320"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","text":"This
+      is another note","type":"note"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes
+    method: POST
+  response:
+    body: '{"uuid":"note_9e268748-99cd-11ee-a4aa-0fbb838dfbec","customer_uuid":"cus_9dc5aaf4-99cd-11ee-a3b2-4bab72a136d9","type":"note","text":"This
+      is another note","call_duration":0,"author":"Soeun Lee[staff-user-2] (soeun+staff@chartmogul.com)","created_at":"2023-12-13T15:38:09.572Z","updated_at":"2023-12-13T15:38:09.572Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "317"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/customer_notes/note_9e268748-99cd-11ee-a4aa-0fbb838dfbec
+    method: DELETE
+  response:
+    body: '{}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "2"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v3
+    url: https://api.chartmogul.com/v1/data_sources/ds_9dad66ec-99cd-11ee-a3b1-272c7e7811c1
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Wed, 13 Dec 2023 15:38:09 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""

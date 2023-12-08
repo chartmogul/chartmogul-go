@@ -96,6 +96,8 @@ type IApi interface {
 	DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, DeleteCustomerInvoicesParams *DeleteCustomerInvoicesParams) error
 	ListCustomersContacts(ListContactsParams *ListContactsParams, customerUUID string) (*Contacts, error)
 	CreateCustomersContact(newContact *NewContact, customerUUID string) (*Contact, error)
+	ListCustomerNotes(ListNotesParams *ListNotesParams, customerUUID string) (*Notes, error)
+	CreateCustomerNote(newCustomerNote *NewNote, customerUUID string) (*Note, error)
 
 	// Contacts
 	CreateContact(newContact *NewContact) (*Contact, error)
@@ -104,6 +106,13 @@ type IApi interface {
 	ListContacts(ListContactsParams *ListContactsParams) (*Contacts, error)
 	DeleteContact(contactUUID string) error
 	MergeContacts(intoContactUUID string, fromContactUUID string) (*Contact, error)
+
+	// Customer Notes
+	CreateNote(newNote *NewNote) (*Note, error)
+	RetrieveNote(noteUUID string) (*Note, error)
+	UpdateNote(Note *UpdateNote, noteUUID string) (*Note, error)
+	DeleteNote(noteUUID string) error
+	ListNotes(ListNotesParams *ListNotesParams) (*Notes, error)
 
 	//  - Cusomer Attributes
 	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)
