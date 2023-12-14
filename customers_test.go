@@ -472,7 +472,7 @@ func TestListCustomerNotes(t *testing.T) {
 		ApiKey: "token",
 	}
 	uuid := "cus_00000000-0000-0000-0000-000000000000"
-	params := &ListNotesParams{PaginationWithCursor: PaginationWithCursor{PerPage: 1}}
+	params := &ListNotesParams{Cursor: Cursor{PerPage: 1}}
 	customer_notes, err := tested.ListCustomerNotes(params, uuid)
 
 	if err != nil {

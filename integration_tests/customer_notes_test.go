@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	cm "github.com/chartmogul/chartmogul-go/v3"
+	cm "github.com/chartmogul/chartmogul-go/v4"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
 )
@@ -56,8 +56,8 @@ func TestCustomerNotesIntegration(t *testing.T) {
 		t.Fatal(err)
 	}
 	allNotes, err := api.ListNotes(&cm.ListNotesParams{
-		CustomerUUID:         cus1.UUID,
-		PaginationWithCursor: cm.PaginationWithCursor{PerPage: 10},
+		CustomerUUID: cus1.UUID,
+		Cursor:       cm.Cursor{PerPage: 10},
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -72,7 +72,7 @@ func TestCustomerNotesIntegration(t *testing.T) {
 	if !reflect.DeepEqual(expectedAllNotes, expectedAllNotes) {
 		spew.Dump(allNotes)
 		spew.Dump(expectedAllNotes)
-		t.Fatal("All notes is not equal!")
+		t.Fatal("All notes are not equal!")
 	}
 
 	retrievedNote, err := api.RetrieveNote(newNote.UUID)
