@@ -25,7 +25,7 @@ type SubscriptionEvent struct {
 
 type SubscriptionEvents struct {
 	SubscriptionEvents []*SubscriptionEvent `json:"subscription_events"`
-	Meta               MetaCursor           `json:"meta"`
+	Pagination
 }
 
 type DeleteSubscriptionEvent struct {

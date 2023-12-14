@@ -167,11 +167,6 @@ type Pagination struct {
 	HasMore bool   `json:"has_more,omitempty"`
 }
 
-// MetaCursor must be retained to support backwards compatibility until standardising all endpoints.
-type MetaCursor struct {
-	Pagination
-}
-
 // Cursor is the new standard for cursor with pagination.
 type Cursor struct {
 	PerPage uint32 `json:"per_page,omitempty"`

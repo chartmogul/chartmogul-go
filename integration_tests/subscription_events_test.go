@@ -20,6 +20,7 @@ func TestListSubscriptionEvents(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to initialize recorder: %v", err)
 	}
+	defer r.Stop() //nolint
 
 	api := &cm.API{
 		ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
@@ -69,8 +70,8 @@ func validateListSubscriptionEvents(api *cm.API, customerExternalID string, t *t
 		t.Fatalf("Failed to list subscriptions: %v", err)
 	}
 
-	if listSubscriptionEvents.Meta.HasMore != true {
-		t.Fatalf("Expected HasMore to be true, got: %v", listSubscriptionEvents.Meta.HasMore)
+	if listSubscriptionEvents.HasMore != true {
+		t.Fatalf("Expected HasMore to be true, got: %v", listSubscriptionEvents.HasMore)
 	}
 }
 
