@@ -64,9 +64,9 @@ func TestCustomerNotesIntegration(t *testing.T) {
 
 	var expectedAllNotes *cm.Notes = &cm.Notes{
 		Entries: []*cm.Note{newNote},
-		Cursor:  "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA=",
-		HasMore: false,
 	}
+	expectedAllNotes.Cursor = "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA="
+	expectedAllNotes.HasMore = false
 
 	if !reflect.DeepEqual(expectedAllNotes, expectedAllNotes) {
 		spew.Dump(allNotes)
