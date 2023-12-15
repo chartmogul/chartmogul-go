@@ -18,7 +18,7 @@ type UpdateNote struct {
 	Text         string `json:"text"`
 	AuthorEmail  string `json:"author_email"`
 	CallDuration uint32 `json:"call_duration"`
-	CreatedAt    string `json:"create_at"`
+	CreatedAt    string `json:"created_at"`
 	UpdatedAt    string `json:"updated_at"`
 }
 

@@ -38,7 +38,6 @@ func TestCustomerNotesIntegration(t *testing.T) {
 
 	cus1, err := api.CreateCustomer(&cm.NewCustomer{
 		Name:           "Test Customer Notes",
-		Email:          "soeun+staff@chartmogul.com",
 		ExternalID:     "ext_customer_1",
 		DataSourceUUID: ds.UUID,
 	})
