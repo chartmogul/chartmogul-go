@@ -437,3 +437,96 @@ func TestCreateCustomersContact(t *testing.T) {
 		t.Fatal("Unexpected result")
 	}
 }
+
+func TestListCustomerNotes(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customer_notes?customer_uuid=cus_00000000-0000-0000-0000-000000000000&per_page=1" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [{
+						"uuid": "note_00000000-0000-0000-0000-000000000000",
+						"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+						"type": "note",
+						"author": "John Doe (john@example.com)",
+						"text": "This is a note",
+						"call_duration": 0,
+						"created_at": "2017-06-09T13:14:00-04:00",
+						"updated_at": "2017-06-09T13:14:00-04:00"
+					}],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	uuid := "cus_00000000-0000-0000-0000-000000000000"
+	params := &ListNotesParams{Cursor: Cursor{PerPage: 1}}
+	customer_notes, err := tested.ListCustomerNotes(params, uuid)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(customer_notes.Entries) == 0 {
+		spew.Dump(customer_notes)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestCreateCustomerNote(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customer_notes" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "note_00000000-0000-0000-0000-000000000000",
+					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"type": "note",
+					"author": "John Doe (john@example.com)",
+					"text": "This is a note",
+					"call_duration": 0,
+					"created_at": "2017-06-09T13:14:00-04:00",
+					"updated_at": "2017-06-09T13:14:00-04:00"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	customer_note, err := tested.CreateCustomerNote(&NewNote{
+		Type:        "note",
+		AuthorEmail: "john@example.com",
+		Text:        "This is a note",
+	}, "cus_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if customer_note.UUID != "note_00000000-0000-0000-0000-000000000000" {
+		spew.Dump(customer_note)
+		t.Fatal("Unexpected result")
+	}
+}

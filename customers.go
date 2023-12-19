@@ -256,3 +256,29 @@ func (api API) CreateCustomersContact(newContact *NewContact, customerUUID strin
 	path := strings.Replace(customerContactsEndpoint, ":uuid", customerUUID, 1)
 	return result, api.create(path, newContact, result)
 }
+
+// ListCustomerNotes
+//
+// See https://dev.chartmogul.com/reference/list-customer-notes
+func (api API) ListCustomerNotes(listCustomerNotesParams *ListNotesParams, customerUUID string) (*Notes, error) {
+	result := &Notes{}
+	query := make([]interface{}, 0, 1)
+	if listCustomerNotesParams != nil {
+		if listCustomerNotesParams.CustomerUUID == "" {
+			listCustomerNotesParams.CustomerUUID = customerUUID
+		}
+		query = append(query, *listCustomerNotesParams)
+	}
+	return result, api.list(customerNotesEndpoint, result, query...)
+}
+
+// CreateCustomerNote
+//
+// See https://dev.chartmogul.com/reference/create-a-customer-note
+func (api API) CreateCustomerNote(input *NewNote, customerUUID string) (*Note, error) {
+	result := &Note{}
+	if input.CustomerUUID == "" {
+		input.CustomerUUID = customerUUID
+	}
+	return result, api.create(customerNotesEndpoint, input, result)
+}

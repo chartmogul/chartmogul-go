@@ -41,7 +41,7 @@ go get github.com/chartmogul/chartmogul-go/v4
 [Deprecation] - `account_token`/`secret_key` combo is deprecated. Please use API key for both fields.
 Version 3.x will introduce a breaking change in authentication configuration. For more details, please visit: https://dev.chartmogul.com
 
-Version 4.x will introduce a breaking change for pagination on List endpoints. The `cursor` object now expects a `per_page` and `cursor` parameter. `page` will no longer be accepted. 
+Version 4.x will introduce a breaking change for pagination on List endpoints. The `cursor` object now expects a `per_page` and `cursor` parameter. `page` will no longer be accepted.
 
 First create the `API` struct by passing your API key, available from the administration section of your ChartMogul account.
 
@@ -111,6 +111,8 @@ api.MergeCustomers(&cm.MergeCustomersParams{})
 api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
 api.ListCustomersContact(&cm.ListContactsParams{}, "customerUUID")
 api.CreateCustomersContact(&cm.NewContact{}, "customerUUID")
+api.ListCustomerNotes(&cm.ListNotesParams{}, "customerUUID")
+api.CreateCustomerNote(&cm.NewNote{}, "customerUUID")
 ```
 
 #### [Contacts](https://dev.chartmogul.com/reference/contacts)
@@ -122,6 +124,15 @@ api.ListContacts(&cm.ListContactsParams{})
 api.UpdateContact(&cm.UpdateContact{}, "contact")
 api.DeleteContact("customerUUID")
 api.MergeContacts("intoContactUUID", "fromContactUUID")
+```
+
+#### [Customer Notes](https://dev.chartmogul.com/reference/customer-notes)
+```go
+api.CreateNote(&cm.NewNote{})
+api.RetrieveNote("noteUUID")
+api.ListNote(&cm.ListNoteParams{})
+api.UpdateNote(&cm.UpdateNote{}, "noteUUID")
+api.DeleteNote("noteUUID")
 ```
 
 #### [Plans](https://dev.chartmogul.com/reference#plans)
