@@ -68,7 +68,7 @@ func TestCustomerNotesIntegration(t *testing.T) {
 	expectedAllNotes.Cursor = "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA="
 	expectedAllNotes.HasMore = false
 
-	if !reflect.DeepEqual(expectedAllNotes, expectedAllNotes) {
+	if !reflect.DeepEqual(allNotes, expectedAllNotes) {
 		spew.Dump(allNotes)
 		spew.Dump(expectedAllNotes)
 		t.Fatal("All notes are not equal!")

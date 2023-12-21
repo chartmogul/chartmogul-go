@@ -41,7 +41,7 @@ const (
 )
 
 var (
-	url     = "http://localhost:3000/api/v1/%v"
+	url     = "https://api.chartmogul.com/v1/%v"
 	timeout = 30 * time.Second
 )
 
