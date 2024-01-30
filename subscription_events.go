@@ -21,6 +21,7 @@ type SubscriptionEvent struct {
 	AmountInCents             int32       `json:"amount_in_cents,omitempty"`
 	TaxAmountInCents          int32       `json:"tax_amount_in_cents,omitempty"`
 	RetractedEventId          string      `json:"retracted_event_id,omitempty"`
+	EventOrder                int32       `json:"event_order,omitempty"`
 }
 
 type SubscriptionEvents struct {
