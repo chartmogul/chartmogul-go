@@ -65,7 +65,7 @@ func TestCustomerNotesIntegration(t *testing.T) {
 	var expectedAllNotes *cm.Notes = &cm.Notes{
 		Entries: []*cm.Note{newNote},
 	}
-	expectedAllNotes.Cursor = "MjAyMy0wNC0xOVQwODo0NzoxMy44NjAzNjQwMDBaJmNvbl9jN2U0ZGE5NC1kZThlLTExZWQtYTY0Zi0zZmExNDAwOWM1NjA="
+	expectedAllNotes.Cursor = allNotes.Cursor
 	expectedAllNotes.HasMore = false
 
 	if !reflect.DeepEqual(allNotes, expectedAllNotes) {

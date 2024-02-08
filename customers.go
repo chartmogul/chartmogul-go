@@ -36,6 +36,7 @@ type Customer struct {
 	Zip                string `json:"zip,omitempty"`
 	LeadCreatedAt      string `json:"lead_created_at,omitempty"`
 	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
+	WebsiteUrl         string `json:"website_url,omitempty"`
 
 	Errors Errors `json:"errors,omitempty"`
 }
@@ -52,6 +53,7 @@ type UpdateCustomer struct {
 	LeadCreatedAt      *string     `json:"lead_created_at,omitempty"`
 	FreeTrialStartedAt *string     `json:"free_trial_started_at,omitempty"`
 	Attributes         *Attributes `json:"attributes,omitempty"`
+	WebsiteUrl         *string     `json:"website_url,omitempty"`
 }
 
 // NewCustomer allows creating customer on a new endpoint.
@@ -73,6 +75,8 @@ type NewCustomer struct {
 	// Lead/Trial
 	LeadCreatedAt      string `json:"lead_created_at,omitempty"`
 	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
+	// Website
+	WebsiteUrl string `json:"website_url,omitempty"`
 }
 
 // Attributes is subdocument of Customer.
