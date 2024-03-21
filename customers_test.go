@@ -556,7 +556,7 @@ func TestListCustomerOpportunities(t *testing.T) {
 						"type": "recurring",
 						"forecast_category": "pipeline",
 						"win_likelihood": 3,
-						"custom": {"from_campaign": "true"},
+						"custom": {"from_campaign": true},
 						"created_at": "2024-03-13T07:33:28.356Z",
 						"updated_at": "2024-03-13T07:33:28.356Z"
 					}],
@@ -608,7 +608,7 @@ func TestCreateCustomerOpportunity(t *testing.T) {
 					"type": "recurring",
 					"forecast_category": "pipeline",
 					"win_likelihood": 3,
-					"custom": {"from_campaign": "true"},
+					"custom": {"from_campaign": true},
 					"created_at": "2024-03-13T07:33:28.356Z",
 					"updated_at": "2024-03-13T07:33:28.356Z"
 				}`))
@@ -636,7 +636,6 @@ func TestCreateCustomerOpportunity(t *testing.T) {
 				Value: true,
 			},
 		},
-		// Custom:             map[string]interface{}{"from_campaign": "true"},
 	}, "cus_00000000-0000-0000-0000-000000000000")
 
 	if err != nil {

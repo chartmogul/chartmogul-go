@@ -33,7 +33,7 @@ func TestListOpportunities(t *testing.T) {
 						"type": "recurring",
 						"forecast_category": "pipeline",
 						"win_likelihood": 3,
-						"custom": {"from_campaign": "true"},
+						"custom": {"from_campaign": true},
 						"created_at": "2024-03-13T07:33:28.356Z",
 						"updated_at": "2024-03-13T07:33:28.356Z"
 					}],
@@ -84,7 +84,7 @@ func TestRetrieveOpportunity(t *testing.T) {
 					"type": "recurring",
 					"forecast_category": "pipeline",
 					"win_likelihood": 3,
-					"custom": {"from_campaign": "true"},
+					"custom": {"from_campaign": true},
 					"created_at": "2024-03-13T07:33:28.356Z",
 					"updated_at": "2024-03-13T07:33:28.356Z"
 				}`))
@@ -131,7 +131,7 @@ func TestCreateOpportunity(t *testing.T) {
 					"type": "recurring",
 					"forecast_category": "pipeline",
 					"win_likelihood": 3,
-					"custom": {"from_campaign": "true"},
+					"custom": {"from_campaign": true},
 					"created_at": "2024-03-13T07:33:28.356Z",
 					"updated_at": "2024-03-13T07:33:28.356Z"
 				}`))
@@ -196,7 +196,7 @@ func TestUpdateOpportunity(t *testing.T) {
 					"type": "recurring",
 					"forecast_category": "pipeline",
 					"win_likelihood": 3,
-					"custom": {"from_campaign": "true"},
+					"custom": {"from_campaign": true},
 					"created_at": "2024-03-13T07:33:28.356Z",
 					"updated_at": "2024-03-13T07:33:28.356Z"
 				}`))
