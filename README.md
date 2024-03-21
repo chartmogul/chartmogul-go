@@ -113,6 +113,8 @@ api.ListCustomersContact(&cm.ListContactsParams{}, "customerUUID")
 api.CreateCustomersContact(&cm.NewContact{}, "customerUUID")
 api.ListCustomerNotes(&cm.ListNotesParams{}, "customerUUID")
 api.CreateCustomerNote(&cm.NewNote{}, "customerUUID")
+api.ListCustomerOpportunities(&cm.ListOpportunitiesParams{}, "customerUUID")
+api.CreateCustomerOpportunity(&cm.NewOpportunity{}, "customerUUID")
 ```
 
 #### [Contacts](https://dev.chartmogul.com/reference/contacts)
@@ -127,12 +129,23 @@ api.MergeContacts("intoContactUUID", "fromContactUUID")
 ```
 
 #### [Customer Notes](https://dev.chartmogul.com/reference/customer-notes)
+
 ```go
 api.CreateNote(&cm.NewNote{})
 api.RetrieveNote("noteUUID")
 api.ListNote(&cm.ListNoteParams{})
 api.UpdateNote(&cm.UpdateNote{}, "noteUUID")
 api.DeleteNote("noteUUID")
+```
+
+#### [Opportunities](https://dev.chartmogul.com/reference/opportunities)
+
+```go
+api.CreateOpportunity(&cm.NewOpportunity{})
+api.RetrieveOpportunity("opportunityUUID")
+api.ListOpportunities(&cm.ListOpportunitiesParams{})
+api.UpdateOpportunity(&cm.UpdateOpportunity{}, "opportunityUUID")
+api.DeleteOpportunity("opportunityUUID")
 ```
 
 #### [Plans](https://dev.chartmogul.com/reference#plans)

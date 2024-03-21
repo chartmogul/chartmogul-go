@@ -53,11 +53,6 @@ type NewContact struct {
 	Custom    []Custom `json:"custom,omitempty"`
 }
 
-type Custom struct {
-	Key   string `json:"key,omitempty"`
-	Value string `json:"value,omitempty"`
-}
-
 // ListContactsParams = parameters for listing contacts in API.
 type ListContactsParams struct {
 	CustomerUUID   string `json:"customer_uuid,omitempty"`
