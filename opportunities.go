@@ -62,7 +62,7 @@ type Opportunities struct {
 
 const (
 	singleOpportunityEndpoint = "opportunities/:uuid"
-	opportunitiesEndpoint      = "opportunities"
+	opportunitiesEndpoint     = "opportunities"
 )
 
 // CreateOpportunity create the opportunity to Chartmogul
