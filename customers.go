@@ -286,3 +286,29 @@ func (api API) CreateCustomerNote(input *NewNote, customerUUID string) (*Note, e
 	}
 	return result, api.create(customerNotesEndpoint, input, result)
 }
+
+// ListCustomerOpporunities
+//
+// See https://dev.chartmogul.com/reference/list-opportunities
+func (api API) ListCustomerOpporunities(listOpportunitiesParams *ListOpportunitiesParams, customerUUID string) (*Opportunities, error) {
+	result := &Opportunities{}
+	query := make([]interface{}, 0, 1)
+	if listOpportunitiesParams != nil {
+		if listOpportunitiesParams.CustomerUUID == "" {
+			listOpportunitiesParams.CustomerUUID = customerUUID
+		}
+		query = append(query, *listOpportunitiesParams)
+	}
+	return result, api.list(opportunitiesEndpoint, result, query...)
+}
+
+// CreateCustomerOpportunity
+//
+// See https://dev.chartmogul.com/reference/create-an-opportunity
+func (api API) CreateCustomerOpportunity(input *NewOpportunity, customerUUID string) (*Opportunity, error) {
+	result := &Opportunity{}
+	if input.CustomerUUID == "" {
+		input.CustomerUUID = customerUUID
+	}
+	return result, api.create(opportunitiesEndpoint, input, result)
+}

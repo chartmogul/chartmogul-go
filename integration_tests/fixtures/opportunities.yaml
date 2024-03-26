@@ -1,0 +1,291 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"Test Opportunities"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_badc73b0-e74e-11ee-a295-f3e5197fad06","name":"Test Opportunities","system":"Import
+      API","created_at":"2024-03-21T06:46:22.338Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "156"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:22 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_badc73b0-e74e-11ee-a295-f3e5197fad06","external_id":"ext_customer_1","name":"Test
+      Opportunities"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":192196044,"uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","external_id":"ext_customer_1","name":"Test
+      Opportunities","email":"","status":"New Lead","customer-since":null,"attributes":{"custom":{},"clearbit":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_badc73b0-e74e-11ee-a295-f3e5197fad06","data_source_uuids":["ds_badc73b0-e74e-11ee-a295-f3e5197fad06"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":null,"zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":null,"address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/192196044-Test_Opportunities","billing-system-type":"Import
+      API","currency":"USD","currency-sign":"$","owner":null,"website_url":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "820"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:22 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"amount_in_cents":100,"currency":"USD","custom":[{"key":"from_campaign","value":true}],"customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","estimated_close_date":"2023-12-22","forecast_category":"best_case","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","type":"recurring","win_likelihood":3}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities
+    method: POST
+  response:
+    body: '{"uuid":"bb544336-e74e-11ee-800c-effc264f19ed","customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","estimated_close_date":"2023-12-22","currency":"USD","amount_in_cents":100,"type":"recurring","forecast_category":"best_case","win_likelihood":3,"custom":{"from_campaign":true},"created_at":"2024-03-21T06:46:23.137Z","updated_at":"2024-03-21T06:46:23.137Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "458"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:23 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities?customer_uuid=cus_bb167600-e74e-11ee-93bd-8f1e5b698784&per_page=10
+    method: GET
+  response:
+    body: '{"entries":[{"uuid":"bb544336-e74e-11ee-800c-effc264f19ed","customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","estimated_close_date":"2023-12-22","currency":"USD","amount_in_cents":100,"type":"recurring","forecast_category":"best_case","win_likelihood":3,"custom":{"from_campaign":true},"created_at":"2024-03-21T06:46:23.137Z","updated_at":"2024-03-21T06:46:23.137Z"}],"cursor":"MjAyNC0wMy0yMVQwNjo0NjoyMy4xMzc4ODAwMDBaJmJiNTQ0MzM2LWU3NGUtMTFlZS04MDBjLWVmZmMyNjRmMTllZA==","has_more":false}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "593"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:23 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities/bb544336-e74e-11ee-800c-effc264f19ed
+    method: GET
+  response:
+    body: '{"uuid":"bb544336-e74e-11ee-800c-effc264f19ed","customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","estimated_close_date":"2023-12-22","currency":"USD","amount_in_cents":100,"type":"recurring","forecast_category":"best_case","win_likelihood":3,"custom":{"from_campaign":true},"created_at":"2024-03-21T06:46:23.137Z","updated_at":"2024-03-21T06:46:23.137Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "458"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:23 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"estimated_close_date":"2024-12-22"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities/bb544336-e74e-11ee-800c-effc264f19ed
+    method: PATCH
+  response:
+    body: '{"uuid":"bb544336-e74e-11ee-800c-effc264f19ed","customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","estimated_close_date":"2024-12-22","currency":"USD","amount_in_cents":100,"type":"recurring","forecast_category":"best_case","win_likelihood":3,"custom":{"from_campaign":true},"created_at":"2024-03-21T06:46:23.137Z","updated_at":"2024-03-21T06:46:24.176Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "458"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:24 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities/bb544336-e74e-11ee-800c-effc264f19ed
+    method: GET
+  response:
+    body: '{"uuid":"bb544336-e74e-11ee-800c-effc264f19ed","customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","estimated_close_date":"2024-12-22","currency":"USD","amount_in_cents":100,"type":"recurring","forecast_category":"best_case","win_likelihood":3,"custom":{"from_campaign":true},"created_at":"2024-03-21T06:46:23.137Z","updated_at":"2024-03-21T06:46:24.176Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "458"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:24 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"amount_in_cents":1000,"currency":"EUR","custom":[{"key":"from_campaign","value":false}],"customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","estimated_close_date":"2023-12-22","forecast_category":"best_case","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","type":"recurring","win_likelihood":80}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities
+    method: POST
+  response:
+    body: '{"uuid":"bc75a0d4-e74e-11ee-94b8-6bf79f2f503f","customer_uuid":"cus_bb167600-e74e-11ee-93bd-8f1e5b698784","owner":"kamil+pavlicko@chartmogul.com","pipeline":"New
+      Business","pipeline_stage":"Discovery","estimated_close_date":"2023-12-22","currency":"EUR","amount_in_cents":1000,"type":"recurring","forecast_category":"best_case","win_likelihood":80,"custom":{"from_campaign":false},"created_at":"2024-03-21T06:46:25.034Z","updated_at":"2024-03-21T06:46:25.034Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "461"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:25 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/opportunities/bc75a0d4-e74e-11ee-94b8-6bf79f2f503f
+    method: DELETE
+  response:
+    body: '{}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "2"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Mar 2024 06:46:25 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_badc73b0-e74e-11ee-a295-f3e5197fad06
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 21 Mar 2024 06:46:25 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""
