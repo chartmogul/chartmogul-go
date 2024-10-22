@@ -91,6 +91,7 @@ type IApi interface {
 	ListCustomers(ListCustomersParams *ListCustomersParams) (*Customers, error)
 	SearchCustomers(SearchCustomersParams *SearchCustomersParams) (*Customers, error)
 	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
+	UnmergeCustomers(UnmergeCustomersParams *UnmergeCustomersParams) error
 	DeleteCustomer(customerUUID string) error
 	DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error
 	DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, DeleteCustomerInvoicesParams *DeleteCustomerInvoicesParams) error

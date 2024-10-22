@@ -40,6 +40,8 @@ func TestListCustomersIntegration(t *testing.T) {
 
 	validateListCustomers(api, ds.UUID, t)
 	validateSearchCustomers(api, "abc@123.com", t)
+	validateMergeCustomers(api, t)
+	validateUnmergeCustomers(api, t)
 	validateCustomerRetrievalAndUpdate(api, customers[1], t)
 }
 
@@ -110,6 +112,30 @@ func validateSearchCustomers(api *cm.API, email string, t *testing.T) {
 
 	if searchCustomers.HasMore != true {
 		t.Fatalf("Expected HasMore to be true, got: %v", searchCustomers.HasMore)
+	}
+}
+
+// validateMergeCustomers validates that the specified customers can be correctly merged using the API.
+func validateMergeCustomers(api *cm.API, t *testing.T) {
+	err := api.MergeCustomers(&cm.MergeCustomersParams{
+		From: cm.CustID{CustomerUUID: "cus_2706d304-76b7-11ee-93d6-5b3d820d37cd"},
+		Into: cm.CustID{CustomerUUID: "cus_23740208-2c7e-11ee-9ea2-ffd2435982bb"},
+	})
+	if err != nil {
+		t.Fatalf("Failed to merge customers: %v", err)
+	}
+}
+
+// validateUnmergeCustomers validates that the specified customers can be correctly unmerged using the API.
+func validateUnmergeCustomers(api *cm.API, t *testing.T) {
+	err := api.UnmergeCustomers(&cm.UnmergeCustomersParams{
+		CustomerUUID:      "cus_cd9e5f29-6299-40e5-b343-0bd1ed228b4f",
+		ExternalID:        "cus_O075O8NH0LrtG8",
+		DataSourceUUID:    "ds_788ec6ae-dd51-11ee-bd46-a3ec952dc041",
+		MoveToNewCustomer: []string{"tasks"},
+	})
+	if err != nil {
+		t.Fatalf("Failed to unmerge customers: %v", err)
 	}
 }
 
