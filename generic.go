@@ -112,24 +112,7 @@ func (api API) merge(path string, input interface{}) error {
 
 // UPDATE
 func (api API) unmerge(path string, input interface{}) error {
-	var res gorequest.Response
-	var body string
-	var errs []error
-
-	// nolint:errcheck
-	backoff.Retry(func() error {
-		res, body, errs = api.req(gorequest.New().
-			Post(prepareURL(path))).
-			SendStruct(input).
-			End()
-
-		if networkErrors(errs) || isHTTPStatusRetryable(res) {
-			return errRetry
-		}
-		return nil
-	}, backoff.NewExponentialBackOff())
-
-	return wrapErrors(res, []byte(body), errs)
+	return api.merge(path, input)
 }
 
 // updateImpl adds another meta level, because this same pattern
