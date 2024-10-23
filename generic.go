@@ -110,6 +110,11 @@ func (api API) merge(path string, input interface{}) error {
 	return wrapErrors(res, []byte(body), errs)
 }
 
+// UPDATE
+func (api API) unmerge(path string, input interface{}) error {
+	return api.merge(path, input)
+}
+
 // updateImpl adds another meta level, because this same pattern
 // uses multiple HTTP methods in  API.
 func (api API) updateImpl(path string, uuid string, input interface{}, output interface{}, method string) error {

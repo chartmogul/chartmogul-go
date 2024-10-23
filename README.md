@@ -108,6 +108,7 @@ api.SearchCustomers(&cm.SearchCustomersParams{})
 api.ListCustomers(&cm.ListCustomersParams{})
 api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
+api.UnmergeCustomers(&cm.UnmergeCustomersParams{})
 api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
 api.ListCustomersContact(&cm.ListContactsParams{}, "customerUUID")
 api.CreateCustomersContact(&cm.NewContact{}, "customerUUID")
@@ -319,6 +320,7 @@ To work on the library:
 * add pre-commit hook `go test ./...` (in `.git/hooks/pre-commit`) to have a working state always.
 
 ### Testing
+* Run test suite with `go test`
 * Use `net/http/httptest` for mocking HTTP server directly, see file `generic_test.go` for examples.
 * For `integration_tests` against real API use `github.com/dnaeon/go-vcr` library. Be careful to remove your API credentials from fixtures before committing! If Import API App changes, re-record the affected integration tests (by deleting fixtures).
 

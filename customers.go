@@ -128,6 +128,14 @@ type MergeCustomersParams struct {
 	Into CustID `json:"into"`
 }
 
+// UnmergeCustomersParams - identify target for unmerging.
+type UnmergeCustomersParams struct {
+	CustomerUUID      string   `json:"customer_uuid"`
+	ExternalID        string   `json:"external_id"`
+	DataSourceUUID    string   `json:"data_source_uuid"`
+	MoveToNewCustomer []string `json:"move_to_new_customer,omitempty"`
+}
+
 // CustID - use either DataSourceUUID & ExternalID or CustomerUUID
 type CustID struct {
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
@@ -146,6 +154,7 @@ const (
 	customersEndpoint              = "customers"
 	searchCustomersEndpoint        = "customers/search"
 	mergeCustomersEndpoint         = "customers/merges"
+	unmergeCustomersEndpoint       = "customers/unmerges"
 	customerContactsEndpoint       = "customers/:uuid/contacts"
 )
 
@@ -209,6 +218,13 @@ func (api API) SearchCustomers(searchCustomersParams *SearchCustomersParams) (*C
 // See https://dev.chartmogul.com/v1.0/reference#customers
 func (api API) MergeCustomers(mergeCustomersParams *MergeCustomersParams) error {
 	return api.merge(mergeCustomersEndpoint, *mergeCustomersParams)
+}
+
+// UnmergeCustomers unmerges two cutomers.
+//
+// See https://dev.chartmogul.com/v1.0/reference#customers
+func (api API) UnmergeCustomers(unmergeCustomersParams *UnmergeCustomersParams) error {
+	return api.unmerge(unmergeCustomersEndpoint, *unmergeCustomersParams)
 }
 
 // DeleteCustomer deletes one customer by UUID.
