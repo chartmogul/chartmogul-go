@@ -7,6 +7,7 @@ import (
 const subscriptionsEndpoint = "import/customers/:customerUUID/subscriptions"
 const cancelSubscriptionEndpoint = "import/subscriptions/:uuid"
 const connectSubscriptionEndpoint = "customers/:uuid/connect_subscriptions"
+const disconnectSubscriptionEndpoint = "customers/:uuid/disconnect_subscriptions"
 
 // Subscription represents Import API subscription in ChartMogul.
 type Subscription struct {
@@ -61,6 +62,16 @@ func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscrip
 // See https://dev.chartmogul.com/reference#connect-subscriptions
 func (api API) ConnectSubscriptions(customerUUID string, subscriptions []Subscription) error {
 	path := strings.Replace(connectSubscriptionEndpoint, ":uuid", customerUUID, 1)
+	return api.merge(path, Subscriptions{
+		Subscriptions: subscriptions,
+	})
+}
+
+// DisconnectSubscriptions connects two subscription objects
+//
+// See https://dev.chartmogul.com/reference#disconnect-subscriptions
+func (api API) DisconnectSubscriptions(customerUUID string, subscriptions []Subscription) error {
+	path := strings.Replace(disconnectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 	return api.merge(path, Subscriptions{
 		Subscriptions: subscriptions,
 	})
