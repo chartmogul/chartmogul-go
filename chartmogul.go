@@ -99,6 +99,8 @@ type IApi interface {
 	CreateCustomersContact(newContact *NewContact, customerUUID string) (*Contact, error)
 	ListCustomerNotes(ListNotesParams *ListNotesParams, customerUUID string) (*Notes, error)
 	CreateCustomerNote(newCustomerNote *NewNote, customerUUID string) (*Note, error)
+	ListCustomerTasks(ListTasksParams *ListTasksParams, customerUUID string) (*Tasks, error)
+	CreateCustomerTask(newCustomerTask *NewTask, customerUUID string) (*Task, error)
 
 	// Contacts
 	CreateContact(newContact *NewContact) (*Contact, error)
@@ -114,6 +116,13 @@ type IApi interface {
 	UpdateNote(Note *UpdateNote, noteUUID string) (*Note, error)
 	DeleteNote(noteUUID string) error
 	ListNotes(ListNotesParams *ListNotesParams) (*Notes, error)
+
+	// Tasks
+	CreateTask(newTask *NewTask) (*Task, error)
+	RetrieveTask(taskUUID string) (*Task, error)
+	UpdateTask(Task *UpdateTask, taskUUID string) (*Task, error)
+	ListTasks(ListTasksParams *ListTasksParams) (*Tasks, error)
+	DeleteTask(taskUUID string) error
 
 	//  - Cusomer Attributes
 	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)

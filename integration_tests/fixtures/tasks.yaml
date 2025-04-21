@@ -1,0 +1,291 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"Test Tasks"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_0629fa9a-2006-11f0-ad7b-cfb392f9e98a","name":"Test Tasks","system":"Import
+      API","created_at":"2025-04-23T05:44:29.362Z","status":"idle"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "148"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:29 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_0629fa9a-2006-11f0-ad7b-cfb392f9e98a","external_id":"ext_customer_1","name":"Test
+      Tasks"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":217637584,"uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","external_id":"ext_customer_1","name":"Test
+      Tasks","email":"","status":"New Lead","customer-since":null,"attributes":{"custom":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_0629fa9a-2006-11f0-ad7b-cfb392f9e98a","data_source_uuids":["ds_0629fa9a-2006-11f0-ad7b-cfb392f9e98a"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":null,"zip":null,"lead_created_at":null,"free_trial_started_at":null,"address":{"country":null,"state":null,"city":null,"address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/217637584-Test_Tasks","billing-system-type":"Import
+      API","currency":"KRW","currency-sign":"₩","owner":null,"website_url":null}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "792"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:29 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"assignee":"keith+test1@chartmogul.com","completed_at":"2025-04-20T00:00:00Z","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","due_date":"2025-04-30T00:00:00Z","task_details":"This
+      is some task details text."}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks
+    method: POST
+  response:
+    body: '{"task_uuid":"06a25846-2006-11f0-ad7d-73c588cd4a17","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","task_details":"This
+      is some task details text.","assignee":"keith+test1@chartmogul.com","due_date":"2025-04-30T00:00:00.000Z","completed_at":"2025-04-20T00:00:00.000Z","created_at":"2025-04-23T05:44:30.166Z","updated_at":"2025-04-23T05:44:30.166Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "360"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:30 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks?customer_uuid=cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76&per_page=10
+    method: GET
+  response:
+    body: '{"entries":[{"task_uuid":"06a25846-2006-11f0-ad7d-73c588cd4a17","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","task_details":"This
+      is some task details text.","assignee":"keith+test1@chartmogul.com","due_date":"2025-04-30T00:00:00.000Z","completed_at":"2025-04-20T00:00:00.000Z","created_at":"2025-04-23T05:44:30.166Z","updated_at":"2025-04-23T05:44:30.166Z"}],"cursor":"MjAyNS0wNC0yM1QwNTo0NDozMC4xNjY3MzYwMDBaJjA2YTI1ODQ2LTIwMDYtMTFmMC1hZDdkLTczYzU4OGNkNGExNw==","has_more":false}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "495"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:30 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks/06a25846-2006-11f0-ad7d-73c588cd4a17
+    method: GET
+  response:
+    body: '{"task_uuid":"06a25846-2006-11f0-ad7d-73c588cd4a17","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","task_details":"This
+      is some task details text.","assignee":"keith+test1@chartmogul.com","due_date":"2025-04-30T00:00:00.000Z","completed_at":"2025-04-20T00:00:00.000Z","created_at":"2025-04-23T05:44:30.166Z","updated_at":"2025-04-23T05:44:30.166Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "360"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:30 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"task_details":"This is some other task details text."}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks/06a25846-2006-11f0-ad7d-73c588cd4a17
+    method: PATCH
+  response:
+    body: '{"task_uuid":"06a25846-2006-11f0-ad7d-73c588cd4a17","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","task_details":"This
+      is some other task details text.","assignee":"keith+test1@chartmogul.com","due_date":"2025-04-30T00:00:00.000Z","completed_at":"2025-04-20T00:00:00.000Z","created_at":"2025-04-23T05:44:30.166Z","updated_at":"2025-04-23T05:44:31.116Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "366"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:31 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks/06a25846-2006-11f0-ad7d-73c588cd4a17
+    method: GET
+  response:
+    body: '{"task_uuid":"06a25846-2006-11f0-ad7d-73c588cd4a17","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","task_details":"This
+      is some other task details text.","assignee":"keith+test1@chartmogul.com","due_date":"2025-04-30T00:00:00.000Z","completed_at":"2025-04-20T00:00:00.000Z","created_at":"2025-04-23T05:44:30.166Z","updated_at":"2025-04-23T05:44:31.116Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "366"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:31 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"assignee":"keith+test1@chartmogul.com","completed_at":"2025-05-20T00:00:00Z","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","due_date":"2025-05-30T00:00:00Z","task_details":"This
+      is details text for another task."}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks
+    method: POST
+  response:
+    body: '{"task_uuid":"079a1234-2006-11f0-bf97-bb34246a0d09","customer_uuid":"cus_0668b1c2-2006-11f0-ad7c-536cb08c2a76","task_details":"This
+      is details text for another task.","assignee":"keith+test1@chartmogul.com","due_date":"2025-05-30T00:00:00.000Z","completed_at":"2025-05-20T00:00:00.000Z","created_at":"2025-04-23T05:44:31.789Z","updated_at":"2025-04-23T05:44:31.789Z"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "367"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:31 GMT
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/tasks/079a1234-2006-11f0-bf97-bb34246a0d09
+    method: DELETE
+  response:
+    body: '{}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Content-Length:
+      - "2"
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Apr 2025 05:44:32 GMT
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/data_sources/ds_0629fa9a-2006-11f0-ad7b-cfb392f9e98a
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Wed, 23 Apr 2025 05:44:32 GMT
+      Retry-Count:
+      - "0"
+    status: 204 No Content
+    code: 204
+    duration: ""
