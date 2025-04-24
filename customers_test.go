@@ -664,7 +664,7 @@ func TestListCustomerTasks(t *testing.T) {
 					"entries": [{
 						"task_uuid": "00000000-0000-0000-0000-000000000000",
 						"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
-						"assignee": "Customer (customer@example.com)",
+						"assignee": "keith+test1@chartmogul.com",
 						"task_details": "This is some task details text.",
 						"due_date": "2025-04-30T00:00:00Z",
 						"completed_at": "2025-04-20T00:00:00Z",
@@ -710,7 +710,7 @@ func TestCreateCustomerTask(t *testing.T) {
 				w.Write([]byte(`{
 					"task_uuid": "00000000-0000-0000-0000-000000000000",
 					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
-					"assignee": "Customer (customer@example.com)",
+					"assignee": "keith+test1@chartmogul.com",
 					"task_details": "This is some task details text.",
 					"due_date": "2025-04-30T00:00:00Z",
 					"completed_at": "2025-04-20T00:00:00Z",
@@ -726,7 +726,7 @@ func TestCreateCustomerTask(t *testing.T) {
 	}
 
 	task, err := tested.CreateCustomerTask(&NewTask{
-		Assignee:    "customer@example.com",
+		Assignee:    "keith+test1@chartmogul.com",
 		TaskDetails: "This is some task details text.",
 		DueDate:     "2025-04-30T00:00:00Z",
 		CompletedAt: "2025-04-20T00:00:00Z",

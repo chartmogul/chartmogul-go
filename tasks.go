@@ -5,32 +5,32 @@ type Task struct {
 	UUID string `json:"task_uuid"`
 	// Basic info
 	CustomerUUID string `json:"customer_uuid"`
-	Assignee		 string `json:"assignee"`
-	TaskDetails	 string `json:"task_details"`
-	DueDate			 string `json:"due_date"`
-	CompletedAt	 string `json:"completed_at,omitempty"`
+	Assignee     string `json:"assignee"`
+	TaskDetails  string `json:"task_details"`
+	DueDate      string `json:"due_date"`
+	CompletedAt  string `json:"completed_at,omitempty"`
 	CreatedAt    string `json:"created_at"`
 	UpdatedAt    string `json:"updated_at"`
 }
 
 // UpdateTask allows for updating a task through the update endpoint.
 type UpdateTask struct {
-	Assignee		string `json:"assignee,omitempty"`
-	TaskDetails	string `json:"task_details,omitempty"`
-	DueDate			string `json:"due_date,omitempty"`
-	CompletedAt	string `json:"completed_at,omitempty"`
+	Assignee    string `json:"assignee,omitempty"`
+	TaskDetails string `json:"task_details,omitempty"`
+	DueDate     string `json:"due_date,omitempty"`
+	CompletedAt string `json:"completed_at,omitempty"`
 }
 
 // NewTask allows for creating a task through the new endpoint.
 type NewTask struct {
 	// Obligatory
 	CustomerUUID string `json:"customer_uuid"`
-	Assignee		 string `json:"assignee"`
-	TaskDetails	 string `json:"task_details"`
-	DueDate			 string `json:"due_date"`
+	Assignee     string `json:"assignee"`
+	TaskDetails  string `json:"task_details"`
+	DueDate      string `json:"due_date"`
 
 	// Optional
-	CompletedAt	 string `json:"completed_at,omitempty"`
+	CompletedAt  string `json:"completed_at,omitempty"`
 }
 
 // ListTasksParams = parameters for listing tasks in API.
