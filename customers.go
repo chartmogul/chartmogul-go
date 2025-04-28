@@ -328,3 +328,29 @@ func (api API) CreateCustomerOpportunity(input *NewOpportunity, customerUUID str
 	}
 	return result, api.create(opportunitiesEndpoint, input, result)
 }
+
+// ListCustomerTasks
+//
+// See https://dev.chartmogul.com/reference/tasks/list/
+func (api API) ListCustomerTasks(listTasksParams *ListTasksParams, customerUUID string) (*Tasks, error) {
+	result := &Tasks{}
+	query := make([]interface{}, 0, 1)
+	if listTasksParams != nil {
+		if listTasksParams.CustomerUUID == "" {
+			listTasksParams.CustomerUUID = customerUUID
+		}
+		query = append(query, *listTasksParams)
+	}
+	return result, api.list(tasksEndpoint, result, query...)
+}
+
+// CreateCustomerTask
+//
+// See https://dev.chartmogul.com/reference/tasks/add/
+func (api API) CreateCustomerTask(input *NewTask, customerUUID string) (*Task, error) {
+	result := &Task{}
+	if input.CustomerUUID == "" {
+		input.CustomerUUID = customerUUID
+	}
+	return result, api.create(tasksEndpoint, input, result)
+}

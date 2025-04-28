@@ -90,7 +90,7 @@ Note: the `Ping` doesn't retry.
 
 Available methods in Import API:
 
-#### [Data Sources](https://dev.chartmogul.com/docs/data-sources)
+#### [Data Sources](https://dev.chartmogul.com/reference/sources/)
 
 ```go
 api.CreateDataSource("name")
@@ -99,7 +99,7 @@ api.RetrieveDataSource("uuid")
 api.DeleteDataSource("uuid")
 ```
 
-#### [Customers](https://dev.chartmogul.com/docs/retrieve-customer)
+#### [Customers](https://dev.chartmogul.com/reference/customers/)
 
 ```go
 api.CreateCustomer(&cm.NewCustomer{})
@@ -117,9 +117,11 @@ api.ListCustomerNotes(&cm.ListNotesParams{}, "customerUUID")
 api.CreateCustomerNote(&cm.NewNote{}, "customerUUID")
 api.ListCustomerOpportunities(&cm.ListOpportunitiesParams{}, "customerUUID")
 api.CreateCustomerOpportunity(&cm.NewOpportunity{}, "customerUUID")
+api.ListCustomerTasks(&cm.ListTasksParams{}, "customerUUID")
+api.CreateCustomerTask(&cm.NewTask{}, "customerUUID")
 ```
 
-#### [Contacts](https://dev.chartmogul.com/reference/contacts)
+#### [Contacts](https://dev.chartmogul.com/reference/contacts/)
 
 ```go
 api.CreateContact(&cm.NewContact{})
@@ -130,7 +132,7 @@ api.DeleteContact("customerUUID")
 api.MergeContacts("intoContactUUID", "fromContactUUID")
 ```
 
-#### [Customer Notes](https://dev.chartmogul.com/reference/customer-notes)
+#### [Customer Notes](https://dev.chartmogul.com/reference/notes-and-call-logs/)
 
 ```go
 api.CreateNote(&cm.NewNote{})
@@ -140,7 +142,7 @@ api.UpdateNote(&cm.UpdateNote{}, "noteUUID")
 api.DeleteNote("noteUUID")
 ```
 
-#### [Opportunities](https://dev.chartmogul.com/reference/opportunities)
+#### [Opportunities](https://dev.chartmogul.com/reference/opportunities/)
 
 ```go
 api.CreateOpportunity(&cm.NewOpportunity{})
@@ -150,7 +152,17 @@ api.UpdateOpportunity(&cm.UpdateOpportunity{}, "opportunityUUID")
 api.DeleteOpportunity("opportunityUUID")
 ```
 
-#### [Plans](https://dev.chartmogul.com/reference#plans)
+#### [Tasks](https://dev.chartmogul.com/reference/tasks/)
+
+```go
+api.CreateTask(&cm.NewTask{})
+api.RetrieveTask("taskUUID")
+api.ListTask(&cm.ListTaskParams{})
+api.UpdateTask(&cm.UpdateTask{}, "taskUUID")
+api.DeleteTask("taskUUID")
+```
+
+#### [Plans](https://dev.chartmogul.com/reference/plans/)
 
 ```go
 api.CreatePlan(&cm.Plan{Name: "name", ExternalID: "external_id"}, "dataSourceUUID")
@@ -160,7 +172,7 @@ api.UpdatePlan(&cm.Plan{}, "planUUID")
 api.DeletePlan("planUUID")
 ```
 
-#### [Plan Groups](https://dev.chartmogul.com/reference#plan_groups)
+#### [Plan Groups](https://dev.chartmogul.com/reference/plan-groups/)
 
 ```go
 api.CreatePlanGroup(&cm.PlanGroup{Name: "name", Plans: []*string{&planOne.UUID, &planTwo.UUID}})
@@ -171,7 +183,7 @@ api.DeletePlanGroup("planGroupUUID")
 api.ListPlanGroupPlans(&cm.ListPlansParams{Cursor: cm.Cursor{PerPage: "10"}},  "planGroupUUID")
 ```
 
-#### [Invoices](https://dev.chartmogul.com/docs/invoices)
+#### [Invoices](https://dev.chartmogul.com/reference/invoices/)
 
 ```go
 api.CreateInvoices([]*cm.Invoice{*cm.Invoice{}}, "customerUUID")
@@ -181,13 +193,13 @@ api.RetrieveInvoice("invoiceUUID")
 api.DeleteInvoice("invoiceUUID")
 ```
 
-#### [Transactions](https://dev.chartmogul.com/docs/transactions)
+#### [Transactions](https://dev.chartmogul.com/reference/transactions/)
 
 ```go
 api.CreateTransaction(&cm.Transaction{}, "invoiceUUID")
 ```
 
-#### [Subscriptions](https://dev.chartmogul.com/docs/subscriptions)
+#### [Subscriptions](https://dev.chartmogul.com/reference/subscriptions/)
 
 ```go
 api.CancelSubscription("subscriptionUUID", &cm.CancelSubscriptionParams{CancelledAt: "2005-01-01T01:02:03.000Z"})
@@ -195,13 +207,13 @@ api.CancelSubscription("subscriptionUUID", &cm.CancelSubscriptionParams{Cancella
 api.ListSubscriptions(&cm.Cursor{}, "customerUUID")
 ```
 
-#### [Customer Attributes](https://dev.chartmogul.com/docs/customer-attributes)
+#### [Customer Attributes](https://dev.chartmogul.com/reference/customers/attributes/)
 
 ```go
 api.RetrieveCustomersAttributes("customerUUID")
 ```
 
-#### [Tags](https://dev.chartmogul.com/docs/tags)
+#### [Tags](https://dev.chartmogul.com/reference/customers/tags/)
 
 ```go
 api.AddTagsToCustomer("customerUUID", []string{})
@@ -209,13 +221,13 @@ api.AddTagsToCustomersWithEmail("email@customer.com", []string{})
 ```
 
 
-#### [Custom Attributes](https://dev.chartmogul.com/docs/custom-attributes)
+#### [Custom Attributes](https://dev.chartmogul.com/reference/customers/attributes/)
 
 ```go
 api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
 ```
 
-#### [Subscription Events](https://dev.chartmogul.com/reference/subscription-events)
+#### [Subscription Events](https://dev.chartmogul.com/reference/subscription-events/)
 ```go
 api.ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *Cursor)
 api.CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent)
@@ -223,7 +235,7 @@ api.UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent)
 api.DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent)
 ```
 
-### [Metrics API](https://dev.chartmogul.com/docs/introduction-metrics-api)
+### [Metrics API](https://dev.chartmogul.com/reference/metrics/)
 
 Available methods in Metrics API:
 
