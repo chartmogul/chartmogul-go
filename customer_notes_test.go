@@ -54,6 +54,52 @@ func TestListNotes(t *testing.T) {
 	}
 }
 
+func TestListNotesWithCustomerUuid(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customer_notes?customer_uuid=cus_00000000-0000-0000-0000-000000000000&per_page=1" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [{
+						"uuid": "note_00000000-0000-0000-0000-000000000000",
+						"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+						"type": "note",
+						"author": "John Doe (john@example.com)",
+						"text": "This is a note",
+						"call_duration": 0,
+						"created_at": "2015-06-09T19:20:30Z",
+						"updated_at": "2015-06-09T19:20:30Z"
+					}],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	params := &ListNotesParams{Cursor: Cursor{PerPage: 1}, CustomerUUID: "cus_00000000-0000-0000-0000-000000000000"}
+	customer_notes, err := tested.ListNotes(params)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(customer_notes.Entries) == 0 {
+		spew.Dump(customer_notes)
+		t.Fatal("Unexpected result")
+	}
+}
+
 func TestRetrieveNote(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(
