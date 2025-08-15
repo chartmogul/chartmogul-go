@@ -15,7 +15,7 @@ func TestListNotes(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/customer_notes?customer_uuid=cus_00000000-0000-0000-0000-000000000000&per_page=1" {
+				if r.RequestURI != "/v/customer_notes?per_page=1" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
@@ -41,7 +41,7 @@ func TestListNotes(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	params := &ListNotesParams{Cursor: Cursor{PerPage: 1}, CustomerUUID: "cus_00000000-0000-0000-0000-000000000000"}
+	params := &ListNotesParams{Cursor: Cursor{PerPage: 1}}
 	customer_notes, err := tested.ListNotes(params)
 
 	if err != nil {

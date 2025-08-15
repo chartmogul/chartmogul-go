@@ -15,7 +15,7 @@ func TestListTasks(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				if r.RequestURI != "/v/tasks?customer_uuid=cus_00000000-0000-0000-0000-000000000000&per_page=1" {
+				if r.RequestURI != "/v/tasks?per_page=1" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}
 				w.WriteHeader(http.StatusOK)
@@ -41,7 +41,7 @@ func TestListTasks(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	params := &ListTasksParams{Cursor: Cursor{PerPage: 1}, CustomerUUID: "cus_00000000-0000-0000-0000-000000000000"}
+	params := &ListTasksParams{Cursor: Cursor{PerPage: 1}}
 	tasks, err := tested.ListTasks(params)
 
 	if err != nil {
