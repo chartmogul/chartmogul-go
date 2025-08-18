@@ -15,6 +15,52 @@ func TestListTasks(t *testing.T) {
 				if r.Method != "GET" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
+				if r.RequestURI != "/v/tasks?per_page=1" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [{
+						"task_uuid": "00000000-0000-0000-0000-000000000000",
+						"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+						"assignee": "keith+test1@chartmogul.com",
+						"task_details": "This is some task details text.",
+						"due_date": "2025-04-30T00:00:00Z",
+						"completed_at": "2025-04-20T00:00:00Z",
+						"created_at": "2025-04-01T12:00:00.000Z",
+						"updated_at": "2025-04-01T12:00:00.000Z"
+					}],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	params := &ListTasksParams{Cursor: Cursor{PerPage: 1}}
+	tasks, err := tested.ListTasks(params)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(tasks.Entries) == 0 {
+		spew.Dump(tasks)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestListTasksWithCustomerUuid(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
 				if r.RequestURI != "/v/tasks?customer_uuid=cus_00000000-0000-0000-0000-000000000000&per_page=1" {
 					t.Errorf("Unexpected URI %v", r.RequestURI)
 				}

@@ -35,7 +35,7 @@ type NewTask struct {
 
 // ListTasksParams = parameters for listing tasks in API.
 type ListTasksParams struct {
-	CustomerUUID string `json:"customer_uuid"`
+	CustomerUUID string `json:"customer_uuid,omitempty"`
 	Cursor
 }
 

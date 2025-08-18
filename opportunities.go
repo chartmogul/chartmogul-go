@@ -50,7 +50,7 @@ type NewOpportunity struct {
 
 // ListOpportunitiesParams = parameters for listing customer opportunities in API.
 type ListOpportunitiesParams struct {
-	CustomerUUID string `json:"customer_uuid"`
+	CustomerUUID string `json:"customer_uuid,omitempty"`
 	Cursor
 }
 

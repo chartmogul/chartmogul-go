@@ -38,7 +38,7 @@ type NewNote struct {
 
 // ListNoteParams = parameters for listing customer notes in API.
 type ListNotesParams struct {
-	CustomerUUID string `json:"customer_uuid"`
+	CustomerUUID string `json:"customer_uuid,omitempty"`
 	Cursor
 }
 
