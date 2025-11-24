@@ -30,7 +30,7 @@ type NewTask struct {
 	DueDate      string `json:"due_date"`
 
 	// Optional
-	CompletedAt  string `json:"completed_at,omitempty"`
+	CompletedAt string `json:"completed_at,omitempty"`
 }
 
 // ListTasksParams = parameters for listing tasks in API.
@@ -47,7 +47,7 @@ type Tasks struct {
 
 const (
 	singleTaskEndpoint = "tasks/:uuid"
-	tasksEndpoint = "tasks"
+	tasksEndpoint      = "tasks"
 )
 
 // CreateTask creates the task through the API.
@@ -81,7 +81,7 @@ func (api API) ListTasks(listTasksParams *ListTasksParams) (*Tasks, error) {
 	result := &Tasks{}
 	query := make([]interface{}, 0, 1)
 	if listTasksParams != nil {
-					query = append(query, *listTasksParams)
+		query = append(query, *listTasksParams)
 	}
 	return result, api.list(tasksEndpoint, result, query...)
 }
