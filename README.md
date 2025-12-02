@@ -94,9 +94,30 @@ Available methods in Import API:
 
 ```go
 api.CreateDataSource("name")
-api.ListDataSources()
-api.RetrieveDataSource("uuid")
 api.DeleteDataSource("uuid")
+api.ListDataSources()
+// List with extra data parameters
+listExtraParams := &cm.ExtraDataSourceParams{
+    WithProcessingStatus: &trueBool,
+    WithAutoChurnSubscriptionSetting: &trueBool,
+    WithInvoiceHandlingSetting: &trueBool,
+}
+api.ListDataSources(listExtraParams)
+// List with filtering and extra data parameters
+listParams := &cm.ListDataSourcesParams{
+    Name: "stripe",
+    System: "stripe",
+    WithProcessingStatus: &trueBool,
+    WithInvoiceHandlingSetting: &trueBool,
+}
+api.ListDataSourcesWithFilters(listParams)
+api.RetrieveDataSource("uuid")
+retrieveExtraParams := &cm.ExtraDataSourceParams{
+    WithProcessingStatus: &trueBool,
+    WithAutoChurnSubscriptionSetting: &trueBool,
+    WithInvoiceHandlingSetting: &trueBool,
+}
+api.RetrieveDataSource("uuid", retrieveExtraParams)
 ```
 
 #### [Customers](https://dev.chartmogul.com/reference/customers/)

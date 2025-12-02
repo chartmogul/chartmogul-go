@@ -88,6 +88,32 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 	return wrapErrors(res, body, errs)
 }
 
+// RETRIEVE WITH PARAMS
+func (api API) retrieveWithParams(path string, uuid string, output interface{}, params interface{}) error {
+	var res gorequest.Response
+	var body []byte
+	var errs []error
+	if uuid != "" {
+		path = strings.Replace(path, ":uuid", uuid, 1)
+	}
+
+	// nolint:errcheck
+	backoff.Retry(func() error {
+		req := api.req(gorequest.New().Get(prepareURL(path)))
+		if params != nil {
+			req.Query(params)
+		}
+		res, body, errs = req.EndStruct(output)
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
+			return errRetry
+		}
+		return nil
+	}, backoff.NewExponentialBackOff())
+
+	return wrapErrors(res, body, errs)
+}
+
 // UPDATE
 func (api API) merge(path string, input interface{}) error {
 	var res gorequest.Response

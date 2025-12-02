@@ -46,7 +46,7 @@ func TestOpportunitiesIntegration(t *testing.T) {
 	}
 
 	newOpportunityParams := &cm.NewOpportunity{
-		CustomerUUID: cus1.UUID,
+		CustomerUUID:       cus1.UUID,
 		Owner:              "kamil+pavlicko@chartmogul.com",
 		Pipeline:           "New Business",
 		PipelineStage:      "Discovery",
@@ -59,7 +59,7 @@ func TestOpportunitiesIntegration(t *testing.T) {
 		Custom: []cm.Custom{
 			{
 				Key:   "from_campaign",
-				Value:  true,
+				Value: true,
 			},
 		},
 	}
@@ -113,7 +113,7 @@ func TestOpportunitiesIntegration(t *testing.T) {
 	}
 
 	otherOpportunityParams := &cm.NewOpportunity{
-		CustomerUUID: cus1.UUID,
+		CustomerUUID:       cus1.UUID,
 		Owner:              "kamil+pavlicko@chartmogul.com",
 		Pipeline:           "New Business",
 		PipelineStage:      "Discovery",

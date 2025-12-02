@@ -52,8 +52,8 @@ type IApi interface {
 	// Data sources
 	CreateDataSource(name string) (*DataSource, error)
 	CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, error)
-	RetrieveDataSource(dataSourceUUID string) (*DataSource, error)
-	ListDataSources() (*DataSources, error)
+	RetrieveDataSource(dataSourceUUID string, params ...*ExtraDataSourceParams) (*DataSource, error)
+	ListDataSources(params ...*ExtraDataSourceParams) (*DataSources, error)
 	ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error)
 	PurgeDataSource(dataSourceUUID string) error
 	EmptyDataSource(dataSourceUUID string) error
