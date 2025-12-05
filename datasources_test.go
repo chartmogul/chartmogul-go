@@ -67,10 +67,12 @@ func TestListDataSourcesWithParams(t *testing.T) {
 
 	// Test with all parameters
 	params := &ListDataSourcesParams{
-		Name:                             dsTestName,
-		WithProcessingStatus:             &trueBool,
-		WithAutoChurnSubscriptionSetting: &trueBool,
-		WithInvoiceHandlingSetting:       &trueBool,
+		Name:   dsTestName,
+		ExtraDataSourceParams: ExtraDataSourceParams{
+			WithProcessingStatus:             &trueBool,
+			WithAutoChurnSubscriptionSetting: &trueBool,
+			WithInvoiceHandlingSetting:       &trueBool,
+		},
 	}
 
 	res, err := api.ListDataSourcesWithFilters(params)

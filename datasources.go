@@ -50,11 +50,9 @@ type ExtraDataSourceParams struct {
 
 // ListDataSourcesParams are optional parameters for listing data sources.
 type ListDataSourcesParams struct {
-	Name                             string `json:"name,omitempty"`
-	System                           string `json:"system,omitempty"`
-	WithProcessingStatus             *bool  `json:"with_processing_status,omitempty"`
-	WithAutoChurnSubscriptionSetting *bool  `json:"with_auto_churn_subscription_setting,omitempty"`
-	WithInvoiceHandlingSetting       *bool  `json:"with_invoice_handling_setting,omitempty"`
+	ExtraDataSourceParams
+	Name                  string `json:"name,omitempty"`
+	System                string `json:"system,omitempty"`
 }
 
 // createDataSourceCall represents arguments to be marshalled into JSON.
