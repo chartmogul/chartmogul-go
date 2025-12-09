@@ -22,18 +22,24 @@ type InvoiceHandlingMode struct {
 	PreventSubscriptionForInvoiceWrittenOff bool   `json:"prevent_subscription_for_invoice_written_off"`
 }
 
+// AutoChurnSubscriptionSetting represents the auto churn subscription setting for a data source.
+type AutoChurnSubscriptionSetting struct {
+	Enabled  bool `json:"enabled"`
+	Interval *int `json:"interval"`
+}
+
 // DataSource represents API data source in ChartMogul.
 // See https://dev.chartmogul.com/v1.0/reference#list-data-sources
 type DataSource struct {
-	UUID                         string                  `json:"uuid"`
-	Name                         string                  `json:"name"`
-	CreatedAt                    string                  `json:"created_at"`
-	Status                       string                  `json:"status"`
-	System                       string                  `json:"system"`
-	ProcessingStatus             *ProcessingStatus       `json:"processing_status,omitempty"`
-	AutoChurnSubscriptionSetting *bool                   `json:"auto_churn_subscription_setting,omitempty"`
-	InvoiceHandlingSetting       *InvoiceHandlingSetting `json:"invoice_handling_setting,omitempty"`
-	Errors                       Errors                  `json:"errors,omitempty"`
+	UUID                         string                        `json:"uuid"`
+	Name                         string                        `json:"name"`
+	CreatedAt                    string                        `json:"created_at"`
+	Status                       string                        `json:"status"`
+	System                       string                        `json:"system"`
+	ProcessingStatus             *ProcessingStatus             `json:"processing_status,omitempty"`
+	AutoChurnSubscriptionSetting *AutoChurnSubscriptionSetting `json:"auto_churn_subscription_setting,omitempty"`
+	InvoiceHandlingSetting       *InvoiceHandlingSetting       `json:"invoice_handling_setting,omitempty"`
+	Errors                       Errors                        `json:"errors,omitempty"`
 }
 
 // DataSources is the result of listing data sources, but doesn't contain any paging.
@@ -51,8 +57,8 @@ type ExtraDataSourceParams struct {
 // ListDataSourcesParams are optional parameters for listing data sources.
 type ListDataSourcesParams struct {
 	ExtraDataSourceParams
-	Name                  string `json:"name,omitempty"`
-	System                string `json:"system,omitempty"`
+	Name   string `json:"name,omitempty"`
+	System string `json:"system,omitempty"`
 }
 
 // createDataSourceCall represents arguments to be marshalled into JSON.
