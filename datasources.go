@@ -7,21 +7,6 @@ type ProcessingStatus struct {
 	Failed    *int `json:"failed,omitempty"`
 }
 
-// InvoiceHandlingSetting represents the invoice handling settings for a data source.
-type InvoiceHandlingSetting struct {
-	Manual    *InvoiceHandlingMode `json:"manual,omitempty"`
-	Automatic *InvoiceHandlingMode `json:"automatic,omitempty"`
-}
-
-// InvoiceHandlingMode represents the configuration for invoice handling mode.
-type InvoiceHandlingMode struct {
-	CreateSubscriptionWhenInvoiceIs         string `json:"create_subscription_when_invoice_is"`
-	UpdateSubscriptionWhenInvoiceIs         string `json:"update_subscription_when_invoice_is"`
-	PreventSubscriptionForInvoiceVoided     bool   `json:"prevent_subscription_for_invoice_voided"`
-	PreventSubscriptionForInvoiceRefunded   bool   `json:"prevent_subscription_for_invoice_refunded"`
-	PreventSubscriptionForInvoiceWrittenOff bool   `json:"prevent_subscription_for_invoice_written_off"`
-}
-
 // AutoChurnSubscriptionSetting represents the auto churn subscription setting for a data source.
 type AutoChurnSubscriptionSetting struct {
 	Enabled  bool `json:"enabled"`
@@ -38,7 +23,7 @@ type DataSource struct {
 	System                       string                        `json:"system"`
 	ProcessingStatus             *ProcessingStatus             `json:"processing_status,omitempty"`
 	AutoChurnSubscriptionSetting *AutoChurnSubscriptionSetting `json:"auto_churn_subscription_setting,omitempty"`
-	InvoiceHandlingSetting       *InvoiceHandlingSetting       `json:"invoice_handling_setting,omitempty"`
+	InvoiceHandlingSetting       map[string]interface{}        `json:"invoice_handling_setting,omitempty"`
 	Errors                       Errors                        `json:"errors,omitempty"`
 }
 
