@@ -460,18 +460,22 @@ func (mr *MockIApiMockRecorder) ListCustomersContacts(arg0, arg1 interface{}) *g
 }
 
 // ListDataSources mocks base method.
-func (m *MockIApi) ListDataSources() (*chartmogul.DataSources, error) {
+func (m *MockIApi) ListDataSources(params ...*chartmogul.ExtraDataSourceParams) (*chartmogul.DataSources, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListDataSources")
+	varargs := []interface{}{}
+	for _, a := range params {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListDataSources", varargs...)
 	ret0, _ := ret[0].(*chartmogul.DataSources)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ListDataSources indicates an expected call of ListDataSources.
-func (mr *MockIApiMockRecorder) ListDataSources() *gomock.Call {
+func (mr *MockIApiMockRecorder) ListDataSources(params ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDataSources", reflect.TypeOf((*MockIApi)(nil).ListDataSources))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDataSources", reflect.TypeOf((*MockIApi)(nil).ListDataSources), params...)
 }
 
 // ListDataSourcesWithFilters mocks base method.

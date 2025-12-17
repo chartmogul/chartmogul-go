@@ -1,14 +1,30 @@
 package chartmogul
 
+// ProcessingStatus represents the processing status of a data source.
+type ProcessingStatus struct {
+	Processed *int `json:"processed,omitempty"`
+	Pending   *int `json:"pending,omitempty"`
+	Failed    *int `json:"failed,omitempty"`
+}
+
+// AutoChurnSubscriptionSetting represents the auto churn subscription setting for a data source.
+type AutoChurnSubscriptionSetting struct {
+	Enabled  bool `json:"enabled"`
+	Interval *int `json:"interval"`
+}
+
 // DataSource represents API data source in ChartMogul.
 // See https://dev.chartmogul.com/v1.0/reference#list-data-sources
 type DataSource struct {
-	UUID      string `json:"uuid"`
-	Name      string `json:"name"`
-	CreatedAt string `json:"created_at"`
-	Status    string `json:"status"`
-	System    string `json:"system"`
-	Errors    Errors `json:"errors,omitempty"`
+	UUID                         string                        `json:"uuid"`
+	Name                         string                        `json:"name"`
+	CreatedAt                    string                        `json:"created_at"`
+	Status                       string                        `json:"status"`
+	System                       string                        `json:"system"`
+	ProcessingStatus             *ProcessingStatus             `json:"processing_status,omitempty"`
+	AutoChurnSubscriptionSetting *AutoChurnSubscriptionSetting `json:"auto_churn_subscription_setting,omitempty"`
+	InvoiceHandlingSetting       map[string]interface{}        `json:"invoice_handling_setting,omitempty"`
+	Errors                       Errors                        `json:"errors,omitempty"`
 }
 
 // DataSources is the result of listing data sources, but doesn't contain any paging.
@@ -16,8 +32,16 @@ type DataSources struct {
 	DataSources []*DataSource `json:"data_sources"`
 }
 
+// ExtraDataSourceParams are optional parameters for additional data source information.
+type ExtraDataSourceParams struct {
+	WithProcessingStatus             *bool `json:"with_processing_status,omitempty"`
+	WithAutoChurnSubscriptionSetting *bool `json:"with_auto_churn_subscription_setting,omitempty"`
+	WithInvoiceHandlingSetting       *bool `json:"with_invoice_handling_setting,omitempty"`
+}
+
 // ListDataSourcesParams are optional parameters for listing data sources.
 type ListDataSourcesParams struct {
+	ExtraDataSourceParams
 	Name   string `json:"name,omitempty"`
 	System string `json:"system,omitempty"`
 }
@@ -54,24 +78,47 @@ func (api API) CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, 
 }
 
 // RetrieveDataSource returns one Data Source by UUID.
+// Optionally accepts ExtraDataSourceParams for additional query options with named parameters:
+// - WithProcessingStatus: include processing status information
+// - WithAutoChurnSubscriptionSetting: include auto-churn subscription settings
+// - WithInvoiceHandlingSetting: include invoice handling settings
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
-func (api API) RetrieveDataSource(dataSourceUUID string) (*DataSource, error) {
+func (api API) RetrieveDataSource(dataSourceUUID string, params ...*ExtraDataSourceParams) (*DataSource, error) {
 	result := &DataSource{}
-	return result, api.retrieve(singleDataSourceEndpoint, dataSourceUUID, result)
+
+	if len(params) == 0 || params[0] == nil {
+		// No params provided - use original retrieve method
+		return result, api.retrieve(singleDataSourceEndpoint, dataSourceUUID, result)
+	}
+
+	return result, api.retrieveWithParams(singleDataSourceEndpoint, dataSourceUUID, result, params[0])
 }
 
 // ListDataSources lists all available Data Sources (no paging).
+// Optionally accepts ExtraDataSourceParams for additional query options with named parameters:
+// - WithProcessingStatus: include processing status information
+// - WithAutoChurnSubscriptionSetting: include auto-churn subscription settings
+// - WithInvoiceHandlingSetting: include invoice handling settings
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
-func (api API) ListDataSources() (*DataSources, error) {
+func (api API) ListDataSources(params ...*ExtraDataSourceParams) (*DataSources, error) {
 	ds := &DataSources{}
-	err := api.list(dataSourcesEndpoint, ds)
+	if len(params) == 0 || params[0] == nil {
+		// No params provided - use original list method
+		err := api.list(dataSourcesEndpoint, ds)
+		return ds, err
+	}
+
+	// Use list with query parameters
+	query := make([]interface{}, 0, 1)
+	query = append(query, *params[0])
+	err := api.list(dataSourcesEndpoint, ds, query...)
 	return ds, err
 }
 
 // ListDataSourcesWithFilters lists all available Data Sources (no paging).
-// * Allows filtering.
+// Accepts filtering parameters and extra data parameters in a single struct.
 //
 // See https://dev.chartmogul.com/v1.0/reference#data-sources
 func (api API) ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error) {
