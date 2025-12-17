@@ -7,6 +7,7 @@ type MetricsFilter struct {
 	Interval  string `json:"interval,omitempty"`
 	Geo       string `json:"geo,omitempty"`
 	Plans     string `json:"plans,omitempty"`
+	Filters   string `json:"filters,omitempty"`
 }
 
 // AllMetrics represents results of Metrics API.
