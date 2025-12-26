@@ -58,3 +58,69 @@ func TestListCustomerSubscriptions(t *testing.T) {
 		t.Fatal("Unexpected result")
 	}
 }
+
+// Test MetricsConnectSubscriptions
+func TestMetricsConnectSubscriptions(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers/cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7/connect_subscriptions" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+
+	subscriptions := []*MetricsCustomerSubscription{
+		{UUID: "sub_uuid_1"},
+		{UUID: "sub_uuid_2"},
+	}
+
+	err := tested.MetricsConnectSubscriptions("ds_uuid", "cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7", subscriptions)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+// Test MetricsDisconnectSubscriptions
+func TestMetricsDisconnectSubscriptions(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers/cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7/disconnect_subscriptions" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+
+	subscriptions := []*MetricsCustomerSubscription{
+		{UUID: "sub_uuid_1"},
+		{UUID: "sub_uuid_2"},
+	}
+
+	err := tested.MetricsDisconnectSubscriptions("ds_uuid", "cus_8bc55ab6-c3b5-11eb-ac45-2f9a49d75af7", subscriptions)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}

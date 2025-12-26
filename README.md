@@ -130,7 +130,9 @@ api.ListCustomers(&cm.ListCustomersParams{})
 api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
 api.UnmergeCustomers(&cm.UnmergeCustomersParams{})
+// DEPRECATED: Use api.MetricsConnectSubscriptions instead
 api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
+// DEPRECATED: Use api.MetricsDisconnectSubscriptions instead
 api.DisconnectSubscriptions("customerUUID", []cm.Subscription{})
 api.ListCustomersContact(&cm.ListContactsParams{}, "customerUUID")
 api.CreateCustomersContact(&cm.NewContact{}, "customerUUID")
@@ -225,7 +227,13 @@ api.CreateTransaction(&cm.Transaction{}, "invoiceUUID")
 ```go
 api.CancelSubscription("subscriptionUUID", &cm.CancelSubscriptionParams{CancelledAt: "2005-01-01T01:02:03.000Z"})
 api.CancelSubscription("subscriptionUUID", &cm.CancelSubscriptionParams{CancellationDates: []string{"2005-01-01T01:02:03.000Z", "2006-10-21T11:21:13.000Z"}})
+// DEPRECATED: Use api.MetricsListCustomerSubscriptions instead
 api.ListSubscriptions(&cm.Cursor{}, "customerUUID")
+
+// Recommended: Use Metrics API for subscriptions
+api.MetricsListCustomerSubscriptions(&cm.Cursor{}, "customerUUID")
+api.MetricsConnectSubscriptions("dataSourceUUID", "customerUUID", []*cm.MetricsCustomerSubscription{})
+api.MetricsDisconnectSubscriptions("dataSourceUUID", "customerUUID", []*cm.MetricsCustomerSubscription{})
 ```
 
 #### [Customer Attributes](https://dev.chartmogul.com/reference/customers/attributes/)

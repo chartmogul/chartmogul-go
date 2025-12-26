@@ -80,6 +80,8 @@ type IApi interface {
 	// Subscriptions
 	CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error)
 	ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error)
+	ConnectSubscriptions(customerUUID string, subscriptions []Subscription) error
+	DisconnectSubscriptions(customerUUID string, subscriptions []Subscription) error
 	// Transactions
 	CreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error)
 
@@ -151,6 +153,8 @@ type IApi interface {
 
 	// Metrics - Subscriptions & Activities
 	MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error)
+	MetricsConnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error
+	MetricsDisconnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error
 	MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error)
 	MetricsListActivities(MetricsListActivitiesParams *MetricsListActivitiesParams) (*MetricsActivities, error)
 	MetricsCreateActivitiesExport(CreateMetricsActivitiesExportParam *CreateMetricsActivitiesExportParam) (*MetricsActivitiesExport, error)

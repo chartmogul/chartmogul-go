@@ -1,6 +1,7 @@
 package chartmogul
 
 import (
+	"log"
 	"strings"
 )
 
@@ -45,8 +46,7 @@ func (api API) CancelSubscription(subscriptionUUID string, cancelSubscriptionPar
 }
 
 // ListSubscriptions lists all subscriptions for cutomer of given UUID.
-//
-// See https://dev.chartmogul.com/v1.0/reference#subscriptions
+// DEPRECATED: Use MetricsListCustomerSubscriptions instead.
 func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error) {
 	result := &Subscriptions{}
 	path := strings.Replace(subscriptionsEndpoint, ":customerUUID", customerUUID, 1)
@@ -58,19 +58,19 @@ func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscrip
 }
 
 // ConnectSubscriptions connects two subscription objects
-//
-// See https://dev.chartmogul.com/reference#connect-subscriptions
+// DEPRECATED: Use MetricsConnectSubscriptions instead.
 func (api API) ConnectSubscriptions(customerUUID string, subscriptions []Subscription) error {
+	log.Println("[DEPRECATED] ConnectSubscriptions is deprecated. Use MetricsConnectSubscriptions instead.")
 	path := strings.Replace(connectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 	return api.merge(path, Subscriptions{
 		Subscriptions: subscriptions,
 	})
 }
 
-// DisconnectSubscriptions connects two subscription objects
-//
-// See https://dev.chartmogul.com/reference#disconnect-subscriptions
+// DisconnectSubscriptions disconnects two subscription objects
+// DEPRECATED: Use MetricsDisconnectSubscriptions instead.
 func (api API) DisconnectSubscriptions(customerUUID string, subscriptions []Subscription) error {
+	log.Println("[DEPRECATED] DisconnectSubscriptions is deprecated. Use MetricsDisconnectSubscriptions instead.")
 	path := strings.Replace(disconnectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 	return api.merge(path, Subscriptions{
 		Subscriptions: subscriptions,
