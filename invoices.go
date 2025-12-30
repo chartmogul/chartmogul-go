@@ -60,10 +60,20 @@ type LineItem struct {
 
 // ListAllInvoicesParams optional parameters for ListAllInvoices
 type ListAllInvoicesParams struct {
-	CustomerUUID   string `json:"customer_uuid,omitempty"`
-	DataSourceUUID string `json:"data_source_uuid,omitempty"`
-	ExternalID     string `json:"external_id,omitempty"`
+	CustomerUUID         string `json:"customer_uuid,omitempty"`
+	DataSourceUUID       string `json:"data_source_uuid,omitempty"`
+	ExternalID           string `json:"external_id,omitempty"`
+	ValidationType       string `json:"validation_type,omitempty"`        // Enum: "all", "valid" (default), "invalid"
+	IncludeEditHistories *bool  `json:"include_edit_histories,omitempty"` // Include edit histories
+	WithDisabled         *bool  `json:"with_disabled,omitempty"`          // Include disabled invoices
 	Cursor
+}
+
+// RetrieveInvoiceParams optional parameters for RetrieveInvoice
+type RetrieveInvoiceParams struct {
+	ValidationType       string `json:"validation_type,omitempty"`        // Enum: "all", "valid" (default), "invalid"
+	IncludeEditHistories *bool  `json:"include_edit_histories,omitempty"` // Include edit histories
+	WithDisabled         *bool  `json:"with_disabled,omitempty"`          // Include disabled invoices
 }
 
 // CreateInvoices loads an invoice to a customer in Chartmogul.
@@ -108,11 +118,18 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 }
 
 // RetrieveInvoice returns one Invoice by UUID.
+// Optionally accepts RetrieveInvoiceParams for additional query options.
 //
 // See https://dev.chartmogul.com/v1.0/reference#invoices
-func (api API) RetrieveInvoice(invoiceUUID string) (*Invoice, error) {
+func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error) {
 	result := &Invoice{}
-	return result, api.retrieve(singleInvoiceEndpoint, invoiceUUID, result)
+
+	if len(params) == 0 || params[0] == nil {
+		// No params provided - use original retrieve method
+		return result, api.retrieve(singleInvoiceEndpoint, invoiceUUID, result)
+	}
+
+	return result, api.retrieveWithParams(singleInvoiceEndpoint, invoiceUUID, result, *params[0])
 }
 
 // DeleteInvoice deletes one invoice by UUID.

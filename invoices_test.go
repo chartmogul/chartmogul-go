@@ -139,6 +139,79 @@ func TestNewInvoicesAllListing(t *testing.T) {
 	}
 }
 
+func TestListAllInvoicesWithValidationType(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				// Check query parameter
+				validationType := r.URL.Query().Get("validation_type")
+				if validationType != "all" {
+					t.Errorf("Expected validation_type=all, got: %v", validationType)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(listAllInvoicesExample)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	result, err := tested.ListAllInvoices(&ListAllInvoicesParams{
+		ValidationType: "all",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(result.Invoices) != 1 {
+		spew.Dump(result)
+		t.Fatal("Unexpected values")
+	}
+}
+
+func TestListAllInvoicesWithAllParams(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				// Check query parameters
+				query := r.URL.Query()
+				if query.Get("validation_type") != "valid" {
+					t.Errorf("Expected validation_type=valid, got: %v", query.Get("validation_type"))
+				}
+				if query.Get("include_edit_histories") != "true" {
+					t.Errorf("Expected include_edit_histories=true, got: %v", query.Get("include_edit_histories"))
+				}
+				if query.Get("with_disabled") != "true" {
+					t.Errorf("Expected with_disabled=true, got: %v", query.Get("with_disabled"))
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(listAllInvoicesExample)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	trueBool := true
+	result, err := tested.ListAllInvoices(&ListAllInvoicesParams{
+		ValidationType:       "valid",
+		IncludeEditHistories: &trueBool,
+		WithDisabled:         &trueBool,
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(result.Invoices) != 1 {
+		spew.Dump(result)
+		t.Fatal("Unexpected values")
+	}
+}
+
 func TestDeleteInvoice(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(
@@ -188,6 +261,98 @@ func TestRetrieveInvoice(t *testing.T) {
 		ApiKey: "token",
 	}
 	invoice, err := tested.RetrieveInvoice("inv_123")
+
+	if len(invoice.LineItems) != 1 || len(invoice.Transactions) != 1 || invoice.UUID != "inv_123" {
+		spew.Dump(invoice)
+		t.Error("Unexpected invoice")
+	}
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestRetrieveInvoiceWithValidationType(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "GET"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/invoices/inv_123"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				// Check query parameter
+				validationType := r.URL.Query().Get("validation_type")
+				if validationType != "all" {
+					t.Errorf("Expected validation_type=all, got: %v", validationType)
+				}
+				w.Write([]byte(retrieveInvoiceExample)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	invoice, err := tested.RetrieveInvoice("inv_123", &RetrieveInvoiceParams{
+		ValidationType: "all",
+	})
+
+	if len(invoice.LineItems) != 1 || len(invoice.Transactions) != 1 || invoice.UUID != "inv_123" {
+		spew.Dump(invoice)
+		t.Error("Unexpected invoice")
+	}
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestRetrieveInvoiceWithAllParams(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "GET"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/invoices/inv_123"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				// Check query parameters
+				query := r.URL.Query()
+				if query.Get("validation_type") != "invalid" {
+					t.Errorf("Expected validation_type=invalid, got: %v", query.Get("validation_type"))
+				}
+				if query.Get("include_edit_histories") != "true" {
+					t.Errorf("Expected include_edit_histories=true, got: %v", query.Get("include_edit_histories"))
+				}
+				if query.Get("with_disabled") != "false" {
+					t.Errorf("Expected with_disabled=false, got: %v", query.Get("with_disabled"))
+				}
+				w.Write([]byte(retrieveInvoiceExample)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	trueBool := true
+	falseBool := false
+	invoice, err := tested.RetrieveInvoice("inv_123", &RetrieveInvoiceParams{
+		ValidationType:       "invalid",
+		IncludeEditHistories: &trueBool,
+		WithDisabled:         &falseBool,
+	})
 
 	if len(invoice.LineItems) != 1 || len(invoice.Transactions) != 1 || invoice.UUID != "inv_123" {
 		spew.Dump(invoice)

@@ -62,7 +62,7 @@ type IApi interface {
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
 	ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error)
-	RetrieveInvoice(invoiceUUID string) (*Invoice, error)
+	RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error)
 	DeleteInvoice(invoiceUUID string) error
 	// Plans
 	CreatePlan(plan *Plan) (result *Plan, err error)
