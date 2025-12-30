@@ -124,12 +124,13 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error) {
 	result := &Invoice{}
 
-	if len(params) == 0 || params[0] == nil {
-		// No params provided - use original retrieve method
-		return result, api.retrieve(singleInvoiceEndpoint, invoiceUUID, result)
+	if len(params) > 0 && params[0] != nil {
+		// Params provided - use retrieveWithParams
+		return result, api.retrieveWithParams(singleInvoiceEndpoint, invoiceUUID, result, *params[0])
 	}
 
-	return result, api.retrieveWithParams(singleInvoiceEndpoint, invoiceUUID, result, *params[0])
+	// No params provided - use original retrieve method
+	return result, api.retrieve(singleInvoiceEndpoint, invoiceUUID, result)
 }
 
 // DeleteInvoice deletes one invoice by UUID.
