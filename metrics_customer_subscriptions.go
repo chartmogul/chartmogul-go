@@ -41,7 +41,7 @@ const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
 // MetricsListCustomerSubscriptions lists all subscriptions for customer of a given UUID.
 //
-// See https://dev.chartmogul.com/v1.0/reference#list-customer-subscriptions
+// See https://dev.chartmogul.com/reference/subscriptions/list
 func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error) {
 	result := &MetricsCustomerSubscriptions{}
 	path := strings.Replace(metricsCustomerSubscriptionsEndpoint, ":uuid", customerUUID, 1)
@@ -54,7 +54,7 @@ func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID str
 
 // MetricsConnectSubscriptions connects subscription objects for a customer.
 //
-// See https://dev.chartmogul.com/reference#connect-subscriptions
+// See https://dev.chartmogul.com/reference/subscriptions/connect
 func (api API) MetricsConnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error {
 	path := strings.Replace(connectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 
@@ -72,6 +72,8 @@ func (api API) MetricsConnectSubscriptions(dataSourceUUID string, customerUUID s
 }
 
 // MetricsDisconnectSubscriptions disconnects subscription objects for a customer.
+//
+// See https://dev.chartmogul.com/reference/subscriptions/disconnect
 func (api API) MetricsDisconnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error {
 	path := strings.Replace(disconnectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 

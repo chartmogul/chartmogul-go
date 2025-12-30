@@ -45,7 +45,7 @@ func (api API) CancelSubscription(subscriptionUUID string, cancelSubscriptionPar
 		result)
 }
 
-// ListSubscriptions lists all subscriptions for cutomer of given UUID.
+// ListSubscriptions lists all subscriptions for customer of given UUID.
 // DEPRECATED: Use MetricsListCustomerSubscriptions instead.
 func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error) {
 	result := &Subscriptions{}
