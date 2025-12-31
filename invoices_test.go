@@ -76,6 +76,7 @@ const retrieveInvoiceExample = `{
 	"date": "2015-11-01T00:00:00.000Z",
 	"due_date": "2015-11-15T00:00:00.000Z",
 	"currency": "USD",
+	"disabled": false,
 	"line_items": [
 		{
 			"uuid": "li_d72e6843-5793-41d0-bfdf-0269514c9c56",
@@ -106,7 +107,114 @@ const retrieveInvoiceExample = `{
 			"date": "2015-11-05T00:14:23.000Z",
 			"result": "successful"
 		}
-	]
+	],
+	"errors": {}
+}`
+
+const retrieveInvoiceWithEditHistoryExample = `{
+	"uuid": "inv_123",
+	"external_id": "INV0001",
+	"date": "2015-11-01T00:00:00.000Z",
+	"due_date": "2015-11-15T00:00:00.000Z",
+	"currency": "USD",
+	"disabled": false,
+	"disabled_at": "",
+	"disabled_by": "",
+	"line_items": [
+		{
+			"uuid": "li_d72e6843-5793-41d0-bfdf-0269514c9c56",
+			"external_id": null,
+			"type": "subscription",
+			"subscription_uuid": "sub_e6bc5407-e258-4de0-bb43-61faaf062035",
+			"subscription_external_id": "sub_external_id_123",
+			"subscription_set_external_id": "set_external_id_123",
+			"plan_uuid": "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+			"prorated": false,
+			"service_period_start": "2015-11-01T00:00:00.000Z",
+			"service_period_end": "2015-12-01T00:00:00.000Z",
+			"amount_in_cents": 5000,
+			"quantity": 1,
+			"discount_code": "PSO86",
+			"discount_amount_in_cents": 1000,
+			"tax_amount_in_cents": 900,
+			"transaction_fees_currency": "EUR",
+			"discount_description": "5 EUR",
+			"account_code": null
+		}
+	],
+	"transactions": [
+		{
+			"uuid": "tr_879d560a-1bec-41bb-986e-665e38a2f7bc",
+			"external_id": null,
+			"type": "payment",
+			"date": "2015-11-05T00:14:23.000Z",
+			"result": "successful"
+		}
+	],
+	"edit_history_summary": {
+		"values_changed": {
+			"date": {
+				"original_value": "2015-07-31T21:39:06.000Z",
+				"edited_value": "2015-07-14T21:39:06.000Z"
+			},
+			"amount_in_cents": {
+				"original_value": 11000,
+				"edited_value": 10000
+			}
+		},
+		"latest_edit_author": "test@example.com",
+		"latest_edit_performed_at": "2015-08-04T12:36:50.574Z"
+	},
+	"errors": {}
+}`
+
+const retrieveInvoiceWithErrorsExample = `{
+	"uuid": "inv_456",
+	"external_id": "INV0002",
+	"date": "2015-11-01T00:00:00.000Z",
+	"due_date": "2015-11-15T00:00:00.000Z",
+	"currency": "USD",
+	"disabled": false,
+	"line_items": [
+		{
+			"uuid": "li_d72e6843-5793-41d0-bfdf-0269514c9c56",
+			"external_id": null,
+			"type": "subscription",
+			"subscription_uuid": "sub_e6bc5407-e258-4de0-bb43-61faaf062035",
+			"subscription_external_id": "sub_external_id_123",
+			"subscription_set_external_id": "set_external_id_123",
+			"plan_uuid": "pl_eed05d54-75b4-431b-adb2-eb6b9e543206",
+			"prorated": false,
+			"service_period_start": "2015-11-01T00:00:00.000Z",
+			"service_period_end": "2015-12-01T00:00:00.000Z",
+			"amount_in_cents": 5000,
+			"quantity": 1,
+			"discount_code": "PSO86",
+			"discount_amount_in_cents": 1000,
+			"tax_amount_in_cents": 900,
+			"transaction_fees_currency": "EUR",
+			"discount_description": "5 EUR",
+			"account_code": null
+		}
+	],
+	"transactions": [
+		{
+			"uuid": "tr_879d560a-1bec-41bb-986e-665e38a2f7bc",
+			"external_id": null,
+			"type": "payment",
+			"date": "2015-11-05T00:14:23.000Z",
+			"result": "successful"
+		}
+	],
+	"errors": {
+		"currency": [
+			"The invoice currency must be specified for each invoice."
+		],
+		"date": [
+			"Invoice date is required.",
+			"Invoice date must be in the past."
+		]
+	}
 }`
 
 func TestNewInvoicesAllListing(t *testing.T) {
@@ -338,7 +446,7 @@ func TestRetrieveInvoiceWithAllParams(t *testing.T) {
 				if query.Get("with_disabled") != "false" {
 					t.Errorf("Expected with_disabled=false, got: %v", query.Get("with_disabled"))
 				}
-				w.Write([]byte(retrieveInvoiceExample)) //nolint
+				w.Write([]byte(retrieveInvoiceWithEditHistoryExample)) //nolint
 			}))
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
@@ -358,6 +466,88 @@ func TestRetrieveInvoiceWithAllParams(t *testing.T) {
 		spew.Dump(invoice)
 		t.Error("Unexpected invoice")
 	}
+
+	// Check new fields
+	if invoice.Disabled == nil || *invoice.Disabled != false {
+		t.Error("Expected disabled field to be false")
+	}
+
+	if invoice.EditHistorySummary == nil {
+		t.Error("Expected edit_history_summary to be present")
+	} else {
+		if invoice.EditHistorySummary.LatestEditAuthor != "test@example.com" {
+			t.Errorf("Expected latest_edit_author to be 'test@example.com', got: %v", invoice.EditHistorySummary.LatestEditAuthor)
+		}
+		if invoice.EditHistorySummary.LatestEditPerformedAt != "2015-08-04T12:36:50.574Z" {
+			t.Errorf("Expected latest_edit_performed_at to be '2015-08-04T12:36:50.574Z', got: %v", invoice.EditHistorySummary.LatestEditPerformedAt)
+		}
+		if len(invoice.EditHistorySummary.ValuesChanged) != 2 {
+			t.Errorf("Expected 2 values changed, got: %v", len(invoice.EditHistorySummary.ValuesChanged))
+		}
+	}
+
+	if invoice.Errors == nil {
+		t.Error("Expected errors field to be present")
+	}
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestRetrieveInvoiceWithErrors(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "GET"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/invoices/inv_456"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				w.Write([]byte(retrieveInvoiceWithErrorsExample)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	invoice, err := tested.RetrieveInvoice("inv_456")
+
+	if invoice.UUID != "inv_456" {
+		t.Errorf("Expected UUID to be 'inv_456', got: %v", invoice.UUID)
+	}
+
+	// Check errors field
+	if invoice.Errors == nil {
+		t.Fatal("Expected errors field to be present")
+	}
+
+	currencyErrors := (*invoice.Errors)["currency"]
+	if len(currencyErrors) != 1 {
+		t.Errorf("Expected 1 currency error, got: %v", len(currencyErrors))
+	} else if currencyErrors[0] != "The invoice currency must be specified for each invoice." {
+		t.Errorf("Unexpected currency error message: %v", currencyErrors[0])
+	}
+
+	dateErrors := (*invoice.Errors)["date"]
+	if len(dateErrors) != 2 {
+		t.Errorf("Expected 2 date errors, got: %v", len(dateErrors))
+	} else {
+		if dateErrors[0] != "Invoice date is required." {
+			t.Errorf("Unexpected first date error message: %v", dateErrors[0])
+		}
+		if dateErrors[1] != "Invoice date must be in the past." {
+			t.Errorf("Unexpected second date error message: %v", dateErrors[1])
+		}
+	}
+
 	if err != nil {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
