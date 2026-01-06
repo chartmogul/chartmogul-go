@@ -2,6 +2,19 @@ package chartmogul
 
 import "strings"
 
+// EditHistorySummary represents the edit history summary of an invoice
+type EditHistorySummary struct {
+	ValuesChanged         map[string]ValueChange `json:"values_changed,omitempty"`
+	LatestEditAuthor      string                 `json:"latest_edit_author,omitempty"`
+	LatestEditPerformedAt string                 `json:"latest_edit_performed_at,omitempty"`
+}
+
+// ValueChange represents a single value change in the edit history
+type ValueChange struct {
+	OriginalValue interface{} `json:"original_value,omitempty"`
+	EditedValue   interface{} `json:"edited_value,omitempty"`
+}
+
 const (
 	invoicesEndpoint          = "invoices"
 	singleInvoiceEndpoint     = "invoices/:uuid"
@@ -19,17 +32,21 @@ type Invoices struct {
 
 // Invoice is the data for ChartMogul to auto-generate subscriptions.
 type Invoice struct {
-	UUID               string         `json:"uuid,omitempty"`
-	CustomerUUID       string         `json:"customer_uuid,omitempty"`
-	CustomerExternalID string         `json:"customer_external_id,omitempty"`
-	Currency           string         `json:"currency"`
-	DataSourceUUID     string         `json:"data_source_uuid,omitempty"`
-	Date               string         `json:"date"`
-	DueDate            string         `json:"due_date,omitempty"`
-	ExternalID         string         `json:"external_id"`
-	LineItems          []*LineItem    `json:"line_items"`
-	Transactions       []*Transaction `json:"transactions,omitempty"`
-	Errors             *Errors        `json:"errors,omitempty"`
+	UUID               string              `json:"uuid,omitempty"`
+	CustomerUUID       string              `json:"customer_uuid,omitempty"`
+	CustomerExternalID string              `json:"customer_external_id,omitempty"`
+	Currency           string              `json:"currency"`
+	DataSourceUUID     string              `json:"data_source_uuid,omitempty"`
+	Date               string              `json:"date"`
+	DueDate            string              `json:"due_date,omitempty"`
+	ExternalID         string              `json:"external_id"`
+	LineItems          []*LineItem         `json:"line_items"`
+	Transactions       []*Transaction      `json:"transactions,omitempty"`
+	Disabled           *bool               `json:"disabled,omitempty"`
+	DisabledAt         string              `json:"disabled_at,omitempty"`
+	DisabledBy         string              `json:"disabled_by,omitempty"`
+	EditHistorySummary *EditHistorySummary `json:"edit_history_summary,omitempty"`
+	Errors             *InvoiceErrors      `json:"errors,omitempty"`
 }
 
 // LineItem represents a singular items of the invoices
@@ -60,10 +77,20 @@ type LineItem struct {
 
 // ListAllInvoicesParams optional parameters for ListAllInvoices
 type ListAllInvoicesParams struct {
-	CustomerUUID   string `json:"customer_uuid,omitempty"`
-	DataSourceUUID string `json:"data_source_uuid,omitempty"`
-	ExternalID     string `json:"external_id,omitempty"`
+	CustomerUUID         string `json:"customer_uuid,omitempty"`
+	DataSourceUUID       string `json:"data_source_uuid,omitempty"`
+	ExternalID           string `json:"external_id,omitempty"`
+	ValidationType       string `json:"validation_type,omitempty"`        // Enum: "all", "valid" (default), "invalid"
+	IncludeEditHistories *bool  `json:"include_edit_histories,omitempty"` // Include edit histories
+	WithDisabled         *bool  `json:"with_disabled,omitempty"`          // Include disabled invoices
 	Cursor
+}
+
+// RetrieveInvoiceParams optional parameters for RetrieveInvoice
+type RetrieveInvoiceParams struct {
+	ValidationType       string `json:"validation_type,omitempty"`        // Enum: "all", "valid" (default), "invalid"
+	IncludeEditHistories *bool  `json:"include_edit_histories,omitempty"` // Include edit histories
+	WithDisabled         *bool  `json:"with_disabled,omitempty"`          // Include disabled invoices
 }
 
 // CreateInvoices loads an invoice to a customer in Chartmogul.
@@ -108,10 +135,18 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 }
 
 // RetrieveInvoice returns one Invoice by UUID.
+// Optionally accepts RetrieveInvoiceParams for additional query options.
 //
 // See https://dev.chartmogul.com/v1.0/reference#invoices
-func (api API) RetrieveInvoice(invoiceUUID string) (*Invoice, error) {
+func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error) {
 	result := &Invoice{}
+
+	if len(params) > 0 && params[0] != nil {
+		// Params provided - use retrieveWithParams
+		return result, api.retrieveWithParams(singleInvoiceEndpoint, invoiceUUID, result, *params[0])
+	}
+
+	// No params provided - use original retrieve method
 	return result, api.retrieve(singleInvoiceEndpoint, invoiceUUID, result)
 }
 

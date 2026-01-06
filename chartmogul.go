@@ -62,7 +62,7 @@ type IApi interface {
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
 	ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error)
-	RetrieveInvoice(invoiceUUID string) (*Invoice, error)
+	RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error)
 	DeleteInvoice(invoiceUUID string) error
 	// Plans
 	CreatePlan(plan *Plan) (result *Plan, err error)
@@ -195,6 +195,9 @@ type Cursor struct {
 
 // Errors contains error feedback from ChartMogul
 type Errors map[string]string
+
+// InvoiceErrors contains validation errors for invoices where each field can have multiple error messages
+type InvoiceErrors map[string][]string
 
 func (e Errors) Error() string {
 	return fmt.Sprintf("chartmogul: %v", map[string]string(e))
