@@ -17,6 +17,7 @@ type MetricsCustomerSubscription struct {
 	EndDate           string  `json:"end-date"`
 	Currency          string  `json:"currency"`
 	CurrencySign      string  `json:"currency-sign"`
+	UUID              string  `json:"uuid,omitempty"` // UUID field for connect/disconnect operations
 }
 
 // MetricsCustomerSubscriptions is the result of listing subscriptions in Metrics API.
@@ -25,11 +26,22 @@ type MetricsCustomerSubscriptions struct {
 	Pagination
 }
 
+// MetricsConnectSubscriptionsParams represents subscriptions data for connect/disconnect operations.
+type MetricsConnectSubscriptionsParams struct {
+	Subscriptions []MetricsSubscriptionReference `json:"subscriptions"`
+}
+
+// MetricsSubscriptionReference represents a minimal subscription reference with UUID and data source.
+type MetricsSubscriptionReference struct {
+	UUID           string `json:"uuid"`
+	DataSourceUUID string `json:"data_source_uuid"`
+}
+
 const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
 // MetricsListCustomerSubscriptions lists all subscriptions for customer of a given UUID.
 //
-// See https://dev.chartmogul.com/v1.0/reference#list-customer-subscriptions
+// See https://dev.chartmogul.com/reference/subscriptions/list
 func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error) {
 	result := &MetricsCustomerSubscriptions{}
 	path := strings.Replace(metricsCustomerSubscriptionsEndpoint, ":uuid", customerUUID, 1)
@@ -38,4 +50,42 @@ func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID str
 		query = append(query, *cursor)
 	}
 	return result, api.list(path, result, query...)
+}
+
+// MetricsConnectSubscriptions connects subscription objects for a customer.
+//
+// See https://dev.chartmogul.com/reference/subscriptions/connect
+func (api API) MetricsConnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error {
+	path := strings.Replace(connectSubscriptionEndpoint, ":uuid", customerUUID, 1)
+
+	refs := make([]MetricsSubscriptionReference, len(subscriptions))
+	for i, sub := range subscriptions {
+		refs[i] = MetricsSubscriptionReference{
+			UUID:           sub.UUID,
+			DataSourceUUID: dataSourceUUID,
+		}
+	}
+
+	return api.merge(path, MetricsConnectSubscriptionsParams{
+		Subscriptions: refs,
+	})
+}
+
+// MetricsDisconnectSubscriptions disconnects subscription objects for a customer.
+//
+// See https://dev.chartmogul.com/reference/subscriptions/disconnect
+func (api API) MetricsDisconnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error {
+	path := strings.Replace(disconnectSubscriptionEndpoint, ":uuid", customerUUID, 1)
+
+	refs := make([]MetricsSubscriptionReference, len(subscriptions))
+	for i, sub := range subscriptions {
+		refs[i] = MetricsSubscriptionReference{
+			UUID:           sub.UUID,
+			DataSourceUUID: dataSourceUUID,
+		}
+	}
+
+	return api.merge(path, MetricsConnectSubscriptionsParams{
+		Subscriptions: refs,
+	})
 }
