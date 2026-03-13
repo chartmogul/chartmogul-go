@@ -17,6 +17,7 @@ type Contact struct {
 	Position           uint32                 `json:"position,omitempty"`
 	Title              string                 `json:"title,omitempty"`
 	Twitter            string                 `json:"twitter,omitempty"`
+	ExternalID         *string                `json:"external_id,omitempty"`
 	Custom             map[string]interface{} `json:"custom,omitempty"`
 }
 
@@ -24,6 +25,7 @@ type Contact struct {
 type UpdateContact struct {
 	CustomerExternalID string   `json:"customer_external_id,omitempty"`
 	DataSourceUUID     string   `json:"data_source_uuid,omitempty"`
+	ExternalID         *string  `json:"external_id,omitempty"`
 	FirstName          string   `json:"first_name,omitempty"`
 	LastName           string   `json:"last_name,omitempty"`
 	LinkedIn           string   `json:"linked_in,omitempty"`
@@ -42,15 +44,16 @@ type NewContact struct {
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
 
 	//Optional
-	FirstName string   `json:"first_name,omitempty"`
-	LastName  string   `json:"last_name,omitempty"`
-	LinkedIn  string   `json:"linked_in,omitempty"`
-	Notes     string   `json:"notes,omitempty"`
-	Phone     string   `json:"phone,omitempty"`
-	Position  uint32   `json:"position,omitempty"`
-	Title     string   `json:"title,omitempty"`
-	Twitter   string   `json:"twitter,omitempty"`
-	Custom    []Custom `json:"custom,omitempty"`
+	ExternalID *string  `json:"external_id,omitempty"`
+	FirstName  string   `json:"first_name,omitempty"`
+	LastName   string   `json:"last_name,omitempty"`
+	LinkedIn   string   `json:"linked_in,omitempty"`
+	Notes      string   `json:"notes,omitempty"`
+	Phone      string   `json:"phone,omitempty"`
+	Position   uint32   `json:"position,omitempty"`
+	Title      string   `json:"title,omitempty"`
+	Twitter    string   `json:"twitter,omitempty"`
+	Custom     []Custom `json:"custom,omitempty"`
 }
 
 // ListContactsParams = parameters for listing contacts in API.
