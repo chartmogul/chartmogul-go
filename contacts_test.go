@@ -130,6 +130,7 @@ func TestCreateContact(t *testing.T) {
 					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
 					"customer_external_id": "customer_001",
 					"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+					"external_id": "contact_external_id_001",
 					"position": 9,
 					"first_name": "Adam",
 					"last_name": "Smith",
@@ -152,9 +153,11 @@ func TestCreateContact(t *testing.T) {
 		ApiKey: "token",
 	}
 
+	externalID := "contact_external_id_001"
 	contact, err := tested.CreateContact(&NewContact{
 		CustomerUUID:   "cus_00000000-0000-0000-0000-000000000000",
 		DataSourceUUID: "ds_00000000-0000-0000-0000-000000000000",
+		ExternalID:     &externalID,
 		FirstName:      "Adam",
 		LastName:       "Smith",
 		LinkedIn:       "https://linkedin.com/linkedin",
@@ -183,6 +186,91 @@ func TestCreateContact(t *testing.T) {
 		spew.Dump(contact)
 		t.Fatal("Unexpected result")
 	}
+	if contact.ExternalID == nil || *contact.ExternalID != "contact_external_id_001" {
+		spew.Dump(contact)
+		t.Fatal("Unexpected ExternalID")
+	}
+}
+
+func TestCreateContactWithNullExternalID(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+					"external_id": null
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	contact, err := tested.CreateContact(&NewContact{
+		CustomerUUID:   "cus_00000000-0000-0000-0000-000000000000",
+		DataSourceUUID: "ds_00000000-0000-0000-0000-000000000000",
+		ExternalID:     nil,
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.ExternalID != nil {
+		spew.Dump(contact)
+		t.Fatal("Expected ExternalID to be nil")
+	}
+}
+
+// Note: Since ExternalID *string with omitempty serializes nil as an omitted field, both the
+// TestCreateContactWithNullExternalID test case above and this test case are structurally identical
+// from a serialization standpoint. They exist to document intent: (a) field can be absent and
+// (b) field can be explicitly null. Both verify the response parses null correctly.
+func TestCreateContactWithoutExternalID(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+					"external_id": null
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	contact, err := tested.CreateContact(&NewContact{
+		CustomerUUID:   "cus_00000000-0000-0000-0000-000000000000",
+		DataSourceUUID: "ds_00000000-0000-0000-0000-000000000000",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.ExternalID != nil {
+		spew.Dump(contact)
+		t.Fatal("Expected ExternalID to be nil")
+	}
 }
 
 func TestUpdateContact(t *testing.T) {
@@ -202,6 +290,7 @@ func TestUpdateContact(t *testing.T) {
 					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
 					"customer_external_id": "customer_001",
 					"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+					"external_id": "contact_external_id_002",
 					"position": 10,
 					"first_name": "Bill",
 					"last_name": "Thompson",
@@ -224,15 +313,17 @@ func TestUpdateContact(t *testing.T) {
 		ApiKey: "token",
 	}
 
+	externalID := "contact_external_id_002"
 	contact, err := tested.UpdateContact(&UpdateContact{
-		FirstName: "Bill",
-		LastName:  "Thompson",
-		LinkedIn:  "https://linkedin.com/bill-linkedin",
-		Notes:     "New Heading\nNew Body\nNew Footer",
-		Phone:     "+987654321",
-		Position:  10,
-		Title:     "CTO",
-		Twitter:   "https://twitter.com/bill-twitter",
+		ExternalID: &externalID,
+		FirstName:  "Bill",
+		LastName:   "Thompson",
+		LinkedIn:   "https://linkedin.com/bill-linkedin",
+		Notes:      "New Heading\nNew Body\nNew Footer",
+		Phone:      "+987654321",
+		Position:   10,
+		Title:      "CTO",
+		Twitter:    "https://twitter.com/bill-twitter",
 		Custom: []Custom{
 			{
 				Key:   "Facebook",
@@ -252,6 +343,47 @@ func TestUpdateContact(t *testing.T) {
 	if contact.FirstName != "Bill" {
 		spew.Dump(contact)
 		t.Fatal("Unexpected result")
+	}
+	if contact.ExternalID == nil || *contact.ExternalID != "contact_external_id_002" {
+		spew.Dump(contact)
+		t.Fatal("Unexpected ExternalID")
+	}
+}
+
+func TestUpdateContactWithNullExternalID(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "PATCH" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"customer_uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"data_source_uuid": "ds_00000000-0000-0000-0000-000000000000",
+					"external_id": null
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	contact, err := tested.UpdateContact(&UpdateContact{
+		ExternalID: nil,
+	}, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.ExternalID != nil {
+		spew.Dump(contact)
+		t.Fatal("Expected ExternalID to be nil")
 	}
 }
 
