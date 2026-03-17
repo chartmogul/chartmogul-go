@@ -58,7 +58,6 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 	var errs []error
 
 	// Retry on HTTP 429 rate limit, or network error, see:
-	// https://dev.chartmogul.com/docs/rate-limits
 	// https://godoc.org/github.com/cenkalti/backoff#pkg-constants
 	// nolint:errcheck
 	backoff.Retry(func() error {

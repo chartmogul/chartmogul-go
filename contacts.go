@@ -83,7 +83,6 @@ const (
 
 // CreateContact loads the contact to Chartmogul
 //
-// See https://dev.chartmogul.com/reference/create-a-contact-contacts
 func (api API) CreateContact(newContact *NewContact) (*Contact, error) {
 	result := &Contact{}
 	return result, api.create(contactsEndpoint, newContact, result)
@@ -91,7 +90,6 @@ func (api API) CreateContact(newContact *NewContact) (*Contact, error) {
 
 // RetrieveContact returns one contact as in API.
 //
-// See https://dev.chartmogul.com/reference/retrieve-a-contact
 func (api API) RetrieveContact(contactUUID string) (*Contact, error) {
 	result := &Contact{}
 	return result, api.retrieve(singleContactEndpoint, contactUUID, result)
@@ -99,7 +97,6 @@ func (api API) RetrieveContact(contactUUID string) (*Contact, error) {
 
 // UpdateContact updates one contact in API.
 //
-// See https://dev.chartmogul.com/reference/retrieve-a-contact
 func (api API) UpdateContact(input *UpdateContact, contactUUID string) (*Contact, error) {
 	output := &Contact{}
 	return output, api.update(singleContactEndpoint, contactUUID, input, output)
@@ -107,7 +104,6 @@ func (api API) UpdateContact(input *UpdateContact, contactUUID string) (*Contact
 
 // ListContacts lists all Contacts
 //
-// See https://dev.chartmogul.com/reference/list-all-contacts
 func (api API) ListContacts(listContactsParams *ListContactsParams) (*Contacts, error) {
 	result := &Contacts{}
 	query := make([]interface{}, 0, 1)
@@ -119,7 +115,6 @@ func (api API) ListContacts(listContactsParams *ListContactsParams) (*Contacts, 
 
 // MergeContact merges two contacts.
 //
-// See https://dev.chartmogul.com/reference/merge-contacts
 func (api API) MergeContacts(intoContactUUID string, fromContactUUID string) (*Contact, error) {
 	result := &Contact{}
 	temp_path := strings.Replace(mergeContactsEndpoint, ":into_contact_uuid", intoContactUUID, 1)
@@ -129,7 +124,6 @@ func (api API) MergeContacts(intoContactUUID string, fromContactUUID string) (*C
 
 // DeleteContact deletes one contact by UUID.
 //
-// See https://dev.chartmogul.com/reference/delete-a-contact
 func (api API) DeleteContact(contactUUID string) error {
 	return api.delete(singleContactEndpoint, contactUUID)
 }

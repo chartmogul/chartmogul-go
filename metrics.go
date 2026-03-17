@@ -195,7 +195,6 @@ const (
 
 // MetricsRetrieveAll retrieves all key metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-all-key-metrics
 func (api API) MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult, error) {
 	output := &MetricsResult{}
 	err := api.list(metricsEndpoint, output, *metricsFilter)
@@ -204,7 +203,6 @@ func (api API) MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult,
 
 // MetricsRetrieveMRR retrieves the MRR metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-mrr
 func (api API) MetricsRetrieveMRR(metricsFilter *MetricsFilter) (*MRRResult, error) {
 	output := &MRRResult{}
 	err := api.list(metricsMRREndpoint, output, *metricsFilter)
@@ -213,7 +211,6 @@ func (api API) MetricsRetrieveMRR(metricsFilter *MetricsFilter) (*MRRResult, err
 
 // MetricsRetrieveARR retrieves the ARR metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-arr
 func (api API) MetricsRetrieveARR(metricsFilter *MetricsFilter) (*ARRResult, error) {
 	output := &ARRResult{}
 	err := api.list(metricsARREndpoint, output, *metricsFilter)
@@ -222,7 +219,6 @@ func (api API) MetricsRetrieveARR(metricsFilter *MetricsFilter) (*ARRResult, err
 
 // MetricsRetrieveARPA retrieves the ARPA metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-arpa
 func (api API) MetricsRetrieveARPA(metricsFilter *MetricsFilter) (*ARPAResult, error) {
 	output := &ARPAResult{}
 	err := api.list(metricsARPAEndpoint, output, *metricsFilter)
@@ -231,7 +227,6 @@ func (api API) MetricsRetrieveARPA(metricsFilter *MetricsFilter) (*ARPAResult, e
 
 // MetricsRetrieveASP retrieves the ASP metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-asp
 func (api API) MetricsRetrieveASP(metricsFilter *MetricsFilter) (*ASPResult, error) {
 	output := &ASPResult{}
 	err := api.list(metricsASPEndpoint, output, *metricsFilter)
@@ -240,7 +235,6 @@ func (api API) MetricsRetrieveASP(metricsFilter *MetricsFilter) (*ASPResult, err
 
 // MetricsRetrieveCustomerCount retrieves customer count, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-customer-count
 func (api API) MetricsRetrieveCustomerCount(metricsFilter *MetricsFilter) (*CustomerCountResult, error) {
 	output := &CustomerCountResult{}
 	err := api.list(metricsCustomerCountEndpoint, output, *metricsFilter)
@@ -249,7 +243,6 @@ func (api API) MetricsRetrieveCustomerCount(metricsFilter *MetricsFilter) (*Cust
 
 // MetricsRetrieveCustomerChurnRate retrieves customer churn rate, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-customer-churn-rate
 func (api API) MetricsRetrieveCustomerChurnRate(metricsFilter *MetricsFilter) (*CustomerChurnRateResult, error) {
 	output := &CustomerChurnRateResult{}
 	err := api.list(metricsCustomerChurnRateEndpoint, output, *metricsFilter)
@@ -258,7 +251,6 @@ func (api API) MetricsRetrieveCustomerChurnRate(metricsFilter *MetricsFilter) (*
 
 // MetricsRetrieveMRRChurnRate retrieves all key metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-mrr-churn-rate
 func (api API) MetricsRetrieveMRRChurnRate(metricsFilter *MetricsFilter) (*MRRChurnRateResult, error) {
 	output := &MRRChurnRateResult{}
 	err := api.list(metricsMRRChurnRateEndpoint, output, *metricsFilter)
@@ -267,7 +259,6 @@ func (api API) MetricsRetrieveMRRChurnRate(metricsFilter *MetricsFilter) (*MRRCh
 
 // MetricsRetrieveLTV retrieves LTV metrics, for the specified time period.
 //
-// See https://dev.chartmogul.com/reference/retrieve-ltv
 func (api API) MetricsRetrieveLTV(metricsFilter *MetricsFilter) (*LTVResult, error) {
 	output := &LTVResult{}
 	err := api.list(metricsLTVEndpoint, output, *metricsFilter)
