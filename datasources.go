@@ -14,7 +14,6 @@ type AutoChurnSubscriptionSetting struct {
 }
 
 // DataSource represents API data source in ChartMogul.
-// See https://dev.chartmogul.com/reference/list-data-sources
 type DataSource struct {
 	UUID                         string                        `json:"uuid"`
 	Name                         string                        `json:"name"`
@@ -60,7 +59,6 @@ const (
 
 // CreateDataSource creates an API Data Source in ChartMogul.
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) CreateDataSource(name string) (*DataSource, error) {
 	ds := &DataSource{}
 	err := api.create(dataSourcesEndpoint, createDataSourceCall{Name: name}, ds)
@@ -70,7 +68,6 @@ func (api API) CreateDataSource(name string) (*DataSource, error) {
 // CreateDataSourceWithSystem creates an API Data Source in ChartMogul.
 // * Allows other parameters than just the name.
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, error) {
 	ds := &DataSource{}
 	err := api.create(dataSourcesEndpoint, dataSource, ds)
@@ -83,7 +80,6 @@ func (api API) CreateDataSourceWithSystem(dataSource *DataSource) (*DataSource, 
 // - WithAutoChurnSubscriptionSetting: include auto-churn subscription settings
 // - WithInvoiceHandlingSetting: include invoice handling settings
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) RetrieveDataSource(dataSourceUUID string, params ...*ExtraDataSourceParams) (*DataSource, error) {
 	result := &DataSource{}
 
@@ -101,7 +97,6 @@ func (api API) RetrieveDataSource(dataSourceUUID string, params ...*ExtraDataSou
 // - WithAutoChurnSubscriptionSetting: include auto-churn subscription settings
 // - WithInvoiceHandlingSetting: include invoice handling settings
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) ListDataSources(params ...*ExtraDataSourceParams) (*DataSources, error) {
 	ds := &DataSources{}
 	if len(params) == 0 || params[0] == nil {
@@ -120,7 +115,6 @@ func (api API) ListDataSources(params ...*ExtraDataSourceParams) (*DataSources, 
 // ListDataSourcesWithFilters lists all available Data Sources (no paging).
 // Accepts filtering parameters and extra data parameters in a single struct.
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error) {
 	ds := &DataSources{}
 	query := make([]interface{}, 0, 1)
@@ -133,14 +127,12 @@ func (api API) ListDataSourcesWithFilters(listDataSourcesParams *ListDataSources
 
 // DeleteDataSource deletes the data source identified by its UUID.
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) DeleteDataSource(uuid string) error {
 	return api.delete(singleDataSourceEndpoint, uuid)
 }
 
 // PurgeDataSource deletes all the data except the data source itself and the customers
 //
-// See https://dev.chartmogul.com/reference/data-sources
 func (api API) PurgeDataSource(dataSourceUUID string) error {
 	return api.delete(purgeDataSourceEndpoint, dataSourceUUID)
 }
