@@ -47,7 +47,7 @@ const (
 
 // RetrieveCustomersAttributes returns attributes for given customer UUID.
 //
-// See https://dev.chartmogul.com/v1.0/reference#customer-attributes
+// See https://dev.chartmogul.com/reference/customer-attributes
 func (api API) RetrieveCustomersAttributes(customerUUID string) (*Attributes, error) {
 	output := &Attributes{}
 	err := api.retrieve(customersAttributesEndpoint, customerUUID, output)
@@ -56,7 +56,7 @@ func (api API) RetrieveCustomersAttributes(customerUUID string) (*Attributes, er
 
 // AddCustomAttributesToCustomer adds custom attributes to specific customer.
 //
-// See https://dev.chartmogul.com/v1.0/reference#customer-attributes
+// See https://dev.chartmogul.com/reference/customer-attributes
 func (api API) AddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
 	err := api.add(customerCustomAttributesEndpoint,
@@ -68,7 +68,7 @@ func (api API) AddCustomAttributesToCustomer(customerUUID string, customAttribut
 
 // AddCustomAttributesWithEmail adds custom attributes to customers with specific email.
 //
-// See https://dev.chartmogul.com/v1.0/reference#customer-attributes
+// See https://dev.chartmogul.com/reference/customer-attributes
 func (api API) AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error) {
 	output := &Customers{}
 	err := api.create(customAttributesEndpoint,
@@ -79,7 +79,7 @@ func (api API) AddCustomAttributesWithEmail(email string, customAttributes []*Cu
 
 // UpdateCustomAttributesOfCustomer updates custom attributes of a specific customer.
 //
-// See https://dev.chartmogul.com/v1.0/reference#customer-attributes
+// See https://dev.chartmogul.com/reference/customer-attributes
 func (api API) UpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
 	err := api.putTo(customerCustomAttributesEndpoint,
@@ -91,7 +91,7 @@ func (api API) UpdateCustomAttributesOfCustomer(customerUUID string, customAttri
 
 // RemoveCustomAttributes removes a list of custom attributes from a specific customer.
 //
-// See https://dev.chartmogul.com/v1.0/reference#customer-attributes
+// See https://dev.chartmogul.com/reference/customer-attributes
 func (api API) RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error) {
 	output := &CustomAttributes{}
 	err := api.deleteWhat(customerCustomAttributesEndpoint,
