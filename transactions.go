@@ -19,7 +19,7 @@ type Transaction struct {
 // CreateTransaction loads an transaction to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
 //
-// See https://dev.chartmogul.com/v1.0/reference#transactions
+// See https://dev.chartmogul.com/reference/transactions
 func (api API) CreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error) {
 	result := &Transaction{}
 	path := strings.Replace(transactionsEndpoint, ":invoiceUUID", invoiceUUID, 1)

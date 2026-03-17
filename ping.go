@@ -13,7 +13,7 @@ const pingEndpoint = "ping"
 
 // Ping is the authentication test endpoint. Doesn't retry on 429.
 //
-// See https://dev.chartmogul.com/v1.0/docs/authentication
+// See https://dev.chartmogul.com/docs/authentication
 func (api API) Ping() (bool, error) {
 	ping := &Ping{}
 	res, body, errs := api.req(gorequest.New().Get(prepareURL(pingEndpoint))).EndStruct(ping)
