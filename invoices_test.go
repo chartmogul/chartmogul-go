@@ -554,6 +554,139 @@ func TestRetrieveInvoiceWithErrors(t *testing.T) {
 	}
 }
 
+func TestUpdateInvoiceStatus(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "PATCH"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/data_sources/ds_123/invoices/INV0001/status"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				defer r.Body.Close()
+				body, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					t.Fatal("error should be nil")
+				}
+				expectedBody := `{"status":"void"}`
+				if string(body) != expectedBody {
+					t.Errorf("Requested body expected: %v, actual: %v", expectedBody, string(body))
+				}
+				w.Write([]byte("{}")) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	err := tested.UpdateInvoiceStatus("ds_123", "INV0001", &UpdateInvoiceStatusParams{
+		Status: "void",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestToggleInvoiceDisabled(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "PATCH"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/invoices/inv_123/disabled_state"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				defer r.Body.Close()
+				body, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					t.Fatal("error should be nil")
+				}
+				expectedBody := `{"disabled":true}`
+				if string(body) != expectedBody {
+					t.Errorf("Requested body expected: %v, actual: %v", expectedBody, string(body))
+				}
+				w.Write([]byte(`{"uuid":"inv_123","external_id":"INV0001","date":"2015-11-01T00:00:00.000Z","currency":"USD","disabled":true,"disabled_at":"2026-03-17T10:00:00.000Z","disabled_by":"user@example.com","line_items":[]}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	invoice, err := tested.ToggleInvoiceDisabled("inv_123", &ToggleInvoiceDisabledParams{
+		Disabled: true,
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if invoice.UUID != "inv_123" {
+		t.Errorf("Expected UUID inv_123, got: %v", invoice.UUID)
+	}
+	if invoice.Disabled == nil || *invoice.Disabled != true {
+		t.Error("Expected disabled to be true")
+	}
+	if invoice.DisabledAt != "2026-03-17T10:00:00.000Z" {
+		t.Errorf("Expected disabled_at, got: %v", invoice.DisabledAt)
+	}
+}
+
+func TestRetrieveInvoiceWithLineItemErrors(t *testing.T) {
+	const lineItemErrorsExample = `{
+		"uuid": "inv_789",
+		"external_id": "INV0003",
+		"date": "2015-11-01T00:00:00.000Z",
+		"currency": "USD",
+		"disabled": false,
+		"line_items": [
+			{
+				"uuid": "li_abc",
+				"type": "subscription",
+				"amount_in_cents": 5000,
+				"errors": {"service_period_start": ["is required"]}
+			}
+		],
+		"transactions": []
+	}`
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				w.Write([]byte(lineItemErrorsExample)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	invoice, err := tested.RetrieveInvoice("inv_789")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(invoice.LineItems) != 1 {
+		t.Fatalf("Expected 1 line item, got: %v", len(invoice.LineItems))
+	}
+	if invoice.LineItems[0].Errors == nil {
+		t.Error("Expected line item errors to be present")
+	}
+}
+
 func TestCreateInvoiceFullRefund(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(
