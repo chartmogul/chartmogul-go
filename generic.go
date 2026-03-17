@@ -3,6 +3,7 @@ package chartmogul
 import (
 	"errors"
 	"strings"
+	"time"
 
 	backoff "github.com/cenkalti/backoff/v3"
 	"github.com/parnurzeal/gorequest"
@@ -15,6 +16,40 @@ import (
 
 // static internal error helper
 var errRetry = errors.New("Retrying")
+
+// RetryConfig allows configuring the retry behavior for API requests.
+type RetryConfig struct {
+	// Enabled controls whether retries are enabled. Defaults to true.
+	Enabled bool
+	// MaxElapsedTime is the maximum total time for retries. Defaults to backoff's default (15 minutes).
+	MaxElapsedTime time.Duration
+	// MaxInterval is the maximum interval between retries. Defaults to backoff's default (60 seconds).
+	MaxInterval time.Duration
+}
+
+// defaultRetryConfig returns the default retry configuration (enabled, using backoff defaults).
+func defaultRetryConfig() *RetryConfig {
+	return &RetryConfig{Enabled: true}
+}
+
+// newBackoff creates a backoff strategy based on the API's retry config.
+func (api API) newBackoff() backoff.BackOff {
+	cfg := api.Retry
+	if cfg == nil {
+		cfg = defaultRetryConfig()
+	}
+	if !cfg.Enabled {
+		return &backoff.StopBackOff{}
+	}
+	b := backoff.NewExponentialBackOff()
+	if cfg.MaxElapsedTime > 0 {
+		b.MaxElapsedTime = cfg.MaxElapsedTime
+	}
+	if cfg.MaxInterval > 0 {
+		b.MaxInterval = cfg.MaxInterval
+	}
+	return b
+}
 
 // CREATE
 func (api API) create(path string, input interface{}, output interface{}) error {
@@ -36,7 +71,7 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	// wrapping []errors into compatible error & making HTTPError
 	return wrapErrors(res, body, errs)
@@ -60,7 +95,7 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, body, errs)
 }
@@ -83,7 +118,7 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, body, errs)
 }
@@ -109,7 +144,7 @@ func (api API) retrieveWithParams(path string, uuid string, output interface{}, 
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, body, errs)
 }
@@ -131,7 +166,7 @@ func (api API) merge(path string, input interface{}) error {
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, []byte(body), errs)
 }
@@ -169,7 +204,7 @@ func (api API) updateImpl(path string, uuid string, input interface{}, output in
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, body, errs)
 }
@@ -204,7 +239,7 @@ func (api API) delete(path string, uuid string) error {
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, []byte(body), errs)
 }
@@ -225,7 +260,7 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	return wrapErrors(res, body, errs)
 }
@@ -245,7 +280,7 @@ func (api API) deleteWithData(path string, input interface{}) error {
 			return errRetry
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, api.newBackoff())
 
 	// wrapping []errors into compatible error & making HTTPError
 	return wrapErrors(res, []byte(body), errs)
