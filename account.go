@@ -1,6 +1,9 @@
 package chartmogul
 
-import "strings"
+import (
+	neturl "net/url"
+	"strings"
+)
 
 const (
 	accountEndpoint = "account"
@@ -34,7 +37,7 @@ func (api API) RetrieveAccount(params ...*RetrieveAccountParams) (*Account, erro
 		fields := params[0].Include
 		// Normalize array-style input
 		fields = strings.ReplaceAll(fields, " ", "")
-		path := accountEndpoint + "?include=" + fields
+		path := accountEndpoint + "?include=" + neturl.QueryEscape(fields)
 		return result, api.retrieve(path, "", result)
 	}
 	return result, api.retrieve(accountEndpoint, "", result)
