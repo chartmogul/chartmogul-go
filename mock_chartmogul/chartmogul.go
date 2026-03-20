@@ -529,20 +529,6 @@ func (mr *MockIApiMockRecorder) DisconnectSubscriptions(arg0, arg1 interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisconnectSubscriptions", reflect.TypeOf((*MockIApi)(nil).DisconnectSubscriptions), arg0, arg1)
 }
 
-// EmptyDataSource mocks base method
-func (m *MockIApi) EmptyDataSource(arg0 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "EmptyDataSource", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// EmptyDataSource indicates an expected call of EmptyDataSource
-func (mr *MockIApiMockRecorder) EmptyDataSource(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EmptyDataSource", reflect.TypeOf((*MockIApi)(nil).EmptyDataSource), arg0)
-}
-
 // ListAllInvoices mocks base method
 func (m *MockIApi) ListAllInvoices(arg0 *chartmogul.ListAllInvoicesParams) (*chartmogul.Invoices, error) {
 	m.ctrl.T.Helper()
@@ -1069,20 +1055,6 @@ func (mr *MockIApiMockRecorder) Ping() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Ping", reflect.TypeOf((*MockIApi)(nil).Ping))
 }
 
-// PurgeDataSource mocks base method
-func (m *MockIApi) PurgeDataSource(arg0 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "PurgeDataSource", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// PurgeDataSource indicates an expected call of PurgeDataSource
-func (mr *MockIApiMockRecorder) PurgeDataSource(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PurgeDataSource", reflect.TypeOf((*MockIApi)(nil).PurgeDataSource), arg0)
-}
-
 // RemoveCustomAttributes mocks base method
 func (m *MockIApi) RemoveCustomAttributes(arg0 string, arg1 []string) (*chartmogul.CustomAttributes, error) {
 	m.ctrl.T.Helper()
@@ -1343,7 +1315,7 @@ func (mr *MockIApiMockRecorder) ToggleLineItemDisabled(arg0, arg1 interface{}) *
 }
 
 // ToggleSubscriptionEventDisabled mocks base method
-func (m *MockIApi) ToggleSubscriptionEventDisabled(arg0 string, arg1 *chartmogul.ToggleSubscriptionEventDisabledParams) (*chartmogul.SubscriptionEvent, error) {
+func (m *MockIApi) ToggleSubscriptionEventDisabled(arg0 uint64, arg1 *chartmogul.ToggleSubscriptionEventDisabledParams) (*chartmogul.SubscriptionEvent, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ToggleSubscriptionEventDisabled", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul.SubscriptionEvent)
