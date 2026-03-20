@@ -19,11 +19,14 @@ var errRetry = errors.New("Retrying")
 
 // RetryConfig allows configuring the retry behavior for API requests.
 type RetryConfig struct {
+<<<<<<< HEAD
 	// Enabled controls whether retries are enabled. Defaults to true.
 	Enabled bool
-	// MaxElapsedTime is the maximum total time for retries. Defaults to backoff's default (15 minutes).
+	// Defaults to true.
+	Enabled bool
+	// Maximum total time for retries. Defaults to backoff's default (15 minutes).
 	MaxElapsedTime time.Duration
-	// MaxInterval is the maximum interval between retries. Defaults to backoff's default (60 seconds).
+	// Maximum interval between retries. Defaults to backoff's default (60 seconds).
 	MaxInterval time.Duration
 }
 
@@ -32,8 +35,8 @@ func defaultRetryConfig() *RetryConfig {
 	return &RetryConfig{Enabled: true}
 }
 
-// newBackoff creates a backoff strategy based on the API's retry config.
-func (api API) newBackoff() backoff.BackOff {
+// backoffStrategy creates a backoff strategy based on the API's retry config.
+func (api API) backoffStrategy() backoff.BackOff {
 	cfg := api.Retry
 	if cfg == nil {
 		cfg = defaultRetryConfig()
@@ -70,7 +73,7 @@ func (api API) create(path string, input interface{}, output interface{}) error 
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	// wrapping []errors into compatible error & making HTTPError
 	return wrapErrors(res, body, errs)
@@ -94,7 +97,7 @@ func (api API) list(path string, output interface{}, query ...interface{}) error
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, body, errs)
 }
@@ -117,7 +120,7 @@ func (api API) retrieve(path string, uuid string, output interface{}) error {
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, body, errs)
 }
@@ -143,7 +146,7 @@ func (api API) retrieveWithParams(path string, uuid string, output interface{}, 
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, body, errs)
 }
@@ -165,7 +168,7 @@ func (api API) merge(path string, input interface{}) error {
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, []byte(body), errs)
 }
@@ -203,7 +206,7 @@ func (api API) updateImpl(path string, uuid string, input interface{}, output in
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, body, errs)
 }
@@ -238,7 +241,7 @@ func (api API) delete(path string, uuid string) error {
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, []byte(body), errs)
 }
@@ -259,7 +262,7 @@ func (api API) deleteWhat(path string, uuid string, input interface{}, output in
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	return wrapErrors(res, body, errs)
 }
@@ -279,7 +282,7 @@ func (api API) deleteWithData(path string, input interface{}) error {
 			return errRetry
 		}
 		return nil
-	}, api.newBackoff())
+	}, api.backoffStrategy())
 
 	// wrapping []errors into compatible error & making HTTPError
 	return wrapErrors(res, []byte(body), errs)
