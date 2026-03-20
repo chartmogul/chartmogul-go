@@ -51,28 +51,24 @@ const (
 )
 
 // CreateTask creates the task through the API.
-//
 func (api API) CreateTask(input *NewTask) (*Task, error) {
 	result := &Task{}
 	return result, api.create(tasksEndpoint, input, result)
 }
 
 // RetrieveTask returns one task from the API.
-//
 func (api API) RetrieveTask(taskUUID string) (*Task, error) {
 	result := &Task{}
 	return result, api.retrieve(singleTaskEndpoint, taskUUID, result)
 }
 
 // UpdateTask updates one task through the API.
-//
 func (api API) UpdateTask(input *UpdateTask, taskUUID string) (*Task, error) {
 	output := &Task{}
 	return output, api.update(singleTaskEndpoint, taskUUID, input, output)
 }
 
 // ListTasks lists all tasks.
-//
 func (api API) ListTasks(listTasksParams *ListTasksParams) (*Tasks, error) {
 	result := &Tasks{}
 	query := make([]interface{}, 0, 1)
@@ -83,7 +79,6 @@ func (api API) ListTasks(listTasksParams *ListTasksParams) (*Tasks, error) {
 }
 
 // DeleteTask deletes one task by UUID.
-//
 func (api API) DeleteTask(taskUUID string) error {
 	return api.delete(singleTaskEndpoint, taskUUID)
 }

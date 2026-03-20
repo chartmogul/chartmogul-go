@@ -36,14 +36,12 @@ const (
 )
 
 // MetricsCreateActivitiesExport requests creation of an activities export in Chartmogul.
-//
 func (api API) MetricsCreateActivitiesExport(CreateMetricsActivitiesExportParam *CreateMetricsActivitiesExportParam) (*MetricsActivitiesExport, error) {
 	result := &MetricsActivitiesExport{}
 	return result, api.create(metricsActivitiesExportEndpoint, CreateMetricsActivitiesExportParam, result)
 }
 
 // MetricsRetrieveActivitiesExport returns one activities export as in API.
-//
 func (api API) MetricsRetrieveActivitiesExport(activitiesExportUUID string) (*MetricsActivitiesExport, error) {
 	result := &MetricsActivitiesExport{}
 	return result, api.retrieve(singleMetricsActivitiesExportEndpoint, activitiesExportUUID, result)

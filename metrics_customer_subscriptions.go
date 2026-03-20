@@ -40,7 +40,6 @@ type MetricsSubscriptionReference struct {
 const metricsCustomerSubscriptionsEndpoint = "customers/:uuid/subscriptions"
 
 // MetricsListCustomerSubscriptions lists all subscriptions for customer of a given UUID.
-//
 func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID string) (*MetricsCustomerSubscriptions, error) {
 	result := &MetricsCustomerSubscriptions{}
 	path := strings.Replace(metricsCustomerSubscriptionsEndpoint, ":uuid", customerUUID, 1)
@@ -52,7 +51,6 @@ func (api API) MetricsListCustomerSubscriptions(cursor *Cursor, customerUUID str
 }
 
 // MetricsConnectSubscriptions connects subscription objects for a customer.
-//
 func (api API) MetricsConnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error {
 	path := strings.Replace(connectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 
@@ -70,7 +68,6 @@ func (api API) MetricsConnectSubscriptions(dataSourceUUID string, customerUUID s
 }
 
 // MetricsDisconnectSubscriptions disconnects subscription objects for a customer.
-//
 func (api API) MetricsDisconnectSubscriptions(dataSourceUUID string, customerUUID string, subscriptions []*MetricsCustomerSubscription) error {
 	path := strings.Replace(disconnectSubscriptionEndpoint, ":uuid", customerUUID, 1)
 

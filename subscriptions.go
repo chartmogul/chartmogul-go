@@ -35,7 +35,6 @@ type CancelSubscriptionParams struct {
 }
 
 // CancelSubscription creates an Import API Data Source in ChartMogul.
-//
 func (api API) CancelSubscription(subscriptionUUID string, cancelSubscriptionParams *CancelSubscriptionParams) (*Subscription, error) {
 	result := &Subscription{}
 	return result, api.update(cancelSubscriptionEndpoint,

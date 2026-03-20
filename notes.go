@@ -54,28 +54,24 @@ const (
 )
 
 // CreateCustomerNote loads the customer note to Chartmogul
-//
 func (api API) CreateNote(input *NewNote) (*Note, error) {
 	result := &Note{}
 	return result, api.create(customerNotesEndpoint, input, result)
 }
 
 // RetrieveCustomerNote returns one customer note as in API.
-//
 func (api API) RetrieveNote(customerNoteUUID string) (*Note, error) {
 	result := &Note{}
 	return result, api.retrieve(singleCustomerNoteEndpoint, customerNoteUUID, result)
 }
 
 // UpdateNote updates one customer note in API.
-//
 func (api API) UpdateNote(input *UpdateNote, customerNoteUUID string) (*Note, error) {
 	output := &Note{}
 	return output, api.update(singleCustomerNoteEndpoint, customerNoteUUID, input, output)
 }
 
 // ListNotes lists all Notes
-//
 func (api API) ListNotes(listNotesParams *ListNotesParams) (*Notes, error) {
 	result := &Notes{}
 	query := make([]interface{}, 0, 1)
@@ -86,7 +82,6 @@ func (api API) ListNotes(listNotesParams *ListNotesParams) (*Notes, error) {
 }
 
 // DeleteNote deletes one customer note by UUID.
-//
 func (api API) DeleteNote(customerNoteUUID string) error {
 	return api.delete(singleCustomerNoteEndpoint, customerNoteUUID)
 }

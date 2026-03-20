@@ -12,7 +12,6 @@ type Ping struct {
 const pingEndpoint = "ping"
 
 // Ping is the authentication test endpoint. Doesn't retry on 429.
-//
 func (api API) Ping() (bool, error) {
 	ping := &Ping{}
 	res, body, errs := api.req(gorequest.New().Get(prepareURL(pingEndpoint))).EndStruct(ping)

@@ -16,11 +16,11 @@ type ValueChange struct {
 }
 
 const (
-	invoicesEndpoint              = "invoices"
-	singleInvoiceEndpoint         = "invoices/:uuid"
-	customersInvoicesEndpoint     = "import/customers/:customerUUID/invoices"
-	invoiceUpdateStatusEndpoint   = "data_sources/:dataSourceUUID/invoices/:externalID/status"
-	invoiceDisabledStateEndpoint  = "invoices/:uuid/disabled_state"
+	invoicesEndpoint             = "invoices"
+	singleInvoiceEndpoint        = "invoices/:uuid"
+	customersInvoicesEndpoint    = "import/customers/:customerUUID/invoices"
+	invoiceUpdateStatusEndpoint  = "data_sources/:dataSourceUUID/invoices/:externalID/status"
+	invoiceDisabledStateEndpoint = "invoices/:uuid/disabled_state"
 )
 
 // Invoices is wrapper for bulk importing invoices
@@ -98,7 +98,6 @@ type RetrieveInvoiceParams struct {
 
 // CreateInvoices loads an invoice to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
-//
 func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error) {
 	if len(invoices) == 0 {
 		return nil, nil
@@ -111,7 +110,6 @@ func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoic
 }
 
 // ListInvoices lists all imported invoices for a customer.
-//
 func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
 	path := strings.Replace(customersInvoicesEndpoint, ":customerUUID", customerUUID, 1)
@@ -124,7 +122,6 @@ func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, err
 
 // ListAllInvoices lists all imported invoices. Use parameters to narrow down the search/for paging.
 // listAllInvoicesParams can be nil, in which case default values on API are used.
-//
 func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error) {
 	result := &Invoices{}
 	query := make([]interface{}, 0, 1)
@@ -136,7 +133,6 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 
 // RetrieveInvoice returns one Invoice by UUID.
 // Optionally accepts RetrieveInvoiceParams for additional query options.
-//
 func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error) {
 	result := &Invoice{}
 
@@ -150,7 +146,6 @@ func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoicePar
 }
 
 // DeleteInvoice deletes one invoice by UUID.
-//
 func (api API) DeleteInvoice(invoiceUUID string) error {
 	return api.delete(singleInvoiceEndpoint, invoiceUUID)
 }
@@ -161,7 +156,6 @@ type UpdateInvoiceStatusParams struct {
 }
 
 // UpdateInvoiceStatus updates the status of an invoice by data source UUID and invoice external ID.
-//
 func (api API) UpdateInvoiceStatus(dataSourceUUID, invoiceExternalID string, params *UpdateInvoiceStatusParams) error {
 	path := strings.Replace(invoiceUpdateStatusEndpoint, ":dataSourceUUID", dataSourceUUID, 1)
 	path = strings.Replace(path, ":externalID", invoiceExternalID, 1)
@@ -175,7 +169,6 @@ type ToggleInvoiceDisabledParams struct {
 }
 
 // ToggleInvoiceDisabled toggles the disabled state of an invoice.
-//
 func (api API) ToggleInvoiceDisabled(invoiceUUID string, params *ToggleInvoiceDisabledParams) (*Invoice, error) {
 	result := &Invoice{}
 	return result, api.update(invoiceDisabledStateEndpoint, invoiceUUID, params, result)

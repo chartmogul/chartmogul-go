@@ -3,8 +3,8 @@ package chartmogul
 import "strings"
 
 const (
-	subscriptionEventsEndpoint              = "subscription_events"
-	subscriptionEventDisabledStateEndpoint  = "subscription_events/:id/disabled_state"
+	subscriptionEventsEndpoint                  = "subscription_events"
+	subscriptionEventDisabledStateEndpoint      = "subscription_events/:id/disabled_state"
 	subscriptionEventDisabledStateByExtEndpoint = "subscription_events/disabled_state"
 )
 

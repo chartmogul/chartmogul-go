@@ -24,7 +24,6 @@ type MetricsCustomerActivities struct {
 const metricsCustomerActivitiesEndpoint = "customers/:uuid/activities"
 
 // MetricsListCustomerActivities lists all activities for cutomer of a given UUID.
-//
 func (api API) MetricsListCustomerActivities(cursor *Cursor, customerUUID string) (*MetricsCustomerActivities, error) {
 	result := &MetricsCustomerActivities{}
 	path := strings.Replace(metricsCustomerActivitiesEndpoint, ":uuid", customerUUID, 1)
