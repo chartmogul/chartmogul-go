@@ -1,7 +1,7 @@
 package chartmogul
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -569,7 +569,7 @@ func TestUpdateInvoiceStatus(t *testing.T) {
 					w.WriteHeader(http.StatusNotFound)
 				}
 				defer r.Body.Close()
-				body, err := ioutil.ReadAll(r.Body)
+				body, err := io.ReadAll(r.Body)
 				if err != nil {
 					t.Fatal("error should be nil")
 				}
@@ -610,7 +610,7 @@ func TestToggleInvoiceDisabled(t *testing.T) {
 					w.WriteHeader(http.StatusNotFound)
 				}
 				defer r.Body.Close()
-				body, err := ioutil.ReadAll(r.Body)
+				body, err := io.ReadAll(r.Body)
 				if err != nil {
 					t.Fatal("error should be nil")
 				}
@@ -702,7 +702,7 @@ func TestCreateInvoiceFullRefund(t *testing.T) {
 					w.WriteHeader(http.StatusNotFound)
 				}
 				defer r.Body.Close()
-				body, err := ioutil.ReadAll(r.Body)
+				body, err := io.ReadAll(r.Body)
 				if err != nil {
 					spew.Dump(err)
 					t.Fatal("error should be nil")
@@ -748,7 +748,7 @@ func TestCreateInvoicePartialRefund(t *testing.T) {
 					w.WriteHeader(http.StatusNotFound)
 				}
 				defer r.Body.Close()
-				body, err := ioutil.ReadAll(r.Body)
+				body, err := io.ReadAll(r.Body)
 				if err != nil {
 					spew.Dump(err)
 					t.Fatal("error should be nil")

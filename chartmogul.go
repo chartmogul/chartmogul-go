@@ -176,7 +176,7 @@ type IApi interface {
 	CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
 	UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
 	DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) error
-	ToggleSubscriptionEventDisabled(id string, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error)
+	ToggleSubscriptionEventDisabled(id uint64, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error)
 	ToggleSubscriptionEventDisabledByExternalID(params *ToggleSubscriptionEventDisabledByExternalIDParams) (*SubscriptionEvent, error)
 }
 

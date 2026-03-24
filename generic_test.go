@@ -21,10 +21,10 @@ func TestRetryDisabled(t *testing.T) {
 	defer server.Close()
 	SetURL(server.URL + "/v/%v")
 
-	disabled := false
+	enabled := false
 	tested := &API{
 		ApiKey: "token",
-		Retry:  &RetryConfig{Enabled: &disabled},
+		Retry:  &RetryConfig{Enabled: &enabled},
 	}
 	err := tested.delete("path1/:uuid", "uuid1")
 	if err == nil {

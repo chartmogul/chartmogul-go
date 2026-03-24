@@ -1,6 +1,9 @@
 package chartmogul
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
 
 const (
 	subscriptionEventsEndpoint                  = "subscription_events"
@@ -23,27 +26,27 @@ type ToggleSubscriptionEventDisabledByExternalIDParams struct {
 }
 
 type SubscriptionEvent struct {
-	ID                        uint64      `json:"id,omitempty"`
-	DataSourceUUID            string      `json:"data_source_uuid,omitempty"`
-	CustomerExternalID        string      `json:"customer_external_id,omitempty"`
-	SubscriptionSetExternalID string      `json:"subscription_set_external_id,omitempty"`
-	SubscriptionExternalID    string      `json:"subscription_external_id,omitempty"`
-	PlanExternalID            string      `json:"plan_external_id,omitempty"`
-	EventDate                 string      `json:"event_date,omitempty"`
-	EffectiveDate             string      `json:"effective_date,omitempty"`
-	EventType                 string      `json:"event_type,omitempty"`
-	ExternalID                string      `json:"external_id,omitempty"`
-	Errors                    interface{} `json:"errors,omitempty"`
-	CreatedAt                 string      `json:"created_at,omitempty"`
-	UpdatedAt                 string      `json:"updated_at,omitempty"`
-	Quantity                  int32       `json:"quantity,omitempty"`
-	Currency                  string      `json:"currency,omitempty"`
-	AmountInCents             int32       `json:"amount_in_cents,omitempty"`
-	TaxAmountInCents          int32       `json:"tax_amount_in_cents,omitempty"`
-	RetractedEventId          string      `json:"retracted_event_id,omitempty"`
-	EventOrder                int32       `json:"event_order,omitempty"`
-	Disabled                  *bool       `json:"disabled,omitempty"`
-	DisabledAt                string      `json:"disabled_at,omitempty"`
+	ID                        uint64                 `json:"id,omitempty"`
+	DataSourceUUID            string                 `json:"data_source_uuid,omitempty"`
+	CustomerExternalID        string                 `json:"customer_external_id,omitempty"`
+	SubscriptionSetExternalID string                 `json:"subscription_set_external_id,omitempty"`
+	SubscriptionExternalID    string                 `json:"subscription_external_id,omitempty"`
+	PlanExternalID            string                 `json:"plan_external_id,omitempty"`
+	EventDate                 string                 `json:"event_date,omitempty"`
+	EffectiveDate             string                 `json:"effective_date,omitempty"`
+	EventType                 string                 `json:"event_type,omitempty"`
+	ExternalID                string                 `json:"external_id,omitempty"`
+	Errors                    map[string]interface{} `json:"errors,omitempty"`
+	CreatedAt                 string                 `json:"created_at,omitempty"`
+	UpdatedAt                 string                 `json:"updated_at,omitempty"`
+	Quantity                  int32                  `json:"quantity,omitempty"`
+	Currency                  string                 `json:"currency,omitempty"`
+	AmountInCents             int32                  `json:"amount_in_cents,omitempty"`
+	TaxAmountInCents          int32                  `json:"tax_amount_in_cents,omitempty"`
+	RetractedEventId          string                 `json:"retracted_event_id,omitempty"`
+	EventOrder                int32                  `json:"event_order,omitempty"`
+	Disabled                  *bool                  `json:"disabled,omitempty"`
+	DisabledAt                string                 `json:"disabled_at,omitempty"`
 }
 
 type SubscriptionEvents struct {
@@ -107,9 +110,9 @@ func (api API) DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) er
 }
 
 // ToggleSubscriptionEventDisabled toggles the disabled state of a subscription event by ID.
-func (api API) ToggleSubscriptionEventDisabled(id string, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error) {
+func (api API) ToggleSubscriptionEventDisabled(id uint64, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error) {
 	result := &SubscriptionEvent{}
-	path := strings.Replace(subscriptionEventDisabledStateEndpoint, ":id", id, 1)
+	path := strings.Replace(subscriptionEventDisabledStateEndpoint, ":id", strconv.FormatUint(id, 10), 1)
 	return result, api.update(path, "", params, result)
 }
 
