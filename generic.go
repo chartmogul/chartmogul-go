@@ -19,10 +19,7 @@ var errRetry = errors.New("Retrying")
 
 // RetryConfig allows configuring the retry behavior for API requests.
 type RetryConfig struct {
-<<<<<<< HEAD
 	// Enabled controls whether retries are enabled. Defaults to true.
-	Enabled bool
-	// Defaults to true.
 	Enabled bool
 	// Maximum total time for retries. Defaults to backoff's default (15 minutes).
 	MaxElapsedTime time.Duration

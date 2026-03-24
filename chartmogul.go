@@ -64,6 +64,8 @@ type IApi interface {
 	ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error)
 	RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error)
 	DeleteInvoice(invoiceUUID string) error
+	UpdateInvoiceStatus(dataSourceUUID, invoiceExternalID string, params *UpdateInvoiceStatusParams) error
+	ToggleInvoiceDisabled(invoiceUUID string, params *ToggleInvoiceDisabledParams) (*Invoice, error)
 	// Plans
 	CreatePlan(plan *Plan) (result *Plan, err error)
 	RetrievePlan(planUUID string) (*Plan, error)
@@ -161,19 +163,24 @@ type IApi interface {
 	MetricsRetrieveActivitiesExport(activitiesExportUUID string) (*MetricsActivitiesExport, error)
 
 	// Account
-	RetrieveAccount() (*Account, error)
+	RetrieveAccount(params ...*RetrieveAccountParams) (*Account, error)
 
 	// Subscription Events
 	ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *Cursor) (*SubscriptionEvents, error)
 	CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
 	UpdateSubscriptionEvent(subscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
 	DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) error
+	ToggleSubscriptionEventDisabled(id string, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error)
+	ToggleSubscriptionEventDisabledByExternalID(params *ToggleSubscriptionEventDisabledByExternalIDParams) (*SubscriptionEvent, error)
 }
 
 // API is the handle for communicating with Chartmogul.
 type API struct {
 	ApiKey string
 	Client *http.Client
+	// Retry configures the retry behavior. If nil, defaults to enabled with exponential backoff.
+	// Set Retry.Enabled to false to disable retries entirely.
+	Retry *RetryConfig
 }
 
 // AnchorCursor contains query parameters for anchor based pagination used for some APIs in ChartMogul.
