@@ -11,11 +11,11 @@ type Account struct {
 	Currency                          string                 `json:"currency"`
 	TimeZone                          string                 `json:"time_zone"`
 	WeekStartOn                       string                 `json:"week_start_on"`
-	ChurnRecognition                  map[string]interface{} `json:"churn_recognition,omitempty"`
-	ChurnWhenZeroMRR                  map[string]interface{} `json:"churn_when_zero_mrr,omitempty"`
-	AutoChurnSubscription             map[string]interface{} `json:"auto_churn_subscription,omitempty"`
-	RefundHandling                    map[string]interface{} `json:"refund_handling,omitempty"`
-	ProximateMovementReclassification map[string]interface{} `json:"proximate_movement_reclassification,omitempty"`
+	ChurnRecognition                  interface{} `json:"churn_recognition,omitempty"`
+	ChurnWhenZeroMRR                  interface{} `json:"churn_when_zero_mrr,omitempty"`
+	AutoChurnSubscription             interface{} `json:"auto_churn_subscription,omitempty"`
+	RefundHandling                    interface{} `json:"refund_handling,omitempty"`
+	ProximateMovementReclassification interface{} `json:"proximate_movement_reclassification,omitempty"`
 }
 
 // RetrieveAccountParams optional parameters for RetrieveAccount.
