@@ -21,6 +21,8 @@
 |
 <b><a href="#contributing">Contributing</a></b>
 |
+<b><a href="#security">Security</a></b>
+|
 <b><a href="#license">License</a></b>
 </p>
 <hr>
@@ -31,11 +33,15 @@
 
 ## Installation
 
-This library requires Go 1.11 or above.
+This library requires Go 1.21 or above.
 
 ```sh
-go get github.com/chartmogul/chartmogul-go/v4
+go get github.com/chartmogul/chartmogul-go/v4@v4.11.0
 ```
+
+We recommend pinning to a specific version as shown above. Go modules will record the exact version and cryptographic checksums in your `go.mod` and `go.sum` files.
+
+Always commit your `go.sum` file to version control. It contains cryptographic hashes verified against the [Go checksum database](https://sum.golang.org), ensuring the code you depend on has not been tampered with.
 
 ## Configuration
 [Deprecation] - `account_token`/`secret_key` combo is deprecated. Please use API key for both fields.
@@ -369,6 +375,19 @@ To work on the library:
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/chartmogul/chartmogul-go.
+
+## Security
+
+### Verifying Releases
+
+All releases of this library are published as [immutable GitHub Releases](https://github.com/chartmogul/chartmogul-go/releases) with protected tags.
+
+When you install this library via `go get`, Go automatically verifies the module contents against the [Go checksum database](https://sum.golang.org). This ensures that the code you download matches what was originally published and has not been modified.
+
+To maximize supply chain security:
+- **Pin to a specific version**: `go get github.com/chartmogul/chartmogul-go/v4@v4.11.0`
+- **Commit your `go.sum`** file to version control
+- **Do not disable** `GONOSUMCHECK` or `GONOSUMDB` for this module
 
 ## License
 
