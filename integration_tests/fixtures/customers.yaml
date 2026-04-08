@@ -186,6 +186,54 @@ interactions:
     code: 200
     duration: ""
 - request:
+    body: '{"from":{"customer_uuid":"cus_2706d304-76b7-11ee-93d6-5b3d820d37cd"},"into":{"customer_uuid":"cus_23740208-2c7e-11ee-9ea2-ffd2435982bb"}}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/merges
+    method: POST
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 202 Accepted
+    code: 202
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_cd9e5f29-6299-40e5-b343-0bd1ed228b4f","data_source_uuid":"ds_788ec6ae-dd51-11ee-bd46-a3ec952dc041","external_id":"cus_O075O8NH0LrtG8","move_to_new_customer":["tasks"]}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v4
+    url: https://api.chartmogul.com/v1/customers/unmerges
+    method: POST
+  response:
+    body: ""
+    headers:
+      Access-Control-Allow-Credentials:
+      - "true"
+      Connection:
+      - keep-alive
+      Date:
+      - Fri, 25 Aug 2023 09:48:31 GMT
+      Retry-Count:
+      - "0"
+    status: 202 Accepted
+    code: 202
+    duration: ""
+- request:
     body: ""
     form: {}
     headers:
