@@ -66,6 +66,12 @@ type IApi interface {
 	DeleteInvoice(invoiceUUID string) error
 	UpdateInvoiceStatus(dataSourceUUID, invoiceExternalID string, params *UpdateInvoiceStatusParams) error
 	ToggleInvoiceDisabled(invoiceUUID string, params *ToggleInvoiceDisabledParams) (*Invoice, error)
+	// Line Items
+	CreateLineItems(invoiceUUID string, lineItems []*LineItem) (*LineItems, error)
+	RetrieveLineItem(lineItemUUID string, params ...*RetrieveLineItemParams) (*LineItem, error)
+	UpdateLineItem(lineItemUUID string, params *UpdateLineItemParams) (*LineItem, error)
+	ToggleLineItemDisabled(lineItemUUID string, params *ToggleLineItemDisabledParams) (*LineItem, error)
+	DeleteLineItem(lineItemUUID string) error
 	// Plans
 	CreatePlan(plan *Plan) (result *Plan, err error)
 	RetrievePlan(planUUID string) (*Plan, error)
