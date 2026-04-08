@@ -242,6 +242,21 @@ func (mr *MockIApiMockRecorder) CreateInvoices(arg0, arg1 interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateInvoices", reflect.TypeOf((*MockIApi)(nil).CreateInvoices), arg0, arg1)
 }
 
+// CreateJsonImport mocks base method
+func (m *MockIApi) CreateJsonImport(arg0 string, arg1 *chartmogul.JsonImportData) (*chartmogul.JsonImport, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateJsonImport", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.JsonImport)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateJsonImport indicates an expected call of CreateJsonImport
+func (mr *MockIApiMockRecorder) CreateJsonImport(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateJsonImport", reflect.TypeOf((*MockIApi)(nil).CreateJsonImport), arg0, arg1)
+}
+
 // CreateLineItems mocks base method
 func (m *MockIApi) CreateLineItems(arg0 string, arg1 []*chartmogul.LineItem) (*chartmogul.LineItems, error) {
 	m.ctrl.T.Helper()
@@ -1215,6 +1230,21 @@ func (mr *MockIApiMockRecorder) RetrieveInvoice(arg0 interface{}, arg1 ...interf
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0}, arg1...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveInvoice", reflect.TypeOf((*MockIApi)(nil).RetrieveInvoice), varargs...)
+}
+
+// RetrieveJsonImport mocks base method
+func (m *MockIApi) RetrieveJsonImport(arg0, arg1 string) (*chartmogul.JsonImport, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveJsonImport", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.JsonImport)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveJsonImport indicates an expected call of RetrieveJsonImport
+func (mr *MockIApiMockRecorder) RetrieveJsonImport(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveJsonImport", reflect.TypeOf((*MockIApi)(nil).RetrieveJsonImport), arg0, arg1)
 }
 
 // RetrieveLineItem mocks base method

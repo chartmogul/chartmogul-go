@@ -171,6 +171,10 @@ type IApi interface {
 	// Account
 	RetrieveAccount(params ...*RetrieveAccountParams) (*Account, error)
 
+	// Bulk Import
+	CreateJsonImport(dataSourceUUID string, data *JsonImportData) (*JsonImport, error)
+	RetrieveJsonImport(dataSourceUUID string, importID string) (*JsonImport, error)
+
 	// Subscription Events
 	ListSubscriptionEvents(filters *FilterSubscriptionEvents, cursor *Cursor) (*SubscriptionEvents, error)
 	CreateSubscriptionEvent(newSubscriptionEvent *SubscriptionEvent) (*SubscriptionEvent, error)
