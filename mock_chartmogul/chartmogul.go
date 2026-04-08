@@ -515,6 +515,20 @@ func (mr *MockIApiMockRecorder) DeleteTask(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTask", reflect.TypeOf((*MockIApi)(nil).DeleteTask), arg0)
 }
 
+// DeleteTransaction mocks base method
+func (m *MockIApi) DeleteTransaction(arg0 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTransaction", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteTransaction indicates an expected call of DeleteTransaction
+func (mr *MockIApiMockRecorder) DeleteTransaction(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTransaction", reflect.TypeOf((*MockIApi)(nil).DeleteTransaction), arg0)
+}
+
 // DisconnectSubscriptions mocks base method
 func (m *MockIApi) DisconnectSubscriptions(arg0 string, arg1 []chartmogul.Subscription) error {
 	m.ctrl.T.Helper()
@@ -1297,6 +1311,26 @@ func (mr *MockIApiMockRecorder) RetrieveTask(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveTask", reflect.TypeOf((*MockIApi)(nil).RetrieveTask), arg0)
 }
 
+// RetrieveTransaction mocks base method
+func (m *MockIApi) RetrieveTransaction(arg0 string, arg1 ...*chartmogul.RetrieveTransactionParams) (*chartmogul.Transaction, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0}
+	for _, a := range arg1 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveTransaction", varargs...)
+	ret0, _ := ret[0].(*chartmogul.Transaction)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveTransaction indicates an expected call of RetrieveTransaction
+func (mr *MockIApiMockRecorder) RetrieveTransaction(arg0 interface{}, arg1 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0}, arg1...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveTransaction", reflect.TypeOf((*MockIApi)(nil).RetrieveTransaction), varargs...)
+}
+
 // SearchCustomers mocks base method
 func (m *MockIApi) SearchCustomers(arg0 *chartmogul.SearchCustomersParams) (*chartmogul.Customers, error) {
 	m.ctrl.T.Helper()
@@ -1370,6 +1404,21 @@ func (m *MockIApi) ToggleSubscriptionEventDisabledByExternalID(arg0 *chartmogul.
 func (mr *MockIApiMockRecorder) ToggleSubscriptionEventDisabledByExternalID(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ToggleSubscriptionEventDisabledByExternalID", reflect.TypeOf((*MockIApi)(nil).ToggleSubscriptionEventDisabledByExternalID), arg0)
+}
+
+// ToggleTransactionDisabled mocks base method
+func (m *MockIApi) ToggleTransactionDisabled(arg0 string, arg1 *chartmogul.ToggleTransactionDisabledParams) (*chartmogul.Transaction, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ToggleTransactionDisabled", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.Transaction)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ToggleTransactionDisabled indicates an expected call of ToggleTransactionDisabled
+func (mr *MockIApiMockRecorder) ToggleTransactionDisabled(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ToggleTransactionDisabled", reflect.TypeOf((*MockIApi)(nil).ToggleTransactionDisabled), arg0, arg1)
 }
 
 // UnmergeCustomers mocks base method
@@ -1548,4 +1597,19 @@ func (m *MockIApi) UpdateTask(arg0 *chartmogul.UpdateTask, arg1 string) (*chartm
 func (mr *MockIApiMockRecorder) UpdateTask(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTask", reflect.TypeOf((*MockIApi)(nil).UpdateTask), arg0, arg1)
+}
+
+// UpdateTransaction mocks base method
+func (m *MockIApi) UpdateTransaction(arg0 string, arg1 *chartmogul.UpdateTransactionParams) (*chartmogul.Transaction, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateTransaction", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.Transaction)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateTransaction indicates an expected call of UpdateTransaction
+func (mr *MockIApiMockRecorder) UpdateTransaction(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTransaction", reflect.TypeOf((*MockIApi)(nil).UpdateTransaction), arg0, arg1)
 }
