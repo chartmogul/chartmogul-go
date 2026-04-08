@@ -31,24 +31,18 @@ type ListPlansParams struct {
 }
 
 // CreatePlan creates plan under given Data Source.
-//
-// See https://dev.chartmogul.com/v1.0/reference#plans
 func (api API) CreatePlan(plan *Plan) (result *Plan, err error) {
 	result = &Plan{}
 	return result, api.create(plansEndpoint, plan, result)
 }
 
 // RetrievePlan returns one plan by UUID.
-//
-// See https://dev.chartmogul.com/v1.0/reference#plans
 func (api API) RetrievePlan(planUUID string) (*Plan, error) {
 	result := &Plan{}
 	return result, api.retrieve(singlePlanEndpoint, planUUID, result)
 }
 
 // ListPlans returns list of plans.
-//
-// See https://dev.chartmogul.com/v1.0/reference#plans
 func (api API) ListPlans(listPlansParams *ListPlansParams) (*Plans, error) {
 	result := &Plans{}
 	query := make([]interface{}, 0, 1)
@@ -59,16 +53,12 @@ func (api API) ListPlans(listPlansParams *ListPlansParams) (*Plans, error) {
 }
 
 // UpdatePlan returns list of plans.
-//
-// See https://dev.chartmogul.com/v1.0/reference#plans
 func (api API) UpdatePlan(plan *Plan, planUUID string) (*Plan, error) {
 	result := &Plan{}
 	return result, api.update(singlePlanEndpoint, planUUID, plan, result)
 }
 
 // DeletePlan deletes one plan by UUID.
-//
-// See https://dev.chartmogul.com/v1.0/reference#plans
 func (api API) DeletePlan(planUUID string) error {
 	return api.delete(singlePlanEndpoint, planUUID)
 }

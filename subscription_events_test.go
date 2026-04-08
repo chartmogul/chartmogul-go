@@ -1,7 +1,10 @@
 package chartmogul
 
 import (
+	"io/ioutil"
 	"log"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -279,5 +282,104 @@ func TestUpdateSubscriptionEventUsingExternalIdAndDataSourceUuid(t *testing.T) {
 
 	if updatedSubEvent.Currency != "CNY" {
 		t.Errorf("Subscription Event's currency was not updated - expected: %v, actual: %v", "CNY", updatedSubEvent.Currency)
+	}
+}
+
+func TestToggleSubscriptionEventDisabled(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "PATCH"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/subscription_events/12345/disabled_state"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				defer r.Body.Close()
+				body, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					t.Fatal("error should be nil")
+				}
+				expectedBody := `{"disabled":true}`
+				if string(body) != expectedBody {
+					t.Errorf("Requested body expected: %v, actual: %v", expectedBody, string(body))
+				}
+				w.Write([]byte(`{"id":12345,"disabled":true,"disabled_at":"2026-03-17T10:00:00Z"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	result, err := tested.ToggleSubscriptionEventDisabled("12345", &ToggleSubscriptionEventDisabledParams{
+		Disabled: true,
+	})
+
+	if err != nil {
+		t.Fatalf("Not expected to fail: %v", err)
+	}
+	if result.ID != 12345 {
+		t.Errorf("Expected ID 12345, got: %v", result.ID)
+	}
+	if result.Disabled == nil || *result.Disabled != true {
+		t.Error("Expected disabled to be true")
+	}
+	if result.DisabledAt != "2026-03-17T10:00:00Z" {
+		t.Errorf("Expected disabled_at, got: %v", result.DisabledAt)
+	}
+}
+
+func TestToggleSubscriptionEventDisabledByExternalID(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "PATCH"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/subscription_events/disabled_state"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				defer r.Body.Close()
+				body, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					t.Fatal("error should be nil")
+				}
+				// Verify the body contains the expected structure
+				if len(body) == 0 {
+					t.Fatal("Expected non-empty body")
+				}
+				w.Write([]byte(`{"id":67890,"external_id":"evt_ext_1","data_source_uuid":"ds_abc","disabled":false}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	params := &ToggleSubscriptionEventDisabledByExternalIDParams{
+		Disabled: false,
+	}
+	params.SubscriptionEvent.DataSourceUUID = "ds_abc"
+	params.SubscriptionEvent.ExternalID = "evt_ext_1"
+
+	result, err := tested.ToggleSubscriptionEventDisabledByExternalID(params)
+
+	if err != nil {
+		t.Fatalf("Not expected to fail: %v", err)
+	}
+	if result.ID != 67890 {
+		t.Errorf("Expected ID 67890, got: %v", result.ID)
+	}
+	if result.Disabled == nil || *result.Disabled != false {
+		t.Error("Expected disabled to be false")
 	}
 }

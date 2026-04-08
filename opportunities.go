@@ -66,32 +66,24 @@ const (
 )
 
 // CreateOpportunity create the opportunity to Chartmogul
-//
-// See https://dev.chartmogul.com/reference/create-an-opportunity
 func (api API) CreateOpportunity(input *NewOpportunity) (*Opportunity, error) {
 	result := &Opportunity{}
 	return result, api.create(opportunitiesEndpoint, input, result)
 }
 
 // RetrieveOpportunity returns one opportunity as in API.
-//
-// See https://dev.chartmogul.com/reference/retrieve-an-opportunity
 func (api API) RetrieveOpportunity(opportunityUUID string) (*Opportunity, error) {
 	result := &Opportunity{}
 	return result, api.retrieve(singleOpportunityEndpoint, opportunityUUID, result)
 }
 
 // UpdateOpportunity updates one opportunity in API.
-//
-// See https://dev.chartmogul.com/reference/update-an-opportunity
 func (api API) UpdateOpportunity(input *UpdateOpportunity, opportunityUUID string) (*Opportunity, error) {
 	output := &Opportunity{}
 	return output, api.update(singleOpportunityEndpoint, opportunityUUID, input, output)
 }
 
 // ListOpportunities lists all opportunities.
-//
-// See https://dev.chartmogul.com/reference/list-opportunities
 func (api API) ListOpportunities(listOpportunitiesParams *ListOpportunitiesParams) (*Opportunities, error) {
 	result := &Opportunities{}
 	query := make([]interface{}, 0, 1)
@@ -102,8 +94,6 @@ func (api API) ListOpportunities(listOpportunitiesParams *ListOpportunitiesParam
 }
 
 // DeleteOpportunity deletes one opportunity by UUID.
-//
-// See https://dev.chartmogul.com/reference/delete-an-opportunity
 func (api API) DeleteOpportunity(opportunityUUID string) error {
 	return api.delete(singleOpportunityEndpoint, opportunityUUID)
 }

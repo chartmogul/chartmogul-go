@@ -17,8 +17,6 @@ type PlanGroupPlans struct {
 }
 
 // ListPlanGroupPlans returns list of plans in with a plan group given the plan group uuid.
-//
-// See https://dev.chartmogul.com/v1.0/reference#plan_groups
 func (api API) ListPlanGroupPlans(cursor *Cursor, planGroupUUID string) (*PlanGroupPlans, error) {
 	result := &PlanGroupPlans{}
 	query := make([]interface{}, 0, 1)

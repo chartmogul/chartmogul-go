@@ -1,6 +1,26 @@
 package chartmogul
 
-const subscriptionEventsEndpoint = "subscription_events"
+import "strings"
+
+const (
+	subscriptionEventsEndpoint                  = "subscription_events"
+	subscriptionEventDisabledStateEndpoint      = "subscription_events/:id/disabled_state"
+	subscriptionEventDisabledStateByExtEndpoint = "subscription_events/disabled_state"
+)
+
+// ToggleSubscriptionEventDisabledParams holds the parameters for toggling disabled state.
+type ToggleSubscriptionEventDisabledParams struct {
+	Disabled bool `json:"disabled"`
+}
+
+// ToggleSubscriptionEventDisabledByExternalIDParams holds parameters for toggling disabled state by external ID.
+type ToggleSubscriptionEventDisabledByExternalIDParams struct {
+	SubscriptionEvent struct {
+		DataSourceUUID string `json:"data_source_uuid"`
+		ExternalID     string `json:"external_id"`
+	} `json:"subscription_event"`
+	Disabled bool `json:"disabled"`
+}
 
 type SubscriptionEvent struct {
 	ID                        uint64      `json:"id,omitempty"`
@@ -22,6 +42,8 @@ type SubscriptionEvent struct {
 	TaxAmountInCents          int32       `json:"tax_amount_in_cents,omitempty"`
 	RetractedEventId          string      `json:"retracted_event_id,omitempty"`
 	EventOrder                int32       `json:"event_order,omitempty"`
+	Disabled                  *bool       `json:"disabled,omitempty"`
+	DisabledAt                string      `json:"disabled_at,omitempty"`
 }
 
 type SubscriptionEvents struct {
@@ -82,4 +104,17 @@ func (api API) DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) er
 		subscriptionEventsEndpoint,
 		DeleteSubscriptionEventParams{Params: deleteParams},
 	)
+}
+
+// ToggleSubscriptionEventDisabled toggles the disabled state of a subscription event by ID.
+func (api API) ToggleSubscriptionEventDisabled(id string, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error) {
+	result := &SubscriptionEvent{}
+	path := strings.Replace(subscriptionEventDisabledStateEndpoint, ":id", id, 1)
+	return result, api.update(path, "", params, result)
+}
+
+// ToggleSubscriptionEventDisabledByExternalID toggles the disabled state of a subscription event by external ID and data source UUID.
+func (api API) ToggleSubscriptionEventDisabledByExternalID(params *ToggleSubscriptionEventDisabledByExternalIDParams) (*SubscriptionEvent, error) {
+	result := &SubscriptionEvent{}
+	return result, api.update(subscriptionEventDisabledStateByExtEndpoint, "", params, result)
 }

@@ -51,32 +51,24 @@ const (
 )
 
 // CreateTask creates the task through the API.
-//
-// See https://dev.chartmogul.com/reference/create-a-task
 func (api API) CreateTask(input *NewTask) (*Task, error) {
 	result := &Task{}
 	return result, api.create(tasksEndpoint, input, result)
 }
 
 // RetrieveTask returns one task from the API.
-//
-// See https://dev.chartmogul.com/reference/retrieve-a-task
 func (api API) RetrieveTask(taskUUID string) (*Task, error) {
 	result := &Task{}
 	return result, api.retrieve(singleTaskEndpoint, taskUUID, result)
 }
 
 // UpdateTask updates one task through the API.
-//
-// See https://dev.chartmogul.com/reference/update-a-task
 func (api API) UpdateTask(input *UpdateTask, taskUUID string) (*Task, error) {
 	output := &Task{}
 	return output, api.update(singleTaskEndpoint, taskUUID, input, output)
 }
 
 // ListTasks lists all tasks.
-//
-// See https://dev.chartmogul.com/reference/list-tasks
 func (api API) ListTasks(listTasksParams *ListTasksParams) (*Tasks, error) {
 	result := &Tasks{}
 	query := make([]interface{}, 0, 1)
@@ -87,8 +79,6 @@ func (api API) ListTasks(listTasksParams *ListTasksParams) (*Tasks, error) {
 }
 
 // DeleteTask deletes one task by UUID.
-//
-// See https://dev.chartmogul.com/reference/delete-a-task
 func (api API) DeleteTask(taskUUID string) error {
 	return api.delete(singleTaskEndpoint, taskUUID)
 }

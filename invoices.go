@@ -16,9 +16,11 @@ type ValueChange struct {
 }
 
 const (
-	invoicesEndpoint          = "invoices"
-	singleInvoiceEndpoint     = "invoices/:uuid"
-	customersInvoicesEndpoint = "import/customers/:customerUUID/invoices"
+	invoicesEndpoint             = "invoices"
+	singleInvoiceEndpoint        = "invoices/:uuid"
+	customersInvoicesEndpoint    = "import/customers/:customerUUID/invoices"
+	invoiceUpdateStatusEndpoint  = "data_sources/:dataSourceUUID/invoices/:externalID/status"
+	invoiceDisabledStateEndpoint = "invoices/:uuid/disabled_state"
 )
 
 // Invoices is wrapper for bulk importing invoices
@@ -51,28 +53,29 @@ type Invoice struct {
 
 // LineItem represents a singular items of the invoices
 type LineItem struct {
-	UUID                      string `json:"uuid,omitempty"`
-	AccountCode               string `json:"account_code,omitempty"`
-	AmountInCents             int    `json:"amount_in_cents"`
-	CancelledAt               string `json:"cancelled_at,omitempty"`
-	Description               string `json:"description,omitempty"`
-	DiscountAmountInCents     int    `json:"discount_amount_in_cents,omitempty"`
-	DiscountCode              string `json:"discount_code,omitempty"`
-	ExternalID                string `json:"external_id,omitempty"`
-	PlanUUID                  string `json:"plan_uuid,omitempty"`
-	Prorated                  bool   `json:"prorated,omitempty"`
-	Quantity                  int    `json:"quantity,omitempty"`
-	ServicePeriodEnd          string `json:"service_period_end,omitempty"`
-	ServicePeriodStart        string `json:"service_period_start,omitempty"`
-	SubscriptionExternalID    string `json:"subscription_external_id,omitempty"`
-	SubscriptionSetExternalID string `json:"subscription_set_external_id,omitempty"`
-	SubscriptionUUID          string `json:"subscription_uuid,omitempty"`
-	TaxAmountInCents          int    `json:"tax_amount_in_cents,omitempty"`
-	TransactionFeesInCents    int    `json:"transaction_fees_in_cents,omitempty"`
-	TransactionFeesCurrency   string `json:"transaction_fees_currency,omitempty"`
-	DiscountDescription       string `json:"discount_description,omitempty"`
-	EventOrder                int    `json:"event_order,omitempty"`
-	Type                      string `json:"type"`
+	UUID                      string      `json:"uuid,omitempty"`
+	AccountCode               string      `json:"account_code,omitempty"`
+	AmountInCents             int         `json:"amount_in_cents"`
+	CancelledAt               string      `json:"cancelled_at,omitempty"`
+	Description               string      `json:"description,omitempty"`
+	DiscountAmountInCents     int         `json:"discount_amount_in_cents,omitempty"`
+	DiscountCode              string      `json:"discount_code,omitempty"`
+	ExternalID                string      `json:"external_id,omitempty"`
+	PlanUUID                  string      `json:"plan_uuid,omitempty"`
+	Prorated                  bool        `json:"prorated,omitempty"`
+	Quantity                  int         `json:"quantity,omitempty"`
+	ServicePeriodEnd          string      `json:"service_period_end,omitempty"`
+	ServicePeriodStart        string      `json:"service_period_start,omitempty"`
+	SubscriptionExternalID    string      `json:"subscription_external_id,omitempty"`
+	SubscriptionSetExternalID string      `json:"subscription_set_external_id,omitempty"`
+	SubscriptionUUID          string      `json:"subscription_uuid,omitempty"`
+	TaxAmountInCents          int         `json:"tax_amount_in_cents,omitempty"`
+	TransactionFeesInCents    int         `json:"transaction_fees_in_cents,omitempty"`
+	TransactionFeesCurrency   string      `json:"transaction_fees_currency,omitempty"`
+	DiscountDescription       string      `json:"discount_description,omitempty"`
+	EventOrder                int         `json:"event_order,omitempty"`
+	Type                      string      `json:"type"`
+	Errors                    interface{} `json:"errors,omitempty"`
 }
 
 // ListAllInvoicesParams optional parameters for ListAllInvoices
@@ -95,8 +98,6 @@ type RetrieveInvoiceParams struct {
 
 // CreateInvoices loads an invoice to a customer in Chartmogul.
 // Customer must have a valid UUID! (use return value of API)
-//
-// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error) {
 	if len(invoices) == 0 {
 		return nil, nil
@@ -109,8 +110,6 @@ func (api API) CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoic
 }
 
 // ListInvoices lists all imported invoices for a customer.
-//
-// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error) {
 	result := &Invoices{}
 	path := strings.Replace(customersInvoicesEndpoint, ":customerUUID", customerUUID, 1)
@@ -123,8 +122,6 @@ func (api API) ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, err
 
 // ListAllInvoices lists all imported invoices. Use parameters to narrow down the search/for paging.
 // listAllInvoicesParams can be nil, in which case default values on API are used.
-//
-// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error) {
 	result := &Invoices{}
 	query := make([]interface{}, 0, 1)
@@ -136,8 +133,6 @@ func (api API) ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*I
 
 // RetrieveInvoice returns one Invoice by UUID.
 // Optionally accepts RetrieveInvoiceParams for additional query options.
-//
-// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error) {
 	result := &Invoice{}
 
@@ -151,8 +146,30 @@ func (api API) RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoicePar
 }
 
 // DeleteInvoice deletes one invoice by UUID.
-//
-// See https://dev.chartmogul.com/v1.0/reference#invoices
 func (api API) DeleteInvoice(invoiceUUID string) error {
 	return api.delete(singleInvoiceEndpoint, invoiceUUID)
+}
+
+// UpdateInvoiceStatusParams holds the parameters for UpdateInvoiceStatus.
+type UpdateInvoiceStatusParams struct {
+	Status string `json:"status"`
+}
+
+// UpdateInvoiceStatus updates the status of an invoice by data source UUID and invoice external ID.
+func (api API) UpdateInvoiceStatus(dataSourceUUID, invoiceExternalID string, params *UpdateInvoiceStatusParams) error {
+	path := strings.Replace(invoiceUpdateStatusEndpoint, ":dataSourceUUID", dataSourceUUID, 1)
+	path = strings.Replace(path, ":externalID", invoiceExternalID, 1)
+	result := &Invoice{}
+	return api.update(path, "", params, result)
+}
+
+// ToggleInvoiceDisabledParams holds the parameters for ToggleInvoiceDisabled.
+type ToggleInvoiceDisabledParams struct {
+	Disabled bool `json:"disabled"`
+}
+
+// ToggleInvoiceDisabled toggles the disabled state of an invoice.
+func (api API) ToggleInvoiceDisabled(invoiceUUID string, params *ToggleInvoiceDisabledParams) (*Invoice, error) {
+	result := &Invoice{}
+	return result, api.update(invoiceDisabledStateEndpoint, invoiceUUID, params, result)
 }

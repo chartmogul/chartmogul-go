@@ -882,18 +882,22 @@ func (mr *MockIApiMockRecorder) RemoveTagsFromCustomer(arg0, arg1 interface{}) *
 }
 
 // RetrieveAccount mocks base method.
-func (m *MockIApi) RetrieveAccount() (*chartmogul.Account, error) {
+func (m *MockIApi) RetrieveAccount(arg0 ...*chartmogul.RetrieveAccountParams) (*chartmogul.Account, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RetrieveAccount")
+	varargs := []interface{}{}
+	for _, a := range arg0 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveAccount", varargs...)
 	ret0, _ := ret[0].(*chartmogul.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // RetrieveAccount indicates an expected call of RetrieveAccount.
-func (mr *MockIApiMockRecorder) RetrieveAccount() *gomock.Call {
+func (mr *MockIApiMockRecorder) RetrieveAccount(arg0 ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveAccount", reflect.TypeOf((*MockIApi)(nil).RetrieveAccount))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveAccount", reflect.TypeOf((*MockIApi)(nil).RetrieveAccount), arg0...)
 }
 
 // RetrieveContact mocks base method.
@@ -1119,4 +1123,63 @@ func (m *MockIApi) UpdateSubscriptionEvent(arg0 *chartmogul.SubscriptionEvent) (
 func (mr *MockIApiMockRecorder) UpdateSubscriptionEvent(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateSubscriptionEvent", reflect.TypeOf((*MockIApi)(nil).UpdateSubscriptionEvent), arg0)
+}
+
+// ToggleSubscriptionEventDisabled mocks base method.
+func (m *MockIApi) ToggleSubscriptionEventDisabled(arg0 string, arg1 *chartmogul.ToggleSubscriptionEventDisabledParams) (*chartmogul.SubscriptionEvent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ToggleSubscriptionEventDisabled", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.SubscriptionEvent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ToggleSubscriptionEventDisabled indicates an expected call of ToggleSubscriptionEventDisabled.
+func (mr *MockIApiMockRecorder) ToggleSubscriptionEventDisabled(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ToggleSubscriptionEventDisabled", reflect.TypeOf((*MockIApi)(nil).ToggleSubscriptionEventDisabled), arg0, arg1)
+}
+
+// ToggleSubscriptionEventDisabledByExternalID mocks base method.
+func (m *MockIApi) ToggleSubscriptionEventDisabledByExternalID(arg0 *chartmogul.ToggleSubscriptionEventDisabledByExternalIDParams) (*chartmogul.SubscriptionEvent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ToggleSubscriptionEventDisabledByExternalID", arg0)
+	ret0, _ := ret[0].(*chartmogul.SubscriptionEvent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ToggleSubscriptionEventDisabledByExternalID indicates an expected call of ToggleSubscriptionEventDisabledByExternalID.
+func (mr *MockIApiMockRecorder) ToggleSubscriptionEventDisabledByExternalID(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ToggleSubscriptionEventDisabledByExternalID", reflect.TypeOf((*MockIApi)(nil).ToggleSubscriptionEventDisabledByExternalID), arg0)
+}
+
+// UpdateInvoiceStatus mocks base method.
+func (m *MockIApi) UpdateInvoiceStatus(arg0, arg1 string, arg2 *chartmogul.UpdateInvoiceStatusParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateInvoiceStatus", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateInvoiceStatus indicates an expected call of UpdateInvoiceStatus.
+func (mr *MockIApiMockRecorder) UpdateInvoiceStatus(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateInvoiceStatus", reflect.TypeOf((*MockIApi)(nil).UpdateInvoiceStatus), arg0, arg1, arg2)
+}
+
+// ToggleInvoiceDisabled mocks base method.
+func (m *MockIApi) ToggleInvoiceDisabled(arg0 string, arg1 *chartmogul.ToggleInvoiceDisabledParams) (*chartmogul.Invoice, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ToggleInvoiceDisabled", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.Invoice)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ToggleInvoiceDisabled indicates an expected call of ToggleInvoiceDisabled.
+func (mr *MockIApiMockRecorder) ToggleInvoiceDisabled(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ToggleInvoiceDisabled", reflect.TypeOf((*MockIApi)(nil).ToggleInvoiceDisabled), arg0, arg1)
 }
