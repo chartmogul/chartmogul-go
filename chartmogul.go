@@ -63,6 +63,7 @@ type IApi interface {
 	ListInvoices(cursor *Cursor, customerUUID string) (*Invoices, error)
 	ListAllInvoices(listAllInvoicesParams *ListAllInvoicesParams) (*Invoices, error)
 	RetrieveInvoice(invoiceUUID string, params ...*RetrieveInvoiceParams) (*Invoice, error)
+	UpdateInvoice(invoiceUUID string, params *UpdateInvoiceParams) (*Invoice, error)
 	DeleteInvoice(invoiceUUID string) error
 	UpdateInvoiceStatus(dataSourceUUID, invoiceExternalID string, params *UpdateInvoiceStatusParams) error
 	ToggleInvoiceDisabled(invoiceUUID string, params *ToggleInvoiceDisabledParams) (*Invoice, error)

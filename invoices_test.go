@@ -687,6 +687,45 @@ func TestRetrieveInvoiceWithLineItemErrors(t *testing.T) {
 	}
 }
 
+func TestUpdateInvoice(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				expectedMethod := "PATCH"
+				if r.Method != expectedMethod {
+					t.Errorf("Requested method expected: %v, actual: %v", expectedMethod, r.Method)
+				}
+				expected := "/v/invoices/inv_123"
+				path := r.URL.Path
+				if path != expected {
+					t.Errorf("Requested path expected: %v, actual: %v", expected, path)
+					w.WriteHeader(http.StatusNotFound)
+				}
+				w.Write([]byte(`{"uuid":"inv_123","external_id":"INV0001","date":"2015-12-01T00:00:00.000Z","currency":"EUR","line_items":[],"transactions":[]}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	var tested IApi = &API{
+		ApiKey: "token",
+	}
+	invoice, err := tested.UpdateInvoice("inv_123", &UpdateInvoiceParams{
+		Date:     "2015-12-01T00:00:00.000Z",
+		Currency: "EUR",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if invoice.UUID != "inv_123" {
+		t.Errorf("Expected UUID inv_123, got: %v", invoice.UUID)
+	}
+	if invoice.Currency != "EUR" {
+		t.Errorf("Expected currency EUR, got: %v", invoice.Currency)
+	}
+}
+
 func TestCreateInvoiceFullRefund(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(

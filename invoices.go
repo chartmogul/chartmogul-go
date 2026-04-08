@@ -42,11 +42,14 @@ type Invoice struct {
 	Date               string              `json:"date"`
 	DueDate            string              `json:"due_date,omitempty"`
 	ExternalID         string              `json:"external_id"`
+	CollectionMethod   string              `json:"collection_method,omitempty"`
+	Status             string              `json:"status,omitempty"`
 	LineItems          []*LineItem         `json:"line_items"`
 	Transactions       []*Transaction      `json:"transactions,omitempty"`
 	Disabled           *bool               `json:"disabled,omitempty"`
 	DisabledAt         string              `json:"disabled_at,omitempty"`
 	DisabledBy         string              `json:"disabled_by,omitempty"`
+	UserCreated        *bool               `json:"user_created,omitempty"`
 	EditHistorySummary *EditHistorySummary `json:"edit_history_summary,omitempty"`
 	Errors             *InvoiceErrors      `json:"errors,omitempty"`
 }
@@ -180,4 +183,18 @@ type ToggleInvoiceDisabledParams struct {
 func (api API) ToggleInvoiceDisabled(invoiceUUID string, params *ToggleInvoiceDisabledParams) (*Invoice, error) {
 	result := &Invoice{}
 	return result, api.update(invoiceDisabledStateEndpoint, invoiceUUID, params, result)
+}
+
+// UpdateInvoiceParams holds the parameters for UpdateInvoice.
+type UpdateInvoiceParams struct {
+	Date             string `json:"date,omitempty"`
+	DueDate          string `json:"due_date,omitempty"`
+	Currency         string `json:"currency,omitempty"`
+	CollectionMethod string `json:"collection_method,omitempty"`
+}
+
+// UpdateInvoice updates an invoice by UUID.
+func (api API) UpdateInvoice(invoiceUUID string, params *UpdateInvoiceParams) (*Invoice, error) {
+	result := &Invoice{}
+	return result, api.update(singleInvoiceEndpoint, invoiceUUID, params, result)
 }
