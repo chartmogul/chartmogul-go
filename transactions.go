@@ -10,20 +10,20 @@ const (
 
 // Transaction is either payment/refund on an invoice, for its full value.
 type Transaction struct {
-	UUID                   string              `json:"uuid,omitempty"`
-	Date                   string              `json:"date"`
-	ExternalID             string              `json:"external_id,omitempty"`
-	Result                 string              `json:"result"`
-	Type                   string              `json:"type"`
-	AmountInCents          *int                `json:"amount_in_cents,omitempty"`
-	TransactionFeesInCents *int                `json:"transaction_fees_in_cents,omitempty"`
-	TransactionFeesCurrency string             `json:"transaction_fees_currency,omitempty"`
-	Disabled               *bool               `json:"disabled,omitempty"`
-	DisabledAt             string              `json:"disabled_at,omitempty"`
-	DisabledBy             string              `json:"disabled_by,omitempty"`
-	UserCreated            *bool               `json:"user_created,omitempty"`
-	EditHistorySummary     *EditHistorySummary `json:"edit_history_summary,omitempty"`
-	Errors                 Errors              `json:"errors,omitempty"`
+	UUID                    string              `json:"uuid,omitempty"`
+	Date                    string              `json:"date"`
+	ExternalID              string              `json:"external_id,omitempty"`
+	Result                  string              `json:"result"`
+	Type                    string              `json:"type"`
+	AmountInCents           *int                `json:"amount_in_cents,omitempty"`
+	TransactionFeesInCents  *int                `json:"transaction_fees_in_cents,omitempty"`
+	TransactionFeesCurrency string              `json:"transaction_fees_currency,omitempty"`
+	Disabled                *bool               `json:"disabled,omitempty"`
+	DisabledAt              string              `json:"disabled_at,omitempty"`
+	DisabledBy              string              `json:"disabled_by,omitempty"`
+	UserCreated             *bool               `json:"user_created,omitempty"`
+	EditHistorySummary      *EditHistorySummary `json:"edit_history_summary,omitempty"`
+	Errors                  Errors              `json:"errors,omitempty"`
 }
 
 // RetrieveTransactionParams optional parameters for RetrieveTransaction.

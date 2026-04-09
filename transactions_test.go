@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 const retrieveTransactionExample = `{
@@ -46,8 +44,7 @@ func TestRetrieveTransaction(t *testing.T) {
 	transaction, err := tested.RetrieveTransaction("tr_879d560a-1bec-41bb-986e-665e38a2f7bc")
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if transaction.UUID != "tr_879d560a-1bec-41bb-986e-665e38a2f7bc" {
 		t.Errorf("Expected UUID tr_879d560a-1bec-41bb-986e-665e38a2f7bc, got: %v", transaction.UUID)
@@ -81,8 +78,7 @@ func TestRetrieveTransactionWithParams(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if transaction.UUID != "tr_879d560a-1bec-41bb-986e-665e38a2f7bc" {
 		t.Errorf("Expected UUID tr_879d560a-1bec-41bb-986e-665e38a2f7bc, got: %v", transaction.UUID)
@@ -126,8 +122,7 @@ func TestUpdateTransaction(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if transaction.UUID != "tr_123" {
 		t.Errorf("Expected UUID tr_123, got: %v", transaction.UUID)
@@ -173,8 +168,7 @@ func TestToggleTransactionDisabled(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if transaction.UUID != "tr_123" {
 		t.Errorf("Expected UUID tr_123, got: %v", transaction.UUID)
@@ -205,7 +199,6 @@ func TestDeleteTransaction(t *testing.T) {
 	err := tested.DeleteTransaction("tr_123")
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 }
