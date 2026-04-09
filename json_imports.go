@@ -3,8 +3,8 @@ package chartmogul
 import "strings"
 
 const (
-	jsonImportsEndpoint       = "data_sources/:dataSourceUUID/json_imports"
-	singleJsonImportEndpoint  = "data_sources/:dataSourceUUID/json_imports/:id"
+	jsonImportsEndpoint      = "data_sources/:dataSourceUUID/json_imports"
+	singleJsonImportEndpoint = "data_sources/:dataSourceUUID/json_imports/:id"
 )
 
 // JsonImport represents the response from a bulk import operation.

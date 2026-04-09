@@ -4,8 +4,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 const createJsonImportExample = `{
@@ -68,8 +66,7 @@ func TestCreateJsonImport(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if result.ID != "imp_12345" {
 		t.Errorf("Expected ID imp_12345, got: %v", result.ID)
@@ -107,8 +104,7 @@ func TestRetrieveJsonImport(t *testing.T) {
 	result, err := tested.RetrieveJsonImport("ds_abc123", "imp_12345")
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if result.ID != "imp_12345" {
 		t.Errorf("Expected ID imp_12345, got: %v", result.ID)
