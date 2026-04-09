@@ -53,29 +53,37 @@ type Invoice struct {
 
 // LineItem represents a singular items of the invoices
 type LineItem struct {
-	UUID                      string      `json:"uuid,omitempty"`
-	AccountCode               string      `json:"account_code,omitempty"`
-	AmountInCents             int         `json:"amount_in_cents"`
-	CancelledAt               string      `json:"cancelled_at,omitempty"`
-	Description               string      `json:"description,omitempty"`
-	DiscountAmountInCents     int         `json:"discount_amount_in_cents,omitempty"`
-	DiscountCode              string      `json:"discount_code,omitempty"`
-	ExternalID                string      `json:"external_id,omitempty"`
-	PlanUUID                  string      `json:"plan_uuid,omitempty"`
-	Prorated                  bool        `json:"prorated,omitempty"`
-	Quantity                  int         `json:"quantity,omitempty"`
-	ServicePeriodEnd          string      `json:"service_period_end,omitempty"`
-	ServicePeriodStart        string      `json:"service_period_start,omitempty"`
-	SubscriptionExternalID    string      `json:"subscription_external_id,omitempty"`
-	SubscriptionSetExternalID string      `json:"subscription_set_external_id,omitempty"`
-	SubscriptionUUID          string      `json:"subscription_uuid,omitempty"`
-	TaxAmountInCents          int         `json:"tax_amount_in_cents,omitempty"`
-	TransactionFeesInCents    int         `json:"transaction_fees_in_cents,omitempty"`
-	TransactionFeesCurrency   string      `json:"transaction_fees_currency,omitempty"`
-	DiscountDescription       string      `json:"discount_description,omitempty"`
-	EventOrder                int         `json:"event_order,omitempty"`
-	Type                      string      `json:"type"`
-	Errors                    interface{} `json:"errors,omitempty"`
+	UUID                      string              `json:"uuid,omitempty"`
+	AccountCode               string              `json:"account_code,omitempty"`
+	AmountInCents             int                 `json:"amount_in_cents"`
+	CancelledAt               string              `json:"cancelled_at,omitempty"`
+	Description               string              `json:"description,omitempty"`
+	DiscountAmountInCents     int                 `json:"discount_amount_in_cents,omitempty"`
+	DiscountCode              string              `json:"discount_code,omitempty"`
+	ExternalID                string              `json:"external_id,omitempty"`
+	PlanUUID                  string              `json:"plan_uuid,omitempty"`
+	PlanExternalID            string              `json:"plan_external_id,omitempty"`
+	Prorated                  bool                `json:"prorated,omitempty"`
+	ProrationType             string              `json:"proration_type,omitempty"`
+	Quantity                  int                 `json:"quantity,omitempty"`
+	ServicePeriodEnd          string              `json:"service_period_end,omitempty"`
+	ServicePeriodStart        string              `json:"service_period_start,omitempty"`
+	SubscriptionExternalID    string              `json:"subscription_external_id,omitempty"`
+	SubscriptionSetExternalID string              `json:"subscription_set_external_id,omitempty"`
+	SubscriptionUUID          string              `json:"subscription_uuid,omitempty"`
+	TaxAmountInCents          int                 `json:"tax_amount_in_cents,omitempty"`
+	TransactionFeesInCents    int                 `json:"transaction_fees_in_cents,omitempty"`
+	TransactionFeesCurrency   string              `json:"transaction_fees_currency,omitempty"`
+	DiscountDescription       string              `json:"discount_description,omitempty"`
+	EventOrder                int                 `json:"event_order,omitempty"`
+	BalanceTransfer           *bool               `json:"balance_transfer,omitempty"`
+	Type                      string              `json:"type"`
+	Disabled                  *bool               `json:"disabled,omitempty"`
+	DisabledAt                string              `json:"disabled_at,omitempty"`
+	DisabledBy                string              `json:"disabled_by,omitempty"`
+	UserCreated               *bool               `json:"user_created,omitempty"`
+	EditHistorySummary        *EditHistorySummary `json:"edit_history_summary,omitempty"`
+	Errors                    interface{}         `json:"errors,omitempty"`
 }
 
 // ListAllInvoicesParams optional parameters for ListAllInvoices
