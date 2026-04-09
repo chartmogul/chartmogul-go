@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 const retrieveLineItemExample = `{
@@ -63,8 +61,7 @@ func TestRetrieveLineItem(t *testing.T) {
 	lineItem, err := tested.RetrieveLineItem("li_d72e6843-5793-41d0-bfdf-0269514c9c56")
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if lineItem.UUID != "li_d72e6843-5793-41d0-bfdf-0269514c9c56" {
 		t.Errorf("Expected UUID li_d72e6843-5793-41d0-bfdf-0269514c9c56, got: %v", lineItem.UUID)
@@ -104,8 +101,7 @@ func TestRetrieveLineItemWithParams(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if lineItem.UUID != "li_d72e6843-5793-41d0-bfdf-0269514c9c56" {
 		t.Errorf("Expected UUID li_d72e6843-5793-41d0-bfdf-0269514c9c56, got: %v", lineItem.UUID)
@@ -143,8 +139,7 @@ func TestCreateLineItems(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if len(result.LineItems) != 1 {
 		t.Fatalf("Expected 1 line item, got: %v", len(result.LineItems))
@@ -191,8 +186,7 @@ func TestUpdateLineItem(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if lineItem.UUID != "li_123" {
 		t.Errorf("Expected UUID li_123, got: %v", lineItem.UUID)
@@ -238,8 +232,7 @@ func TestToggleLineItemDisabled(t *testing.T) {
 	})
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 	if lineItem.UUID != "li_123" {
 		t.Errorf("Expected UUID li_123, got: %v", lineItem.UUID)
@@ -273,7 +266,6 @@ func TestDeleteLineItem(t *testing.T) {
 	err := tested.DeleteLineItem("li_123")
 
 	if err != nil {
-		spew.Dump(err)
-		t.Fatal("Not expected to fail")
+		t.Fatal("Not expected to fail:", err)
 	}
 }
