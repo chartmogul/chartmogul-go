@@ -1495,6 +1495,21 @@ func (mr *MockIApiMockRecorder) UpdateCustomerV2(arg0, arg1 interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomerV2", reflect.TypeOf((*MockIApi)(nil).UpdateCustomerV2), arg0, arg1)
 }
 
+// UpdateInvoice mocks base method
+func (m *MockIApi) UpdateInvoice(arg0 string, arg1 *chartmogul.UpdateInvoiceParams) (*chartmogul.Invoice, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateInvoice", arg0, arg1)
+	ret0, _ := ret[0].(*chartmogul.Invoice)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateInvoice indicates an expected call of UpdateInvoice
+func (mr *MockIApiMockRecorder) UpdateInvoice(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateInvoice", reflect.TypeOf((*MockIApi)(nil).UpdateInvoice), arg0, arg1)
+}
+
 // UpdateInvoiceStatus mocks base method
 func (m *MockIApi) UpdateInvoiceStatus(arg0, arg1 string, arg2 *chartmogul.UpdateInvoiceStatusParams) error {
 	m.ctrl.T.Helper()
