@@ -92,6 +92,10 @@ type IApi interface {
 	DisconnectSubscriptions(customerUUID string, subscriptions []Subscription) error
 	// Transactions
 	CreateTransaction(transaction *Transaction, invoiceUUID string) (*Transaction, error)
+	RetrieveTransaction(transactionUUID string, params ...*RetrieveTransactionParams) (*Transaction, error)
+	UpdateTransaction(transactionUUID string, params *UpdateTransactionParams) (*Transaction, error)
+	ToggleTransactionDisabled(transactionUUID string, params *ToggleTransactionDisabledParams) (*Transaction, error)
+	DeleteTransaction(transactionUUID string) error
 
 	// Customers
 	CreateCustomer(newCustomer *NewCustomer) (*Customer, error)
