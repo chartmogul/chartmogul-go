@@ -21,6 +21,8 @@
 |
 <b><a href="#contributing">Contributing</a></b>
 |
+<b><a href="#releasing">Releasing</a></b>
+|
 <b><a href="#security">Security</a></b>
 |
 <b><a href="#license">License</a></b>
@@ -375,6 +377,10 @@ To work on the library:
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/chartmogul/chartmogul-go.
+
+## Releasing
+
+See [RELEASING.md](RELEASING.md) for the full release process.
 
 ## Security
 
