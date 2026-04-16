@@ -1,40 +1,46 @@
 #!/bin/bash
 # Stop: batch-format files touched this turn, run lint + tests, report failures.
-# Suite takes ~2s so it's cheap enough to run every turn.
+# Tests run unconditionally (~2s) since edits to test or lib code both matter.
 cd "$CLAUDE_PROJECT_DIR" || exit 0
 
-TRACKER="$CLAUDE_PROJECT_DIR/.claude/.edited_files"
-ERRORS=""
+TRACKER="/tmp/claude-edited-go-files-${CLAUDE_HOOK_SESSION_ID:-default}"
 
-# Nothing tracked this turn - skip everything
-[[ ! -f "$TRACKER" ]] && exit 0
+ctx=""
 
-# Dedup tracked files, filter to existing .go files
-FILES=$(sort -u "$TRACKER" | while read -r f; do [[ -f "$f" ]] && echo "$f"; done)
-rm -f "$TRACKER" 2>/dev/null
+# Batch gofmt + golangci-lint on tracked files (if any were edited)
+if [[ -f "$TRACKER" ]]; then
+  files=$(cat "$TRACKER")
+  rm -f "$TRACKER"
 
-[[ -z "$FILES" ]] && exit 0
+  if [[ -n "$files" ]]; then
+    echo "$files" | xargs gofmt -w 2>/dev/null || true
 
-# 1. Autoformat touched files
-echo "$FILES" | xargs gofmt -w 2>/dev/null || true
-
-# 2. Lint touched files and report remaining offenses
-if [ -x ./bin/golangci-lint ]; then
-  LINT_OUTPUT=$(echo "$FILES" | xargs ./bin/golangci-lint run --fix 2>&1)
-  if [ $? -ne 0 ]; then
-    ERRORS="$ERRORS\n## golangci-lint\n$(echo "$LINT_OUTPUT" | head -20)"
+    if [ -x ./bin/golangci-lint ]; then
+      lint_out=$(echo "$files" | xargs ./bin/golangci-lint run --fix 2>&1)
+      lint_exit=$?
+      if [ $lint_exit -ne 0 ]; then
+        offenses=$(echo "$lint_out" | head -20)
+        ctx+="golangci-lint offenses remaining after autocorrect:\n$offenses\n"
+      fi
+    fi
   fi
 fi
 
-# 3. Run full test suite (~2s)
-TEST_OUTPUT=$(go test -timeout=30s ./... 2>&1)
-if [ $? -ne 0 ]; then
-  ERRORS="$ERRORS\n## go test\n$(echo "$TEST_OUTPUT" | grep -E 'FAIL|Error|panic' | head -20)"
+# Always run tests - edits to test or lib code both matter (~2s)
+test_out=$(go test -timeout=30s ./... 2>&1)
+test_exit=$?
+if [[ $test_exit -ne 0 ]]; then
+  summary=$(echo "$test_out" | grep -E 'FAIL|Error|panic' | head -20)
+  ctx+="go test failed:\n$summary\n"
 fi
 
-if [[ -n "$ERRORS" ]]; then
-  jq -n --arg ctx "$(printf "Issues found after this turn:$ERRORS")" \
-    '{"hookSpecificOutput": {"hookEventName": "Stop", "additionalContext": $ctx}}' || true
+if [[ -n "$ctx" ]]; then
+  jq -n --arg ctx "$ctx" '{
+    "hookSpecificOutput": {
+      "hookEventName": "Stop",
+      "additionalContext": $ctx
+    }
+  }' || true
 fi
 
 exit 0

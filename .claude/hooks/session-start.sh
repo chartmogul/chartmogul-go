@@ -3,17 +3,26 @@
 # Detects stale lockfiles, uncommitted changes, current branch.
 cd "$CLAUDE_PROJECT_DIR" || exit 0
 
+# Generate a stable session ID and persist via CLAUDE_ENV_FILE
+# so the edit tracker and stop hook share the same file path
+SESSION_ID="$(date +%s)-$$"
+if [[ -n "$CLAUDE_ENV_FILE" ]]; then
+  echo "export CLAUDE_HOOK_SESSION_ID='$SESSION_ID'" >> "$CLAUDE_ENV_FILE"
+fi
+
 ctx=""
 
-# Check if go.mod is newer than go.sum (deps out of date)
-if [[ -f go.mod && -f go.sum ]]; then
-  if [[ go.mod -nt go.sum ]]; then
-    ctx+="go.mod is newer than go.sum - run go mod tidy\n"
+# Check if go.sum is missing or stale relative to go.mod
+if [[ -f go.mod ]]; then
+  if [[ ! -f go.sum ]]; then
+    ctx+="go.sum missing - run go mod tidy.\n"
+  elif [[ go.mod -nt go.sum ]]; then
+    ctx+="go.mod is newer than go.sum - run go mod tidy.\n"
   fi
 fi
 
-# Check for uncommitted changes
-dirty=$(git diff --name-only 2>/dev/null | head -5)
+# Warn about uncommitted changes
+dirty=$(git status --porcelain 2>/dev/null | head -5)
 if [[ -n "$dirty" ]]; then
   ctx+="Uncommitted changes:\n$dirty\n"
 fi
@@ -24,12 +33,13 @@ if [[ -n "$branch" ]]; then
   ctx+="Branch: $branch\n"
 fi
 
-# Clear stale file tracker from previous session
-rm -f "$CLAUDE_PROJECT_DIR/.claude/.edited_files" 2>/dev/null
-
 if [[ -n "$ctx" ]]; then
-  jq -n --arg ctx "$ctx" \
-    '{"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": $ctx}}' || true
+  jq -n --arg ctx "$ctx" '{
+    "hookSpecificOutput": {
+      "hookEventName": "SessionStart",
+      "additionalContext": $ctx
+    }
+  }' || true
 fi
 
 exit 0

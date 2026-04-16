@@ -18,7 +18,7 @@ FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep '\.go$' || true)
 
 # Run golangci-lint on committed files only
 if [ -x ./bin/golangci-lint ]; then
-  LINT_OUTPUT=$(./bin/golangci-lint run $FILES 2>&1)
+  LINT_OUTPUT=$(echo "$FILES" | xargs ./bin/golangci-lint run 2>&1)
   LINT_EXIT=$?
   if [ $LINT_EXIT -ne 0 ]; then
     CTX=$(echo "$LINT_OUTPUT" | head -20)
