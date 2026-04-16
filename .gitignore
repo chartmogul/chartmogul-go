@@ -9,6 +9,7 @@ bin/golangci-lint
 .claude/settings.local.json
 .claude/todos/
 .claude/credentials.json
+.claude/.edited_files
 CLAUDE.local.md
 .cursor/chat/
 .cursor/composer/
