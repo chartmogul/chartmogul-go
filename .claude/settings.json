@@ -38,6 +38,18 @@
       "Bash(gh repo view:*)",
       "Bash(gh search:*)"
     ],
+    "ask": [
+      "Bash(gh pr create:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr close:*)",
+      "Bash(gh pr ready:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh issue edit:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh api:*)"
+    ],
     "deny": [
       "Read(./.env*)"
     ]
