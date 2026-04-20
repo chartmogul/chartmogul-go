@@ -30,7 +30,7 @@
 <hr>
 <br>
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v4.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v4)
+[![Go Reference](https://pkg.go.dev/badge/github.com/chartmogul/chartmogul-go/v5.svg)](https://pkg.go.dev/github.com/chartmogul/chartmogul-go/v5)
 [![Go Report Card](https://goreportcard.com/badge/github.com/chartmogul/chartmogul-go)](https://goreportcard.com/report/github.com/chartmogul/chartmogul-go)
 
 ## Installation
@@ -38,7 +38,7 @@
 This library requires Go 1.21 or above.
 
 ```sh
-go get github.com/chartmogul/chartmogul-go/v4
+go get github.com/chartmogul/chartmogul-go/v5
 ```
 
 Go modules will record the exact version and cryptographic checksums in your `go.mod` and `go.sum` files.
@@ -54,7 +54,7 @@ Version 4.x will introduce a breaking change for pagination on List endpoints. T
 First create the `API` struct by passing your API key, available from the administration section of your ChartMogul account.
 
 ```go
-import cm "github.com/chartmogul/chartmogul-go/v4"
+import cm "github.com/chartmogul/chartmogul-go/v5"
 
 api := cm.API{
     ApiKey: os.Getenv("CHARTMOGUL_API_KEY"),
@@ -391,7 +391,7 @@ All releases of this library are published as [immutable GitHub Releases](https:
 When you install this library via `go get`, Go automatically verifies the module contents against the [Go checksum database](https://sum.golang.org). This ensures that the code you download matches what was originally published and has not been modified.
 
 To maximize supply chain security:
-- **Pin to a specific version**: `go get github.com/chartmogul/chartmogul-go/v4@v4.11.0`
+- **Pin to a specific version**: `go get github.com/chartmogul/chartmogul-go/v5@v4.11.0`
 - **Commit your `go.sum`** file to version control
 - **Do not disable** `GONOSUMCHECK` or `GONOSUMDB` for this module
 
