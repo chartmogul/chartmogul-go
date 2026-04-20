@@ -55,8 +55,6 @@ type IApi interface {
 	RetrieveDataSource(dataSourceUUID string, params ...*ExtraDataSourceParams) (*DataSource, error)
 	ListDataSources(params ...*ExtraDataSourceParams) (*DataSources, error)
 	ListDataSourcesWithFilters(listDataSourcesParams *ListDataSourcesParams) (*DataSources, error)
-	PurgeDataSource(dataSourceUUID string) error
-	EmptyDataSource(dataSourceUUID string) error
 	DeleteDataSource(dataSourceUUID string) error
 	// Invoices
 	CreateInvoices(invoices []*Invoice, customerUUID string) (*Invoices, error)
