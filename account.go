@@ -1,10 +1,5 @@
 package chartmogul
 
-import (
-	neturl "net/url"
-	"strings"
-)
-
 const (
 	accountEndpoint = "account"
 )
@@ -34,11 +29,7 @@ type RetrieveAccountParams struct {
 func (api API) RetrieveAccount(params ...*RetrieveAccountParams) (*Account, error) {
 	result := &Account{}
 	if len(params) > 0 && params[0] != nil && params[0].Include != "" {
-		fields := params[0].Include
-		// Normalize array-style input
-		fields = strings.ReplaceAll(fields, " ", "")
-		path := accountEndpoint + "?include=" + neturl.QueryEscape(fields)
-		return result, api.retrieve(path, "", result)
+		return result, api.retrieveWithParams(accountEndpoint, "", result, *params[0])
 	}
 	return result, api.retrieve(accountEndpoint, "", result)
 }
