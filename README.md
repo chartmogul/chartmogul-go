@@ -391,7 +391,7 @@ All releases of this library are published as [immutable GitHub Releases](https:
 When you install this library via `go get`, Go automatically verifies the module contents against the [Go checksum database](https://sum.golang.org). This ensures that the code you download matches what was originally published and has not been modified.
 
 To maximize supply chain security:
-- **Pin to a specific version**: `go get github.com/chartmogul/chartmogul-go/v5@v4.11.0`
+- **Pin to a specific version**: `go get github.com/chartmogul/chartmogul-go/v5@v5.0.0`
 - **Commit your `go.sum`** file to version control
 - **Do not disable** `GONOSUMCHECK` or `GONOSUMDB` for this module
 
