@@ -6,7 +6,7 @@
 
 <p align="center"><code>chartmogul-go</code> provides convenient Golang bindings for <a href="https://dev.chartmogul.com">ChartMogul's API</a>.</p>
 <p align="center">
-  <a href="https://github.com/chartmogul/chartmogul-go/tree/v2"><img src="https://github.com/chartmogul/chartmogul-go/actions/workflows/test.yml/badge.svg?branch=v2" alt="Build Status"/></a>
+  <a href="https://github.com/chartmogul/chartmogul-go/actions/workflows/test.yml"><img src="https://github.com/chartmogul/chartmogul-go/actions/workflows/test.yml/badge.svg" alt="Build Status"/></a>
 </p>
 <hr>
 
@@ -38,10 +38,10 @@
 This library requires Go 1.21 or above.
 
 ```sh
-go get github.com/chartmogul/chartmogul-go/v4@v4.11.0
+go get github.com/chartmogul/chartmogul-go/v4
 ```
 
-We recommend pinning to a specific version as shown above. Go modules will record the exact version and cryptographic checksums in your `go.mod` and `go.sum` files.
+Go modules will record the exact version and cryptographic checksums in your `go.mod` and `go.sum` files.
 
 Always commit your `go.sum` file to version control. It contains cryptographic hashes verified against the [Go checksum database](https://sum.golang.org), ensuring the code you depend on has not been tampered with.
 

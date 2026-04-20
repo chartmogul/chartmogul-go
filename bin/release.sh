@@ -133,7 +133,6 @@ This PR is opened automatically by \`bin/release.sh major\` when the \`${DEFAULT
 - [ ] **Branch protection ruleset**: Settings > Rules > Rulesets > add/extend ruleset to target \`${DEFAULT_BRANCH}\` with require-PR, require-status-checks, force-push prevention, and deletion prevention
 - [ ] **Tag protection ruleset**: confirm the existing \`v*\` tag ruleset still applies (it should, but verify after the default branch change)
 - [ ] **pkg.go.dev**: after the first \`${DEFAULT_BRANCH}.0.0\` tag is pushed, visit https://pkg.go.dev/${NEW_PATH} to trigger indexing
-- [ ] **README**: update install snippet and any badges that reference \`${SOURCE_BRANCH}\`
 
 ## Next steps
 

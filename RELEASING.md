@@ -51,7 +51,6 @@ The setup PR description contains a checklist of admin tasks that must be comple
 - Switch the default branch to `v{major+1}`
 - Extend the branch protection ruleset to cover `v{major+1}` (the test workflow already runs on any `v*` branch)
 - Verify the `v*` tag ruleset still applies
-- Update README install snippet and badges
 
 Once the setup PR is merged and the admin tasks are done, re-run `bin/release.sh major` to tag `v{major+1}.0.0`.
 
