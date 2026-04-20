@@ -1407,7 +1407,7 @@ func (mr *MockIApiMockRecorder) ToggleLineItemDisabled(arg0, arg1 interface{}) *
 }
 
 // ToggleSubscriptionEventDisabled mocks base method
-func (m *MockIApi) ToggleSubscriptionEventDisabled(arg0 string, arg1 *chartmogul.ToggleSubscriptionEventDisabledParams) (*chartmogul.SubscriptionEvent, error) {
+func (m *MockIApi) ToggleSubscriptionEventDisabled(arg0 uint64, arg1 *chartmogul.ToggleSubscriptionEventDisabledParams) (*chartmogul.SubscriptionEvent, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ToggleSubscriptionEventDisabled", arg0, arg1)
 	ret0, _ := ret[0].(*chartmogul.SubscriptionEvent)
