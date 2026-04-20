@@ -49,8 +49,7 @@ Running `bin/release.sh major` when that branch does not exist will:
 The setup PR description contains a checklist of admin tasks that must be completed after merge:
 
 - Switch the default branch to `v{major+1}`
-- Update `.github/workflows/test.yml` so `branches` filters include `v{major+1}`
-- Extend the branch protection ruleset to cover `v{major+1}`
+- Extend the branch protection ruleset to cover `v{major+1}` (the test workflow already runs on any `v*` branch)
 - Verify the `v*` tag ruleset still applies
 - Update README install snippet and badges
 
