@@ -1,9 +1,9 @@
 name: Run specs and generate Code Climate report
 on:
   push:
-    branches: [ main, v4 ]
+    branches: [ main, 'v*' ]
   pull_request:
-    branches: [ main, v4 ]
+    branches: [ main, 'v*' ]
 permissions:
   contents: read
   pull-requests: read
@@ -53,7 +53,8 @@ jobs:
             echo "mode: set" > c.out
             grep -h -v "^mode:" ./*.cover >> c.out
             rm -f *.cover
-            sed -i 's#^github.com/chartmogul/chartmogul-go/v4/##g' c.out
+            MODULE=$(go list -m)
+            sed -i "s#^${MODULE}/##g" c.out
   linter:
     runs-on: ubuntu-24.04
     steps:
