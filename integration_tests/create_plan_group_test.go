@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	cm "github.com/chartmogul/chartmogul-go/v4"
+	cm "github.com/chartmogul/chartmogul-go/v5"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/parnurzeal/gorequest"
 )

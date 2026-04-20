@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	cm "github.com/chartmogul/chartmogul-go/v4"
+	cm "github.com/chartmogul/chartmogul-go/v5"
 )
 
 // createTestInvoicesForCustomer creates a set of test invoices for a specified plan and customer.
