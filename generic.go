@@ -19,8 +19,8 @@ var errRetry = errors.New("Retrying")
 
 // RetryConfig allows configuring the retry behavior for API requests.
 type RetryConfig struct {
-	// Enabled controls whether retries are enabled. Defaults to true.
-	Enabled bool
+	// Defaults to true.
+	Enabled *bool
 	// Maximum total time for retries. Defaults to backoff's default (15 minutes).
 	MaxElapsedTime time.Duration
 	// Maximum interval between retries. Defaults to backoff's default (60 seconds).
@@ -29,7 +29,8 @@ type RetryConfig struct {
 
 // defaultRetryConfig returns the default retry configuration (enabled, using backoff defaults).
 func defaultRetryConfig() *RetryConfig {
-	return &RetryConfig{Enabled: true}
+	enabled := true
+	return &RetryConfig{Enabled: &enabled}
 }
 
 // backoffStrategy creates a backoff strategy based on the API's retry config.
@@ -38,7 +39,7 @@ func (api API) backoffStrategy() backoff.BackOff {
 	if cfg == nil {
 		cfg = defaultRetryConfig()
 	}
-	if !cfg.Enabled {
+	if cfg.Enabled != nil && !*cfg.Enabled {
 		return &backoff.StopBackOff{}
 	}
 	b := backoff.NewExponentialBackOff()
