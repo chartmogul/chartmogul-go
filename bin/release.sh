@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DEFAULT_BRANCH="v4"
-
 # --- Usage -------------------------------------------------------------------
 
 usage() {
@@ -28,6 +26,39 @@ for cmd in git gh jq; do
 done
 
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+
+# --- Determine release branch ------------------------------------------------
+#
+# Go module versioning uses major-version branches (v4, v5, ...). Patch and
+# minor releases land on the current major branch; major releases land on a
+# new v{major+1} branch, which must already exist (it requires a module path
+# change in go.mod and so cannot be created by this script).
+
+LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+if [[ -z "$LAST_TAG" ]]; then
+  echo "Error: No existing tag found - cannot determine current major version." >&2
+  exit 1
+fi
+
+CURRENT_VERSION="${LAST_TAG#v}"
+IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+
+if [[ "$BUMP_TYPE" == "major" ]]; then
+  TARGET_MAJOR=$((MAJOR + 1))
+else
+  TARGET_MAJOR="$MAJOR"
+fi
+
+DEFAULT_BRANCH="v${TARGET_MAJOR}"
+
+if ! git ls-remote --exit-code --heads origin "$DEFAULT_BRANCH" &>/dev/null; then
+  echo "Error: Branch '${DEFAULT_BRANCH}' does not exist on origin." >&2
+  if [[ "$BUMP_TYPE" == "major" ]]; then
+    echo "  For a major release, create the '${DEFAULT_BRANCH}' branch first with the updated" >&2
+    echo "  module path in go.mod (github.com/chartmogul/chartmogul-go/${DEFAULT_BRANCH})." >&2
+  fi
+  exit 1
+fi
 
 # --- Check CI is green -------------------------------------------------------
 
@@ -62,16 +93,9 @@ fi
 
 # --- Show PRs included in this release ----------------------------------------
 
-LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-if [[ -n "$LAST_TAG" ]]; then
-  echo ""
-  echo "PRs merged since ${LAST_TAG}:"
-  MERGED_PRS=$(gh pr list --base "$DEFAULT_BRANCH" --state merged --search "merged:>=$(git log -1 --format=%aI "$LAST_TAG")" --json number,title,url)
-else
-  echo ""
-  echo "PRs merged (no previous tag found, showing recent):"
-  MERGED_PRS=$(gh pr list --base "$DEFAULT_BRANCH" --state merged --limit 10 --json number,title,url)
-fi
+echo ""
+echo "PRs merged since ${LAST_TAG}:"
+MERGED_PRS=$(gh pr list --base "$DEFAULT_BRANCH" --state merged --search "merged:>=$(git log -1 --format=%aI "$LAST_TAG")" --json number,title,url)
 
 MERGED_COUNT=$(echo "$MERGED_PRS" | jq 'length')
 if [[ "$MERGED_COUNT" -eq 0 ]]; then
@@ -89,11 +113,8 @@ fi
 
 # --- Calculate new version ----------------------------------------------------
 
-CURRENT_VERSION="${LAST_TAG#v}"
-IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
-
 case "$BUMP_TYPE" in
-  major) NEW_VERSION="$((MAJOR + 1)).0.0" ;;
+  major) NEW_VERSION="${TARGET_MAJOR}.0.0" ;;
   minor) NEW_VERSION="${MAJOR}.$((MINOR + 1)).0" ;;
   patch) NEW_VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
 esac

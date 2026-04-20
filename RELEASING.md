@@ -17,15 +17,16 @@ bin/release.sh <patch|minor|major>
 
 The script will:
 
-1. Verify prerequisites and that CI is green on `v4`
-2. Show any open PRs targeting `v4` and ask for confirmation
-3. Show PRs merged since the last tag and ask for confirmation
-4. Calculate the new version based on the last tag
-5. Tag the latest commit on `v4` and push the tag
-6. Wait for the [release workflow](.github/workflows/release.yml) to complete, which will:
+1. Determine the target branch from the last tag: patch/minor releases land on the current `v{major}` branch, major releases land on `v{major+1}` (which must already exist with an updated module path in `go.mod`)
+2. Verify prerequisites and that CI is green on the target branch
+3. Show any open PRs targeting that branch and ask for confirmation
+4. Show PRs merged since the last tag and ask for confirmation
+5. Calculate the new version based on the last tag
+6. Tag the latest commit on the target branch and push the tag
+7. Wait for the [release workflow](.github/workflows/release.yml) to complete, which will:
    - Run the full test suite across Go 1.21, 1.22, 1.23, and 1.24
    - Create a GitHub Release with auto-generated release notes
-7. Print links to the GitHub Release and pkg.go.dev
+8. Print links to the GitHub Release and pkg.go.dev
 
 ## Changelog
 
