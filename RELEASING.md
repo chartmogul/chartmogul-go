@@ -17,7 +17,7 @@ bin/release.sh <patch|minor|major>
 
 The script will:
 
-1. Determine the target branch from the last tag: patch/minor releases land on the current `v{major}` branch, major releases land on `v{major+1}` (which must already exist with an updated module path in `go.mod`)
+1. Determine the target branch from the last tag: patch/minor releases land on the current `v{major}` branch, major releases land on `v{major+1}`. If the `v{major+1}` branch does not yet exist, the script opens a [setup PR](#major-releases) that updates the module path and stops - merge that PR, complete the admin checklist in its description, then re-run `bin/release.sh major`
 2. Verify prerequisites and that CI is green on the target branch
 3. Show any open PRs targeting that branch and ask for confirmation
 4. Show PRs merged since the last tag and ask for confirmation
@@ -35,6 +35,26 @@ Release notes are auto-generated from merged PR titles by the [release workflow]
 - Use clear, descriptive PR titles (e.g., "Add bulk import endpoints")
 - Prefix breaking changes with `BREAKING:` so they stand out in release notes
 - After the release is created, review and edit the notes on the [Releases page](https://github.com/chartmogul/chartmogul-go/releases) if needed
+
+## Major Releases
+
+Go encodes the major version in the module path (e.g. `github.com/chartmogul/chartmogul-go/v5`), so a major bump requires a new `v{major+1}` branch with an updated `go.mod`.
+
+Running `bin/release.sh major` when that branch does not exist will:
+
+1. Push a new `v{major+1}` branch from the current major branch
+2. Open a setup PR that rewrites the module path in `go.mod` and all `.go`/`.md` files
+3. Exit with a pointer to the PR
+
+The setup PR description contains a checklist of admin tasks that must be completed after merge:
+
+- Switch the default branch to `v{major+1}`
+- Update `.github/workflows/test.yml` so `branches` filters include `v{major+1}`
+- Extend the branch protection ruleset to cover `v{major+1}`
+- Verify the `v*` tag ruleset still applies
+- Update README install snippet and badges
+
+Once the setup PR is merged and the admin tasks are done, re-run `bin/release.sh major` to tag `v{major+1}.0.0`.
 
 ## Pre-release Versions
 
