@@ -1,6 +1,7 @@
 package chartmogul
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -381,5 +382,50 @@ func TestToggleSubscriptionEventDisabledByExternalID(t *testing.T) {
 	}
 	if result.Disabled == nil || *result.Disabled != false {
 		t.Error("Expected disabled to be false")
+	}
+}
+
+func TestSubscriptionEventErrorsUnmarshalsAsMap(t *testing.T) {
+	payload := `{
+		"id": 42,
+		"external_id": "evt_1",
+		"errors": {
+			"currency": "must be present",
+			"event_date": ["must be a valid date", "must be in the past"]
+		}
+	}`
+
+	var evt SubscriptionEvent
+	if err := json.Unmarshal([]byte(payload), &evt); err != nil {
+		t.Fatalf("unmarshal failed: %v", err)
+	}
+
+	if evt.Errors == nil {
+		t.Fatal("expected Errors to be populated")
+	}
+
+	if got, want := evt.Errors["currency"], "must be present"; got != want {
+		t.Errorf("Errors[\"currency\"] = %v, want %v", got, want)
+	}
+
+	eventDate, ok := evt.Errors["event_date"].([]interface{})
+	if !ok {
+		t.Fatalf("Errors[\"event_date\"] = %T, want []interface{}", evt.Errors["event_date"])
+	}
+	if len(eventDate) != 2 {
+		t.Errorf("Errors[\"event_date\"] has %d entries, want 2", len(eventDate))
+	}
+}
+
+func TestSubscriptionEventErrorsNilWhenAbsent(t *testing.T) {
+	payload := `{"id": 1, "external_id": "evt_2"}`
+
+	var evt SubscriptionEvent
+	if err := json.Unmarshal([]byte(payload), &evt); err != nil {
+		t.Fatalf("unmarshal failed: %v", err)
+	}
+
+	if evt.Errors != nil {
+		t.Errorf("Errors = %v, want nil when the JSON payload has no errors field", evt.Errors)
 	}
 }
