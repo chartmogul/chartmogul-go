@@ -316,7 +316,7 @@ func TestToggleSubscriptionEventDisabled(t *testing.T) {
 	var tested IApi = &API{
 		ApiKey: "token",
 	}
-	result, err := tested.ToggleSubscriptionEventDisabled("12345", &ToggleSubscriptionEventDisabledParams{
+	result, err := tested.ToggleSubscriptionEventDisabled(12345, &ToggleSubscriptionEventDisabledParams{
 		Disabled: true,
 	})
 

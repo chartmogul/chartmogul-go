@@ -1,6 +1,9 @@
 package chartmogul
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
 
 const (
 	subscriptionEventsEndpoint                  = "subscription_events"
@@ -107,9 +110,9 @@ func (api API) DeleteSubscriptionEvent(deleteParams *DeleteSubscriptionEvent) er
 }
 
 // ToggleSubscriptionEventDisabled toggles the disabled state of a subscription event by ID.
-func (api API) ToggleSubscriptionEventDisabled(id string, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error) {
+func (api API) ToggleSubscriptionEventDisabled(id uint64, params *ToggleSubscriptionEventDisabledParams) (*SubscriptionEvent, error) {
 	result := &SubscriptionEvent{}
-	path := strings.Replace(subscriptionEventDisabledStateEndpoint, ":id", id, 1)
+	path := strings.Replace(subscriptionEventDisabledStateEndpoint, ":id", strconv.FormatUint(id, 10), 1)
 	return result, api.update(path, "", params, result)
 }
 

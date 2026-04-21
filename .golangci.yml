@@ -33,3 +33,22 @@ linters:
     - unparam
     - unused
     - whitespace
+
+linters-settings:
+  depguard:
+    rules:
+      Main:
+        list-mode: lax
+        files:
+          - $all
+        allow:
+          - $gostd
+          - github.com/chartmogul/chartmogul-go/v5
+          - github.com/cenkalti/backoff/v3
+          - github.com/davecgh/go-spew/spew
+          - github.com/dnaeon/go-vcr/cassette
+          - github.com/dnaeon/go-vcr/recorder
+          - github.com/go-test/deep
+          - github.com/golang/mock/gomock
+          - github.com/parnurzeal/gorequest
+          - github.com/pkg/errors
