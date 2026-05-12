@@ -46,6 +46,7 @@ func (api API) CancelSubscription(subscriptionUUID string, cancelSubscriptionPar
 // ListSubscriptions lists all subscriptions for customer of given UUID.
 // DEPRECATED: Use MetricsListCustomerSubscriptions instead.
 func (api API) ListSubscriptions(cursor *Cursor, customerUUID string) (*Subscriptions, error) {
+	log.Println("[DEPRECATED] ListSubscriptions is deprecated. Use MetricsListCustomerSubscriptions instead.")
 	result := &Subscriptions{}
 	path := strings.Replace(subscriptionsEndpoint, ":customerUUID", customerUUID, 1)
 	query := make([]interface{}, 0, 1)
