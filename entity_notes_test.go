@@ -358,15 +358,3 @@ func decodeNewEntityNote(t *testing.T, r *http.Request) NewEntityNote {
 	}
 	return body
 }
-
-func decodeNewTask(t *testing.T, r *http.Request) NewTask {
-	raw, err := io.ReadAll(r.Body)
-	if err != nil {
-		t.Fatal(err)
-	}
-	var body NewTask
-	if err := json.Unmarshal(raw, &body); err != nil {
-		t.Fatal(err)
-	}
-	return body
-}

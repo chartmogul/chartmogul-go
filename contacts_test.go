@@ -514,7 +514,10 @@ func TestCreateContactWithoutCustomer(t *testing.T) {
 				if r.Method != "POST" {
 					t.Errorf("Unexpected method %v", r.Method)
 				}
-				raw, _ := io.ReadAll(r.Body)
+				raw, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Fatal(err)
+				}
 				var body map[string]interface{}
 				if err := json.Unmarshal(raw, &body); err != nil {
 					t.Fatal(err)

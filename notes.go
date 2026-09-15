@@ -3,7 +3,8 @@ package chartmogul
 import "log"
 
 // Note is the customer note as represented in the API.
-// DEPRECATED: Use EntityNote instead.
+//
+// Deprecated: Use EntityNote instead.
 type Note struct {
 	UUID string `json:"uuid"`
 	// Basic info
@@ -17,7 +18,8 @@ type Note struct {
 }
 
 // UpdateNote allows updating note on the update endpoint.
-// DEPRECATED: Use UpdateEntityNote instead.
+//
+// Deprecated: Use UpdateEntityNote instead.
 type UpdateNote struct {
 	Text         string `json:"text,omitempty"`
 	AuthorEmail  string `json:"author_email,omitempty"`
@@ -27,7 +29,8 @@ type UpdateNote struct {
 }
 
 // NewNote allows creating note on a new endpoint.
-// DEPRECATED: Use NewEntityNote instead.
+//
+// Deprecated: Use NewEntityNote instead.
 type NewNote struct {
 	// Obligatory
 	CustomerUUID string `json:"customer_uuid"`
@@ -42,14 +45,16 @@ type NewNote struct {
 }
 
 // ListNotesParams = parameters for listing customer notes in API.
-// DEPRECATED: Use ListEntityNotesParams instead.
+//
+// Deprecated: Use ListEntityNotesParams instead.
 type ListNotesParams struct {
 	CustomerUUID string `json:"customer_uuid,omitempty"`
 	Cursor
 }
 
 // Notes is result of listing customer notes in API.
-// DEPRECATED: Use EntityNotes instead.
+//
+// Deprecated: Use EntityNotes instead.
 type Notes struct {
 	Entries []*Note `json:"entries"`
 	Pagination
@@ -61,7 +66,8 @@ const (
 )
 
 // CreateNote loads the customer note to Chartmogul.
-// DEPRECATED: Use CreateEntityNote instead.
+//
+// Deprecated: Use CreateEntityNote instead.
 func (api API) CreateNote(input *NewNote) (*Note, error) {
 	log.Println("[DEPRECATED] CreateNote is deprecated. Use CreateEntityNote instead.")
 	result := &Note{}
@@ -69,7 +75,8 @@ func (api API) CreateNote(input *NewNote) (*Note, error) {
 }
 
 // RetrieveNote returns one customer note as in API.
-// DEPRECATED: Use RetrieveEntityNote instead.
+//
+// Deprecated: Use RetrieveEntityNote instead.
 func (api API) RetrieveNote(customerNoteUUID string) (*Note, error) {
 	log.Println("[DEPRECATED] RetrieveNote is deprecated. Use RetrieveEntityNote instead.")
 	result := &Note{}
@@ -77,7 +84,8 @@ func (api API) RetrieveNote(customerNoteUUID string) (*Note, error) {
 }
 
 // UpdateNote updates one customer note in API.
-// DEPRECATED: Use UpdateEntityNote instead.
+//
+// Deprecated: Use UpdateEntityNote instead.
 func (api API) UpdateNote(input *UpdateNote, customerNoteUUID string) (*Note, error) {
 	log.Println("[DEPRECATED] UpdateNote is deprecated. Use UpdateEntityNote instead.")
 	output := &Note{}
@@ -85,7 +93,8 @@ func (api API) UpdateNote(input *UpdateNote, customerNoteUUID string) (*Note, er
 }
 
 // ListNotes lists all customer notes.
-// DEPRECATED: Use ListEntityNotes instead.
+//
+// Deprecated: Use ListEntityNotes instead.
 func (api API) ListNotes(listNotesParams *ListNotesParams) (*Notes, error) {
 	log.Println("[DEPRECATED] ListNotes is deprecated. Use ListEntityNotes instead.")
 	result := &Notes{}
@@ -97,7 +106,8 @@ func (api API) ListNotes(listNotesParams *ListNotesParams) (*Notes, error) {
 }
 
 // DeleteNote deletes one customer note by UUID.
-// DEPRECATED: Use DeleteEntityNote instead.
+//
+// Deprecated: Use DeleteEntityNote instead.
 func (api API) DeleteNote(customerNoteUUID string) error {
 	log.Println("[DEPRECATED] DeleteNote is deprecated. Use DeleteEntityNote instead.")
 	return api.delete(singleCustomerNoteEndpoint, customerNoteUUID)

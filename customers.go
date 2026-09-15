@@ -255,7 +255,8 @@ func (api API) CreateCustomersContact(newContact *NewContact, customerUUID strin
 }
 
 // ListCustomerNotes lists the customer notes of the customer.
-// DEPRECATED: Use ListCustomerEntityNotes instead.
+//
+// Deprecated: Use ListCustomerEntityNotes instead.
 func (api API) ListCustomerNotes(listCustomerNotesParams *ListNotesParams, customerUUID string) (*Notes, error) {
 	log.Println("[DEPRECATED] ListCustomerNotes is deprecated. Use ListCustomerEntityNotes instead.")
 	result := &Notes{}
@@ -270,7 +271,8 @@ func (api API) ListCustomerNotes(listCustomerNotesParams *ListNotesParams, custo
 }
 
 // CreateCustomerNote creates a customer note for the customer.
-// DEPRECATED: Use CreateCustomerEntityNote instead.
+//
+// Deprecated: Use CreateCustomerEntityNote instead.
 func (api API) CreateCustomerNote(input *NewNote, customerUUID string) (*Note, error) {
 	log.Println("[DEPRECATED] CreateCustomerNote is deprecated. Use CreateCustomerEntityNote instead.")
 	result := &Note{}

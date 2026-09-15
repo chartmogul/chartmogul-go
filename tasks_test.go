@@ -1,6 +1,8 @@
 package chartmogul
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -383,4 +385,16 @@ func TestCreateTaskWithAssociatedObjectIdentifier(t *testing.T) {
 		spew.Dump(task)
 		t.Fatal("Unexpected result")
 	}
+}
+
+func decodeNewTask(t *testing.T, r *http.Request) NewTask {
+	raw, err := io.ReadAll(r.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var body NewTask
+	if err := json.Unmarshal(raw, &body); err != nil {
+		t.Fatal(err)
+	}
+	return body
 }
