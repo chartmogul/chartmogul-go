@@ -259,3 +259,128 @@ func TestDeleteTask(t *testing.T) {
 		t.Fatal("Not expected to fail")
 	}
 }
+
+func TestListTasksWithFilters(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				query := r.URL.Query()
+				if query.Get("contact_uuid") != "con_00000000-0000-0000-0000-000000000000" ||
+					query.Get("assignee") != "keith+test1@chartmogul.com" ||
+					query.Get("due_date_on_or_after") != "2025-04-01T00:00:00Z" ||
+					query.Get("due_date_on_or_before") != "2025-04-30T00:00:00Z" ||
+					query.Get("completed") != "false" ||
+					query.Get("per_page") != "1" {
+					t.Errorf("Unexpected query %v", r.URL.RawQuery)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [{
+						"task_uuid": "00000000-0000-0000-0000-000000000000",
+						"customer_uuid": null,
+						"associated_object": "contact",
+						"associated_object_uuid": "con_00000000-0000-0000-0000-000000000000",
+						"assignee": "keith+test1@chartmogul.com",
+						"task_details": "This is some task details text.",
+						"due_date": "2025-04-30T00:00:00Z",
+						"completed_at": null,
+						"created_at": "2025-04-01T12:00:00.000Z",
+						"updated_at": "2025-04-01T12:00:00.000Z"
+					}],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	completed := false
+	params := &ListTasksParams{
+		Cursor:            Cursor{PerPage: 1},
+		ContactUUID:       "con_00000000-0000-0000-0000-000000000000",
+		Assignee:          "keith+test1@chartmogul.com",
+		DueDateOnOrAfter:  "2025-04-01T00:00:00Z",
+		DueDateOnOrBefore: "2025-04-30T00:00:00Z",
+		Completed:         &completed,
+	}
+	tasks, err := tested.ListTasks(params)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(tasks.Entries) != 1 {
+		spew.Dump(tasks)
+		t.Fatal("Unexpected result")
+	}
+	task := tasks.Entries[0]
+	if task.CustomerUUID != "" || task.AssociatedObject != "contact" || task.AssociatedObjectUUID != "con_00000000-0000-0000-0000-000000000000" {
+		spew.Dump(task)
+		t.Fatal("Expected a contact task")
+	}
+}
+
+func TestCreateTaskWithAssociatedObjectIdentifier(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				body := decodeNewTask(t, r)
+				if body.CustomerUUID != "" {
+					t.Errorf("Unexpected customer_uuid %v", body.CustomerUUID)
+				}
+				expected := AssociatedObjectIdentifier{
+					AssociatedObject: "contact",
+					Method:           "uuid",
+					Value:            "con_00000000-0000-0000-0000-000000000000",
+				}
+				if body.AssociatedObjectIdentifier == nil || *body.AssociatedObjectIdentifier != expected {
+					t.Errorf("Unexpected associated_object_identifier %v", body.AssociatedObjectIdentifier)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"task_uuid": "00000000-0000-0000-0000-000000000000",
+					"customer_uuid": null,
+					"associated_object": "contact",
+					"associated_object_uuid": "con_00000000-0000-0000-0000-000000000000",
+					"assignee": "keith+test1@chartmogul.com",
+					"task_details": "This is some task details text.",
+					"due_date": "2025-04-30T00:00:00Z",
+					"created_at": "2025-04-01T12:00:00.000Z",
+					"updated_at": "2025-04-01T12:00:00.000Z"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	task, err := tested.CreateTask(&NewTask{
+		AssociatedObjectIdentifier: &AssociatedObjectIdentifier{
+			AssociatedObject: AssociatedObjectContact,
+			Method:           AssociatedObjectIdentifierMethodUUID,
+			Value:            "con_00000000-0000-0000-0000-000000000000",
+		},
+		Assignee:    "keith+test1@chartmogul.com",
+		TaskDetails: "This is some task details text.",
+		DueDate:     "2025-04-30T00:00:00Z",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if task.AssociatedObjectUUID != "con_00000000-0000-0000-0000-000000000000" || task.CustomerUUID != "" {
+		spew.Dump(task)
+		t.Fatal("Unexpected result")
+	}
+}

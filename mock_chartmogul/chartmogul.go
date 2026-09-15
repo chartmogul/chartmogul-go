@@ -144,6 +144,36 @@ func (mr *MockIApiMockRecorder) CreateContact(newContact any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateContact", reflect.TypeOf((*MockIApi)(nil).CreateContact), newContact)
 }
 
+// CreateContactEntityNote mocks base method.
+func (m *MockIApi) CreateContactEntityNote(newEntityNote *chartmogul.NewEntityNote, contactUUID string) (*chartmogul.EntityNote, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateContactEntityNote", newEntityNote, contactUUID)
+	ret0, _ := ret[0].(*chartmogul.EntityNote)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateContactEntityNote indicates an expected call of CreateContactEntityNote.
+func (mr *MockIApiMockRecorder) CreateContactEntityNote(newEntityNote, contactUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateContactEntityNote", reflect.TypeOf((*MockIApi)(nil).CreateContactEntityNote), newEntityNote, contactUUID)
+}
+
+// CreateContactTask mocks base method.
+func (m *MockIApi) CreateContactTask(newTask *chartmogul.NewTask, contactUUID string) (*chartmogul.Task, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateContactTask", newTask, contactUUID)
+	ret0, _ := ret[0].(*chartmogul.Task)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateContactTask indicates an expected call of CreateContactTask.
+func (mr *MockIApiMockRecorder) CreateContactTask(newTask, contactUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateContactTask", reflect.TypeOf((*MockIApi)(nil).CreateContactTask), newTask, contactUUID)
+}
+
 // CreateCustomer mocks base method.
 func (m *MockIApi) CreateCustomer(newCustomer *chartmogul.NewCustomer) (*chartmogul.Customer, error) {
 	m.ctrl.T.Helper()
@@ -157,6 +187,21 @@ func (m *MockIApi) CreateCustomer(newCustomer *chartmogul.NewCustomer) (*chartmo
 func (mr *MockIApiMockRecorder) CreateCustomer(newCustomer any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCustomer", reflect.TypeOf((*MockIApi)(nil).CreateCustomer), newCustomer)
+}
+
+// CreateCustomerEntityNote mocks base method.
+func (m *MockIApi) CreateCustomerEntityNote(newEntityNote *chartmogul.NewEntityNote, customerUUID string) (*chartmogul.EntityNote, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateCustomerEntityNote", newEntityNote, customerUUID)
+	ret0, _ := ret[0].(*chartmogul.EntityNote)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateCustomerEntityNote indicates an expected call of CreateCustomerEntityNote.
+func (mr *MockIApiMockRecorder) CreateCustomerEntityNote(newEntityNote, customerUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCustomerEntityNote", reflect.TypeOf((*MockIApi)(nil).CreateCustomerEntityNote), newEntityNote, customerUUID)
 }
 
 // CreateCustomerNote mocks base method.
@@ -232,6 +277,21 @@ func (m *MockIApi) CreateDataSourceWithSystem(dataSource *chartmogul.DataSource)
 func (mr *MockIApiMockRecorder) CreateDataSourceWithSystem(dataSource any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDataSourceWithSystem", reflect.TypeOf((*MockIApi)(nil).CreateDataSourceWithSystem), dataSource)
+}
+
+// CreateEntityNote mocks base method.
+func (m *MockIApi) CreateEntityNote(newEntityNote *chartmogul.NewEntityNote) (*chartmogul.EntityNote, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateEntityNote", newEntityNote)
+	ret0, _ := ret[0].(*chartmogul.EntityNote)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateEntityNote indicates an expected call of CreateEntityNote.
+func (mr *MockIApiMockRecorder) CreateEntityNote(newEntityNote any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateEntityNote", reflect.TypeOf((*MockIApi)(nil).CreateEntityNote), newEntityNote)
 }
 
 // CreateInvoices mocks base method.
@@ -439,6 +499,20 @@ func (mr *MockIApiMockRecorder) DeleteDataSource(dataSourceUUID any) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDataSource", reflect.TypeOf((*MockIApi)(nil).DeleteDataSource), dataSourceUUID)
 }
 
+// DeleteEntityNote mocks base method.
+func (m *MockIApi) DeleteEntityNote(entityNoteUUID string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteEntityNote", entityNoteUUID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteEntityNote indicates an expected call of DeleteEntityNote.
+func (mr *MockIApiMockRecorder) DeleteEntityNote(entityNoteUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteEntityNote", reflect.TypeOf((*MockIApi)(nil).DeleteEntityNote), entityNoteUUID)
+}
+
 // DeleteInvoice mocks base method.
 func (m *MockIApi) DeleteInvoice(invoiceUUID string) error {
 	m.ctrl.T.Helper()
@@ -580,6 +654,36 @@ func (mr *MockIApiMockRecorder) ListAllInvoices(listAllInvoicesParams any) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAllInvoices", reflect.TypeOf((*MockIApi)(nil).ListAllInvoices), listAllInvoicesParams)
 }
 
+// ListContactEntityNotes mocks base method.
+func (m *MockIApi) ListContactEntityNotes(ListEntityNotesParams *chartmogul.ListEntityNotesParams, contactUUID string) (*chartmogul.EntityNotes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListContactEntityNotes", ListEntityNotesParams, contactUUID)
+	ret0, _ := ret[0].(*chartmogul.EntityNotes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListContactEntityNotes indicates an expected call of ListContactEntityNotes.
+func (mr *MockIApiMockRecorder) ListContactEntityNotes(ListEntityNotesParams, contactUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListContactEntityNotes", reflect.TypeOf((*MockIApi)(nil).ListContactEntityNotes), ListEntityNotesParams, contactUUID)
+}
+
+// ListContactTasks mocks base method.
+func (m *MockIApi) ListContactTasks(ListTasksParams *chartmogul.ListTasksParams, contactUUID string) (*chartmogul.Tasks, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListContactTasks", ListTasksParams, contactUUID)
+	ret0, _ := ret[0].(*chartmogul.Tasks)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListContactTasks indicates an expected call of ListContactTasks.
+func (mr *MockIApiMockRecorder) ListContactTasks(ListTasksParams, contactUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListContactTasks", reflect.TypeOf((*MockIApi)(nil).ListContactTasks), ListTasksParams, contactUUID)
+}
+
 // ListContacts mocks base method.
 func (m *MockIApi) ListContacts(ListContactsParams *chartmogul.ListContactsParams) (*chartmogul.Contacts, error) {
 	m.ctrl.T.Helper()
@@ -593,6 +697,21 @@ func (m *MockIApi) ListContacts(ListContactsParams *chartmogul.ListContactsParam
 func (mr *MockIApiMockRecorder) ListContacts(ListContactsParams any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListContacts", reflect.TypeOf((*MockIApi)(nil).ListContacts), ListContactsParams)
+}
+
+// ListCustomerEntityNotes mocks base method.
+func (m *MockIApi) ListCustomerEntityNotes(ListEntityNotesParams *chartmogul.ListEntityNotesParams, customerUUID string) (*chartmogul.EntityNotes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListCustomerEntityNotes", ListEntityNotesParams, customerUUID)
+	ret0, _ := ret[0].(*chartmogul.EntityNotes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListCustomerEntityNotes indicates an expected call of ListCustomerEntityNotes.
+func (mr *MockIApiMockRecorder) ListCustomerEntityNotes(ListEntityNotesParams, customerUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListCustomerEntityNotes", reflect.TypeOf((*MockIApi)(nil).ListCustomerEntityNotes), ListEntityNotesParams, customerUUID)
 }
 
 // ListCustomerNotes mocks base method.
@@ -687,6 +806,21 @@ func (m *MockIApi) ListDataSourcesWithFilters(listDataSourcesParams *chartmogul.
 func (mr *MockIApiMockRecorder) ListDataSourcesWithFilters(listDataSourcesParams any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDataSourcesWithFilters", reflect.TypeOf((*MockIApi)(nil).ListDataSourcesWithFilters), listDataSourcesParams)
+}
+
+// ListEntityNotes mocks base method.
+func (m *MockIApi) ListEntityNotes(ListEntityNotesParams *chartmogul.ListEntityNotesParams) (*chartmogul.EntityNotes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListEntityNotes", ListEntityNotesParams)
+	ret0, _ := ret[0].(*chartmogul.EntityNotes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListEntityNotes indicates an expected call of ListEntityNotes.
+func (mr *MockIApiMockRecorder) ListEntityNotes(ListEntityNotesParams any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListEntityNotes", reflect.TypeOf((*MockIApi)(nil).ListEntityNotes), ListEntityNotesParams)
 }
 
 // ListInvoices mocks base method.
@@ -1205,6 +1339,21 @@ func (mr *MockIApiMockRecorder) RetrieveDataSource(dataSourceUUID any, params ..
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveDataSource", reflect.TypeOf((*MockIApi)(nil).RetrieveDataSource), varargs...)
 }
 
+// RetrieveEntityNote mocks base method.
+func (m *MockIApi) RetrieveEntityNote(entityNoteUUID string) (*chartmogul.EntityNote, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveEntityNote", entityNoteUUID)
+	ret0, _ := ret[0].(*chartmogul.EntityNote)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveEntityNote indicates an expected call of RetrieveEntityNote.
+func (mr *MockIApiMockRecorder) RetrieveEntityNote(entityNoteUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveEntityNote", reflect.TypeOf((*MockIApi)(nil).RetrieveEntityNote), entityNoteUUID)
+}
+
 // RetrieveInvoice mocks base method.
 func (m *MockIApi) RetrieveInvoice(invoiceUUID string, params ...*chartmogul.RetrieveInvoiceParams) (*chartmogul.Invoice, error) {
 	m.ctrl.T.Helper()
@@ -1502,6 +1651,21 @@ func (m *MockIApi) UpdateCustomerV2(Customer *chartmogul.UpdateCustomer, custome
 func (mr *MockIApiMockRecorder) UpdateCustomerV2(Customer, customerUUID any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomerV2", reflect.TypeOf((*MockIApi)(nil).UpdateCustomerV2), Customer, customerUUID)
+}
+
+// UpdateEntityNote mocks base method.
+func (m *MockIApi) UpdateEntityNote(EntityNote *chartmogul.UpdateEntityNote, entityNoteUUID string) (*chartmogul.EntityNote, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateEntityNote", EntityNote, entityNoteUUID)
+	ret0, _ := ret[0].(*chartmogul.EntityNote)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateEntityNote indicates an expected call of UpdateEntityNote.
+func (mr *MockIApiMockRecorder) UpdateEntityNote(EntityNote, entityNoteUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateEntityNote", reflect.TypeOf((*MockIApi)(nil).UpdateEntityNote), EntityNote, entityNoteUUID)
 }
 
 // UpdateInvoice mocks base method.

@@ -1,6 +1,9 @@
 package chartmogul
 
-import "strings"
+import (
+	"log"
+	"strings"
+)
 
 // Customer is the customer as represented in the API.
 type Customer struct {
@@ -251,8 +254,10 @@ func (api API) CreateCustomersContact(newContact *NewContact, customerUUID strin
 	return result, api.create(path, newContact, result)
 }
 
-// ListCustomerNotes
+// ListCustomerNotes lists the customer notes of the customer.
+// DEPRECATED: Use ListCustomerEntityNotes instead.
 func (api API) ListCustomerNotes(listCustomerNotesParams *ListNotesParams, customerUUID string) (*Notes, error) {
+	log.Println("[DEPRECATED] ListCustomerNotes is deprecated. Use ListCustomerEntityNotes instead.")
 	result := &Notes{}
 	query := make([]interface{}, 0, 1)
 	if listCustomerNotesParams != nil {
@@ -264,13 +269,34 @@ func (api API) ListCustomerNotes(listCustomerNotesParams *ListNotesParams, custo
 	return result, api.list(customerNotesEndpoint, result, query...)
 }
 
-// CreateCustomerNote
+// CreateCustomerNote creates a customer note for the customer.
+// DEPRECATED: Use CreateCustomerEntityNote instead.
 func (api API) CreateCustomerNote(input *NewNote, customerUUID string) (*Note, error) {
+	log.Println("[DEPRECATED] CreateCustomerNote is deprecated. Use CreateCustomerEntityNote instead.")
 	result := &Note{}
 	if input.CustomerUUID == "" {
 		input.CustomerUUID = customerUUID
 	}
 	return result, api.create(customerNotesEndpoint, input, result)
+}
+
+// ListCustomerEntityNotes lists the notes attached to the customer.
+func (api API) ListCustomerEntityNotes(listEntityNotesParams *ListEntityNotesParams, customerUUID string) (*EntityNotes, error) {
+	if listEntityNotesParams == nil {
+		listEntityNotesParams = &ListEntityNotesParams{}
+	}
+	if listEntityNotesParams.CustomerUUID == "" {
+		listEntityNotesParams.CustomerUUID = customerUUID
+	}
+	return api.ListEntityNotes(listEntityNotesParams)
+}
+
+// CreateCustomerEntityNote creates a note attached to the customer.
+func (api API) CreateCustomerEntityNote(input *NewEntityNote, customerUUID string) (*EntityNote, error) {
+	if input.CustomerUUID == "" && input.AssociatedObjectIdentifier == nil {
+		input.CustomerUUID = customerUUID
+	}
+	return api.CreateEntityNote(input)
 }
 
 // ListCustomerOpporunities

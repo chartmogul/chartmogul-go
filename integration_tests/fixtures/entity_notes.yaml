@@ -1,0 +1,280 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"name":"Test Entity Notes"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/data_sources
+    method: POST
+  response:
+    body: '{"uuid":"ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8","name":"Test Entity Notes","system":"Custom","created_at":"2026-09-15T09:30:11.220Z","status":"idle"}'
+    headers:
+      Content-Length:
+      - "151"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"data_source_uuid":"ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8","external_id":"ext_customer_1","name":"Test
+      Entity Notes"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/customers
+    method: POST
+  response:
+    body: '{"id":7453,"uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","external_id":"ext_customer_1","name":"Test
+      Entity Notes","email":"","status":"New Lead","customer-since":null,"attributes":{"custom":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8","data_source_uuids":["ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":null,"zip":null,"lead_created_at":null,"free_trial_started_at":null,"lead_status":"New
+      Lead","free_subscriber_status":"Never a Free Subscriber","trial_subscriber_status":"Never
+      had Trial","paid_subscriber_status":"Never a Paid Subscriber","address":{"country":null,"state":null,"city":null,"address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"http://localhost:3000/#/customers/7453-Test_Entity_Notes","billing-system-type":"Custom","currency":"USD","currency-sign":"$","owner":null,"website_url":null,"last_seen":null}'
+    headers:
+      Content-Length:
+      - "973"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","data_source_uuid":"ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8","email":"adam@smith.com","first_name":"Adam","last_name":"Smith"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/contacts
+    method: POST
+  response:
+    body: '{"uuid":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855","customer_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","customer_external_id":"ext_customer_1","data_source_uuid":"ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8","position":1,"external_id":null,"first_name":"Adam","last_name":"Smith","title":null,"email":"adam@smith.com","phone":null,"linked_in":null,"twitter":null,"notes":null,"last_seen":null,"custom":{}}'
+    headers:
+      Content-Length:
+      - "408"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: '{"customer_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","text":"This
+      is a customer note","type":"note"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes
+    method: POST
+  response:
+    body: '{"uuid":"note_0cd30f20-b0e8-11f1-bdb0-c3775b89a156","customer_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","associated_object":"customer","associated_object_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","type":"note","text":"This
+      is a customer note","call_duration":0,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.923Z","updated_at":"2026-09-15T09:30:11.923Z"}'
+    headers:
+      Content-Length:
+      - "402"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes?customer_uuid=cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15&per_page=10
+    method: GET
+  response:
+    body: '{"entries":[{"uuid":"note_0cd30f20-b0e8-11f1-bdb0-c3775b89a156","customer_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","associated_object":"customer","associated_object_uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","type":"note","text":"This
+      is a customer note","call_duration":0,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.923Z","updated_at":"2026-09-15T09:30:11.923Z"}],"cursor":"MjAyNi0wOS0xNVQwOTozMDoxMS45MjM3NDcwMDBaJm5vdGVfMGNkMzBmMjAtYjBlOC0xMWYxLWJkYjAtYzM3NzViODlhMTU2","has_more":false}'
+    headers:
+      Content-Length:
+      - "541"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"associated_object_identifier":{"associated_object":"contact","method":"uuid","value":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855"},"call_duration":60,"text":"Call
+      with the contact","type":"call"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes
+    method: POST
+  response:
+    body: '{"uuid":"note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424","customer_uuid":null,"associated_object":"contact","associated_object_uuid":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855","type":"call","text":"Call
+      with the contact","call_duration":60,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.998Z","updated_at":"2026-09-15T09:30:11.998Z"}'
+    headers:
+      Content-Length:
+      - "362"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes?contact_uuid=con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855&per_page=10
+    method: GET
+  response:
+    body: '{"entries":[{"uuid":"note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424","customer_uuid":null,"associated_object":"contact","associated_object_uuid":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855","type":"call","text":"Call
+      with the contact","call_duration":60,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.998Z","updated_at":"2026-09-15T09:30:11.998Z"}],"cursor":"MjAyNi0wOS0xNVQwOTozMDoxMS45OTgwNDQwMDBaJm5vdGVfMGNkZTVmMjQtYjBlOC0xMWYxLWJkYjAtOGYyZTVlMjQyNDI0","has_more":false}'
+    headers:
+      Content-Length:
+      - "501"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes/note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424
+    method: GET
+  response:
+    body: '{"uuid":"note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424","customer_uuid":null,"associated_object":"contact","associated_object_uuid":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855","type":"call","text":"Call
+      with the contact","call_duration":60,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.998Z","updated_at":"2026-09-15T09:30:11.998Z"}'
+    headers:
+      Content-Length:
+      - "362"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"text":"This is an updated note"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes/note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424
+    method: PATCH
+  response:
+    body: '{"uuid":"note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424","customer_uuid":null,"associated_object":"contact","associated_object_uuid":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855","type":"call","text":"This
+      is an updated note","call_duration":60,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.998Z","updated_at":"2026-09-15T09:30:12.058Z"}'
+    headers:
+      Content-Length:
+      - "364"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes/note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424
+    method: GET
+  response:
+    body: '{"uuid":"note_0cde5f24-b0e8-11f1-bdb0-8f2e5e242424","customer_uuid":null,"associated_object":"contact","associated_object_uuid":"con_0cc4c000-b0e8-11f1-bdb0-2fd90be30855","type":"call","text":"This
+      is an updated note","call_duration":60,"author":"John Doe (john@example.com)","created_at":"2026-09-15T09:30:11.998Z","updated_at":"2026-09-15T09:30:12.058Z"}'
+    headers:
+      Content-Length:
+      - "364"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/notes/note_0cd30f20-b0e8-11f1-bdb0-c3775b89a156
+    method: DELETE
+  response:
+    body: '{"message":"Note deleted"}'
+    headers:
+      Content-Length:
+      - "26"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 202 Accepted
+    code: 202
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - chartmogul-go/v5
+    url: https://api.chartmogul.com/v1/data_sources/ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8
+    method: DELETE
+  response:
+    body: '{"message":"Source deleted"}'
+    headers:
+      Content-Length:
+      - "28"
+      Content-Type:
+      - application/json
+      Retry-Count:
+      - "0"
+    status: 202 Accepted
+    code: 202
+    duration: ""
