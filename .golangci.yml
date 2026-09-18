@@ -52,3 +52,11 @@ linters-settings:
           - github.com/golang/mock/gomock
           - github.com/parnurzeal/gorequest
           - github.com/pkg/errors
+
+issues:
+  exclude-rules:
+    # Exercises the deprecated customer-notes API on purpose until it is removed.
+    - path: integration_tests/customer_notes_test\.go
+      linters:
+        - staticcheck
+      text: "SA1019"

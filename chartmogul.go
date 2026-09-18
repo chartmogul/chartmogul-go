@@ -112,6 +112,8 @@ type IApi interface {
 	CreateCustomersContact(newContact *NewContact, customerUUID string) (*Contact, error)
 	ListCustomerNotes(ListNotesParams *ListNotesParams, customerUUID string) (*Notes, error)
 	CreateCustomerNote(newCustomerNote *NewNote, customerUUID string) (*Note, error)
+	ListCustomerEntityNotes(ListEntityNotesParams *ListEntityNotesParams, customerUUID string) (*EntityNotes, error)
+	CreateCustomerEntityNote(newEntityNote *NewEntityNote, customerUUID string) (*EntityNote, error)
 	ListCustomerTasks(ListTasksParams *ListTasksParams, customerUUID string) (*Tasks, error)
 	CreateCustomerTask(newCustomerTask *NewTask, customerUUID string) (*Task, error)
 
@@ -122,13 +124,24 @@ type IApi interface {
 	ListContacts(ListContactsParams *ListContactsParams) (*Contacts, error)
 	DeleteContact(contactUUID string) error
 	MergeContacts(intoContactUUID string, fromContactUUID string) (*Contact, error)
+	ListContactTasks(ListTasksParams *ListTasksParams, contactUUID string) (*Tasks, error)
+	CreateContactTask(newTask *NewTask, contactUUID string) (*Task, error)
+	ListContactEntityNotes(ListEntityNotesParams *ListEntityNotesParams, contactUUID string) (*EntityNotes, error)
+	CreateContactEntityNote(newEntityNote *NewEntityNote, contactUUID string) (*EntityNote, error)
 
-	// Customer Notes
+	// Customer Notes (deprecated, use Notes)
 	CreateNote(newNote *NewNote) (*Note, error)
 	RetrieveNote(noteUUID string) (*Note, error)
 	UpdateNote(Note *UpdateNote, noteUUID string) (*Note, error)
 	DeleteNote(noteUUID string) error
 	ListNotes(ListNotesParams *ListNotesParams) (*Notes, error)
+
+	// Notes
+	CreateEntityNote(newEntityNote *NewEntityNote) (*EntityNote, error)
+	RetrieveEntityNote(entityNoteUUID string) (*EntityNote, error)
+	UpdateEntityNote(EntityNote *UpdateEntityNote, entityNoteUUID string) (*EntityNote, error)
+	DeleteEntityNote(entityNoteUUID string) error
+	ListEntityNotes(ListEntityNotesParams *ListEntityNotesParams) (*EntityNotes, error)
 
 	// Tasks
 	CreateTask(newTask *NewTask) (*Task, error)

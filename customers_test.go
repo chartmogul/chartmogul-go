@@ -741,3 +741,81 @@ func TestCreateCustomerTask(t *testing.T) {
 		t.Fatal("Unexpected result")
 	}
 }
+
+func TestListCustomerEntityNotes(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/notes?customer_uuid=cus_00000000-0000-0000-0000-000000000000&per_page=1" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [` + customerEntityNoteExample + `],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	params := &ListEntityNotesParams{Cursor: Cursor{PerPage: 1}}
+	notes, err := tested.ListCustomerEntityNotes(params, "cus_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(notes.Entries) != 1 {
+		spew.Dump(notes)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestCreateCustomerEntityNote(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/notes" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				body := decodeNewEntityNote(t, r)
+				if body.CustomerUUID != "cus_00000000-0000-0000-0000-000000000000" || body.AssociatedObjectIdentifier != nil {
+					t.Errorf("Unexpected body %+v", body)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(customerEntityNoteExample))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	note, err := tested.CreateCustomerEntityNote(&NewEntityNote{
+		Type:        "note",
+		AuthorEmail: "john@example.com",
+		Text:        "This is a note",
+	}, "cus_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if note.UUID != "note_00000000-0000-0000-0000-000000000000" {
+		spew.Dump(note)
+		t.Fatal("Unexpected result")
+	}
+}
