@@ -38,7 +38,7 @@ interactions:
     body: '{"id":7453,"uuid":"cus_0c9a5e64-b0e8-11f1-bdb0-6f54d7e2ed15","external_id":"ext_customer_1","name":"Test
       Entity Notes","email":"","status":"New Lead","customer-since":null,"attributes":{"custom":{},"stripe":{},"tags":[]},"data_source_uuid":"ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8","data_source_uuids":["ds_0c6f1042-b0e8-11f1-bdb0-2fe3122bd5c8"],"external_ids":["ext_customer_1"],"company":"","country":null,"state":null,"city":null,"zip":null,"lead_created_at":null,"free_trial_started_at":null,"lead_status":"New
       Lead","free_subscriber_status":"Never a Free Subscriber","trial_subscriber_status":"Never
-      had Trial","paid_subscriber_status":"Never a Paid Subscriber","address":{"country":null,"state":null,"city":null,"address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"http://localhost:3000/#/customers/7453-Test_Entity_Notes","billing-system-type":"Custom","currency":"USD","currency-sign":"$","owner":null,"website_url":null,"last_seen":null}'
+      had Trial","paid_subscriber_status":"Never a Paid Subscriber","address":{"country":null,"state":null,"city":null,"address_zip":null},"mrr":0,"arr":0,"billing-system-url":null,"chartmogul-url":"https://app.chartmogul.com/#/customers/7453-Test_Entity_Notes","billing-system-type":"Custom","currency":"USD","currency-sign":"$","owner":null,"website_url":null,"last_seen":null}'
     headers:
       Content-Length:
       - "973"

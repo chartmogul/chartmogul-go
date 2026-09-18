@@ -528,7 +528,7 @@ func TestCreateContactWithoutCustomer(t *testing.T) {
 				if _, ok := body["data_source_uuid"]; ok {
 					t.Errorf("Unexpected data_source_uuid in body %s", raw)
 				}
-				if body["email"] != "adam@smith.com" || body["last_active_at"] != "2026-01-01T16:58:58Z" {
+				if body["email"] != "adam@smith.com" || body["last_seen"] != "2026-01-01T16:58:58Z" {
 					t.Errorf("Unexpected body %s", raw)
 				}
 				w.WriteHeader(http.StatusCreated)
@@ -552,10 +552,10 @@ func TestCreateContactWithoutCustomer(t *testing.T) {
 	}
 
 	contact, err := tested.CreateContact(&NewContact{
-		FirstName:    "Adam",
-		LastName:     "Smith",
-		Email:        "adam@smith.com",
-		LastActiveAt: "2026-01-01T16:58:58Z",
+		FirstName: "Adam",
+		LastName:  "Smith",
+		Email:     "adam@smith.com",
+		LastSeen:  "2026-01-01T16:58:58Z",
 	})
 
 	if err != nil {

@@ -32,7 +32,7 @@ type UpdateContact struct {
 	Email              string `json:"email,omitempty"`
 	FirstName          string `json:"first_name,omitempty"`
 	LastName           string `json:"last_name,omitempty"`
-	LastActiveAt       string `json:"last_active_at,omitempty"` // ISO 8601; returned as last_seen
+	LastSeen           string `json:"last_seen,omitempty"` // ISO 8601
 	LinkedIn           string `json:"linked_in,omitempty"`
 	Notes              string `json:"notes,omitempty"`
 	Phone              string `json:"phone,omitempty"`
@@ -52,16 +52,16 @@ type NewContact struct {
 	DataSourceUUID string `json:"data_source_uuid,omitempty"`
 
 	// Optional
-	Email        string `json:"email,omitempty"`
-	FirstName    string `json:"first_name,omitempty"`
-	LastName     string `json:"last_name,omitempty"`
-	LastActiveAt string `json:"last_active_at,omitempty"` // ISO 8601; returned as last_seen
-	LinkedIn     string `json:"linked_in,omitempty"`
-	Notes        string `json:"notes,omitempty"`
-	Phone        string `json:"phone,omitempty"`
-	Position     uint32 `json:"position,omitempty"`
-	Title        string `json:"title,omitempty"`
-	Twitter      string `json:"twitter,omitempty"`
+	Email     string `json:"email,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
+	LastName  string `json:"last_name,omitempty"`
+	LastSeen  string `json:"last_seen,omitempty"` // ISO 8601
+	LinkedIn  string `json:"linked_in,omitempty"`
+	Notes     string `json:"notes,omitempty"`
+	Phone     string `json:"phone,omitempty"`
+	Position  uint32 `json:"position,omitempty"`
+	Title     string `json:"title,omitempty"`
+	Twitter   string `json:"twitter,omitempty"`
 	// Using *string allows callers to explicitly clear this field
 	// Passing nil means omit the field; passing "" means clear the field
 	ExternalID *string  `json:"external_id,omitempty"`
