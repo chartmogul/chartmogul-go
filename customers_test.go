@@ -2,7 +2,7 @@ package chartmogul
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -99,7 +99,7 @@ func TestFormattingOfSourceInCustomAttributeUpdate(t *testing.T) {
 				w.Header().Set("Content-Type", "application/json")
 				w.Write([]byte("{}")) //nolint
 
-				body, err := ioutil.ReadAll(r.Body)
+				body, err := io.ReadAll(r.Body)
 				if err != nil {
 					t.Error(err)
 					return
@@ -739,5 +739,289 @@ func TestCreateCustomerTask(t *testing.T) {
 	if task.UUID != "00000000-0000-0000-0000-000000000000" {
 		spew.Dump(task)
 		t.Fatal("Unexpected result")
+	}
+}
+
+func TestRetrieveCustomerWithOptions(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				query := r.URL.Query()
+				if query.Get("with_overrides") != "true" {
+					t.Errorf("Expected with_overrides=true, got: %v", query.Get("with_overrides"))
+				}
+				if query.Get("attributes_with_history") != "company,custom.channel" {
+					t.Errorf("Expected attributes_with_history=company,custom.channel, got: %v", query.Get("attributes_with_history"))
+				}
+				w.Header().Set("Content-Type", "application/json")
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"company": "Pinned Co",
+					"overrides": {
+						"company": true,
+						"attributes": {"custom": {"channel": true}}
+					},
+					"historical_values": {
+						"company": [
+							{"value": "Old Co", "update_performed_at": null, "update_performed_by": null, "initial": true},
+							{"value": "Pinned Co", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false}
+						],
+						"attributes": {"custom": {"channel": [
+							{"value": "Facebook", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false}
+						]}}
+					}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	trueBool := true
+	customer, err := tested.RetrieveCustomerWithOptions("cus_00000000-0000-0000-0000-000000000000", &RetrieveCustomerParams{
+		WithOverrides:         &trueBool,
+		AttributesWithHistory: "company,custom.channel",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	expectedOverrides := map[string]interface{}{
+		"company":    true,
+		"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}},
+	}
+	if !reflect.DeepEqual(customer.Overrides, expectedOverrides) {
+		spew.Dump(customer.Overrides)
+		t.Fatal("Unexpected overrides")
+	}
+	if customer.HistoricalValues == nil {
+		spew.Dump(customer)
+		t.Fatal("Expected historical_values")
+	}
+}
+
+func TestRetrieveCustomerWithOptionsNil(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "" {
+					t.Errorf("Expected no query, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "cus_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	customer, err := tested.RetrieveCustomerWithOptions("cus_00000000-0000-0000-0000-000000000000", nil)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if customer.Overrides != nil {
+		spew.Dump(customer)
+		t.Fatal("Expected no overrides")
+	}
+}
+
+func TestCreateCustomerWithOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				body, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				var incoming map[string]interface{}
+				if err := json.Unmarshal(body, &incoming); err != nil {
+					t.Error(err)
+					return
+				}
+				expectedOverrides := map[string]interface{}{
+					"company":    true,
+					"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}},
+				}
+				if !reflect.DeepEqual(incoming["overrides"], expectedOverrides) {
+					spew.Dump(incoming["overrides"])
+					t.Error("Request overrides don't equal expected value")
+				}
+				w.Header().Set("Content-Type", "application/json")
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"company": "Pinata Technologies",
+					"overrides": {
+						"company": true,
+						"attributes": {"custom": {"channel": true}}
+					}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	customer, err := tested.CreateCustomer(&NewCustomer{
+		DataSourceUUID: "ds_00000000-0000-0000-0000-000000000000",
+		ExternalID:     "cus_0001",
+		Company:        "Pinata Technologies",
+		Overrides: map[string]interface{}{
+			"company":    true,
+			"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}},
+		},
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if customer.Overrides == nil {
+		spew.Dump(customer)
+		t.Fatal("Expected overrides in response")
+	}
+}
+
+func TestUpdateCustomerDoesNotReplayOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				if r.Method == "GET" {
+					//nolint
+					w.Write([]byte(`{
+						"uuid": "cus_00000000-0000-0000-0000-000000000000",
+						"company": "Pinned Co",
+						"attributes": {
+							"custom": {"channel": "Facebook"},
+							"overrides": {"custom": {"channel": true}},
+							"historical_values": {"custom": {"channel": []}}
+						},
+						"overrides": {"company": true},
+						"historical_values": {"company": []}
+					}`))
+					return
+				}
+				if r.Method != "PATCH" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				body, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				var incoming map[string]interface{}
+				if err := json.Unmarshal(body, &incoming); err != nil {
+					t.Error(err)
+					return
+				}
+				for _, key := range []string{"overrides", "historical_values"} {
+					if _, ok := incoming[key]; ok {
+						t.Errorf("PATCH body must not replay %q from the retrieved customer", key)
+					}
+					if attrs, ok := incoming["attributes"].(map[string]interface{}); ok {
+						if _, ok := attrs[key]; ok {
+							t.Errorf("PATCH body attributes must not replay %q from the retrieved attributes", key)
+						}
+					}
+				}
+				w.Write([]byte(`{}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	trueBool := true
+	retrieved, err := tested.RetrieveCustomerWithOptions("cus_00000000-0000-0000-0000-000000000000", &RetrieveCustomerParams{
+		WithOverrides:         &trueBool,
+		AttributesWithHistory: "company,custom.channel",
+	})
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Retrieve not expected to fail")
+	}
+	if retrieved.Overrides == nil || retrieved.HistoricalValues == nil {
+		spew.Dump(retrieved)
+		t.Fatal("Expected retrieved customer to carry overrides and historical_values")
+	}
+	if retrieved.Attributes == nil || retrieved.Attributes.Overrides == nil {
+		spew.Dump(retrieved)
+		t.Fatal("Expected retrieved attributes to carry overrides")
+	}
+
+	if _, err := tested.UpdateCustomer(retrieved, retrieved.UUID); err != nil {
+		spew.Dump(err)
+		t.Fatal("Update not expected to fail")
+	}
+}
+
+func TestUpdateCustomerV2WithOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "PATCH" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				body, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				var incoming map[string]interface{}
+				if err := json.Unmarshal(body, &incoming); err != nil {
+					t.Error(err)
+					return
+				}
+				expectedOverrides := map[string]interface{}{
+					"company":    true,
+					"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}},
+				}
+				if !reflect.DeepEqual(incoming["overrides"], expectedOverrides) {
+					spew.Dump(incoming["overrides"])
+					t.Error("Request overrides don't equal expected value")
+				}
+				w.Header().Set("Content-Type", "application/json")
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "cus_00000000-0000-0000-0000-000000000000",
+					"company": "Pinned Co",
+					"overrides": {"company": true, "attributes": {"custom": {"channel": true}}}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	company := "Pinned Co"
+	customer, err := tested.UpdateCustomerV2(&UpdateCustomer{
+		Company: &company,
+		Overrides: map[string]interface{}{
+			"company":    true,
+			"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}},
+		},
+	}, "cus_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if customer.Overrides == nil {
+		spew.Dump(customer)
+		t.Fatal("Expected overrides in response")
 	}
 }
