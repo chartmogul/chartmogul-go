@@ -133,9 +133,11 @@ api.RetrieveDataSource("uuid", retrieveExtraParams)
 ```go
 api.CreateCustomer(&cm.NewCustomer{})
 api.RetrieveCustomer("customerUUID")
+api.RetrieveCustomerWithOptions("customerUUID", &cm.RetrieveCustomerParams{WithOverrides: &trueBool, AttributesWithHistory: "company,custom.channel"})
 api.SearchCustomers(&cm.SearchCustomersParams{})
 api.ListCustomers(&cm.ListCustomersParams{})
 api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
+api.UpdateCustomerV2(&cm.UpdateCustomer{Overrides: map[string]interface{}{"company": true, "attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}}}}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
 api.UnmergeCustomers(&cm.UnmergeCustomersParams{})
 // DEPRECATED: Use api.MetricsConnectSubscriptions instead
@@ -161,8 +163,10 @@ api.CreateCustomerTask(&cm.NewTask{}, "customerUUID")
 ```go
 api.CreateContact(&cm.NewContact{})
 api.RetrieveContact("contactUUID")
+api.RetrieveContactWithOptions("contactUUID", &cm.RetrieveContactParams{WithOverrides: &trueBool, AttributesWithHistory: "title"})
 api.ListContacts(&cm.ListContactsParams{})
 api.UpdateContact(&cm.UpdateContact{}, "contactUUID")
+api.UpdateContact(&cm.UpdateContact{Overrides: map[string]interface{}{"title": true}}, "contactUUID")
 api.DeleteContact("contactUUID")
 api.MergeContacts("intoContactUUID", "fromContactUUID")
 api.ListContactTasks(&cm.ListTasksParams{}, "contactUUID")
@@ -275,6 +279,7 @@ api.MetricsDisconnectSubscriptions("dataSourceUUID", "customerUUID", []*cm.Metri
 
 ```go
 api.RetrieveCustomersAttributes("customerUUID")
+api.RetrieveCustomersAttributesWithOptions("customerUUID", &cm.RetrieveCustomersAttributesParams{WithOverrides: &trueBool, AttributesWithHistory: "custom.channel"})
 ```
 
 #### [Tags](https://dev.chartmogul.com/reference/customers/tags/)
@@ -289,6 +294,11 @@ api.AddTagsToCustomersWithEmail("email@customer.com", []string{})
 
 ```go
 api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
+overrides := map[string]interface{}{"custom": map[string]interface{}{"channel": true}}
+api.AddCustomAttributesToCustomerWithOptions("customerUUID", []*cm.CustomAttribute{}, &cm.AddCustomAttributesOptions{Overrides: overrides})
+api.AddCustomAttributesByEmailWithOptions("email@customer.com", []*cm.CustomAttribute{}, &cm.AddCustomAttributesWithEmailOptions{Overrides: overrides})
+api.UpdateCustomAttributesOfCustomerWithOptions("customerUUID", map[string]interface{}{}, &cm.UpdateCustomAttributesOptions{Overrides: overrides})
+api.RemoveCustomAttributesWithOptions("customerUUID", []string{"channel"}, &cm.RemoveCustomAttributesOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": false}}})
 ```
 
 #### [Subscription Events](https://dev.chartmogul.com/reference/subscription-events/)

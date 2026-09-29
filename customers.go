@@ -1,6 +1,7 @@
 package chartmogul
 
 import (
+	"encoding/json"
 	"log"
 	"strings"
 )
@@ -21,6 +22,11 @@ type Customer struct {
 
 	Attributes *Attributes `json:"attributes,omitempty"`
 	Address    *Address    `json:"address,omitempty"`
+	// Response-only: populated by UnmarshalJSON, never serialized, so reusing
+	// a retrieved customer in the legacy UpdateCustomer cannot replay them.
+	// To send override flags on update, use UpdateCustomerV2.
+	Overrides        map[string]interface{} `json:"-"`
+	HistoricalValues map[string]interface{} `json:"-"`
 
 	// Other info
 	Mrr               float64 `json:"mrr,omitempty"`
@@ -46,17 +52,18 @@ type Customer struct {
 
 // UpdateCustomer allows updating customer on the update endpoint.
 type UpdateCustomer struct {
-	Name               *string     `json:"name,omitempty"`
-	Email              *string     `json:"email,omitempty"`
-	Company            *string     `json:"company,omitempty"`
-	Country            *string     `json:"country,omitempty"`
-	State              *string     `json:"state,omitempty"`
-	City               *string     `json:"city,omitempty"`
-	Zip                *string     `json:"zip,omitempty"`
-	LeadCreatedAt      *string     `json:"lead_created_at,omitempty"`
-	FreeTrialStartedAt *string     `json:"free_trial_started_at,omitempty"`
-	Attributes         *Attributes `json:"attributes,omitempty"`
-	WebsiteUrl         *string     `json:"website_url,omitempty"`
+	Name               *string                `json:"name,omitempty"`
+	Email              *string                `json:"email,omitempty"`
+	Company            *string                `json:"company,omitempty"`
+	Country            *string                `json:"country,omitempty"`
+	State              *string                `json:"state,omitempty"`
+	City               *string                `json:"city,omitempty"`
+	Zip                *string                `json:"zip,omitempty"`
+	LeadCreatedAt      *string                `json:"lead_created_at,omitempty"`
+	FreeTrialStartedAt *string                `json:"free_trial_started_at,omitempty"`
+	Attributes         *Attributes            `json:"attributes,omitempty"`
+	WebsiteUrl         *string                `json:"website_url,omitempty"`
+	Overrides          map[string]interface{} `json:"overrides,omitempty"`
 }
 
 // NewCustomer allows creating customer on a new endpoint.
@@ -80,14 +87,51 @@ type NewCustomer struct {
 	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
 	// Website
 	WebsiteUrl string `json:"website_url,omitempty"`
+	// Override flags for values written by this request
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
-// Attributes is subdocument of Customer.
+// Attributes is subdocument of Customer. It's also the response of the
+// customer attributes endpoint, where overrides and historical_values appear.
 type Attributes struct {
 	Tags     []string               `json:"tags,omitempty"`
 	Stripe   map[string]interface{} `json:"stripe,omitempty"`
 	Clearbit map[string]interface{} `json:"clearbit,omitempty"`
 	Custom   map[string]interface{} `json:"custom,omitempty"`
+	// Response-only: populated by UnmarshalJSON, never serialized, because
+	// Attributes is also marshaled inside customer update bodies.
+	Overrides        map[string]interface{} `json:"-"`
+	HistoricalValues map[string]interface{} `json:"-"`
+}
+
+func (c *Customer) UnmarshalJSON(data []byte) error {
+	type customerAlias Customer
+	aux := struct {
+		Overrides        map[string]interface{} `json:"overrides"`
+		HistoricalValues map[string]interface{} `json:"historical_values"`
+		*customerAlias
+	}{customerAlias: (*customerAlias)(c)}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	c.Overrides = aux.Overrides
+	c.HistoricalValues = aux.HistoricalValues
+	return nil
+}
+
+func (a *Attributes) UnmarshalJSON(data []byte) error {
+	type attributesAlias Attributes
+	aux := struct {
+		Overrides        map[string]interface{} `json:"overrides"`
+		HistoricalValues map[string]interface{} `json:"historical_values"`
+		*attributesAlias
+	}{attributesAlias: (*attributesAlias)(a)}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	a.Overrides = aux.Overrides
+	a.HistoricalValues = aux.HistoricalValues
+	return nil
 }
 
 // NewAttributes is subdocument of NewCustomer.
@@ -102,6 +146,12 @@ type Address struct {
 	City       string `json:"city,omitempty"`
 	State      string `json:"state,omitempty"`
 	Country    string `json:"country,omitempty"`
+}
+
+// RetrieveCustomerParams optional query parameters for RetrieveCustomer.
+type RetrieveCustomerParams struct {
+	WithOverrides         *bool  `json:"with_overrides,omitempty"`
+	AttributesWithHistory string `json:"attributes_with_history,omitempty"` // Comma-separated attribute names
 }
 
 // ListCustomersParams = parameters for listing customers in API.
@@ -169,7 +219,16 @@ func (api API) CreateCustomer(newCustomer *NewCustomer) (*Customer, error) {
 
 // RetrieveCustomer returns one customer as in API.
 func (api API) RetrieveCustomer(customerUUID string) (*Customer, error) {
+	return api.RetrieveCustomerWithOptions(customerUUID, nil)
+}
+
+// RetrieveCustomerWithOptions returns one customer as in API, with query options.
+// A nil opts behaves like RetrieveCustomer.
+func (api API) RetrieveCustomerWithOptions(customerUUID string, opts *RetrieveCustomerParams) (*Customer, error) {
 	result := &Customer{}
+	if opts != nil {
+		return result, api.retrieveWithParams(singleCustomerEndpoint, customerUUID, result, *opts)
+	}
 	return result, api.retrieve(singleCustomerEndpoint, customerUUID, result)
 }
 
