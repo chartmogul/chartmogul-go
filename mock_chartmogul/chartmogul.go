@@ -55,6 +55,21 @@ func (mr *MockIApiMockRecorder) AddCustomAttributesToCustomer(customerUUID, cust
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesToCustomer", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesToCustomer), customerUUID, customAttributes)
 }
 
+// AddCustomAttributesToCustomerWithOptions mocks base method.
+func (m *MockIApi) AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesParams) (*chartmogul.CustomAttributes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddCustomAttributesToCustomerWithOptions", customerUUID, customAttributes, opts)
+	ret0, _ := ret[0].(*chartmogul.CustomAttributes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddCustomAttributesToCustomerWithOptions indicates an expected call of AddCustomAttributesToCustomerWithOptions.
+func (mr *MockIApiMockRecorder) AddCustomAttributesToCustomerWithOptions(customerUUID, customAttributes, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesToCustomerWithOptions", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesToCustomerWithOptions), customerUUID, customAttributes, opts)
+}
+
 // AddCustomAttributesWithEmail mocks base method.
 func (m *MockIApi) AddCustomAttributesWithEmail(email string, customAttributes []*chartmogul.CustomAttribute) (*chartmogul.Customers, error) {
 	m.ctrl.T.Helper()
@@ -68,6 +83,21 @@ func (m *MockIApi) AddCustomAttributesWithEmail(email string, customAttributes [
 func (mr *MockIApiMockRecorder) AddCustomAttributesWithEmail(email, customAttributes any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesWithEmail", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesWithEmail), email, customAttributes)
+}
+
+// AddCustomAttributesWithEmailWithOptions mocks base method.
+func (m *MockIApi) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesWithEmailParams) (*chartmogul.Customers, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddCustomAttributesWithEmailWithOptions", email, customAttributes, opts)
+	ret0, _ := ret[0].(*chartmogul.Customers)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddCustomAttributesWithEmailWithOptions indicates an expected call of AddCustomAttributesWithEmailWithOptions.
+func (mr *MockIApiMockRecorder) AddCustomAttributesWithEmailWithOptions(email, customAttributes, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesWithEmailWithOptions", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesWithEmailWithOptions), email, customAttributes, opts)
 }
 
 // AddTagsToCustomer mocks base method.
@@ -1106,6 +1136,21 @@ func (mr *MockIApiMockRecorder) RemoveCustomAttributes(customerUUID, customAttri
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveCustomAttributes", reflect.TypeOf((*MockIApi)(nil).RemoveCustomAttributes), customerUUID, customAttributes)
 }
 
+// RemoveCustomAttributesWithOptions mocks base method.
+func (m *MockIApi) RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *chartmogul.RemoveCustomAttributesParams) (*chartmogul.CustomAttributes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RemoveCustomAttributesWithOptions", customerUUID, customAttributes, opts)
+	ret0, _ := ret[0].(*chartmogul.CustomAttributes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RemoveCustomAttributesWithOptions indicates an expected call of RemoveCustomAttributesWithOptions.
+func (mr *MockIApiMockRecorder) RemoveCustomAttributesWithOptions(customerUUID, customAttributes, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveCustomAttributesWithOptions", reflect.TypeOf((*MockIApi)(nil).RemoveCustomAttributesWithOptions), customerUUID, customAttributes, opts)
+}
+
 // RemoveTagsFromCustomer mocks base method.
 func (m *MockIApi) RemoveTagsFromCustomer(customerUUID string, tags []string) (*chartmogul.TagsResult, error) {
 	m.ctrl.T.Helper()
@@ -1155,6 +1200,21 @@ func (mr *MockIApiMockRecorder) RetrieveContact(contactUUID any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveContact", reflect.TypeOf((*MockIApi)(nil).RetrieveContact), contactUUID)
 }
 
+// RetrieveContactWithOptions mocks base method.
+func (m *MockIApi) RetrieveContactWithOptions(contactUUID string, opts *chartmogul.RetrieveContactParams) (*chartmogul.Contact, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveContactWithOptions", contactUUID, opts)
+	ret0, _ := ret[0].(*chartmogul.Contact)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveContactWithOptions indicates an expected call of RetrieveContactWithOptions.
+func (mr *MockIApiMockRecorder) RetrieveContactWithOptions(contactUUID, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveContactWithOptions", reflect.TypeOf((*MockIApi)(nil).RetrieveContactWithOptions), contactUUID, opts)
+}
+
 // RetrieveCustomer mocks base method.
 func (m *MockIApi) RetrieveCustomer(customerUUID string) (*chartmogul.Customer, error) {
 	m.ctrl.T.Helper()
@@ -1170,6 +1230,21 @@ func (mr *MockIApiMockRecorder) RetrieveCustomer(customerUUID any) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCustomer", reflect.TypeOf((*MockIApi)(nil).RetrieveCustomer), customerUUID)
 }
 
+// RetrieveCustomerWithOptions mocks base method.
+func (m *MockIApi) RetrieveCustomerWithOptions(customerUUID string, opts *chartmogul.RetrieveCustomerParams) (*chartmogul.Customer, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveCustomerWithOptions", customerUUID, opts)
+	ret0, _ := ret[0].(*chartmogul.Customer)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveCustomerWithOptions indicates an expected call of RetrieveCustomerWithOptions.
+func (mr *MockIApiMockRecorder) RetrieveCustomerWithOptions(customerUUID, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCustomerWithOptions", reflect.TypeOf((*MockIApi)(nil).RetrieveCustomerWithOptions), customerUUID, opts)
+}
+
 // RetrieveCustomersAttributes mocks base method.
 func (m *MockIApi) RetrieveCustomersAttributes(customerUUID string) (*chartmogul.Attributes, error) {
 	m.ctrl.T.Helper()
@@ -1183,6 +1258,21 @@ func (m *MockIApi) RetrieveCustomersAttributes(customerUUID string) (*chartmogul
 func (mr *MockIApiMockRecorder) RetrieveCustomersAttributes(customerUUID any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCustomersAttributes", reflect.TypeOf((*MockIApi)(nil).RetrieveCustomersAttributes), customerUUID)
+}
+
+// RetrieveCustomersAttributesWithOptions mocks base method.
+func (m *MockIApi) RetrieveCustomersAttributesWithOptions(customerUUID string, opts *chartmogul.RetrieveCustomersAttributesParams) (*chartmogul.Attributes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveCustomersAttributesWithOptions", customerUUID, opts)
+	ret0, _ := ret[0].(*chartmogul.Attributes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveCustomersAttributesWithOptions indicates an expected call of RetrieveCustomersAttributesWithOptions.
+func (mr *MockIApiMockRecorder) RetrieveCustomersAttributesWithOptions(customerUUID, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCustomersAttributesWithOptions", reflect.TypeOf((*MockIApi)(nil).RetrieveCustomersAttributesWithOptions), customerUUID, opts)
 }
 
 // RetrieveDataSource mocks base method.
@@ -1472,6 +1562,21 @@ func (m *MockIApi) UpdateCustomAttributesOfCustomer(customerUUID string, customA
 func (mr *MockIApiMockRecorder) UpdateCustomAttributesOfCustomer(customerUUID, customAttributes any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomAttributesOfCustomer", reflect.TypeOf((*MockIApi)(nil).UpdateCustomAttributesOfCustomer), customerUUID, customAttributes)
+}
+
+// UpdateCustomAttributesOfCustomerWithOptions mocks base method.
+func (m *MockIApi) UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]any, opts *chartmogul.UpdateCustomAttributesParams) (*chartmogul.CustomAttributes, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateCustomAttributesOfCustomerWithOptions", customerUUID, customAttributes, opts)
+	ret0, _ := ret[0].(*chartmogul.CustomAttributes)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateCustomAttributesOfCustomerWithOptions indicates an expected call of UpdateCustomAttributesOfCustomerWithOptions.
+func (mr *MockIApiMockRecorder) UpdateCustomAttributesOfCustomerWithOptions(customerUUID, customAttributes, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCustomAttributesOfCustomerWithOptions", reflect.TypeOf((*MockIApi)(nil).UpdateCustomAttributesOfCustomerWithOptions), customerUUID, customAttributes, opts)
 }
 
 // UpdateCustomer mocks base method.

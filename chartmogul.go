@@ -99,6 +99,7 @@ type IApi interface {
 	// Customers
 	CreateCustomer(newCustomer *NewCustomer) (*Customer, error)
 	RetrieveCustomer(customerUUID string) (*Customer, error)
+	RetrieveCustomerWithOptions(customerUUID string, opts *RetrieveCustomerParams) (*Customer, error)
 	UpdateCustomer(Customer *Customer, customerUUID string) (*Customer, error)
 	UpdateCustomerV2(Customer *UpdateCustomer, customerUUID string) (*Customer, error)
 	ListCustomers(ListCustomersParams *ListCustomersParams) (*Customers, error)
@@ -118,6 +119,7 @@ type IApi interface {
 	// Contacts
 	CreateContact(newContact *NewContact) (*Contact, error)
 	RetrieveContact(contactUUID string) (*Contact, error)
+	RetrieveContactWithOptions(contactUUID string, opts *RetrieveContactParams) (*Contact, error)
 	UpdateContact(Contact *UpdateContact, contactUUID string) (*Contact, error)
 	ListContacts(ListContactsParams *ListContactsParams) (*Contacts, error)
 	DeleteContact(contactUUID string) error
@@ -139,6 +141,7 @@ type IApi interface {
 
 	//  - Cusomer Attributes
 	RetrieveCustomersAttributes(customerUUID string) (*Attributes, error)
+	RetrieveCustomersAttributesWithOptions(customerUUID string, opts *RetrieveCustomersAttributesParams) (*Attributes, error)
 
 	//  Tags
 	AddTagsToCustomer(customerUUID string, tags []string) (*TagsResult, error)
@@ -147,9 +150,13 @@ type IApi interface {
 
 	// Custom Attributes
 	AddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error)
+	AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*CustomAttribute, opts *AddCustomAttributesParams) (*CustomAttributes, error)
 	AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error)
+	AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailParams) (*Customers, error)
 	UpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error)
+	UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]interface{}, opts *UpdateCustomAttributesParams) (*CustomAttributes, error)
 	RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error)
+	RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *RemoveCustomAttributesParams) (*CustomAttributes, error)
 
 	// Metrics
 	MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult, error)
