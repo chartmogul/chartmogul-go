@@ -1,9 +1,6 @@
 package chartmogul
 
-import (
-	"encoding/json"
-	"strings"
-)
+import "strings"
 
 // Customer is the customer as represented in the API.
 type Customer struct {
@@ -21,11 +18,11 @@ type Customer struct {
 
 	Attributes *Attributes `json:"attributes,omitempty"`
 	Address    *Address    `json:"address,omitempty"`
-	// Response-only: populated by UnmarshalJSON, never serialized, so reusing
-	// a retrieved customer in the legacy UpdateCustomer cannot replay them.
-	// To send override flags on update, use UpdateCustomerV2.
-	Overrides        map[string]interface{} `json:"-"`
-	HistoricalValues map[string]interface{} `json:"-"`
+	// Response fields; the legacy UpdateCustomer strips them before marshaling
+	// so a retrieved customer cannot replay them. To send override flags on
+	// update, use UpdateCustomerV2.
+	Overrides        map[string]interface{} `json:"overrides,omitempty"`
+	HistoricalValues map[string]interface{} `json:"historical_values,omitempty"`
 
 	// Other info
 	Mrr               float64 `json:"mrr,omitempty"`
@@ -97,40 +94,11 @@ type Attributes struct {
 	Stripe   map[string]interface{} `json:"stripe,omitempty"`
 	Clearbit map[string]interface{} `json:"clearbit,omitempty"`
 	Custom   map[string]interface{} `json:"custom,omitempty"`
-	// Response-only: populated by UnmarshalJSON, never serialized, because
-	// Attributes is also marshaled inside customer update bodies.
-	Overrides        map[string]interface{} `json:"-"`
-	HistoricalValues map[string]interface{} `json:"-"`
-}
-
-func (c *Customer) UnmarshalJSON(data []byte) error {
-	type customerAlias Customer
-	aux := struct {
-		Overrides        map[string]interface{} `json:"overrides"`
-		HistoricalValues map[string]interface{} `json:"historical_values"`
-		*customerAlias
-	}{customerAlias: (*customerAlias)(c)}
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-	c.Overrides = aux.Overrides
-	c.HistoricalValues = aux.HistoricalValues
-	return nil
-}
-
-func (a *Attributes) UnmarshalJSON(data []byte) error {
-	type attributesAlias Attributes
-	aux := struct {
-		Overrides        map[string]interface{} `json:"overrides"`
-		HistoricalValues map[string]interface{} `json:"historical_values"`
-		*attributesAlias
-	}{attributesAlias: (*attributesAlias)(a)}
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-	a.Overrides = aux.Overrides
-	a.HistoricalValues = aux.HistoricalValues
-	return nil
+	// Response fields of the customer attributes endpoint; the legacy
+	// UpdateCustomer strips them before marshaling so a retrieved customer
+	// cannot replay them.
+	Overrides        map[string]interface{} `json:"overrides,omitempty"`
+	HistoricalValues map[string]interface{} `json:"historical_values,omitempty"`
 }
 
 // NewAttributes is subdocument of NewCustomer.
@@ -232,11 +200,21 @@ func (api API) RetrieveCustomerWithOptions(customerUUID string, opts *RetrieveCu
 }
 
 // UpdateCustomer updates one customer in API.
+// Overrides and HistoricalValues are stripped from the request: they echo
+// response state, and replaying them would re-pin stale values. To send
+// override flags on update, use UpdateCustomerV2.
 func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Customer, error) {
+	input := *customer
+	input.Overrides, input.HistoricalValues = nil, nil
+	if customer.Attributes != nil {
+		attrs := *customer.Attributes
+		attrs.Overrides, attrs.HistoricalValues = nil, nil
+		input.Attributes = &attrs
+	}
 	result := &Customer{}
 	return result, api.update(singleCustomerEndpoint,
 		customerUUID,
-		customer,
+		&input,
 		result)
 }
 
