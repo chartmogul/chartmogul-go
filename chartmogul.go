@@ -150,13 +150,13 @@ type IApi interface {
 
 	// Custom Attributes
 	AddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error)
-	AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*CustomAttribute, opts *AddCustomAttributesOptions) (*CustomAttributes, error)
+	AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*CustomAttribute, opts *AddCustomAttributesParams) (*CustomAttributes, error)
 	AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error)
-	AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailOptions) (*Customers, error)
+	AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailParams) (*Customers, error)
 	UpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error)
-	UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]interface{}, opts *UpdateCustomAttributesOptions) (*CustomAttributes, error)
+	UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]interface{}, opts *UpdateCustomAttributesParams) (*CustomAttributes, error)
 	RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error)
-	RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *RemoveCustomAttributesOptions) (*CustomAttributes, error)
+	RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *RemoveCustomAttributesParams) (*CustomAttributes, error)
 
 	// Metrics
 	MetricsRetrieveAll(metricsFilter *MetricsFilter) (*MetricsResult, error)

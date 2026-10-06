@@ -56,7 +56,7 @@ func (mr *MockIApiMockRecorder) AddCustomAttributesToCustomer(customerUUID, cust
 }
 
 // AddCustomAttributesToCustomerWithOptions mocks base method.
-func (m *MockIApi) AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesOptions) (*chartmogul.CustomAttributes, error) {
+func (m *MockIApi) AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesParams) (*chartmogul.CustomAttributes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddCustomAttributesToCustomerWithOptions", customerUUID, customAttributes, opts)
 	ret0, _ := ret[0].(*chartmogul.CustomAttributes)
@@ -86,7 +86,7 @@ func (mr *MockIApiMockRecorder) AddCustomAttributesWithEmail(email, customAttrib
 }
 
 // AddCustomAttributesWithEmailWithOptions mocks base method.
-func (m *MockIApi) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesWithEmailOptions) (*chartmogul.Customers, error) {
+func (m *MockIApi) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesWithEmailParams) (*chartmogul.Customers, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddCustomAttributesWithEmailWithOptions", email, customAttributes, opts)
 	ret0, _ := ret[0].(*chartmogul.Customers)
@@ -1137,7 +1137,7 @@ func (mr *MockIApiMockRecorder) RemoveCustomAttributes(customerUUID, customAttri
 }
 
 // RemoveCustomAttributesWithOptions mocks base method.
-func (m *MockIApi) RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *chartmogul.RemoveCustomAttributesOptions) (*chartmogul.CustomAttributes, error) {
+func (m *MockIApi) RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *chartmogul.RemoveCustomAttributesParams) (*chartmogul.CustomAttributes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RemoveCustomAttributesWithOptions", customerUUID, customAttributes, opts)
 	ret0, _ := ret[0].(*chartmogul.CustomAttributes)
@@ -1565,7 +1565,7 @@ func (mr *MockIApiMockRecorder) UpdateCustomAttributesOfCustomer(customerUUID, c
 }
 
 // UpdateCustomAttributesOfCustomerWithOptions mocks base method.
-func (m *MockIApi) UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]any, opts *chartmogul.UpdateCustomAttributesOptions) (*chartmogul.CustomAttributes, error) {
+func (m *MockIApi) UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]any, opts *chartmogul.UpdateCustomAttributesParams) (*chartmogul.CustomAttributes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateCustomAttributesOfCustomerWithOptions", customerUUID, customAttributes, opts)
 	ret0, _ := ret[0].(*chartmogul.CustomAttributes)

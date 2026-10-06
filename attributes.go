@@ -25,23 +25,23 @@ type RetrieveCustomersAttributesParams struct {
 	AttributesWithHistory string `json:"attributes_with_history,omitempty"` // Comma-separated attribute names
 }
 
-// AddCustomAttributesOptions optional inputs for AddCustomAttributesToCustomerWithOptions.
-type AddCustomAttributesOptions struct {
+// AddCustomAttributesParams optional inputs for AddCustomAttributesToCustomerWithOptions.
+type AddCustomAttributesParams struct {
 	Overrides map[string]interface{}
 }
 
-// AddCustomAttributesWithEmailOptions optional inputs for AddCustomAttributesWithEmailWithOptions.
-type AddCustomAttributesWithEmailOptions struct {
+// AddCustomAttributesWithEmailParams optional inputs for AddCustomAttributesWithEmailWithOptions.
+type AddCustomAttributesWithEmailParams struct {
 	Overrides map[string]interface{}
 }
 
-// UpdateCustomAttributesOptions optional inputs for UpdateCustomAttributesOfCustomerWithOptions.
-type UpdateCustomAttributesOptions struct {
+// UpdateCustomAttributesParams optional inputs for UpdateCustomAttributesOfCustomerWithOptions.
+type UpdateCustomAttributesParams struct {
 	Overrides map[string]interface{}
 }
 
-// RemoveCustomAttributesOptions optional inputs for RemoveCustomAttributesWithOptions.
-type RemoveCustomAttributesOptions struct {
+// RemoveCustomAttributesParams optional inputs for RemoveCustomAttributesWithOptions.
+type RemoveCustomAttributesParams struct {
 	Overrides map[string]interface{}
 }
 
@@ -98,7 +98,7 @@ func (api API) AddCustomAttributesToCustomer(customerUUID string, customAttribut
 
 // AddCustomAttributesToCustomerWithOptions adds custom attributes to a specific customer, with options
 // such as override flags. A nil opts behaves like AddCustomAttributesToCustomer.
-func (api API) AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*CustomAttribute, opts *AddCustomAttributesOptions) (*CustomAttributes, error) {
+func (api API) AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*CustomAttribute, opts *AddCustomAttributesParams) (*CustomAttributes, error) {
 	input := &attributesDefinition{Custom: customAttributes}
 	if opts != nil {
 		input.Overrides = opts.Overrides
@@ -115,7 +115,7 @@ func (api API) AddCustomAttributesWithEmail(email string, customAttributes []*Cu
 
 // AddCustomAttributesWithEmailWithOptions adds custom attributes to customers with specific email, with options
 // such as override flags. A nil opts behaves like AddCustomAttributesWithEmail.
-func (api API) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailOptions) (*Customers, error) {
+func (api API) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailParams) (*Customers, error) {
 	input := &attributesDefinition{Email: email, Custom: customAttributes}
 	if opts != nil {
 		input.Overrides = opts.Overrides
@@ -132,7 +132,7 @@ func (api API) UpdateCustomAttributesOfCustomer(customerUUID string, customAttri
 
 // UpdateCustomAttributesOfCustomerWithOptions updates custom attributes of a specific customer, with options
 // such as override flags. A nil opts behaves like UpdateCustomAttributesOfCustomer.
-func (api API) UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]interface{}, opts *UpdateCustomAttributesOptions) (*CustomAttributes, error) {
+func (api API) UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]interface{}, opts *UpdateCustomAttributesParams) (*CustomAttributes, error) {
 	input := &CustomAttributes{Custom: customAttributes}
 	if opts != nil {
 		input.Overrides = opts.Overrides
@@ -149,7 +149,7 @@ func (api API) RemoveCustomAttributes(customerUUID string, customAttributes []st
 
 // RemoveCustomAttributesWithOptions removes a list of custom attributes from a specific customer, with options
 // such as override flags. A nil opts behaves like RemoveCustomAttributes.
-func (api API) RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *RemoveCustomAttributesOptions) (*CustomAttributes, error) {
+func (api API) RemoveCustomAttributesWithOptions(customerUUID string, customAttributes []string, opts *RemoveCustomAttributesParams) (*CustomAttributes, error) {
 	input := &deleteCustomAttrs{Custom: customAttributes}
 	if opts != nil {
 		input.Overrides = opts.Overrides
