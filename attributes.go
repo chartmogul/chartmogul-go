@@ -30,7 +30,7 @@ type AddCustomAttributesOptions struct {
 	Overrides map[string]interface{}
 }
 
-// AddCustomAttributesWithEmailOptions optional inputs for AddCustomAttributesByEmailWithOptions.
+// AddCustomAttributesWithEmailOptions optional inputs for AddCustomAttributesWithEmailWithOptions.
 type AddCustomAttributesWithEmailOptions struct {
 	Overrides map[string]interface{}
 }
@@ -110,12 +110,12 @@ func (api API) AddCustomAttributesToCustomerWithOptions(customerUUID string, cus
 
 // AddCustomAttributesWithEmail adds custom attributes to customers with specific email.
 func (api API) AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error) {
-	return api.AddCustomAttributesByEmailWithOptions(email, customAttributes, nil)
+	return api.AddCustomAttributesWithEmailWithOptions(email, customAttributes, nil)
 }
 
-// AddCustomAttributesByEmailWithOptions adds custom attributes to customers with specific email, with options
+// AddCustomAttributesWithEmailWithOptions adds custom attributes to customers with specific email, with options
 // such as override flags. A nil opts behaves like AddCustomAttributesWithEmail.
-func (api API) AddCustomAttributesByEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailOptions) (*Customers, error) {
+func (api API) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailOptions) (*Customers, error) {
 	input := &attributesDefinition{Email: email, Custom: customAttributes}
 	if opts != nil {
 		input.Overrides = opts.Overrides

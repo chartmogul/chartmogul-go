@@ -140,7 +140,7 @@ func TestAddCustomAttributesToCustomerWithOptions(t *testing.T) {
 	}
 }
 
-func TestAddCustomAttributesByEmailWithOptions(t *testing.T) {
+func TestAddCustomAttributesWithEmailWithOptions(t *testing.T) {
 	expectedBody := map[string]interface{}{
 		"email": "adam@example.com",
 		"custom": []interface{}{
@@ -173,7 +173,7 @@ func TestAddCustomAttributesByEmailWithOptions(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	result, err := tested.AddCustomAttributesByEmailWithOptions(
+	result, err := tested.AddCustomAttributesWithEmailWithOptions(
 		"adam@example.com",
 		[]*CustomAttribute{{Type: "String", Key: "channel", Value: "Facebook"}},
 		&AddCustomAttributesWithEmailOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
