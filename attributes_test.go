@@ -127,7 +127,7 @@ func TestAddCustomAttributesToCustomerWithOptions(t *testing.T) {
 	result, err := tested.AddCustomAttributesToCustomerWithOptions(
 		"cus_00000000-0000-0000-0000-000000000000",
 		[]*CustomAttribute{{Type: "String", Key: "channel", Value: "Facebook"}},
-		&AddCustomAttributesOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
+		&AddCustomAttributesParams{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
 	)
 
 	if err != nil {
@@ -176,7 +176,7 @@ func TestAddCustomAttributesWithEmailWithOptions(t *testing.T) {
 	result, err := tested.AddCustomAttributesWithEmailWithOptions(
 		"adam@example.com",
 		[]*CustomAttribute{{Type: "String", Key: "channel", Value: "Facebook"}},
-		&AddCustomAttributesWithEmailOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
+		&AddCustomAttributesWithEmailParams{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
 	)
 
 	if err != nil {
@@ -220,7 +220,7 @@ func TestUpdateCustomAttributesOfCustomerWithOptions(t *testing.T) {
 	result, err := tested.UpdateCustomAttributesOfCustomerWithOptions(
 		"cus_00000000-0000-0000-0000-000000000000",
 		map[string]interface{}{"channel": "Twitter"},
-		&UpdateCustomAttributesOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
+		&UpdateCustomAttributesParams{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": true}}},
 	)
 
 	if err != nil {
@@ -266,7 +266,7 @@ func TestRemoveCustomAttributesWithOptions(t *testing.T) {
 	result, err := tested.RemoveCustomAttributesWithOptions(
 		"cus_00000000-0000-0000-0000-000000000000",
 		[]string{"age"},
-		&RemoveCustomAttributesOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"age": false}}},
+		&RemoveCustomAttributesParams{Overrides: map[string]interface{}{"custom": map[string]interface{}{"age": false}}},
 	)
 
 	if err != nil {
