@@ -269,7 +269,7 @@ api.AddTagsToCustomersWithEmail("email@customer.com", []string{})
 api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
 overrides := map[string]interface{}{"custom": map[string]interface{}{"channel": true}}
 api.AddCustomAttributesToCustomerWithOptions("customerUUID", []*cm.CustomAttribute{}, &cm.AddCustomAttributesOptions{Overrides: overrides})
-api.AddCustomAttributesByEmailWithOptions("email@customer.com", []*cm.CustomAttribute{}, &cm.AddCustomAttributesWithEmailOptions{Overrides: overrides})
+api.AddCustomAttributesWithEmailWithOptions("email@customer.com", []*cm.CustomAttribute{}, &cm.AddCustomAttributesWithEmailOptions{Overrides: overrides})
 api.UpdateCustomAttributesOfCustomerWithOptions("customerUUID", map[string]interface{}{}, &cm.UpdateCustomAttributesOptions{Overrides: overrides})
 api.RemoveCustomAttributesWithOptions("customerUUID", []string{"channel"}, &cm.RemoveCustomAttributesOptions{Overrides: map[string]interface{}{"custom": map[string]interface{}{"channel": false}}})
 ```

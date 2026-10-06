@@ -40,21 +40,6 @@ func (m *MockIApi) EXPECT() *MockIApiMockRecorder {
 	return m.recorder
 }
 
-// AddCustomAttributesByEmailWithOptions mocks base method.
-func (m *MockIApi) AddCustomAttributesByEmailWithOptions(email string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesWithEmailOptions) (*chartmogul.Customers, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddCustomAttributesByEmailWithOptions", email, customAttributes, opts)
-	ret0, _ := ret[0].(*chartmogul.Customers)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// AddCustomAttributesByEmailWithOptions indicates an expected call of AddCustomAttributesByEmailWithOptions.
-func (mr *MockIApiMockRecorder) AddCustomAttributesByEmailWithOptions(email, customAttributes, opts any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesByEmailWithOptions", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesByEmailWithOptions), email, customAttributes, opts)
-}
-
 // AddCustomAttributesToCustomer mocks base method.
 func (m *MockIApi) AddCustomAttributesToCustomer(customerUUID string, customAttributes []*chartmogul.CustomAttribute) (*chartmogul.CustomAttributes, error) {
 	m.ctrl.T.Helper()
@@ -98,6 +83,21 @@ func (m *MockIApi) AddCustomAttributesWithEmail(email string, customAttributes [
 func (mr *MockIApiMockRecorder) AddCustomAttributesWithEmail(email, customAttributes any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesWithEmail", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesWithEmail), email, customAttributes)
+}
+
+// AddCustomAttributesWithEmailWithOptions mocks base method.
+func (m *MockIApi) AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*chartmogul.CustomAttribute, opts *chartmogul.AddCustomAttributesWithEmailOptions) (*chartmogul.Customers, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddCustomAttributesWithEmailWithOptions", email, customAttributes, opts)
+	ret0, _ := ret[0].(*chartmogul.Customers)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddCustomAttributesWithEmailWithOptions indicates an expected call of AddCustomAttributesWithEmailWithOptions.
+func (mr *MockIApiMockRecorder) AddCustomAttributesWithEmailWithOptions(email, customAttributes, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddCustomAttributesWithEmailWithOptions", reflect.TypeOf((*MockIApi)(nil).AddCustomAttributesWithEmailWithOptions), email, customAttributes, opts)
 }
 
 // AddTagsToCustomer mocks base method.

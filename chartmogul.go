@@ -152,7 +152,7 @@ type IApi interface {
 	AddCustomAttributesToCustomer(customerUUID string, customAttributes []*CustomAttribute) (*CustomAttributes, error)
 	AddCustomAttributesToCustomerWithOptions(customerUUID string, customAttributes []*CustomAttribute, opts *AddCustomAttributesOptions) (*CustomAttributes, error)
 	AddCustomAttributesWithEmail(email string, customAttributes []*CustomAttribute) (*Customers, error)
-	AddCustomAttributesByEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailOptions) (*Customers, error)
+	AddCustomAttributesWithEmailWithOptions(email string, customAttributes []*CustomAttribute, opts *AddCustomAttributesWithEmailOptions) (*Customers, error)
 	UpdateCustomAttributesOfCustomer(customerUUID string, customAttributes map[string]interface{}) (*CustomAttributes, error)
 	UpdateCustomAttributesOfCustomerWithOptions(customerUUID string, customAttributes map[string]interface{}, opts *UpdateCustomAttributesOptions) (*CustomAttributes, error)
 	RemoveCustomAttributes(customerUUID string, customAttributes []string) (*CustomAttributes, error)
