@@ -142,10 +142,14 @@ api.UnmergeCustomers(&cm.UnmergeCustomersParams{})
 api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
 // DEPRECATED: Use api.MetricsDisconnectSubscriptions instead
 api.DisconnectSubscriptions("customerUUID", []cm.Subscription{})
-api.ListCustomersContact(&cm.ListContactsParams{}, "customerUUID")
+api.ListCustomersContacts(&cm.ListContactsParams{}, "customerUUID")
 api.CreateCustomersContact(&cm.NewContact{}, "customerUUID")
+// DEPRECATED: Use api.ListCustomerEntityNotes instead
 api.ListCustomerNotes(&cm.ListNotesParams{}, "customerUUID")
+// DEPRECATED: Use api.CreateCustomerEntityNote instead
 api.CreateCustomerNote(&cm.NewNote{}, "customerUUID")
+api.ListCustomerEntityNotes(&cm.ListEntityNotesParams{}, "customerUUID")
+api.CreateCustomerEntityNote(&cm.NewEntityNote{}, "customerUUID")
 api.ListCustomerOpportunities(&cm.ListOpportunitiesParams{}, "customerUUID")
 api.CreateCustomerOpportunity(&cm.NewOpportunity{}, "customerUUID")
 api.ListCustomerTasks(&cm.ListTasksParams{}, "customerUUID")
@@ -156,20 +160,43 @@ api.CreateCustomerTask(&cm.NewTask{}, "customerUUID")
 
 ```go
 api.CreateContact(&cm.NewContact{})
-api.RetrieveContact("customerUUID")
+api.RetrieveContact("contactUUID")
 api.ListContacts(&cm.ListContactsParams{})
-api.UpdateContact(&cm.UpdateContact{}, "contact")
-api.DeleteContact("customerUUID")
+api.UpdateContact(&cm.UpdateContact{}, "contactUUID")
+api.DeleteContact("contactUUID")
 api.MergeContacts("intoContactUUID", "fromContactUUID")
+api.ListContactTasks(&cm.ListTasksParams{}, "contactUUID")
+api.CreateContactTask(&cm.NewTask{}, "contactUUID")
+api.ListContactEntityNotes(&cm.ListEntityNotesParams{}, "contactUUID")
+api.CreateContactEntityNote(&cm.NewEntityNote{}, "contactUUID")
 ```
 
-#### [Customer Notes](https://dev.chartmogul.com/reference/notes-and-call-logs/)
+#### [Notes](https://dev.chartmogul.com/reference/notes-and-call-logs/)
+
+Notes and call logs attached to either a customer or a contact.
 
 ```go
+api.CreateEntityNote(&cm.NewEntityNote{})
+api.RetrieveEntityNote("noteUUID")
+api.ListEntityNotes(&cm.ListEntityNotesParams{})
+api.UpdateEntityNote(&cm.UpdateEntityNote{}, "noteUUID")
+api.DeleteEntityNote("noteUUID")
+```
+
+#### Customer Notes (deprecated)
+
+Use the Notes methods above instead.
+
+```go
+// DEPRECATED: Use api.CreateEntityNote instead
 api.CreateNote(&cm.NewNote{})
+// DEPRECATED: Use api.RetrieveEntityNote instead
 api.RetrieveNote("noteUUID")
-api.ListNote(&cm.ListNoteParams{})
+// DEPRECATED: Use api.ListEntityNotes instead
+api.ListNotes(&cm.ListNotesParams{})
+// DEPRECATED: Use api.UpdateEntityNote instead
 api.UpdateNote(&cm.UpdateNote{}, "noteUUID")
+// DEPRECATED: Use api.DeleteEntityNote instead
 api.DeleteNote("noteUUID")
 ```
 
@@ -188,7 +215,7 @@ api.DeleteOpportunity("opportunityUUID")
 ```go
 api.CreateTask(&cm.NewTask{})
 api.RetrieveTask("taskUUID")
-api.ListTask(&cm.ListTaskParams{})
+api.ListTasks(&cm.ListTasksParams{})
 api.UpdateTask(&cm.UpdateTask{}, "taskUUID")
 api.DeleteTask("taskUUID")
 ```

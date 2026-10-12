@@ -1,6 +1,8 @@
 package chartmogul
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -89,6 +91,7 @@ func TestRetrieveContact(t *testing.T) {
 					"linked_in": null,
 					"twitter": null,
 					"notes": null,
+					"last_seen": "2026-01-01T16:58:58.000Z",
 					"custom": {
 						"Facebook": "https://www.facebook.com/adam.smith/",
 						"date_of_birth": "1985-01-22"
@@ -110,6 +113,10 @@ func TestRetrieveContact(t *testing.T) {
 	if contact == nil {
 		spew.Dump(contact)
 		t.Fatal("Unexpected result")
+	}
+	if contact.Email != "adam@smith.com" || contact.LastSeen != "2026-01-01T16:58:58.000Z" {
+		spew.Dump(contact)
+		t.Fatal("Expected email and last_seen to be decoded")
 	}
 }
 
@@ -461,6 +468,345 @@ func TestMergeContactParams(t *testing.T) {
 	}
 	if contact == nil {
 		spew.Dump(contact)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestListContactsWithFilters(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				query := r.URL.Query()
+				if query.Get("email") != "adam@smith.com" ||
+					query.Get("customer_external_id") != "customer_001" ||
+					query.Get("external_id") != "cont_001" ||
+					query.Get("per_page") != "1" {
+					t.Errorf("Unexpected query %v", r.URL.RawQuery)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{"entries": [], "has_more": false, "cursor": ""}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	params := &ListContactsParams{
+		Cursor:             Cursor{PerPage: 1},
+		Email:              "adam@smith.com",
+		CustomerExternalID: "customer_001",
+		ExternalID:         "cont_001",
+	}
+	_, err := tested.ListContacts(params)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestCreateContactWithoutCustomer(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				raw, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Fatal(err)
+				}
+				var body map[string]interface{}
+				if err := json.Unmarshal(raw, &body); err != nil {
+					t.Fatal(err)
+				}
+				if _, ok := body["customer_uuid"]; ok {
+					t.Errorf("Unexpected customer_uuid in body %s", raw)
+				}
+				if _, ok := body["data_source_uuid"]; ok {
+					t.Errorf("Unexpected data_source_uuid in body %s", raw)
+				}
+				if body["email"] != "adam@smith.com" || body["last_seen"] != "2026-01-01T16:58:58Z" {
+					t.Errorf("Unexpected body %s", raw)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"customer_uuid": null,
+					"customer_external_id": null,
+					"data_source_uuid": null,
+					"first_name": "Adam",
+					"last_name": "Smith",
+					"email": "adam@smith.com",
+					"last_seen": "2026-01-01T16:58:58.000Z"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	contact, err := tested.CreateContact(&NewContact{
+		FirstName: "Adam",
+		LastName:  "Smith",
+		Email:     "adam@smith.com",
+		LastSeen:  "2026-01-01T16:58:58Z",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.CustomerUUID != "" || contact.Email != "adam@smith.com" {
+		spew.Dump(contact)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestListContactTasks(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/tasks?contact_uuid=con_00000000-0000-0000-0000-000000000000&per_page=1" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [{
+						"task_uuid": "00000000-0000-0000-0000-000000000000",
+						"customer_uuid": null,
+						"associated_object": "contact",
+						"associated_object_uuid": "con_00000000-0000-0000-0000-000000000000",
+						"assignee": "keith+test1@chartmogul.com",
+						"task_details": "This is some task details text.",
+						"due_date": "2025-04-30T00:00:00Z",
+						"created_at": "2025-04-01T12:00:00.000Z",
+						"updated_at": "2025-04-01T12:00:00.000Z"
+					}],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	params := &ListTasksParams{Cursor: Cursor{PerPage: 1}}
+	tasks, err := tested.ListContactTasks(params, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(tasks.Entries) != 1 {
+		spew.Dump(tasks)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestListContactTasksWithNilParams(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.RequestURI != "/v/tasks?contact_uuid=con_00000000-0000-0000-0000-000000000000" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{"entries": [], "has_more": false, "cursor": ""}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	_, err := tested.ListContactTasks(nil, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestCreateContactTask(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/tasks" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				body := decodeNewTask(t, r)
+				expected := AssociatedObjectIdentifier{
+					AssociatedObject: "contact",
+					Method:           "uuid",
+					Value:            "con_00000000-0000-0000-0000-000000000000",
+				}
+				if body.CustomerUUID != "" || body.AssociatedObjectIdentifier == nil || *body.AssociatedObjectIdentifier != expected {
+					t.Errorf("Unexpected body %+v", body)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{
+					"task_uuid": "00000000-0000-0000-0000-000000000000",
+					"customer_uuid": null,
+					"associated_object": "contact",
+					"associated_object_uuid": "con_00000000-0000-0000-0000-000000000000",
+					"assignee": "keith+test1@chartmogul.com",
+					"task_details": "This is some task details text.",
+					"due_date": "2025-04-30T00:00:00Z",
+					"created_at": "2025-04-01T12:00:00.000Z",
+					"updated_at": "2025-04-01T12:00:00.000Z"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	task, err := tested.CreateContactTask(&NewTask{
+		Assignee:    "keith+test1@chartmogul.com",
+		TaskDetails: "This is some task details text.",
+		DueDate:     "2025-04-30T00:00:00Z",
+	}, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if task.UUID != "00000000-0000-0000-0000-000000000000" {
+		spew.Dump(task)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestCreateContactTaskKeepsExplicitCustomer(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				body := decodeNewTask(t, r)
+				if body.CustomerUUID != "cus_00000000-0000-0000-0000-000000000000" || body.AssociatedObjectIdentifier != nil {
+					t.Errorf("Unexpected body %+v", body)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(`{"task_uuid": "00000000-0000-0000-0000-000000000000"}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	_, err := tested.CreateContactTask(&NewTask{
+		CustomerUUID: "cus_00000000-0000-0000-0000-000000000000",
+		Assignee:     "keith+test1@chartmogul.com",
+		TaskDetails:  "This is some task details text.",
+		DueDate:      "2025-04-30T00:00:00Z",
+	}, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestListContactEntityNotes(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/notes?contact_uuid=con_00000000-0000-0000-0000-000000000000&per_page=1" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusOK)
+				//nolint
+				w.Write([]byte(`{
+					"entries": [` + contactEntityNoteExample + `],
+					"has_more": false,
+					"cursor": "88abf99"
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	params := &ListEntityNotesParams{Cursor: Cursor{PerPage: 1}}
+	notes, err := tested.ListContactEntityNotes(params, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if len(notes.Entries) != 1 {
+		spew.Dump(notes)
+		t.Fatal("Unexpected result")
+	}
+}
+
+func TestCreateContactEntityNote(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/notes" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				body := decodeNewEntityNote(t, r)
+				expected := AssociatedObjectIdentifier{
+					AssociatedObject: "contact",
+					Method:           "uuid",
+					Value:            "con_00000000-0000-0000-0000-000000000000",
+				}
+				if body.CustomerUUID != "" || body.AssociatedObjectIdentifier == nil || *body.AssociatedObjectIdentifier != expected {
+					t.Errorf("Unexpected body %+v", body)
+				}
+				w.WriteHeader(http.StatusCreated)
+				//nolint
+				w.Write([]byte(contactEntityNoteExample))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+
+	note, err := tested.CreateContactEntityNote(&NewEntityNote{
+		Type:         "call",
+		Text:         "Call with the contact",
+		CallDuration: 60,
+	}, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if note.UUID != "note_11111111-1111-1111-1111-111111111111" {
+		spew.Dump(note)
 		t.Fatal("Unexpected result")
 	}
 }
