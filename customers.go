@@ -99,9 +99,11 @@ type Attributes struct {
 	Stripe   map[string]interface{} `json:"stripe,omitempty"`
 	Clearbit map[string]interface{} `json:"clearbit,omitempty"`
 	Custom   map[string]interface{} `json:"custom,omitempty"`
-	// Response fields of the customer attributes endpoint; the legacy
-	// UpdateCustomer strips them before marshaling so a retrieved customer
-	// cannot replay them.
+	// Response-only fields of the customer attributes endpoint. The API
+	// ignores them in write bodies (the legacy UpdateCustomer also strips
+	// them): setting override flags here compiles but does nothing. To send
+	// flags on a customer update, use UpdateCustomer.Overrides with the
+	// attributes wrapper.
 	Overrides        map[string]interface{} `json:"overrides,omitempty"`
 	HistoricalValues map[string]interface{} `json:"historical_values,omitempty"`
 }
