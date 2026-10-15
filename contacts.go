@@ -43,9 +43,10 @@ type UpdateContact struct {
 	Twitter            string `json:"twitter,omitempty"`
 	// Using *string allows callers to explicitly clear this field
 	// Passing nil means omit the field; passing "" means clear the field
-	ExternalID *string                `json:"external_id,omitempty"`
-	Custom     []Custom               `json:"custom,omitempty"`
-	Overrides  map[string]interface{} `json:"overrides,omitempty"`
+	ExternalID *string  `json:"external_id,omitempty"`
+	Custom     []Custom `json:"custom,omitempty"`
+	// Override flags with flat field names, e.g. {"title": true}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
 // NewContact allows creating contact on a new endpoint.
@@ -67,9 +68,10 @@ type NewContact struct {
 	Twitter   string `json:"twitter,omitempty"`
 	// Using *string allows callers to explicitly clear this field
 	// Passing nil means omit the field; passing "" means clear the field
-	ExternalID *string                `json:"external_id,omitempty"`
-	Custom     []Custom               `json:"custom,omitempty"`
-	Overrides  map[string]interface{} `json:"overrides,omitempty"`
+	ExternalID *string  `json:"external_id,omitempty"`
+	Custom     []Custom `json:"custom,omitempty"`
+	// Override flags with flat field names, e.g. {"title": true}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
 // RetrieveContactParams optional query parameters for RetrieveContact.

@@ -137,6 +137,8 @@ api.RetrieveCustomerWithOptions("customerUUID", &cm.RetrieveCustomerParams{WithO
 api.SearchCustomers(&cm.SearchCustomersParams{})
 api.ListCustomers(&cm.ListCustomersParams{})
 api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
+// On customer writes, custom attribute flags nest under attributes; a false
+// flag removes an override and restores the most recent edit-history value
 api.UpdateCustomerV2(&cm.UpdateCustomer{Overrides: map[string]interface{}{"company": true, "attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}}}}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
 api.UnmergeCustomers(&cm.UnmergeCustomersParams{})
@@ -294,6 +296,9 @@ api.AddTagsToCustomersWithEmail("email@customer.com", []string{})
 
 ```go
 api.AddCustomAttributesToCustomer("customerUUID", []*cm.CustomAttribute{})
+// No attributes wrapper on these endpoints: namespaces sit at the top level of
+// overrides, and every name segment nests ("stripe.metadata.plan" becomes
+// {"stripe": {"metadata": {"plan": true}}})
 overrides := map[string]interface{}{"custom": map[string]interface{}{"channel": true}}
 api.AddCustomAttributesToCustomerWithOptions("customerUUID", []*cm.CustomAttribute{}, &cm.AddCustomAttributesParams{Overrides: overrides})
 api.AddCustomAttributesWithEmailWithOptions("email@customer.com", []*cm.CustomAttribute{}, &cm.AddCustomAttributesWithEmailParams{Overrides: overrides})

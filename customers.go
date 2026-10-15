@@ -51,18 +51,19 @@ type Customer struct {
 
 // UpdateCustomer allows updating customer on the update endpoint.
 type UpdateCustomer struct {
-	Name               *string                `json:"name,omitempty"`
-	Email              *string                `json:"email,omitempty"`
-	Company            *string                `json:"company,omitempty"`
-	Country            *string                `json:"country,omitempty"`
-	State              *string                `json:"state,omitempty"`
-	City               *string                `json:"city,omitempty"`
-	Zip                *string                `json:"zip,omitempty"`
-	LeadCreatedAt      *string                `json:"lead_created_at,omitempty"`
-	FreeTrialStartedAt *string                `json:"free_trial_started_at,omitempty"`
-	Attributes         *Attributes            `json:"attributes,omitempty"`
-	WebsiteUrl         *string                `json:"website_url,omitempty"`
-	Overrides          map[string]interface{} `json:"overrides,omitempty"`
+	Name               *string     `json:"name,omitempty"`
+	Email              *string     `json:"email,omitempty"`
+	Company            *string     `json:"company,omitempty"`
+	Country            *string     `json:"country,omitempty"`
+	State              *string     `json:"state,omitempty"`
+	City               *string     `json:"city,omitempty"`
+	Zip                *string     `json:"zip,omitempty"`
+	LeadCreatedAt      *string     `json:"lead_created_at,omitempty"`
+	FreeTrialStartedAt *string     `json:"free_trial_started_at,omitempty"`
+	Attributes         *Attributes `json:"attributes,omitempty"`
+	WebsiteUrl         *string     `json:"website_url,omitempty"`
+	// Override flags shaped {"company": true, "attributes": {"custom": {"Name": true}}}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
 // NewCustomer allows creating customer on a new endpoint.
@@ -86,7 +87,8 @@ type NewCustomer struct {
 	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
 	// Website
 	WebsiteUrl string `json:"website_url,omitempty"`
-	// Override flags for values written by this request
+	// Override flags for values written by this request, shaped
+	// {"company": true, "attributes": {"custom": {"Name": true}}}
 	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 

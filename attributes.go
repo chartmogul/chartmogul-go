@@ -27,21 +27,25 @@ type RetrieveCustomersAttributesParams struct {
 
 // AddCustomAttributesParams optional inputs for AddCustomAttributesToCustomerWithOptions.
 type AddCustomAttributesParams struct {
+	// Override flags with namespaces at the top level, e.g. {"custom": {"Name": true}}
 	Overrides map[string]interface{}
 }
 
 // AddCustomAttributesWithEmailParams optional inputs for AddCustomAttributesWithEmailWithOptions.
 type AddCustomAttributesWithEmailParams struct {
+	// Override flags with namespaces at the top level, e.g. {"custom": {"Name": true}}
 	Overrides map[string]interface{}
 }
 
 // UpdateCustomAttributesParams optional inputs for UpdateCustomAttributesOfCustomerWithOptions.
 type UpdateCustomAttributesParams struct {
+	// Override flags with namespaces at the top level, e.g. {"custom": {"Name": true}}
 	Overrides map[string]interface{}
 }
 
 // RemoveCustomAttributesParams optional inputs for RemoveCustomAttributesWithOptions.
 type RemoveCustomAttributesParams struct {
+	// Override flags with namespaces at the top level, e.g. {"custom": {"Name": true}}
 	Overrides map[string]interface{}
 }
 
