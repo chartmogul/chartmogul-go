@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
@@ -808,5 +809,239 @@ func TestCreateContactEntityNote(t *testing.T) {
 	if note.UUID != "note_11111111-1111-1111-1111-111111111111" {
 		spew.Dump(note)
 		t.Fatal("Unexpected result")
+	}
+}
+
+func TestRetrieveContactWithOptions(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				query := r.URL.Query()
+				if query.Get("with_overrides") != "true" {
+					t.Errorf("Expected with_overrides=true, got: %v", query.Get("with_overrides"))
+				}
+				if query.Get("attributes_with_history") != "title" {
+					t.Errorf("Expected attributes_with_history=title, got: %v", query.Get("attributes_with_history"))
+				}
+				w.Header().Set("Content-Type", "application/json")
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"title": "CEO",
+					"overrides": {"title": true},
+					"historical_values": {"title": [
+						{"value": "CTO", "update_performed_at": null, "update_performed_by": null, "initial": true},
+						{"value": "CEO", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false}
+					]}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	trueBool := true
+	contact, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", &RetrieveContactParams{
+		WithOverrides:         &trueBool,
+		AttributesWithHistory: "title",
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if !reflect.DeepEqual(contact.Overrides, map[string]interface{}{"title": true}) {
+		spew.Dump(contact.Overrides)
+		t.Fatal("Unexpected overrides")
+	}
+	expectedHistoricalValues := map[string]interface{}{
+		"title": []interface{}{
+			map[string]interface{}{"value": "CTO", "update_performed_at": nil, "update_performed_by": nil, "initial": true},
+			map[string]interface{}{"value": "CEO", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false},
+		},
+	}
+	if !reflect.DeepEqual(contact.HistoricalValues, expectedHistoricalValues) {
+		spew.Dump(contact.HistoricalValues)
+		t.Fatal("Unexpected historical_values")
+	}
+}
+
+func TestRetrieveContactWithOptionsNil(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "" {
+					t.Errorf("Expected no query, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "con_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	contact, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", nil)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.Overrides != nil {
+		spew.Dump(contact)
+		t.Fatal("Expected no overrides")
+	}
+}
+
+func TestRetrieveContactWithOptionsFalseOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "with_overrides=false" {
+					t.Errorf("Expected with_overrides=false, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "con_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	falseBool := false
+	_, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", &RetrieveContactParams{
+		WithOverrides: &falseBool,
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestRetrieveContactWithOptionsEmptyParams(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "" {
+					t.Errorf("Expected no query, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "con_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	_, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", &RetrieveContactParams{})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestCreateContactWithOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				body, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				var incoming map[string]interface{}
+				if err := json.Unmarshal(body, &incoming); err != nil {
+					t.Error(err)
+					return
+				}
+				expectedOverrides := map[string]interface{}{"title": true}
+				if !reflect.DeepEqual(incoming["overrides"], expectedOverrides) {
+					spew.Dump(incoming["overrides"])
+					t.Error("Request overrides don't equal expected value")
+				}
+				w.Header().Set("Content-Type", "application/json")
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"title": "CEO",
+					"overrides": {"title": true}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	contact, err := tested.CreateContact(&NewContact{
+		CustomerUUID:   "cus_00000000-0000-0000-0000-000000000000",
+		DataSourceUUID: "ds_00000000-0000-0000-0000-000000000000",
+		Title:          "CEO",
+		Overrides:      map[string]interface{}{"title": true},
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if !reflect.DeepEqual(contact.Overrides, map[string]interface{}{"title": true}) {
+		spew.Dump(contact.Overrides)
+		t.Fatal("Unexpected overrides")
+	}
+}
+
+func TestUpdateContactWithOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				body, err := io.ReadAll(r.Body)
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				var incoming map[string]interface{}
+				if err := json.Unmarshal(body, &incoming); err != nil {
+					t.Error(err)
+					return
+				}
+				if !reflect.DeepEqual(incoming["overrides"], map[string]interface{}{"title": true}) {
+					spew.Dump(incoming["overrides"])
+					t.Error("Request overrides don't equal expected value")
+				}
+				w.Header().Set("Content-Type", "application/json")
+				//nolint
+				w.Write([]byte(`{
+					"uuid": "con_00000000-0000-0000-0000-000000000000",
+					"title": "CEO",
+					"overrides": {"title": true}
+				}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	contact, err := tested.UpdateContact(&UpdateContact{
+		Title:     "CEO",
+		Overrides: map[string]interface{}{"title": true},
+	}, "con_00000000-0000-0000-0000-000000000000")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if !reflect.DeepEqual(contact.Overrides, map[string]interface{}{"title": true}) {
+		spew.Dump(contact)
+		t.Fatal("Unexpected overrides in response")
 	}
 }

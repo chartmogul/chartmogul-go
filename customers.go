@@ -21,6 +21,11 @@ type Customer struct {
 
 	Attributes *Attributes `json:"attributes,omitempty"`
 	Address    *Address    `json:"address,omitempty"`
+	// Response fields; the legacy UpdateCustomer strips them before marshaling
+	// so a retrieved customer cannot replay them. To send override flags on
+	// update, use UpdateCustomerV2.
+	Overrides        map[string]interface{} `json:"overrides,omitempty"`
+	HistoricalValues map[string]interface{} `json:"historical_values,omitempty"`
 
 	// Other info
 	Mrr               float64 `json:"mrr,omitempty"`
@@ -57,6 +62,8 @@ type UpdateCustomer struct {
 	FreeTrialStartedAt *string     `json:"free_trial_started_at,omitempty"`
 	Attributes         *Attributes `json:"attributes,omitempty"`
 	WebsiteUrl         *string     `json:"website_url,omitempty"`
+	// Override flags shaped {"company": true, "attributes": {"custom": {"Name": true}}}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
 // NewCustomer allows creating customer on a new endpoint.
@@ -80,14 +87,25 @@ type NewCustomer struct {
 	FreeTrialStartedAt string `json:"free_trial_started_at,omitempty"`
 	// Website
 	WebsiteUrl string `json:"website_url,omitempty"`
+	// Override flags for values written by this request, shaped
+	// {"company": true, "attributes": {"custom": {"Name": true}}}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
-// Attributes is subdocument of Customer.
+// Attributes is subdocument of Customer. It's also the response of the
+// customer attributes endpoint, where overrides and historical_values appear.
 type Attributes struct {
 	Tags     []string               `json:"tags,omitempty"`
 	Stripe   map[string]interface{} `json:"stripe,omitempty"`
 	Clearbit map[string]interface{} `json:"clearbit,omitempty"`
 	Custom   map[string]interface{} `json:"custom,omitempty"`
+	// Response-only fields of the customer attributes endpoint. The API
+	// ignores them in write bodies (the legacy UpdateCustomer also strips
+	// them): setting override flags here compiles but does nothing. To send
+	// flags on a customer update, use UpdateCustomer.Overrides with the
+	// attributes wrapper.
+	Overrides        map[string]interface{} `json:"overrides,omitempty"`
+	HistoricalValues map[string]interface{} `json:"historical_values,omitempty"`
 }
 
 // NewAttributes is subdocument of NewCustomer.
@@ -102,6 +120,14 @@ type Address struct {
 	City       string `json:"city,omitempty"`
 	State      string `json:"state,omitempty"`
 	Country    string `json:"country,omitempty"`
+}
+
+// RetrieveCustomerParams optional query parameters for RetrieveCustomer.
+type RetrieveCustomerParams struct {
+	WithOverrides *bool `json:"with_overrides,omitempty"`
+	// Comma-separated, case-sensitive names: custom attributes as custom.<key>,
+	// standard fields by bare name; unknown names return a 422
+	AttributesWithHistory string `json:"attributes_with_history,omitempty"`
 }
 
 // ListCustomersParams = parameters for listing customers in API.
@@ -169,16 +195,38 @@ func (api API) CreateCustomer(newCustomer *NewCustomer) (*Customer, error) {
 
 // RetrieveCustomer returns one customer as in API.
 func (api API) RetrieveCustomer(customerUUID string) (*Customer, error) {
+	return api.RetrieveCustomerWithOptions(customerUUID, nil)
+}
+
+// RetrieveCustomerWithOptions returns one customer as in API, with query options.
+// A nil opts behaves like RetrieveCustomer.
+func (api API) RetrieveCustomerWithOptions(customerUUID string, opts *RetrieveCustomerParams) (*Customer, error) {
 	result := &Customer{}
+	if opts != nil {
+		return result, api.retrieveWithParams(singleCustomerEndpoint, customerUUID, result, *opts)
+	}
 	return result, api.retrieve(singleCustomerEndpoint, customerUUID, result)
 }
 
 // UpdateCustomer updates one customer in API.
+// Overrides and HistoricalValues are stripped from the request: they echo
+// response state, and replaying them would re-protect stale values. To send
+// override flags on update, use UpdateCustomerV2.
 func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Customer, error) {
+	var input Customer
+	if customer != nil {
+		input = *customer
+	}
+	input.Overrides, input.HistoricalValues = nil, nil
+	if input.Attributes != nil {
+		attrs := *input.Attributes
+		attrs.Overrides, attrs.HistoricalValues = nil, nil
+		input.Attributes = &attrs
+	}
 	result := &Customer{}
 	return result, api.update(singleCustomerEndpoint,
 		customerUUID,
-		customer,
+		&input,
 		result)
 }
 

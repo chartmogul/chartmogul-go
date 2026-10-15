@@ -21,8 +21,10 @@ type Contact struct {
 	Twitter            string `json:"twitter,omitempty"`
 	// Using *string allows callers to explicitly clear this field
 	// Passing nil means omit the field; passing "" means clear the field
-	ExternalID *string                `json:"external_id,omitempty"`
-	Custom     map[string]interface{} `json:"custom,omitempty"`
+	ExternalID       *string                `json:"external_id,omitempty"`
+	Custom           map[string]interface{} `json:"custom,omitempty"`
+	Overrides        map[string]interface{} `json:"overrides,omitempty"`
+	HistoricalValues map[string]interface{} `json:"historical_values,omitempty"`
 }
 
 // UpdateContact allows updating contact on the update endpoint.
@@ -43,6 +45,8 @@ type UpdateContact struct {
 	// Passing nil means omit the field; passing "" means clear the field
 	ExternalID *string  `json:"external_id,omitempty"`
 	Custom     []Custom `json:"custom,omitempty"`
+	// Override flags with flat field names, e.g. {"title": true}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
 }
 
 // NewContact allows creating contact on a new endpoint.
@@ -66,6 +70,16 @@ type NewContact struct {
 	// Passing nil means omit the field; passing "" means clear the field
 	ExternalID *string  `json:"external_id,omitempty"`
 	Custom     []Custom `json:"custom,omitempty"`
+	// Override flags with flat field names, e.g. {"title": true}
+	Overrides map[string]interface{} `json:"overrides,omitempty"`
+}
+
+// RetrieveContactParams optional query parameters for RetrieveContact.
+type RetrieveContactParams struct {
+	WithOverrides *bool `json:"with_overrides,omitempty"`
+	// Comma-separated standard field names (contacts have no custom attribute
+	// history); unknown names return a 422
+	AttributesWithHistory string `json:"attributes_with_history,omitempty"`
 }
 
 // ListContactsParams = parameters for listing contacts in API.
@@ -98,7 +112,16 @@ func (api API) CreateContact(newContact *NewContact) (*Contact, error) {
 
 // RetrieveContact returns one contact as in API.
 func (api API) RetrieveContact(contactUUID string) (*Contact, error) {
+	return api.RetrieveContactWithOptions(contactUUID, nil)
+}
+
+// RetrieveContactWithOptions returns one contact as in API, with query options.
+// A nil opts behaves like RetrieveContact.
+func (api API) RetrieveContactWithOptions(contactUUID string, opts *RetrieveContactParams) (*Contact, error) {
 	result := &Contact{}
+	if opts != nil {
+		return result, api.retrieveWithParams(singleContactEndpoint, contactUUID, result, *opts)
+	}
 	return result, api.retrieve(singleContactEndpoint, contactUUID, result)
 }
 
