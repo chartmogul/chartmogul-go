@@ -864,6 +864,85 @@ func TestRetrieveContactWithOptions(t *testing.T) {
 	}
 }
 
+func TestRetrieveContactWithOptionsNil(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "" {
+					t.Errorf("Expected no query, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "con_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	contact, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", nil)
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+	if contact.Overrides != nil {
+		spew.Dump(contact)
+		t.Fatal("Expected no overrides")
+	}
+}
+
+func TestRetrieveContactWithOptionsFalseOverrides(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "with_overrides=false" {
+					t.Errorf("Expected with_overrides=false, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "con_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	falseBool := false
+	_, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", &RetrieveContactParams{
+		WithOverrides: &falseBool,
+	})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
+func TestRetrieveContactWithOptionsEmptyParams(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.RawQuery != "" {
+					t.Errorf("Expected no query, got: %v", r.URL.RawQuery)
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"uuid": "con_00000000-0000-0000-0000-000000000000"}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	_, err := tested.RetrieveContactWithOptions("con_00000000-0000-0000-0000-000000000000", &RetrieveContactParams{})
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
 func TestCreateContactWithOverrides(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(
