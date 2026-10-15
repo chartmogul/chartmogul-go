@@ -1064,6 +1064,15 @@ func TestUpdateCustomerDoesNotReplayOverrides(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Update not expected to fail")
 	}
+
+	if retrieved.Overrides == nil || retrieved.HistoricalValues == nil {
+		spew.Dump(retrieved)
+		t.Fatal("UpdateCustomer must not mutate the caller's customer")
+	}
+	if retrieved.Attributes.Overrides == nil || retrieved.Attributes.HistoricalValues == nil {
+		spew.Dump(retrieved.Attributes)
+		t.Fatal("UpdateCustomer must not mutate the caller's attributes")
+	}
 }
 
 func TestUpdateCustomerV2WithOverrides(t *testing.T) {
