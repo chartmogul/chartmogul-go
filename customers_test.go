@@ -971,6 +971,26 @@ func TestCreateCustomerWithOverrides(t *testing.T) {
 	}
 }
 
+func TestUpdateCustomerNilInputDoesNotPanic(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{}`)) //nolint
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	_, err := tested.UpdateCustomer(nil, "cus_00000000-0000-0000-0000-000000000000")
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
 func TestUpdateCustomerDoesNotReplayOverrides(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(

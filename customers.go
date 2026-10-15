@@ -204,13 +204,16 @@ func (api API) RetrieveCustomerWithOptions(customerUUID string, opts *RetrieveCu
 
 // UpdateCustomer updates one customer in API.
 // Overrides and HistoricalValues are stripped from the request: they echo
-// response state, and replaying them would re-pin stale values. To send
+// response state, and replaying them would re-protect stale values. To send
 // override flags on update, use UpdateCustomerV2.
 func (api API) UpdateCustomer(customer *Customer, customerUUID string) (*Customer, error) {
-	input := *customer
+	var input Customer
+	if customer != nil {
+		input = *customer
+	}
 	input.Overrides, input.HistoricalValues = nil, nil
-	if customer.Attributes != nil {
-		attrs := *customer.Attributes
+	if input.Attributes != nil {
+		attrs := *input.Attributes
 		attrs.Overrides, attrs.HistoricalValues = nil, nil
 		input.Attributes = &attrs
 	}
