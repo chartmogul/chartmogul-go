@@ -124,8 +124,10 @@ type Address struct {
 
 // RetrieveCustomerParams optional query parameters for RetrieveCustomer.
 type RetrieveCustomerParams struct {
-	WithOverrides         *bool  `json:"with_overrides,omitempty"`
-	AttributesWithHistory string `json:"attributes_with_history,omitempty"` // Comma-separated attribute names
+	WithOverrides *bool `json:"with_overrides,omitempty"`
+	// Comma-separated, case-sensitive names: custom attributes as custom.<key>,
+	// standard fields by bare name; unknown names return a 422
+	AttributesWithHistory string `json:"attributes_with_history,omitempty"`
 }
 
 // ListCustomersParams = parameters for listing customers in API.

@@ -76,8 +76,10 @@ type NewContact struct {
 
 // RetrieveContactParams optional query parameters for RetrieveContact.
 type RetrieveContactParams struct {
-	WithOverrides         *bool  `json:"with_overrides,omitempty"`
-	AttributesWithHistory string `json:"attributes_with_history,omitempty"` // Comma-separated field names
+	WithOverrides *bool `json:"with_overrides,omitempty"`
+	// Comma-separated standard field names (contacts have no custom attribute
+	// history); unknown names return a 422
+	AttributesWithHistory string `json:"attributes_with_history,omitempty"`
 }
 
 // ListContactsParams = parameters for listing contacts in API.

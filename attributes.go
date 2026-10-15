@@ -21,8 +21,10 @@ type deleteCustomAttrs struct {
 
 // RetrieveCustomersAttributesParams optional query parameters for RetrieveCustomersAttributes.
 type RetrieveCustomersAttributesParams struct {
-	WithOverrides         *bool  `json:"with_overrides,omitempty"`
-	AttributesWithHistory string `json:"attributes_with_history,omitempty"` // Comma-separated attribute names
+	WithOverrides *bool `json:"with_overrides,omitempty"`
+	// Comma-separated, case-sensitive custom attribute names as custom.<key>;
+	// this endpoint accepts custom attributes only, and unknown names return a 422
+	AttributesWithHistory string `json:"attributes_with_history,omitempty"`
 }
 
 // AddCustomAttributesParams optional inputs for AddCustomAttributesToCustomerWithOptions.
