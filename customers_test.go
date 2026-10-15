@@ -878,9 +878,18 @@ func TestRetrieveCustomerWithOptions(t *testing.T) {
 		spew.Dump(customer.Overrides)
 		t.Fatal("Unexpected overrides")
 	}
-	if customer.HistoricalValues == nil {
-		spew.Dump(customer)
-		t.Fatal("Expected historical_values")
+	expectedHistoricalValues := map[string]interface{}{
+		"company": []interface{}{
+			map[string]interface{}{"value": "Old Co", "update_performed_at": nil, "update_performed_by": nil, "initial": true},
+			map[string]interface{}{"value": "Pinned Co", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false},
+		},
+		"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": []interface{}{
+			map[string]interface{}{"value": "Facebook", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false},
+		}}},
+	}
+	if !reflect.DeepEqual(customer.HistoricalValues, expectedHistoricalValues) {
+		spew.Dump(customer.HistoricalValues)
+		t.Fatal("Unexpected historical_values")
 	}
 }
 

@@ -60,9 +60,17 @@ func TestRetrieveCustomersAttributesWithOptions(t *testing.T) {
 		spew.Dump(attributes.Overrides)
 		t.Fatal("Unexpected overrides")
 	}
-	if attributes.HistoricalValues == nil {
-		spew.Dump(attributes)
-		t.Fatal("Expected historical_values")
+	expectedHistoricalValues := map[string]interface{}{
+		"custom": map[string]interface{}{
+			"channel": []interface{}{
+				map[string]interface{}{"value": "Google", "update_performed_at": nil, "update_performed_by": nil, "initial": true},
+				map[string]interface{}{"value": "Facebook", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false},
+			},
+		},
+	}
+	if !reflect.DeepEqual(attributes.HistoricalValues, expectedHistoricalValues) {
+		spew.Dump(attributes.HistoricalValues)
+		t.Fatal("Unexpected historical_values")
 	}
 }
 
@@ -183,9 +191,12 @@ func TestAddCustomAttributesWithEmailWithOptions(t *testing.T) {
 		spew.Dump(err)
 		t.Fatal("Not expected to fail")
 	}
-	if len(result.Entries) != 1 || result.Entries[0].Overrides == nil {
+	expectedEntryOverrides := map[string]interface{}{
+		"attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}},
+	}
+	if len(result.Entries) != 1 || !reflect.DeepEqual(result.Entries[0].Overrides, expectedEntryOverrides) {
 		spew.Dump(result)
-		t.Fatal("Expected entry with overrides")
+		t.Fatal("Expected entry with customer-shaped overrides")
 	}
 }
 
@@ -230,6 +241,13 @@ func TestUpdateCustomAttributesOfCustomerWithOptions(t *testing.T) {
 	if result.Custom["channel"] != "Twitter" {
 		spew.Dump(result)
 		t.Fatal("Unexpected custom attributes")
+	}
+	expectedOverrides := map[string]interface{}{
+		"custom": map[string]interface{}{"channel": true},
+	}
+	if !reflect.DeepEqual(result.Overrides, expectedOverrides) {
+		spew.Dump(result.Overrides)
+		t.Fatal("Unexpected overrides")
 	}
 }
 
@@ -276,6 +294,10 @@ func TestRemoveCustomAttributesWithOptions(t *testing.T) {
 	if result.Message != "Custom attributes deleted from customer" {
 		spew.Dump(result)
 		t.Fatal("Unexpected message")
+	}
+	if !reflect.DeepEqual(result.Overrides, map[string]interface{}{}) {
+		spew.Dump(result.Overrides)
+		t.Fatal("Expected empty overrides")
 	}
 }
 

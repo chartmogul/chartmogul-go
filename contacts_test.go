@@ -858,9 +858,15 @@ func TestRetrieveContactWithOptions(t *testing.T) {
 		spew.Dump(contact.Overrides)
 		t.Fatal("Unexpected overrides")
 	}
-	if contact.HistoricalValues == nil {
-		spew.Dump(contact)
-		t.Fatal("Expected historical_values")
+	expectedHistoricalValues := map[string]interface{}{
+		"title": []interface{}{
+			map[string]interface{}{"value": "CTO", "update_performed_at": nil, "update_performed_by": nil, "initial": true},
+			map[string]interface{}{"value": "CEO", "update_performed_at": "2026-09-25T10:00:00Z", "update_performed_by": "API", "initial": false},
+		},
+	}
+	if !reflect.DeepEqual(contact.HistoricalValues, expectedHistoricalValues) {
+		spew.Dump(contact.HistoricalValues)
+		t.Fatal("Unexpected historical_values")
 	}
 }
 
