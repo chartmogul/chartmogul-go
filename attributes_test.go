@@ -279,6 +279,85 @@ func TestRemoveCustomAttributesWithOptions(t *testing.T) {
 	}
 }
 
+func TestLegacyCustomAttributeMethodsOmitOverrides(t *testing.T) {
+	channelAttribute := []interface{}{
+		map[string]interface{}{"type": "String", "key": "channel", "value": "Facebook"},
+	}
+	cases := []struct {
+		name         string
+		expectedVerb string
+		expectedBody map[string]interface{}
+		call         func(api *API) error
+	}{
+		{
+			name:         "AddCustomAttributesToCustomer",
+			expectedVerb: "POST",
+			expectedBody: map[string]interface{}{"custom": channelAttribute},
+			call: func(api *API) error {
+				_, err := api.AddCustomAttributesToCustomer(
+					"cus_00000000-0000-0000-0000-000000000000",
+					[]*CustomAttribute{{Type: "String", Key: "channel", Value: "Facebook"}})
+				return err
+			},
+		},
+		{
+			name:         "AddCustomAttributesWithEmail",
+			expectedVerb: "POST",
+			expectedBody: map[string]interface{}{"email": "adam@example.com", "custom": channelAttribute},
+			call: func(api *API) error {
+				_, err := api.AddCustomAttributesWithEmail(
+					"adam@example.com",
+					[]*CustomAttribute{{Type: "String", Key: "channel", Value: "Facebook"}})
+				return err
+			},
+		},
+		{
+			name:         "UpdateCustomAttributesOfCustomer",
+			expectedVerb: "PUT",
+			expectedBody: map[string]interface{}{"custom": map[string]interface{}{"channel": "Twitter"}},
+			call: func(api *API) error {
+				_, err := api.UpdateCustomAttributesOfCustomer(
+					"cus_00000000-0000-0000-0000-000000000000",
+					map[string]interface{}{"channel": "Twitter"})
+				return err
+			},
+		},
+		{
+			name:         "RemoveCustomAttributes",
+			expectedVerb: "DELETE",
+			expectedBody: map[string]interface{}{"custom": []interface{}{"channel"}},
+			call: func(api *API) error {
+				_, err := api.RemoveCustomAttributes(
+					"cus_00000000-0000-0000-0000-000000000000",
+					[]string{"channel"})
+				return err
+			},
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			server := httptest.NewServer(
+				http.HandlerFunc(
+					func(w http.ResponseWriter, r *http.Request) {
+						if r.Method != tc.expectedVerb {
+							t.Errorf("Unexpected method %v", r.Method)
+						}
+						assertRequestBody(t, r, tc.expectedBody)
+						w.Header().Set("Content-Type", "application/json")
+						w.Write([]byte(`{"custom": {}, "overrides": {}}`)) //nolint
+					}))
+			defer server.Close()
+			SetURL(server.URL + "/v/%v")
+
+			if err := tc.call(&API{ApiKey: "token"}); err != nil {
+				spew.Dump(err)
+				t.Fatal("Not expected to fail")
+			}
+		})
+	}
+}
+
 func assertRequestBody(t *testing.T, r *http.Request, expected map[string]interface{}) {
 	t.Helper()
 	body, err := io.ReadAll(r.Body)
