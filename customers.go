@@ -172,6 +172,13 @@ type CustID struct {
 	CustomerUUID   string `json:"customer_uuid,omitempty"`
 }
 
+// DeleteCustomerParams optional query parameters for DeleteCustomerWithOptions.
+type DeleteCustomerParams struct {
+	// Exclude also adds the customer to the account's exclude list so it is not
+	// re-imported; ignored when the account does not have customer exclusion enabled.
+	Exclude bool
+}
+
 // DeleteCustomerInvoicesParams - optional param for deleting all customer invoices.
 type DeleteCustomerInvoicesParams struct {
 	CustomerExternalID string
@@ -264,7 +271,17 @@ func (api API) UnmergeCustomers(unmergeCustomersParams *UnmergeCustomersParams) 
 
 // DeleteCustomer deletes one customer by UUID.
 func (api API) DeleteCustomer(customerUUID string) error {
-	return api.delete(singleCustomerEndpoint, customerUUID)
+	return api.DeleteCustomerWithOptions(customerUUID, nil)
+}
+
+// DeleteCustomerWithOptions deletes one customer by UUID, with query options.
+// Nil opts behaves like DeleteCustomer.
+func (api API) DeleteCustomerWithOptions(customerUUID string, opts *DeleteCustomerParams) error {
+	path := singleCustomerEndpoint
+	if opts != nil && opts.Exclude {
+		path += "?exclude=true"
+	}
+	return api.delete(path, customerUUID)
 }
 
 // DeleteCustomerInvoices deletes all customer's invoices by UUID for given data source UUID.

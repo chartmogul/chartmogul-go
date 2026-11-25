@@ -107,6 +107,7 @@ type IApi interface {
 	MergeCustomers(MergeCustomersParams *MergeCustomersParams) error
 	UnmergeCustomers(UnmergeCustomersParams *UnmergeCustomersParams) error
 	DeleteCustomer(customerUUID string) error
+	DeleteCustomerWithOptions(customerUUID string, opts *DeleteCustomerParams) error
 	DeleteCustomerInvoices(dataSourceUUID, customerUUID string) error
 	DeleteCustomerInvoicesV2(dataSourceUUID, customerUUID string, DeleteCustomerInvoicesParams *DeleteCustomerInvoicesParams) error
 	ListCustomersContacts(ListContactsParams *ListContactsParams, customerUUID string) (*Contacts, error)
@@ -130,6 +131,10 @@ type IApi interface {
 	CreateContactTask(newTask *NewTask, contactUUID string) (*Task, error)
 	ListContactEntityNotes(ListEntityNotesParams *ListEntityNotesParams, contactUUID string) (*EntityNotes, error)
 	CreateContactEntityNote(newEntityNote *NewEntityNote, contactUUID string) (*EntityNote, error)
+
+	// Excluded Customers
+	ListExcludedCustomers(listExcludedCustomersParams *ListExcludedCustomersParams) (*ExcludedCustomers, error)
+	ReincludeCustomer(customerUUID string) (*ReincludedCustomer, error)
 
 	// Customer Notes (deprecated, use Notes)
 	CreateNote(newNote *NewNote) (*Note, error)

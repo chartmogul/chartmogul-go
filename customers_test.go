@@ -225,6 +225,75 @@ func TestPurgeCustomerV2WithoutCustomerExternalID(t *testing.T) {
 	}
 }
 
+func TestDeleteCustomerWithOptions(t *testing.T) {
+	cases := []struct {
+		name        string
+		opts        *DeleteCustomerParams
+		expectedURI string
+	}{
+		{"exclude", &DeleteCustomerParams{Exclude: true}, "/v/customers/customerUUID?exclude=true"},
+		{"no exclude", &DeleteCustomerParams{}, "/v/customers/customerUUID"},
+		{"nil options", nil, "/v/customers/customerUUID"},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			server := httptest.NewServer(
+				http.HandlerFunc(
+					func(w http.ResponseWriter, r *http.Request) {
+						if r.Method != "DELETE" {
+							t.Errorf("Unexpected method %v", r.Method)
+						}
+						if r.RequestURI != c.expectedURI {
+							t.Errorf("Unexpected URI %v", r.RequestURI)
+						}
+						w.WriteHeader(http.StatusAccepted)
+						//nolint
+						w.Write([]byte(`{"message": "Customer customerUUID deleted successfully"}`))
+					}))
+			defer server.Close()
+			SetURL(server.URL + "/v/%v")
+
+			tested := &API{
+				ApiKey: "token",
+			}
+			err := tested.DeleteCustomerWithOptions("customerUUID", c.opts)
+
+			if err != nil {
+				spew.Dump(err)
+				t.Fatal("Not expected to fail")
+			}
+		})
+	}
+}
+
+func TestDeleteCustomerSendsNoExclude(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != "DELETE" {
+					t.Errorf("Unexpected method %v", r.Method)
+				}
+				if r.RequestURI != "/v/customers/customerUUID" {
+					t.Errorf("Unexpected URI %v", r.RequestURI)
+				}
+				w.WriteHeader(http.StatusAccepted)
+				//nolint
+				w.Write([]byte(`{"message": "Customer customerUUID deleted successfully"}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	err := tested.DeleteCustomer("customerUUID")
+
+	if err != nil {
+		spew.Dump(err)
+		t.Fatal("Not expected to fail")
+	}
+}
+
 func TestUpdateCustomerSerialization(t *testing.T) {
 	empty := ""
 	cus := &UpdateCustomer{

@@ -244,6 +244,26 @@ func (api API) delete(path string, uuid string) error {
 	return wrapErrors(res, []byte(body), errs)
 }
 
+func (api API) deleteWithOutput(path string, uuid string, output interface{}) error {
+	var res gorequest.Response
+	var body []byte
+	var errs []error
+	path = strings.Replace(path, ":uuid", uuid, 1)
+
+	// nolint:errcheck
+	backoff.Retry(func() error {
+		res, body, errs = api.req(gorequest.New().Delete(prepareURL(path))).
+			EndStruct(output)
+
+		if networkErrors(errs) || isHTTPStatusRetryable(res) {
+			return errRetry
+		}
+		return nil
+	}, api.backoffStrategy())
+
+	return wrapErrors(res, body, errs)
+}
+
 func (api API) deleteWhat(path string, uuid string, input interface{}, output interface{}) error {
 	var res gorequest.Response
 	var body []byte
