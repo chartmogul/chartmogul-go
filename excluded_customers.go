@@ -52,8 +52,9 @@ func (api API) ListExcludedCustomers(listExcludedCustomersParams *ListExcludedCu
 	return result, api.list(excludedCustomersEndpoint, result, query...)
 }
 
-// DeleteExcludedCustomer removes the customer from the exclude list, re-including it.
-func (api API) DeleteExcludedCustomer(customerUUID string) (*ReincludedCustomer, error) {
+// ReincludeCustomer removes the customer from the exclude list, re-including it.
+// Responds 404 when the customer is not excluded.
+func (api API) ReincludeCustomer(customerUUID string) (*ReincludedCustomer, error) {
 	result := &ReincludedCustomer{}
 	return result, api.deleteWithOutput(singleExcludedCustomerEndpoint, customerUUID, result)
 }

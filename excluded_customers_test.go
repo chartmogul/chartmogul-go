@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/pkg/errors"
 )
 
 const excludedCustomersListExample = `{
@@ -97,7 +98,7 @@ func TestListExcludedCustomersWithoutParams(t *testing.T) {
 	}
 }
 
-func TestDeleteExcludedCustomer(t *testing.T) {
+func TestReincludeCustomer(t *testing.T) {
 	server := httptest.NewServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
@@ -117,7 +118,7 @@ func TestDeleteExcludedCustomer(t *testing.T) {
 	tested := &API{
 		ApiKey: "token",
 	}
-	result, err := tested.DeleteExcludedCustomer("cus_00000000-0000-0000-0000-000000000000")
+	result, err := tested.ReincludeCustomer("cus_00000000-0000-0000-0000-000000000000")
 
 	if err != nil {
 		spew.Dump(err)
@@ -130,5 +131,28 @@ func TestDeleteExcludedCustomer(t *testing.T) {
 	if !reflect.DeepEqual(expected, result) {
 		spew.Dump(result)
 		t.Fatal("Unexpected result")
+	}
+}
+
+func TestReincludeCustomerNotExcluded(t *testing.T) {
+	server := httptest.NewServer(
+		http.HandlerFunc(
+			func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusNotFound)
+				//nolint
+				w.Write([]byte(`{"code": 404, "message": "Excluded customer does not exist", "param": "customer_uuid"}`))
+			}))
+	defer server.Close()
+	SetURL(server.URL + "/v/%v")
+
+	tested := &API{
+		ApiKey: "token",
+	}
+	_, err := tested.ReincludeCustomer("cus_00000000-0000-0000-0000-000000000000")
+
+	httpErr, ok := errors.Cause(err).(HTTPError)
+	if !ok || httpErr.StatusCode() != http.StatusNotFound {
+		spew.Dump(err)
+		t.Fatal("Expected a 404 HTTPError")
 	}
 }

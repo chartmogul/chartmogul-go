@@ -134,7 +134,7 @@ type IApi interface {
 
 	// Excluded Customers
 	ListExcludedCustomers(listExcludedCustomersParams *ListExcludedCustomersParams) (*ExcludedCustomers, error)
-	DeleteExcludedCustomer(customerUUID string) (*ReincludedCustomer, error)
+	ReincludeCustomer(customerUUID string) (*ReincludedCustomer, error)
 
 	// Customer Notes (deprecated, use Notes)
 	CreateNote(newNote *NewNote) (*Note, error)

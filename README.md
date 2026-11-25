@@ -171,7 +171,7 @@ Customers deleted with `Exclude: true`, one entry per data source. Both endpoint
 api.ListExcludedCustomers(&cm.ListExcludedCustomersParams{Cursor: cm.Cursor{PerPage: 50}})
 // Re-includes the customer; Status is cm.ReincludedCustomerStatusReimporting
 // or cm.ReincludedCustomerStatusManualReimportRequired
-api.DeleteExcludedCustomer("customerUUID")
+api.ReincludeCustomer("customerUUID")
 ```
 
 #### [Contacts](https://dev.chartmogul.com/reference/contacts/)
