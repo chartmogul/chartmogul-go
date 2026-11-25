@@ -142,6 +142,9 @@ api.UpdateCustomer(&cm.NewCustomer{}, "customerUUID")
 api.UpdateCustomerV2(&cm.UpdateCustomer{Overrides: map[string]interface{}{"company": true, "attributes": map[string]interface{}{"custom": map[string]interface{}{"channel": true}}}}, "customerUUID")
 api.MergeCustomers(&cm.MergeCustomersParams{})
 api.UnmergeCustomers(&cm.UnmergeCustomersParams{})
+api.DeleteCustomer("customerUUID")
+// Exclude also stops the customer from being re-imported; ignored unless the account has customer exclusion enabled
+api.DeleteCustomerWithOptions("customerUUID", &cm.DeleteCustomerParams{Exclude: true})
 // DEPRECATED: Use api.MetricsConnectSubscriptions instead
 api.ConnectSubscriptions("customerUUID", []cm.Subscription{})
 // DEPRECATED: Use api.MetricsDisconnectSubscriptions instead
@@ -158,6 +161,17 @@ api.ListCustomerOpportunities(&cm.ListOpportunitiesParams{}, "customerUUID")
 api.CreateCustomerOpportunity(&cm.NewOpportunity{}, "customerUUID")
 api.ListCustomerTasks(&cm.ListTasksParams{}, "customerUUID")
 api.CreateCustomerTask(&cm.NewTask{}, "customerUUID")
+```
+
+#### Excluded Customers
+
+Customers deleted with `Exclude: true`, one entry per data source. Both endpoints respond 404 unless the account has customer exclusion enabled.
+
+```go
+api.ListExcludedCustomers(&cm.ListExcludedCustomersParams{Cursor: cm.Cursor{PerPage: 50}})
+// Re-includes the customer; Status is cm.ReincludedCustomerStatusReimporting
+// or cm.ReincludedCustomerStatusManualReimportRequired
+api.DeleteExcludedCustomer("customerUUID")
 ```
 
 #### [Contacts](https://dev.chartmogul.com/reference/contacts/)

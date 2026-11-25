@@ -515,6 +515,20 @@ func (mr *MockIApiMockRecorder) DeleteCustomerInvoicesV2(dataSourceUUID, custome
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomerInvoicesV2", reflect.TypeOf((*MockIApi)(nil).DeleteCustomerInvoicesV2), dataSourceUUID, customerUUID, DeleteCustomerInvoicesParams)
 }
 
+// DeleteCustomerWithOptions mocks base method.
+func (m *MockIApi) DeleteCustomerWithOptions(customerUUID string, opts *chartmogul.DeleteCustomerParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteCustomerWithOptions", customerUUID, opts)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteCustomerWithOptions indicates an expected call of DeleteCustomerWithOptions.
+func (mr *MockIApiMockRecorder) DeleteCustomerWithOptions(customerUUID, opts any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteCustomerWithOptions", reflect.TypeOf((*MockIApi)(nil).DeleteCustomerWithOptions), customerUUID, opts)
+}
+
 // DeleteDataSource mocks base method.
 func (m *MockIApi) DeleteDataSource(dataSourceUUID string) error {
 	m.ctrl.T.Helper()
@@ -541,6 +555,21 @@ func (m *MockIApi) DeleteEntityNote(entityNoteUUID string) error {
 func (mr *MockIApiMockRecorder) DeleteEntityNote(entityNoteUUID any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteEntityNote", reflect.TypeOf((*MockIApi)(nil).DeleteEntityNote), entityNoteUUID)
+}
+
+// DeleteExcludedCustomer mocks base method.
+func (m *MockIApi) DeleteExcludedCustomer(customerUUID string) (*chartmogul.ReincludedCustomer, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteExcludedCustomer", customerUUID)
+	ret0, _ := ret[0].(*chartmogul.ReincludedCustomer)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteExcludedCustomer indicates an expected call of DeleteExcludedCustomer.
+func (mr *MockIApiMockRecorder) DeleteExcludedCustomer(customerUUID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteExcludedCustomer", reflect.TypeOf((*MockIApi)(nil).DeleteExcludedCustomer), customerUUID)
 }
 
 // DeleteInvoice mocks base method.
@@ -851,6 +880,21 @@ func (m *MockIApi) ListEntityNotes(ListEntityNotesParams *chartmogul.ListEntityN
 func (mr *MockIApiMockRecorder) ListEntityNotes(ListEntityNotesParams any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListEntityNotes", reflect.TypeOf((*MockIApi)(nil).ListEntityNotes), ListEntityNotesParams)
+}
+
+// ListExcludedCustomers mocks base method.
+func (m *MockIApi) ListExcludedCustomers(listExcludedCustomersParams *chartmogul.ListExcludedCustomersParams) (*chartmogul.ExcludedCustomers, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListExcludedCustomers", listExcludedCustomersParams)
+	ret0, _ := ret[0].(*chartmogul.ExcludedCustomers)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListExcludedCustomers indicates an expected call of ListExcludedCustomers.
+func (mr *MockIApiMockRecorder) ListExcludedCustomers(listExcludedCustomersParams any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListExcludedCustomers", reflect.TypeOf((*MockIApi)(nil).ListExcludedCustomers), listExcludedCustomersParams)
 }
 
 // ListInvoices mocks base method.
